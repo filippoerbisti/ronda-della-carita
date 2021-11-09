@@ -1,0 +1,43 @@
+<div class="h-screen">
+    <div *ngIf="!isLoading">
+        <mat-toolbar class="h-10 bg-nav w-full fixed inset-0 z-50">
+            <button mat-icon-button (click)="sidebarRef.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <mat-icon class="ml-auto">account_circle</mat-icon>
+        </mat-toolbar>
+        <mat-sidenav-container class="h-screen pt-10">
+            <mat-sidenav #sidebarRef opened mode="side" class="pb-3 bg-nav mt-10 fixed inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
+                <mat-list>
+                    <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full text-xl">Home</button></mat-list-item>
+                    <mat-list-item><button mat-button (click)="openDialog()" class="w-full text-xl">Cambia mansioni</button></mat-list-item>
+                    <mat-list-item><button mat-button routerLink="/registrazione-interno" routerLinkActive="active" class="w-full text-xl">Crea registrazione</button></mat-list-item>
+                    <mat-list-item><button mat-button routerLink="/ordine-interno" routerLinkActive="active" class="w-full text-xl">Crea ordine</button></mat-list-item>
+                    <div class="my-2">
+                        <mat-divider></mat-divider>
+                    </div>
+                    <mat-list-item><button mat-button class="w-full text-xl">Cambia password</button></mat-list-item>
+                    <mat-list-item><button mat-button class="w-full text-xl">Logout</button></mat-list-item>
+                </mat-list>
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <div>
+                    <form action="">
+                        CREA ORDINE
+                    </form>
+                </div>
+                <button mat-raised-button class="bg-bt-pink">
+                    <a routerLink="/home-interno" routerLinkActive="active" class="p-2 text-white">
+                        <span class="p-2 text-white">INDIETRO</span>
+                    </a>
+                </button>
+                <button mat-raised-button class="bg-bt-orange">
+                    <span class="p-2 text-white">CONFERMA</span>
+                </button>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+    <div *ngIf="isLoading" class="grid h-full grid-center">
+        <mat-spinner class="m-auto"></mat-spinner>
+    </div>
+</div>

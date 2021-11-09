@@ -1,0 +1,37 @@
+<div>
+    <div>
+        <h1 class="text-center pt-5 bg-blue">LOGIN</h1>
+        <form class="w-2/5 mx-auto">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                        placeholder="Email">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="Password">
+            </mat-form-field>
+        </form>
+        <div class="flex items-center">
+            <div class="mr-10 ml-auto">
+                <button class="w-60 h-20" mat-raised-button color="primary" routerLink="/home-interno" routerLinkActive="active">
+                    <span class="p-2 text-white">INTERNO</span>
+                </button>
+            </div>
+            <div class="mr-auto">
+                <button class="w-60 h-20" mat-raised-button color="accent" routerLink="/home-esterno" routerLinkActive="active">
+                    <span class="p-2 text-white">ESTERNO</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="grid h-full grid-center">
+        <mat-spinner class="m-auto"></mat-spinner>
+    </div>
+</div>

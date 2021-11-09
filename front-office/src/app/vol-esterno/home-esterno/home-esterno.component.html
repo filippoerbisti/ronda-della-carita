@@ -1,0 +1,55 @@
+<div class="h-screen">
+    <div *ngIf="!isLoading">
+        <app-navigation-menu></app-navigation-menu>
+        <div class="text-center mb-4">
+            <img class="w-max mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+            <div class="font-bold text-lg mt-2">
+                <span class="text-nav">VOLONTARIO ESTERNO</span>
+                <br>
+                <span>Bentornato</span>
+                <br>
+                <span>{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span> <!--nome e cognome login-->
+            </div>
+        </div>
+        <div class="flex items-center">
+            <input 
+                type="text"
+                class="flex-grow mx-auto pl-3 py-2 w-max max-w-xs rounded border
+                focus:border-nav"
+                placeholder="Ricerca..."
+            >
+            <!--<button class="py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>-->
+        </div>
+        <div class="flex flex-col mt-4 p-5 h-40">
+            <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                <a routerLink="/registrazione-esterno" routerLinkActive="active">
+                    <span class="p-2 text-white">CREA REGISTRAZIONE</span>
+                </a>
+            </button>
+        </div>
+        <div  class="flex flex-col -mt-3 p-5 mb-24 h-40">
+            <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                <a routerLink="/ordine-esterno" routerLinkActive="active"> 
+                    <span class="p-2 text-white">CREA ORDINE</span>
+                </a>
+            </button>
+        </div>
+        <div class="flex w-screen fixed bottom-0">
+            <div class="bg-nav h-12 w-screen rounded-t">
+                <div class="mx-auto -mt-8 rounded-full bg-nav h-20 w-20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="grid h-full grid-center">
+        <mat-spinner class="m-auto"></mat-spinner>
+    </div>
+</div>

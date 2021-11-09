@@ -1,0 +1,19 @@
+<div *ngIf="isLoading">
+    <h2 mat-dialog-title>Sei sicuro di voler eliminare l'ordine</h2>
+    <div>
+        <h1>N. 237112</h1>
+        <mat-dialog-actions align="end">
+            <button mat-button (click)="deleteOrder()" mat-dialog-close class="bg-bt-orange">
+                <span class="p-2 text-white">CONFERMA</span>
+            </button>
+            <button mat-button cdkFocusInitial mat-dialog-close>
+                <span class="p-2">ANNULLA</span>
+            </button>
+        </mat-dialog-actions>
+    </div>
+</div>
+<div *ngIf="isLoading" class="grid h-full grid-center">
+    <mat-spinner class="m-auto"></mat-spinner>
+</div>
+
+

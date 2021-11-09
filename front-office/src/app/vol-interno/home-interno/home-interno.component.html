@@ -1,0 +1,187 @@
+<div class="h-screen w-screen">
+    <div *ngIf="!isLoading" class="flex">
+        <div class="flex-col w-full h-full">
+            <mat-toolbar class="h-10 bg-nav w-full fixed inset-0 z-50">
+                <button mat-icon-button (click)="sidebarRef.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <div class="ml-auto">
+                    <button mat-icon-button>
+                        <mat-icon>exit_to_app</mat-icon>
+                    </button>
+                </div>
+            </mat-toolbar>
+            <mat-sidenav-container class="h-screen pt-10">
+                <mat-sidenav #sidebarRef opened mode="side" class="pb-3 bg-nav mt-10 fixed inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
+                    <mat-list class="h-full">
+                        <div class="mb-10">
+                            <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full text-xl">Home</button></mat-list-item>
+                            <mat-list-item><button mat-button (click)="openDialog()" class="w-full text-xl">Cambia mansioni</button></mat-list-item>
+                            <mat-list-item><button mat-button routerLink="/registrazione-interno" routerLinkActive="active" class="w-full text-xl">Crea registrazione</button></mat-list-item>
+                            <mat-list-item><button mat-button routerLink="/ordine-interno" routerLinkActive="active" class="w-full text-xl">Crea ordine</button></mat-list-item>
+                        </div>
+                        <div class="bottom-0">
+                            <div class="my-2">
+                                <mat-divider></mat-divider>
+                            </div>
+                            <mat-list-item><button mat-button class="w-full text-xl">Cambia password</button></mat-list-item>
+                            <mat-list-item><button mat-button class="w-full text-xl">Logout</button></mat-list-item>
+                        </div>
+                    </mat-list>
+                </mat-sidenav>
+                <mat-sidenav-content>
+                    <div class="text-center mb-4 flex">
+                        <img class="w-max mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+                        <div class="font-bold text-lg my-auto mx-auto">
+                            <span class="text-nav">VOLONTARIO INTERNO</span>
+                            <br>
+                            <span>Bentornato</span>
+                            <br>
+                            <span>FILIPPO ERBISTI</span>
+                             <!--<span>{{ users.nome | uppercase }} {{ users.cognome | uppercase }}</span> nome e cognome login-->
+                        </div>
+                    </div>
+                    <mat-tab-group>
+                        <mat-tab label="ASSISTITI">
+                            <mat-card class="h-full">
+                                <mat-card-title class="text-center">ASSISTITI</mat-card-title>
+                                <mat-card-content>
+                                    <div class="flex mb-4 pt-2">
+                                        <div class="w-1/2">
+                                            <input 
+                                            type="text"
+                                            class="flex-grow pl-3 py-2 rounded border w-full
+                                            focus:border-nav"
+                                            placeholder="Ricerca..."
+                                            >
+                                        </div>
+                                        <div class="w-1/2 ml-44">
+                                            <button mat-raised-button class="bg-bt-orange">
+                                                <a routerLink="/registrazione-interno" routerLinkActive="active">
+                                                    <span class="p-2 text-white">CREA REGISTRAZIONE</span>
+                                                </a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div *ngFor="let client of clients" class="mt-2">
+                                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                                (closed)="panelOpenState = false" class="h-full">
+                                            <mat-expansion-panel-header>
+                                                <table class="flex w-full">
+                                                    <td class="my-auto">
+                                                        <mat-panel-title >
+                                                            <span class="font-bold">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
+                                                        </mat-panel-title>
+                                                    </td>
+                                                    <td class="mx-auto">
+                                                        <mat-panel-description class="ml-auto">
+                                                            <span class="leading-loose text-black">N. tessera 11</span><!--n tessera-->
+                                                        </mat-panel-description>
+
+                                                    </td>
+                                                    <td class="ml-auto">
+                                                        <button mat-button-basic class="mr-5">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                            </svg>
+                                                        </button>
+                                                        <button mat-button-basic (click)="openDeleteClientDialog()" class="mr-5">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                        </button>
+                                                    </td>
+                                                </table>
+                                            </mat-expansion-panel-header>
+                                            <p class="font-bold">{{ client.t_documento }} N. {{ client.n_documento }}</p>
+                                            <p>Genere: {{ client.genere }}</p>
+                                            <p>Nazionalità: {{ client.nazionalita }}</p>
+                                            <table class="w-full">
+                                                <tr><td>Taglia maglia</td><td>Taglia pantaloni</td><td>Taglia scarpe</td></tr>
+                                                <tr><td>{{ client.t_maglietta }}</td><td>{{ client.t_pantaloni }}</td><td>{{ client.t_scarpe }}</td></tr>
+                                            </table>
+                                        </mat-expansion-panel>
+                                    </div>
+                                    <mat-paginator pageSize=10
+                                        (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
+                                        showFirstLastButtons="false">
+                                    </mat-paginator>
+                                </mat-card-content>
+                            </mat-card>
+                        </mat-tab>
+                        <mat-tab label="ORDINI">
+                            <mat-card class="h-full">
+                                <mat-card-title class="text-center">ORDINI</mat-card-title>
+                                <mat-card-content>
+                                    <div class="flex mb-4 pt-2">
+                                        <div class="w-1/2">
+                                            <input 
+                                            type="text"
+                                            class="flex-grow pl-3 py-2 rounded border w-full
+                                            focus:border-nav"
+                                            placeholder="Ricerca..."
+                                            >
+                                        </div>
+                                        <div class="w-1/2 ml-44">
+                                            <button mat-raised-button class="bg-bt-orange">
+                                                <a routerLink="/ordine-interno" routerLinkActive="active">
+                                                    <span class="p-2 text-white">CREA ORDINE</span>
+                                                </a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div *ngFor="let order of orders" class="mt-2">
+                                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                                (closed)="panelOpenState = false">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title class="my-auto">
+                                                    <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
+                                                </mat-panel-title>
+                                                <mat-panel-description class="my-auto">
+                                                    <span class="leading-loose text-black mr-2">Stato: {{order.status }}</span>
+                                                    <div *ngIf="order.status === 'In attesa'">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div *ngIf="order.status === 'Consegnato'">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </div>
+                                                    <button mat-button-basic class="ml-auto mr-5">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                        </svg>
+                                                    </button>
+                                                    <button mat-button-basic (click)="openDeleteOrderDialog()" class="mr-5">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
+                                                    </button>
+                                                </mat-panel-description>
+                                            </mat-expansion-panel-header>
+                                            <p>Nome Cognome</p>
+                                            <p>Punto di ritiro: {{ order.p_ritiro }}</p>
+                                            <table class="w-full">
+                                                <tr><td>Tipo vestiario</td><td>Genere</td><td>Taglia</td><td>Quantità</td></tr>
+                                                <tr><td>{{ order.t_vestiario }}</td><td>{{ order.genere }}</td><td>{{ order.taglia }}</td><td>{{ order.quantita }}</td></tr>
+                                            </table>
+                                        </mat-expansion-panel>
+                                    </div>
+                                    <mat-paginator pageSize=10
+                                        (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
+                                        showFirstLastButtons="false">
+                                    </mat-paginator>
+                                </mat-card-content>
+                            </mat-card>
+                        </mat-tab>
+                    </mat-tab-group>
+                </mat-sidenav-content>
+            </mat-sidenav-container>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="grid h-full grid-center m-auto">
+        <mat-spinner class="m-auto border-nav"></mat-spinner>
+    </div>
+</div>

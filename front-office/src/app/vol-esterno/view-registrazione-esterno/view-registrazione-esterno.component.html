@@ -1,0 +1,58 @@
+<div class="h-screen">
+    <div *ngIf="!isLoading">
+        <app-navigation-menu></app-navigation-menu>
+        <div class="text-center mb-4">
+            <img class="w-max mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+            <div class="flex justify-around mt-2">
+                <button mat-raised-button class="bg-bt-pink">
+                    <a routerLink="/home-esterno" routerLinkActive="active">
+                        <span class="p-2 text-white">INDIETRO</span>
+                    </a>
+                </button>
+                <button mat-raised-button class="bg-bt-orange">
+                    <a routerLink="/registrazione-esterno" routerLinkActive="active">
+                        <span class="p-2 text-white">CREA REGISTRAZIONE</span>
+                    </a>
+                </button>
+            </div>
+            <div class="font-bold text-lg mt-2">
+                <span class="font-bold">REGISTRAZIONI RECENTI</span>
+            </div>
+        </div>
+        <div class="flex items-center">
+            <input 
+                type="text"
+                class="flex-grow mx-auto pl-3 py-2 w-max max-w-xs rounded border  
+                focus:border-nav"
+                placeholder="Ricerca..."
+            >
+        </div>
+        <div *ngFor="let client of clients" class="mx-2 mt-2">
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="my-auto">
+                        <span class="font-bold">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
+                    </mat-panel-title>
+                    <mat-panel-description class="my-auto">
+                        <span class="leading-loose text-black mr-auto">N. 123456</span><!--n tessera-->
+                        <button mat-button-basic (click)="openDialog()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>Genere: {{ client.genere }}</p>
+                <p>Nazionalità: {{ client.nazionalita }}</p>
+                <table class="w-full">
+                    <tr><td>Taglia maglia</td><td>Taglia pantaloni</td><td>Taglia scarpe</td></tr>
+                    <tr><td>{{ client.t_maglietta }}</td><td>{{ client.t_pantaloni }}</td><td>{{ client.t_scarpe }}</td></tr>
+                </table>
+            </mat-expansion-panel>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="grid h-full grid-center">
+        <mat-spinner class="m-auto"></mat-spinner>
+    </div>
+</div>
