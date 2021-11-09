@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangeMansionDialogComponent } from '../../change-mansion-dialog/change-mansion-dialog.component';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
@@ -21,8 +20,6 @@ interface Value {
   styleUrls: ['./registrazione-interno.component.css']
 })
 export class RegistrazioneInternoComponent implements OnInit {
-
-  isSidebarOpen= false;
 
   isLoading = false;
 
@@ -77,18 +74,6 @@ export class RegistrazioneInternoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
-  }
-
-  openSidebar() {
-    this.isSidebarOpen = true;
-  }
-
-  closeSidebar() {
-    this.isSidebarOpen = false;
   }
 
 }

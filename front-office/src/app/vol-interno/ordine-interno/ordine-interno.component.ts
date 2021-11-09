@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangeMansionDialogComponent } from '../../change-mansion-dialog/change-mansion-dialog.component';
 
 @Component({
   selector: 'app-ordine-interno',
@@ -20,18 +19,6 @@ export class OrdineInternoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
-  }
-
-  openSidebar() {
-    this.isSidebarOpen = true;
-  }
-
-  closeSidebar() {
-    this.isSidebarOpen = false;
   }
 
 }
