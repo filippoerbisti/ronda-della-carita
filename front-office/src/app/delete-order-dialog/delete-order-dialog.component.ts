@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 
+interface Order{
+  id: number,
+  n_ordine: number,
+  p_ritiro: string
+  genere: string,
+  t_vestiario: string,
+  taglia: string,
+  quantita: number,
+  status: string,
+  note: string,
+  //created_at: 'timestamp',
+  //update_at: 'timestamp'
+}
+
 @Component({
   selector: 'app-delete-order-dialog',
   templateUrl: './delete-order-dialog.component.html',
@@ -10,20 +24,8 @@ export class DeleteOrderDialogComponent implements OnInit {
 
   isLoading = false;
 
-  orders = [{
-    id: 'integer',
-    n_ordine: 'integer',
-    p_ritiro: 'string',
-    genere: 'char',
-    t_vestiario: 'string',
-    taglia: 'string',
-    quantita: 'integer',
-    status: 'string',
-    note: 'string',
-    created_at: 'timestamp',
-    update_at: 'timestamp'
-  }];
-
+  orders: Order[] = [];
+  
   constructor() { }
 
   async ngOnInit() {

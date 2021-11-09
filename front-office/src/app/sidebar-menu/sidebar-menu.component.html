@@ -10,7 +10,7 @@
 </mat-toolbar>
 <mat-sidenav-container class="h-screen pt-10 sidenav">
     <mat-sidenav #sidebarRef opened mode="side" class="pb-3 bg-nav mt-10 flex inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
-        <mat-list class="h-full flex flex-col justify-between">
+        <mat-list class="h-full w-60 flex flex-col justify-between">
             <div class="mt-2">
                 <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full text-lg text-white">HOME</button></mat-list-item>
                 <mat-list-item><button mat-button (click)="openDialog()" class="w-full text-lg text-white">CAMBIA MANSIONI</button></mat-list-item>
@@ -21,8 +21,8 @@
                 <div class="my-2">
                     <mat-divider></mat-divider>
                 </div>
-                <mat-list-item><button mat-button class="w-full text-xl text-white">CAMBIA PASSWORD</button></mat-list-item>
-                <mat-list-item><button mat-button class="w-full text-xl text-white">LOGOUT</button></mat-list-item>
+                <mat-list-item><button mat-button class="w-full text-lg text-white">CAMBIA PASSWORD</button></mat-list-item>
+                <mat-list-item><button mat-button class="w-full text-lg text-white">LOGOUT</button></mat-list-item>
             </div>
         </mat-list>
     </mat-sidenav>

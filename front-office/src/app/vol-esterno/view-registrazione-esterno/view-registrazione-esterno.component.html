@@ -27,7 +27,7 @@
                 placeholder="Ricerca..."
             >
         </div>
-        <div *ngFor="let client of clients" class="mx-2 mt-2">
+        <div *ngFor="let client of pageClientSlice" class="mx-2 mt-2">
             <mat-expansion-panel (opened)="panelOpenState = true"
                     (closed)="panelOpenState = false" class="h-full">
                 <mat-expansion-panel-header>
@@ -53,6 +53,11 @@
                 </table>
             </mat-expansion-panel>
         </div>
+        <mat-paginator [length]="this.clients.length"
+            [pageSize]="5"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="OnPageChange($event)">
+        </mat-paginator>
     </div>
     <div *ngIf="isLoading" class="grid h-full grid-center">
         <mat-spinner class="m-auto"></mat-spinner>

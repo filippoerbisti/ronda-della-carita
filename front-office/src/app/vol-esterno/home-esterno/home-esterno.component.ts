@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 
+interface User {
+  id: number,
+  nome: string,
+  cognome: string,
+  ruolo: string,
+  interno: boolean,
+  email: string,
+  //email_verified_at: timestamp,
+  password: string,
+  remember_token: string,
+  //created_at: timestamp,
+  //update_at: timestamp
+};
+
 @Component({
   selector: 'app-home-esterno',
   templateUrl: './home-esterno.component.html',
@@ -10,14 +24,7 @@ export class HomeEsternoComponent implements OnInit {
 
   isLoading = false;
 
-  user = {
-    nome: 'string',
-    cognome: 'string',
-    ruolo: 'string',
-    interno: 'boolean',
-    email: 'string',
-    password: 'string'
-  };
+  user: User[] = [];
 
   constructor() {
   }
