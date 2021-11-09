@@ -39,6 +39,7 @@ import { DeleteOrderDialogComponent } from './delete-order-dialog/delete-order-d
 import { OrdineInternoComponent } from './vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './vol-interno/registrazione-interno/registrazione-interno.component';
 import { LoginComponent } from './login/login.component';
+import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { LoginComponent } from './login/login.component';
     DeleteOrderDialogComponent,
     OrdineInternoComponent,
     RegistrazioneInternoComponent,
-    LoginComponent
+    LoginComponent,
+    SidebarMenuComponent
   ],
   imports: [
     BrowserModule,

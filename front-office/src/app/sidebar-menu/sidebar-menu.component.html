@@ -1,0 +1,29 @@
+<mat-toolbar class="h-10 bg-nav w-full fixed inset-0 z-50">
+    <button mat-icon-button (click)="sidebarRef.toggle()">
+        <mat-icon class="text-white">menu</mat-icon>
+    </button>
+    <div class="ml-auto">
+        <button mat-icon-button>
+            <mat-icon class="text-white">exit_to_app</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<mat-sidenav-container class="h-screen pt-10 sidenav">
+    <mat-sidenav #sidebarRef opened mode="side" class="pb-3 bg-nav mt-10 flex inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
+        <mat-list class="h-full flex flex-col justify-between">
+            <div class="mt-2">
+                <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full text-lg text-white">HOME</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="openDialog()" class="w-full text-lg text-white">CAMBIA MANSIONI</button></mat-list-item>
+                <mat-list-item><button mat-button routerLink="/registrazione-interno" routerLinkActive="active" class="w-full text-lg text-white">NUOVO ASSISTITO</button></mat-list-item>
+                <mat-list-item><button mat-button routerLink="/ordine-interno" routerLinkActive="active" class="w-full text-lg text-white">NUOVO ORDINE</button></mat-list-item>
+            </div>
+            <div class="mt-auto">
+                <div class="my-2">
+                    <mat-divider></mat-divider>
+                </div>
+                <mat-list-item><button mat-button class="w-full text-xl text-white">CAMBIA PASSWORD</button></mat-list-item>
+                <mat-list-item><button mat-button class="w-full text-xl text-white">LOGOUT</button></mat-list-item>
+            </div>
+        </mat-list>
+    </mat-sidenav>
+</mat-sidenav-container>

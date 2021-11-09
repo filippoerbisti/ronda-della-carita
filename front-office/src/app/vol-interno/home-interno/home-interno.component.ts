@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
-import { ChangeMansionDialogComponent } from '../../change-mansion-dialog/change-mansion-dialog.component';
 import axios from "axios";
+import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-order-dialog.component';
 
@@ -64,8 +63,6 @@ interface Card {
 })
 export class HomeInternoComponent implements OnInit {
 
-  isSidebarOpen= true;
-
   isLoading = false;
   panelOpenState = false;
 
@@ -112,24 +109,12 @@ export class HomeInternoComponent implements OnInit {
     this.isLoading = false;
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
-  }
-
   openDeleteClientDialog() {
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
   }
 
   openDeleteOrderDialog() {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
-  }
-
-  openSidebar() {
-    this.isSidebarOpen = true;
-  }
-
-  closeSidebar() {
-    this.isSidebarOpen = false;
   }
 
   public getPaginatorData(event: PageEvent): PageEvent {
