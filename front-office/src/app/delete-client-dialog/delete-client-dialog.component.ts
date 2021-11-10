@@ -1,6 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 
+interface Client{
+  id: number,
+  nome: string,
+  cognome: string,
+  genere: string,
+  n_documento: string,
+  t_documento: string,
+  nazionalita: string,
+  t_maglietta: string,
+  t_pantaloni: string,
+  t_scarpe: number,
+  note: string,
+  //created_at: timestamp,
+  //update_at: timestamp
+}
+
 @Component({
   selector: 'app-delete-client-dialog',
   templateUrl: './delete-client-dialog.component.html',
@@ -10,21 +26,7 @@ export class DeleteClientDialogComponent implements OnInit {
 
   isLoading = false;
 
-  clients = [{
-    id: 'integer',
-    nome: 'string',
-    cognome: 'string',
-    genere: 'char',
-    n_documento: 'string',
-    t_documento: 'string',
-    nazionalita: 'string',
-    t_maglietta: 'string',
-    t_pantaloni: 'string',
-    t_scarpe: 'integer',
-    note: 'string',
-    created_at: 'timestamp',
-    update_at: 'timestamp'
-  }];
+  clients: Client[] = [];
 
   constructor() { }
 

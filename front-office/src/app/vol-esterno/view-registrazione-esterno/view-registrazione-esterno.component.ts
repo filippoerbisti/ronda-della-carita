@@ -2,6 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from '../../delete-client-dialog/delete-client-dialog.component';
 import axios from "axios";
+import { PageEvent } from '@angular/material/paginator';
+
+interface Client{
+  id: number,
+  nome: string,
+  cognome: string,
+  genere: string,
+  n_documento: string,
+  t_documento: string,
+  nazionalita: string,
+  t_maglietta: string,
+  t_pantaloni: string,
+  t_scarpe: number,
+  note: string,
+  //created_at: timestamp,
+  //update_at: timestamp
+}
 
 @Component({
   selector: 'app-view-registrazione-esterno',
@@ -13,21 +30,10 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  clients = [{
-    id: 'integer',
-    nome: 'string',
-    cognome: 'string',
-    genere: 'char',
-    n_documento: 'string',
-    t_documento: 'string',
-    nazionalita: 'string',
-    t_maglietta: 'string',
-    t_pantaloni: 'string',
-    t_scarpe: 'integer',
-    note: 'string',
-    created_at: 'timestamp',
-    update_at: 'timestamp'
-  }];
+  clients: Client[] = [];
+
+  pageClientSlice = this.clients.slice(0, 5);
+  pageSizeOptions: number[] = [5, 10, 20];
 
   constructor(public dialog: MatDialog) { 
 
@@ -49,5 +55,15 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
+  }
+
+  OnPageChange(event: PageEvent) {
+    console.log(event);
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.clients.length) {
+      endIndex = this.clients.length;
+    }
+    this.pageClientSlice = this.clients.slice(startIndex, endIndex);
   }
 }
