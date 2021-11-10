@@ -2,6 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteOrderDialogComponent } from '../../delete-order-dialog/delete-order-dialog.component';
 import axios from "axios";
+import { PageEvent } from '@angular/material/paginator';
+
+interface Order{
+  id: number,
+  n_ordine: number,
+  p_ritiro: string
+  genere: string,
+  t_vestiario: string,
+  taglia: string,
+  quantita: number,
+  status: string,
+  note: string,
+  //created_at: 'timestamp',
+  //update_at: 'timestamp'
+}
 
 @Component({
   selector: 'app-view-ordine-esterno',
@@ -13,19 +28,10 @@ export class ViewOrdineEsternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  orders = [{
-    id: 'integer',
-    n_ordine: 'integer',
-    p_ritiro: 'string',
-    genere: 'char',
-    t_vestiario: 'string',
-    taglia: 'string',
-    quantita: 'integer',
-    status: 'string',
-    note: 'string',
-    created_at: 'timestamp',
-    update_at: 'timestamp'
-  }];
+  orders: Order[] = [];
+
+  pageOrderSlice = this.orders.slice(0, 5);
+  pageSizeOptions: number[] = [5, 10, 20];
 
   constructor(public dialog: MatDialog) {
     
@@ -47,6 +53,16 @@ export class ViewOrdineEsternoComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  }
+
+  OnPageChange(event: PageEvent) {
+    console.log(event);
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.orders.length) {
+      endIndex = this.orders.length;
+    }
+    this.pageOrderSlice = this.orders.slice(startIndex, endIndex);
   }
 
 }

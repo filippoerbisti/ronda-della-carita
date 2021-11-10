@@ -5,3 +5,8 @@
 .left {
     text-align: left !important;
 }
+
+.sidenav {
+    position: fixed;
+    z-index: 49;
+  }

@@ -1,19 +1,60 @@
 <div class="h-screen">
     <div *ngIf="!isLoading">
         <app-navigation-menu></app-navigation-menu>
-        <div>
-            <form action="">
-                CREA ORDINE
-            </form>
-        </div>
-        <button mat-raised-button class="bg-bt-pink">
-            <a routerLink="/home-esterno" routerLinkActive="active">
-                <span class="p-2 text-white">INDIETRO</span>
-            </a>
-        </button>
-        <button mat-raised-button class="bg-bt-orange">
-            <span class="p-2 text-white">CONFERMA</span>
-        </button>
+        <p class="font-bold text-2xl pl-4">NUOVO ORDINE</p>
+        <form class="w-full mt-3">
+                <mat-form-field appearance="fill" class="w-full px-4">
+                    <mat-label>Punto di ritiro</mat-label>
+                    <input type="text" matInput 
+                        placeholder="p_ritiro"><!--[formControl]="emailFormControl"-->
+                </mat-form-field>
+                <div class="flex-col w-full px-4">
+                    <div>Genere: </div><!--{{ choseGender }}-->
+                    <mat-radio-group class="flex" ><!--[(ngModel)]="choseGender"-->
+                        <mat-radio-button class="mx-2 mb-4" *ngFor="let gender of genders" [value]="gender">
+                            {{ gender }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <mat-form-field appearance="fill" class="w-full px-4">
+                    <mat-label>Tipo vestiario:</mat-label>
+                    <mat-select name="tvestiario" [(ngModel)]="selectedTvestiario">
+                        <mat-option *ngFor="let item of tvestiario" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- <mat-form-field appearance="fill" class="w-full px-4">
+                    <mat-label>Taglia:</mat-label>
+                    <mat-select name="tmaglietta">
+                        <mat-option *ngFor="let item of tagliaMapping[selectedTvestiario]" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+                <mat-form-field appearance="fill" class="w-full px-4">
+                    <mat-label>Quantità</mat-label>
+                    <input type="number" matInput 
+                        placeholder="Quantità"><!--[formControl]="emailFormControl"-->
+                </mat-form-field>
+            <div class="w-full border-2">
+                <textarea name="" id="" rows="5" class="w-full p-2" placeholder="Note"></textarea>
+            </div>
+        </form> 
+        <div class="mt-3 flex m-2">
+            <div class="mr-auto">
+                <button mat-raised-button class="bg-bt-pink text-lg">
+                    <a routerLink="/home-esterno" routerLinkActive="active" class="p-2 text-white">
+                        <span class="p-2 text-white">INDIETRO</span>
+                    </a>
+                </button>
+            </div>
+            <div>
+                <button mat-raised-button class="bg-bt-orange text-lg">
+                    <span class="p-2 text-white">CONFERMA</span>
+                </button>
+            </div>
+        </div> 
     </div>
     <div *ngIf="isLoading" class="grid h-full grid-center">
         <mat-spinner class="m-auto"></mat-spinner>
