@@ -1,0 +1,7 @@
+.mat-list-base {
+    display: flex;
+}
+
+.left {
+    text-align: left !important;
+}

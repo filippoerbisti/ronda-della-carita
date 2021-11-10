@@ -1,34 +1,37 @@
 <div class="h-screen w-screen">
     <div *ngIf="!isLoading" class="flex">
         <div class="flex-col w-full h-full">
-            <mat-toolbar class="h-10 bg-nav w-full fixed inset-0 z-50">
+            <mat-toolbar class="h-14 bg-nav w-full fixed inset-0 z-50">
                 <button mat-icon-button (click)="sidebarRef.toggle()">
-                    <mat-icon>menu</mat-icon>
+                    <mat-icon class="text-white">menu</mat-icon>
                 </button>
                 <div class="ml-auto">
                     <button mat-icon-button>
-                        <mat-icon>exit_to_app</mat-icon>
+                        <mat-icon class="text-white">exit_to_app</mat-icon>
                     </button>
                 </div>
             </mat-toolbar>
             <mat-sidenav-container class="h-screen pt-10">
                 <mat-sidenav #sidebarRef opened mode="side" class="pb-3 bg-nav mt-10 flex inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
                     <mat-list class="h-full flex flex-col justify-between">
-                        
-                            <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full text-xl text-white">Home</button></mat-list-item>
-                            <mat-list-item><button mat-button (click)="openDialog()" class="w-full text-xl text-white">Cambia mansioni</button></mat-list-item>
-                            <mat-list-item><button mat-button routerLink="/registrazione-interno" routerLinkActive="active" class="w-full text-xl text-white">Crea registrazione</button></mat-list-item>
-                            <mat-list-item><button mat-button routerLink="/ordine-interno" routerLinkActive="active" class="w-full text-xl text-white">Crea ordine</button></mat-list-item>
+                        <div class="mt-6">
+                            <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full left text-xl text-white">Home</button></mat-list-item>
+                            <mat-list-item><button mat-button (click)="openDialog()" class="w-full left text-xl text-white">Cambia mansioni</button></mat-list-item>
+                            <mat-list-item><button mat-button routerLink="/registrazione-interno" routerLinkActive="active" class="w-full left text-xl text-white">Nuovo assistito</button></mat-list-item>
+                            <mat-list-item><button mat-button routerLink="/ordine-interno" routerLinkActive="active" class="w-full left text-xl text-white">Nuovo ordine</button></mat-list-item>
+                        </div>
 
-                            <div class="my-2 flex flex-col justify-end">
+                        <div class="mb-6">
+                            <div class="my-2">
                                 <mat-divider></mat-divider>
                             </div>
-                            <mat-list-item><button mat-button class="w-full text-xl text-white">Cambia password</button></mat-list-item>
-                            <mat-list-item><button mat-button class="w-full text-xl text-white">Logout</button></mat-list-item>
+                            <mat-list-item><button mat-button class="w-full left text-xl text-white">Cambia password</button></mat-list-item>
+                            <mat-list-item><button mat-button class="w-full left text-xl text-white">Logout</button></mat-list-item>
+                        </div>
                     </mat-list>
                 </mat-sidenav>
                 <mat-sidenav-content>
-                    <div class="text-center mb-4 flex">
+                    <div class="text-center mb-4 mt-5 flex">
                         <img class="w-max mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
                         <div class="font-bold text-lg my-auto mx-auto">
                             <span class="text-nav">VOLONTARIO INTERNO</span>
@@ -45,18 +48,18 @@
                                 <!-- <mat-card-title class="text-center">ASSISTITI</mat-card-title> -->
                                 <mat-card-content>
                                     <div class="flex mb-4 pt-2">
-                                        <div class="w-1/2">
+                                        <div class="w-full">
                                             <input 
                                             type="text"
                                             class="flex-grow pl-3 py-2 rounded border w-full
                                             focus:border-nav"
-                                            placeholder="Ricerca..."
+                                            placeholder="Cerca assistito..."
                                             >
                                         </div>
-                                        <div class="w-1/2 ml-44">
+                                        <div class="ml-6">
                                             <button mat-raised-button class="bg-bt-orange">
                                                 <a routerLink="/registrazione-interno" routerLinkActive="active">
-                                                    <span class="p-2 text-white">CREA REGISTRAZIONE</span>
+                                                    <span class="p-2 text-white">NUOVO ASSISTITO</span>
                                                 </a>
                                             </button>
                                         </div>
