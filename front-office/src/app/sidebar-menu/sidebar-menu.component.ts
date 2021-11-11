@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeMansionDialogComponent } from '../change-mansion-dialog/change-mansion-dialog.component';
+import axios from 'axios';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -9,11 +10,31 @@ import { ChangeMansionDialogComponent } from '../change-mansion-dialog/change-ma
 })
 export class SidebarMenuComponent implements OnInit {
 
-  isSidebarOpen= true;
+  isSidebarOpen= false;
+
+  user = {
+    nome: '',
+    cognome: '',
+    ruolo: 'string',
+    interno: 'boolean',
+    email: 'string',
+    password: 'string'
+  };
 
   constructor(public dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
+    try {
+      let response = await axios.get("http://127.0.0.1:8000/api/user");
+      console.log(response.status);
+      console.log(response.data);
+      this.user = response.data;
+    } 
+    catch (err) {
+      console.log(err);
+    }
+
   }
 
   openDialog() {

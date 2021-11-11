@@ -71,7 +71,7 @@ export class HomeInternoComponent implements OnInit {
   panelOpenState = false;
 
   sordines: Stato[] = [
-    {value: '', viewValue: ''},
+    {value: '', viewValue: 'Tutti'},
     {value: 'non_disponibile', viewValue: 'Non disponibile'},
     {value: 'in_attesa', viewValue: 'In attesa'},
     {value: 'consegnato', viewValue: 'Consegnato'},
