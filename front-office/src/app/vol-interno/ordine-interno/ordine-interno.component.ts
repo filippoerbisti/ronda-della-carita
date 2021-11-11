@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {FormControl, FormGroup} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
 
 interface Client{
@@ -79,6 +79,7 @@ export class OrdineInternoComponent implements OnInit {
   };
 
   tvestiarioValue: any = 'maglietta';
+  clientValue: any = 'Uomo';
 
   constructor(public dialog: MatDialog) {
     
