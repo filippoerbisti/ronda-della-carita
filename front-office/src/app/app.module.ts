@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
@@ -83,7 +84,8 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

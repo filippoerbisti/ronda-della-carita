@@ -150,5 +150,4 @@ export class HomeInternoComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(startIndex, endIndex);
   }
   
-  
 }

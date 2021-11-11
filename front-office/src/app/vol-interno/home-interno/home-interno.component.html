@@ -45,7 +45,8 @@
                             </div>
                             <div *ngFor="let order of pageOrderSlice" class="mt-2">
                                 <mat-expansion-panel (opened)="panelOpenState = true"
-                                        (closed)="panelOpenState = false">
+                                        (closed)="panelOpenState = false"
+                                        ngRepeat="order in orders | filter = state">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title class="my-auto w-1/3">
                                             <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
