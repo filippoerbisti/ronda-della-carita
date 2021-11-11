@@ -24,7 +24,7 @@ export class RegistrazioneInternoComponent implements OnInit {
   isLoading = false;
 
   //choseGender!: string;
-  genders: string[] = ['Uomo', 'Donna', 'Altro'];
+  genders: string[] = ['Uomo', 'Donna'];
 
   tdocuments: Document[] = [
     {value: 'cartaid', viewValue: "Carta d'Identità"},
