@@ -51,6 +51,7 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
+    this.pageClientSlice = this.clients.slice(0, 5);
   }
 
   openDialog() {

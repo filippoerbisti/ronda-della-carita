@@ -32,7 +32,9 @@ interface Client{
   t_scarpe: number,
   note: string,
   //created_at: timestamp,
-  //update_at: timestamp
+  //update_at: timestamp,
+  user_id: number,
+  user?: User
 }
 
 interface Order{
@@ -46,15 +48,24 @@ interface Order{
   status: string,
   note: string,
   //created_at: 'timestamp',
-  //update_at: 'timestamp'
+  //update_at: 'timestamp',
+  client_id: number,
+  client?: Client,
+  user_id: number,
+  user?: User
 }
 
 interface Card {
   id: number,
   n_tessera: string,
   //created_at: timestamp,
-  //update_at: timestramp
+  //update_at: timestramp,
+  client_id: number,
+  client?: Client,
+  user_id: number,
+  user?: User
 }
+
 interface Stato {
   value: string;
   viewValue: string;
@@ -85,6 +96,8 @@ export class HomeInternoComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
+
+  selectedStatus!: string;
   
   constructor(public dialog: MatDialog) {
   }
@@ -92,34 +105,53 @@ export class HomeInternoComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/user");
-      console.log(response.status);
-      console.log(response.data);
-      this.user = response.data;
-    } 
-    catch (err) {
-      console.log(err);
-    }
-    try {
-      let response = await axios.get("http://127.0.0.1:8000/api/clients");
-      console.log(response.status);
-      console.log(response.data);
-      this.clients = response.data;
-    } 
-    catch (err) {
-      console.log(err);
-    }
-    try {
-      let response = await axios.get("http://127.0.0.1:8000/api/orders");
-      console.log(response.status);
-      console.log(response.data);
-      this.orders = response.data;
+      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
+      console.log(response_user.status);
+      console.log(response_user.data);
+      this.user = response_user.data;
+
+      let response_client = await axios.get("http://127.0.0.1:8000/api/clients");
+      console.log(response_client.status);
+      console.log(response_client.data);
+      this.clients = response_client.data;
+
+      let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
+      console.log(response_order.status);
+      console.log(response_order.data);
+      this.orders = response_order.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
+    this.pageOrderSlice = this.orders.slice(0, 10); 
+    this.pageClientSlice = this.clients.slice(0, 10);
+
+    this.orders = this.orders.filter(
+      order => order.status === this.selectedStatus
+    );
   }
+
+  public valueSelected() {
+    this.orders = this.orders.filter(
+      order => order.status === this.selectedStatus
+    );
+  }
+
+  OnPageChange(event: PageEvent) {
+    console.log(event);
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.orders.length) {
+      endIndex = this.orders.length;
+    }
+    this.pageOrderSlice = this.orders.slice(startIndex, endIndex); 
+
+    if (endIndex > this.clients.length) {
+      endIndex = this.clients.length;
+    }
+    this.pageClientSlice = this.clients.slice(startIndex, endIndex);
+  }  
 
   openDeleteClientDialog() {
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
@@ -128,26 +160,4 @@ export class HomeInternoComponent implements OnInit {
   openDeleteOrderDialog() {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
   }
-
-  OnOrderPageChange(event: PageEvent) {
-    console.log(event);
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.orders.length) {
-      endIndex = this.orders.length;
-    }
-    this.pageOrderSlice = this.orders.slice(startIndex, endIndex);
-    
-  }
-  
-  OnClientPageChange(event: PageEvent) {
-    console.log(event);
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.clients.length) {
-      endIndex = this.clients.length;
-    }
-    this.pageClientSlice = this.clients.slice(startIndex, endIndex);
-  }
-  
 }

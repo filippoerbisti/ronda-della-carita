@@ -12,6 +12,8 @@ class UserController extends Controller
     }
 
     public function anagrafica() {
+        //$id = 1;
+        //return User::where('id', $id)->get();
         return User::first();
     }
 
@@ -32,6 +34,13 @@ class UserController extends Controller
     }
 
     public function create(Request $request) {
+        $request->validate([
+            'nome' => 'required',
+            'cognome' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
         $newUserData = json_decode($request->getContent());
         $newUser = new User();   
 

@@ -41,6 +41,7 @@ import { OrdineInternoComponent } from './vol-interno/ordine-interno/ordine-inte
 import { RegistrazioneInternoComponent } from './vol-interno/registrazione-interno/registrazione-interno.component';
 import { LoginComponent } from './login/login.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
     OrdineInternoComponent,
     RegistrazioneInternoComponent,
     LoginComponent,
-    SidebarMenuComponent
+    SidebarMenuComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

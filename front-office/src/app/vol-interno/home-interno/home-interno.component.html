@@ -1,5 +1,5 @@
 <div class="h-full w-full ">
-    <!-- <app-sidebar-menu></app-sidebar-menu> -->
+    <app-sidebar-menu></app-sidebar-menu>
     <div *ngIf="!isLoading" class="ml-30 items-stretch w-full flex">
         <div class="w-full h-full pl-30">
             <div class="text-center mb-4 pt-12 flex items-center justify-center">
@@ -29,7 +29,7 @@
                                 </div>
                                 <mat-form-field class="ml-6">
                                     <mat-label>Stato Ordine:</mat-label>
-                                    <mat-select name="sordine">
+                                    <mat-select name="sordine" [(ngModel)]="selectedStatus" (change)="valueSelected()">
                                         <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
                                             {{sordine.viewValue}}
                                         </mat-option>
@@ -77,7 +77,7 @@
                                             </button>
                                         </div>
                                     </mat-expansion-panel-header>
-                                    <p>Nome Cognome</p>
+                                    <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }}</p>
                                     <p>Punto di ritiro: {{ order.p_ritiro }}</p>
                                     <table class="w-full">
                                         <tr><td>Tipo vestiario</td><td>Genere</td><td>Taglia</td><td>Quantità</td></tr>
@@ -88,7 +88,7 @@
                             <mat-paginator [length]="this.orders.length"
                                 [pageSize]="10"
                                 [pageSizeOptions]="pageSizeOptions"
-                                (page)="OnOrderPageChange($event)">
+                                (page)="OnPageChange($event)">
                             </mat-paginator>
                         </mat-card-content>
                     </mat-card>
@@ -150,7 +150,7 @@
                             <mat-paginator [length]="this.clients.length"
                                 [pageSize]="10"
                                 [pageSizeOptions]="pageSizeOptions"
-                                (page)="OnClientPageChange($event)">
+                                (page)="OnPageChange($event)">
                             </mat-paginator>
                         </mat-card-content>
                     </mat-card>

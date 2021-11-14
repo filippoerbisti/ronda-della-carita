@@ -4,6 +4,38 @@ import { DeleteOrderDialogComponent } from '../../delete-order-dialog/delete-ord
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
 
+interface User {
+  id: number,
+  nome: string,
+  cognome: string,
+  ruolo: string,
+  interno: boolean,
+  email: string,
+  //email_verified_at: timestamp,
+  password: string,
+  remember_token: string,
+  //created_at: timestamp,
+  //update_at: timestamp
+};
+
+interface Client{
+  id: number,
+  nome: string,
+  cognome: string,
+  genere: string,
+  n_documento: string,
+  t_documento: string,
+  nazionalita: string,
+  t_maglietta: string,
+  t_pantaloni: string,
+  t_scarpe: number,
+  note: string,
+  //created_at: timestamp,
+  //update_at: timestamp,
+  user_id: number,
+  user?: User
+}
+
 interface Order{
   id: number,
   n_ordine: number,
@@ -15,7 +47,11 @@ interface Order{
   status: string,
   note: string,
   //created_at: 'timestamp',
-  //update_at: 'timestamp'
+  //update_at: 'timestamp',
+  client_id: number,
+  client?: Client,
+  user_id: number,
+  user1?: User
 }
 
 @Component({
@@ -28,6 +64,8 @@ export class ViewOrdineEsternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
+  user: User[] = [];
+  clients: Client[] = [];
   orders: Order[] = [];
 
   pageOrderSlice = this.orders.slice(0, 5);
@@ -40,15 +78,26 @@ export class ViewOrdineEsternoComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/orders");
-      console.log(response.status);
-      console.log(response.data);
-      this.orders = response.data;
+      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
+      console.log(response_user.status);
+      console.log(response_user.data);
+      this.user = response_user.data;
+
+      let response_client = await axios.get("http://127.0.0.1:8000/api/clients");
+      console.log(response_client.status);
+      console.log(response_client.data);
+      this.clients = response_client.data;
+
+      let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
+      console.log(response_order.status);
+      console.log(response_order.data);
+      this.orders = response_order.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
+    this.pageOrderSlice = this.orders.slice(0, 5);
   }
 
   openDialog() {

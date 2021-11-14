@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function list() {
-        return Order::all();
+        return Order::with('client')->get();
     }
 
     private function pairing($newOrder, $newOrderData) {

@@ -11,7 +11,7 @@ import { ViewOrdineEsternoComponent } from './vol-esterno/view-ordine-esterno/vi
 import { ViewRegistrazioneEsternoComponent } from './vol-esterno/view-registrazione-esterno/view-registrazione-esterno.component';
 import { OrdineInternoComponent } from './vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './vol-interno/registrazione-interno/registrazione-interno.component';
-import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,10 +20,10 @@ const routes: Routes = [
   { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent },
   { path: 'view-ordine-esterno', component: ViewOrdineEsternoComponent },
   { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },
-  { path: 'home-interno', component: SidebarMenuComponent },
-  // { path: 'home-interno', component: HomeInternoComponent },
+  { path: 'home-interno', component: HomeInternoComponent },
   { path: 'ordine-interno', component: OrdineInternoComponent },
   { path: 'registrazione-interno', component: RegistrazioneInternoComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
