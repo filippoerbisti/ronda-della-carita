@@ -4,6 +4,8 @@ import axios from "axios";
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-order-dialog.component';
+import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-client-dialog.component';
+import { EditOrderDialogComponent } from 'src/app/edit-order-dialog/edit-order-dialog.component';
 
 interface User {
   id: number,
@@ -174,5 +176,13 @@ export class HomeInternoComponent implements OnInit {
 
   openDeleteOrderDialog() {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  }
+
+  openEditOrderDialog() {
+    const dialogRef = this.dialog.open(EditOrderDialogComponent);
+  }
+
+  openEditClientDialog() {
+    const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 }

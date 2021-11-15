@@ -49,6 +49,9 @@ import { RegistrazioneAdminComponent } from './admin/registrazione-admin/registr
 import { OrdineAdminComponent } from './admin/ordine-admin/ordine-admin.component';
 import { UserAdminComponent } from './admin/user-admin/user-admin.component';
 import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
+import { EditClientDialogComponent } from './edit-client-dialog/edit-client-dialog.component';
+import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,9 @@ import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dial
     OrdineAdminComponent,
     UserAdminComponent,
     DeleteUserDialogComponent,
+    EditClientDialogComponent,
+    EditUserDialogComponent,
+    EditOrderDialogComponent,
   ],
   imports: [
     BrowserModule,

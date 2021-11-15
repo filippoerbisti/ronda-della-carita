@@ -4,7 +4,10 @@ import axios from "axios";
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-order-dialog.component';
-import { DeleteUserDialogComponent } from 'src/app/delete-user-dialog/delete-user-dialog.component'
+import { DeleteUserDialogComponent } from 'src/app/delete-user-dialog/delete-user-dialog.component';
+import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-client-dialog.component';
+import { EditUserDialogComponent } from 'src/app/edit-user-dialog/edit-user-dialog.component';
+import { EditOrderDialogComponent } from 'src/app/edit-order-dialog/edit-order-dialog.component';
 
 interface User {
   id: number,
@@ -201,5 +204,17 @@ export class HomeAdminComponent implements OnInit {
 
   openDeleteOrderDialog() {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  }
+
+  openEditUserDialog() {
+    const dialogRef = this.dialog.open(EditUserDialogComponent);
+  }
+
+  openEditOrderDialog() {
+    const dialogRef = this.dialog.open(EditOrderDialogComponent);
+  }
+
+  openEditClientDialog() {
+    const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 }

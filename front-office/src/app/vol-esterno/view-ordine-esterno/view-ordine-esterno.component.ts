@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteOrderDialogComponent } from '../../delete-order-dialog/delete-order-dialog.component';
+import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-order-dialog.component';
+import { EditOrderDialogComponent } from 'src/app/edit-order-dialog/edit-order-dialog.component';
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
 
@@ -71,6 +72,8 @@ export class ViewOrdineEsternoComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 5);
   pageSizeOptions: number[] = [5, 10, 20];
 
+  searchOrder!: string;
+
   constructor(public dialog: MatDialog) {
     
   }
@@ -100,8 +103,18 @@ export class ViewOrdineEsternoComponent implements OnInit {
     this.pageOrderSlice = this.orders.slice(0, 5);
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  async filterOrder() {
+    let search = this.searchOrder;
+    try {
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + search);
+      console.log(response_filter.status);
+      console.log(response_filter.data);
+      this.orders = response_filter.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+    this.pageOrderSlice = this.orders.slice(0, 10); 
   }
 
   OnPageChange(event: PageEvent) {
@@ -112,6 +125,14 @@ export class ViewOrdineEsternoComponent implements OnInit {
       endIndex = this.orders.length;
     }
     this.pageOrderSlice = this.orders.slice(startIndex, endIndex);
+  }
+
+  openDeleteOrderDialog() {
+    const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  }
+
+  openEditOrderDialog() {
+    const dialogRef = this.dialog.open(EditOrderDialogComponent);
   }
 
 }
