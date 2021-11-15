@@ -17,6 +17,15 @@ class UserController extends Controller
         return User::first();
     }
 
+    public function filter($search) {
+        $user = User::where('nome', '=', $search)
+                        ->orWhere('cognome', '=', $search)
+                        ->orWhere('email', '=', $search)
+                        ->orWhere('ruolo', '=', $search)
+                        ->get();
+        return $user;
+    }
+
     private function pairing($newUser, $newUserData) {
         $newUser->nome = $newUserData->nome;
         $newUser->cognome = $newUserData->cognome;

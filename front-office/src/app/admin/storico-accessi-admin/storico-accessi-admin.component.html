@@ -1,0 +1,54 @@
+<div class="h-full w-full">
+    <app-sidebar-admin-menu></app-sidebar-admin-menu>
+    <div *ngIf="!isLoading" class="items-stretch w-full flex">
+        <div class="w-full h-full">
+            <div class="text-center mb-4 pt-12 flex items-center justify-center">
+                <img class="w-max mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+            </div>
+            <div class="h-full">
+                <div class="flex mb-4 pt-2 mx-4">
+                    <div class="mr-6">
+                        <button mat-raised-button class="bg-bt-orange">
+                            <a routerLink="/ordine-interno" routerLinkActive="active">
+                                <span class="p-2 text-white">NUOVO VOLONTARIO</span>
+                            </a>
+                        </button>
+                    </div>
+                    <div class="w-full">
+                        <input 
+                        [(ngModel)]="searchUser"
+                        type="text"
+                        class="flex-grow pl-3 py-2 rounded border w-full
+                        focus:border-nav"
+                        placeholder="Cerca Volontario..."
+                        >
+                    </div>
+                    <div class="ml-6">
+                        <button mat-raised-button (click)="filterUser()" class="bg-bt-orange">
+                            <span class="p-2 text-white">FILTRA</span>
+                        </button>
+                    </div>
+                </div>
+                <div *ngFor="let user of pageUserSlice" class="mt-2 mx-4">
+                    <div class="grid grid-cols-3 gap-4 mb-2">
+                        <div class="font-bold">{{ user.nome }} {{ user.cognome }}</div>
+                        <div>Ultimo Accesso: </div>
+                        <div>Interno: 
+                            <span *ngIf="user.interno == true">Sì</span>
+                            <span *ngIf="user.interno == false">No</span>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <mat-paginator [length]="this.users.length"
+                    [pageSize]="10"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="OnPageChange($event)">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="grid h-full grid-center m-auto">
+        <mat-spinner class="m-auto border-nav"></mat-spinner>
+    </div>
+</div>

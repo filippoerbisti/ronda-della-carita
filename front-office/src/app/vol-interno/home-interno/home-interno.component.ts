@@ -66,11 +66,6 @@ interface Card {
   user?: User
 }
 
-interface Stato {
-  value: string;
-  viewValue: string;
-}
-
 @Component({
   selector: 'app-home-interno',
   templateUrl: './home-interno.component.html',
@@ -81,11 +76,11 @@ export class HomeInternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  sordines: Stato[] = [
-    {value: '', viewValue: 'Tutti'},
-    {value: 'non_disponibile', viewValue: 'Non disponibile'},
-    {value: 'in_attesa', viewValue: 'In attesa'},
-    {value: 'consegnato', viewValue: 'Consegnato'},
+  sordines = [
+    '',
+    'Non disponibile',
+    'In attesa',
+    'Consegnato'
   ];
 
   user: User[] = [];
@@ -97,7 +92,9 @@ export class HomeInternoComponent implements OnInit {
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
 
-  selectedStatus!: string;
+  state!: string;
+  searchOrder!: string;
+  searchClient!: string;
   
   constructor(public dialog: MatDialog) {
   }
@@ -126,20 +123,9 @@ export class HomeInternoComponent implements OnInit {
     this.isLoading = false;
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
-
-    this.orders = this.orders.filter(
-      order => order.status === this.selectedStatus
-    );
-  }
-
-  public valueSelected() {
-    this.orders = this.orders.filter(
-      order => order.status === this.selectedStatus
-    );
-  }
+  }  
 
   OnPageChange(event: PageEvent) {
-    console.log(event);
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.orders.length) {
@@ -152,6 +138,35 @@ export class HomeInternoComponent implements OnInit {
     }
     this.pageClientSlice = this.clients.slice(startIndex, endIndex);
   }  
+
+  async filterOrder() {
+    let status = this.state;
+    let search = this.searchOrder;
+    try {
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + search);
+      console.log(response_filter.status);
+      console.log(response_filter.data);
+      this.orders = response_filter.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+    this.pageOrderSlice = this.orders.slice(0, 10); 
+  }
+
+  async filterClient() {
+    let search = this.searchClient;
+    try {
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/clients/" + search);
+      console.log(response_filter.status);
+      console.log(response_filter.data);
+      this.clients = response_filter.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+    this.pageClientSlice = this.clients.slice(0, 10); 
+  }
 
   openDeleteClientDialog() {
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);

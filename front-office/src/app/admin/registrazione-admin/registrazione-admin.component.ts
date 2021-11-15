@@ -16,11 +16,11 @@ interface Value {
 }
 
 @Component({
-  selector: 'app-registrazione-interno',
-  templateUrl: './registrazione-interno.component.html',
-  styleUrls: ['./registrazione-interno.component.css']
+  selector: 'app-registrazione-admin',
+  templateUrl: './registrazione-admin.component.html',
+  styleUrls: ['./registrazione-admin.component.css']
 })
-export class RegistrazioneInternoComponent implements OnInit {
+export class RegistrazioneAdminComponent implements OnInit {
 
   isLoading = false;
 

@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
@@ -42,6 +43,12 @@ import { RegistrazioneInternoComponent } from './vol-interno/registrazione-inter
 import { LoginComponent } from './login/login.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { SidebarAdminMenuComponent } from './sidebar-admin-menu/sidebar-admin-menu.component';
+import { StoricoAccessiAdminComponent } from './admin/storico-accessi-admin/storico-accessi-admin.component';
+import { RegistrazioneAdminComponent } from './admin/registrazione-admin/registrazione-admin.component';
+import { OrdineAdminComponent } from './admin/ordine-admin/ordine-admin.component';
+import { UserAdminComponent } from './admin/user-admin/user-admin.component';
+import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +69,13 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     RegistrazioneInternoComponent,
     LoginComponent,
     SidebarMenuComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    SidebarAdminMenuComponent,
+    StoricoAccessiAdminComponent,
+    RegistrazioneAdminComponent,
+    OrdineAdminComponent,
+    UserAdminComponent,
+    DeleteUserDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +100,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MatInputModule,
     MatRadioModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

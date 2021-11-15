@@ -12,9 +12,19 @@ import { ViewRegistrazioneEsternoComponent } from './vol-esterno/view-registrazi
 import { OrdineInternoComponent } from './vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './vol-interno/registrazione-interno/registrazione-interno.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
+import { StoricoAccessiAdminComponent } from './admin/storico-accessi-admin/storico-accessi-admin.component';
+import { OrdineAdminComponent } from './admin/ordine-admin/ordine-admin.component';
+import { RegistrazioneAdminComponent } from './admin/registrazione-admin/registrazione-admin.component';
+import { UserAdminComponent } from './admin/user-admin/user-admin.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'home-admin', component: HomeAdminComponent },
+  { path: 'accessi-admin', component: StoricoAccessiAdminComponent },
+  { path: 'user-admin', component: UserAdminComponent },
+  { path: 'ordine-admin', component: OrdineAdminComponent },
+  { path: 'registrazione-admin', component: RegistrazioneAdminComponent },
   { path: 'home-esterno', component: HomeEsternoComponent },
   { path: 'ordine-esterno', component: OrdineEsternoComponent },
   { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent },
