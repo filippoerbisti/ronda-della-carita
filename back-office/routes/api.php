@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::delete("/user/delete", [UserController::class, "delete"]);
 
 Route::put("/user/modify", [UserController::class, "modify"]);
 
+Route::get("/history", [HistoryController::class, "list"]);
 
 Route::get("/clients", [ClientController::class, "list"]);
 

@@ -24,23 +24,23 @@
                         >
                     </div>
                     <div class="ml-6">
-                        <button mat-raised-button (click)="filterUser()" class="bg-bt-orange">
+                        <button mat-raised-button  class="bg-bt-orange"><!--(click)="filterHistory()"-->
                             <span class="p-2 text-white">FILTRA</span>
                         </button>
                     </div>
                 </div>
-                <div *ngFor="let user of pageUserSlice" class="mt-2 mx-4">
+                <div *ngFor="let history of pageHistorySlice" class="mt-2 mx-4">
                     <div class="grid grid-cols-3 gap-4 mb-2">
-                        <div class="font-bold">{{ user.nome }} {{ user.cognome }}</div>
-                        <div>Ultimo Accesso: </div>
+                        <div class="font-bold">{{ history.user?.nome }} {{ history.user?.cognome }}</div>
+                        <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
                         <div>Interno: 
-                            <span *ngIf="user.interno == true">Sì</span>
-                            <span *ngIf="user.interno == false">No</span>
+                            <span *ngIf="history.user?.interno == true">Sì</span>
+                            <span *ngIf="history.user?.interno == false">No</span>
                         </div>
                     </div>
                     <hr>
                 </div>
-                <mat-paginator [length]="this.users.length"
+                <mat-paginator [length]="this.histories.length"
                     [pageSize]="10"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="OnPageChange($event)">

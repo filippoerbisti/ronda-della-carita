@@ -12,8 +12,15 @@ interface User {
   //email_verified_at: timestamp,
   password: string,
   remember_token: string,
-  created_at: Date,
+  //created_at: timestamp,
   //update_at: timestamp
+};
+
+interface History {
+  id: number,
+  ultimo_accesso: Date,
+  user_id: number,
+  user?: User
 };
 
 @Component({
@@ -26,9 +33,9 @@ export class StoricoAccessiAdminComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  users: User[] = [];
+  histories: History[] = [];
 
-  pageUserSlice = this.users.slice(0, 10);
+  pageHistorySlice = this.histories.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
 
   searchUser!: string;
@@ -38,38 +45,38 @@ export class StoricoAccessiAdminComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response_user = await axios.get("http://127.0.0.1:8000/api/users");
-      console.log(response_user.status);
-      console.log(response_user.data);
-      this.users = response_user.data;
+      let response = await axios.get("http://127.0.0.1:8000/api/history");
+      console.log(response.status);
+      console.log(response.data);
+      this.histories = response.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
-    this.pageUserSlice = this.users.slice(0, 10); 
+    this.pageHistorySlice = this.histories.slice(0, 10); 
   }  
 
   OnPageChange(event: PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.users.length) {
-      endIndex = this.users.length;
+    if (endIndex > this.histories.length) {
+      endIndex = this.histories.length;
     }
-    this.pageUserSlice = this.users.slice(startIndex, endIndex);
+    this.pageHistorySlice = this.histories.slice(startIndex, endIndex);
   }  
 
-  async filterUser() {
-    let search = this.searchUser;
-    try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/users/" + search);
-      console.log(response_filter.status);
-      console.log(response_filter.data);
-      this.users = response_filter.data;
-    }
-    catch (err) {
-      console.log(err);
-    }
-    this.pageUserSlice = this.users.slice(0, 10); 
-  }
+  // async filterHistory() {
+  //   let search = this.searchUser;
+  //   try {
+  //     let response_filter = await axios.get("http://127.0.0.1:8000/api/users/" + search);
+  //     console.log(response_filter.status);
+  //     console.log(response_filter.data);
+  //     this.histories = response_filter.data;
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  //   this.pageHistorySlice = this.histories.slice(0, 10); 
+  // }
 }
