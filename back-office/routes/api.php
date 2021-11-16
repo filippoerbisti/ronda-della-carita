@@ -20,7 +20,11 @@ Route::delete("/user/delete", [UserController::class, "delete"]);
 
 Route::put("/user/modify", [UserController::class, "modify"]);
 
+
 Route::get("/history", [HistoryController::class, "list"]);
+
+Route::get("/history/{filter}", [HistoryController::class, "filter"]);
+
 
 Route::get("/clients", [ClientController::class, "list"]);
 

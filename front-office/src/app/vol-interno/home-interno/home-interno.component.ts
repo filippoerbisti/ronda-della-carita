@@ -144,8 +144,10 @@ export class HomeInternoComponent implements OnInit {
   async filterOrder() {
     let status = this.state;
     let search = this.searchOrder;
+    console.log(status);
+    console.log(search);
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + status);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + { params: { search: this.searchOrder, status: this.state} });
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.orders = response_filter.data;

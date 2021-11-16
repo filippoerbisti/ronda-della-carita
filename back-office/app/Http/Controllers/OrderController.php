@@ -12,32 +12,37 @@ class OrderController extends Controller
     }
 
     public function filter($search, $status) {
-        $order = Order::with('client')
-                            ->with('user')
-                            ->where('p_ritiro', '=', $search)
-                            ->orWhere('n_ordine', '=', $search)
-                            ->orWhere('t_vestiario', '=', $search)
-                            ->orWhere('taglia', '=', $search)
-                            ->orwhere('status', '=', $status)
-                            ->get();
-            return $order;
-        // if ($status == "" && $search != "") {
-        //     $order = Order::with('client')
+        // $order = Order::with('client')
         //                     ->with('user')
         //                     ->where('p_ritiro', '=', $search)
         //                     ->orWhere('n_ordine', '=', $search)
         //                     ->orWhere('t_vestiario', '=', $search)
         //                     ->orWhere('taglia', '=', $search)
+        //                     ->orwhere('status', '=', $status)
         //                     ->get();
         //     return $order;
-        // }
-        // if ($search == "" && $status != "") {
-        //     $order = Order::with('client')
-        //                     ->with('user')
-        //                     ->where('status', '=', $status)
-        //                     ->get();
-        //     return $order;
-        // }
+        if ($status == "" && $search != "") {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->where('p_ritiro', '=', $search)
+                            ->orWhere('n_ordine', '=', $search)
+                            ->orWhere('t_vestiario', '=', $search)
+                            ->orWhere('taglia', '=', $search)
+                            ->get();
+            return $order;
+        }
+        if ($search == "" && $status != "") {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->where('status', '=', $status)
+                            ->get();
+            return $order;
+        }
+        else {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->get();
+        }
     }
 
     private function pairing($newOrder, $newOrderData) {
