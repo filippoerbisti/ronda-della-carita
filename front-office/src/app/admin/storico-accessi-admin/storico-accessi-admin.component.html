@@ -16,7 +16,7 @@
                     </div>
                     <div class="w-full">
                         <input 
-                        [(ngModel)]="searchUser"
+                        [(ngModel)]="searchAccess"
                         type="text"
                         class="flex-grow pl-3 py-2 rounded border w-full
                         focus:border-nav"
@@ -24,7 +24,7 @@
                         >
                     </div>
                     <div class="ml-6">
-                        <button mat-raised-button  class="bg-bt-orange"><!--(click)="filterHistory()"-->
+                        <button mat-raised-button (click)="filterHistory()" class="bg-bt-orange"><!---->
                             <span class="p-2 text-white">FILTRA</span>
                         </button>
                     </div>
