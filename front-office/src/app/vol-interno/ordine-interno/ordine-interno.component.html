@@ -18,10 +18,11 @@
                             <input type="text"
                                    placeholder="Assistito..."
                                    matInput
+                                   [(ngModel)]="temp"
                                    [formControl]="myControl"
                                    [matAutocomplete]="auto">
-                            <mat-autocomplete #auto="matAutocomplete">
-                              <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome + client.cognome">
+                            <mat-autocomplete (optionSelected)="prova()"  #auto="matAutocomplete">
+                              <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
                                 {{client.nome}} {{client.cognome}}
                               </mat-option>
                             </mat-autocomplete>

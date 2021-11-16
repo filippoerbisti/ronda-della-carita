@@ -7,7 +7,7 @@
                 <mat-label>Assistito:</mat-label>
                 <input type="text"
                        placeholder="Assistito..."
-                       matInput
+                       ng-model="temp"
                        [formControl]="myControl"
                        [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">

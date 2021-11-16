@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -29,7 +29,9 @@ interface Client{
 export class OrdineInternoComponent implements OnInit {
 
   isLoading = false;  
-
+  temp=[]
+  gen=""
+  t=[]
   myControl = new FormControl();
   clients: Client[] = [];
   filteredClients: Observable<Client[]> | undefined;
@@ -82,7 +84,6 @@ export class OrdineInternoComponent implements OnInit {
   clientValue: any = 'Uomo';
 
   constructor(public dialog: MatDialog) {
-    
   }
   
   async ngOnInit() {
@@ -105,12 +106,13 @@ export class OrdineInternoComponent implements OnInit {
       
     );
   }
-
+  public prova(){
+    console.log(this.temp)
+  }
+  
   private _filter(nome: string): Client[] {
     const filterValue = nome.toLowerCase();
 
     return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));
   }
-
 }
-
