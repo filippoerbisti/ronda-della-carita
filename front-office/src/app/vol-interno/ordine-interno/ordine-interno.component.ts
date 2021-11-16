@@ -29,9 +29,9 @@ interface Client{
 export class OrdineInternoComponent implements OnInit {
 
   isLoading = false;  
-  temp=[]
+  nm=""
   gen=""
-  t=[]
+  search: Client[] = [];
   myControl = new FormControl();
   clients: Client[] = [];
   filteredClients: Observable<Client[]> | undefined;
@@ -98,7 +98,6 @@ export class OrdineInternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
-
     this.filteredClients = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.nome)),
@@ -107,7 +106,15 @@ export class OrdineInternoComponent implements OnInit {
     );
   }
   public prova(){
-    console.log(this.temp)
+    if(this.nm!=""){
+      let nmo=this.nm.split(' ');
+      for(var i=0; i<this.clients.length;i++){
+        if(this.clients[i].nome==nmo[0] && this.clients[i].cognome==nmo[1]){
+          this.search.push(this.clients[i]);
+          console.log(this.search)
+        }
+      }
+    }
   }
   
   private _filter(nome: string): Client[] {

@@ -18,7 +18,7 @@
                             <input type="text"
                                    placeholder="Assistito..."
                                    matInput
-                                   [(ngModel)]="temp"
+                                   [(ngModel)]="nm"
                                    [formControl]="myControl"
                                    [matAutocomplete]="auto">
                             <mat-autocomplete (optionSelected)="prova()"  #auto="matAutocomplete">
@@ -39,7 +39,7 @@
                         <div class="flex-col w-full">
                             <div>Genere: </div><!--{{ choseGender }}-->
                             <mat-radio-group class="flex" ><!--[(ngModel)]="choseGender"-->
-                                <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender">
+                                <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender" >
                                     {{ gender }}
                                 </mat-radio-button>
                             </mat-radio-group>
@@ -54,9 +54,11 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Taglia:</mat-label>
-                            <mat-select name="tmaglietta">
+                            <mat-select>
                                 <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.value">
-                                    {{item.viewValue}}
+                                    <div *ngIf="search.length == 0">
+                                        {{item.viewValue}}
+                                    </div>
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
