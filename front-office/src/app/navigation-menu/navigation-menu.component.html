@@ -1,18 +1,19 @@
 <div class="w-full mt-0 bg-nav float-right">
+    
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" class="float-right">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="openDialog()">
-            <span>Cambia mansioni</span>
+    <mat-menu #menu="matMenu" class="">
+        <button mat-menu-item (click)="openDialog()" class="">
+            <span class="">Cambia mansione</span>
         </button>
         <button mat-menu-item routerLink="/view-registrazione-esterno" routerLinkActive="active">
-            <span>Assistiti registrati</span>
+            <span>Assistiti</span>
         </button>
         <button mat-menu-item routerLink="/view-ordine-esterno" routerLinkActive="active">
-            <span>Ordini registrati</span>
+            <span>Ordini</span>
         </button>
         <button mat-menu-item>
             <span>Cambio password</span>
