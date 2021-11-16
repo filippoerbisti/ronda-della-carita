@@ -28,13 +28,16 @@ interface Client{
 export class OrdineEsternoComponent implements OnInit {
 
   isLoading = false;
-  temp=[]
+  nm=""
+  gen=""
+  search: Client[] = [];
   myControl = new FormControl();
   clients: Client[] = [];
   filteredClients: Observable<Client[]> | undefined;
 
-  //choseGender!: string;
   genders: string[] = ['Uomo', 'Donna'];
+  choseGender="Uomo"
+  quantita= 1;
 
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},
@@ -77,8 +80,9 @@ export class OrdineEsternoComponent implements OnInit {
     ]
   };
 
-  tvestiarioValue: any = 'maglietta';
-
+  tvestiarioValue: any= 'maglietta';
+  clientValue: any = 'Uomo';
+  tagliaValue: any= ''
   constructor() { }
 
   async ngOnInit() {
@@ -101,7 +105,40 @@ export class OrdineEsternoComponent implements OnInit {
     );
     
   }
-  
+  public sea(){
+    if(this.nm!=""){
+      let nmo=this.nm.split(' ');
+      for(var i=0; i<this.clients.length;i++){
+        if(this.clients[i].nome==nmo[0] && this.clients[i].cognome==nmo[1]){
+          if(this.search.length==0){
+            this.search.push(this.clients[i]);
+          }else{
+            this.search.splice(0,this.search.length)
+            this.search.push(this.clients[i]);
+          }
+        }
+        
+      } 
+    }
+    this.change()
+  }
+  public change(){
+    if(this.search.length!=0){
+      if(this.search[0].genere=='M')
+        this.choseGender="Uomo";
+      else
+        this.choseGender="Donna"
+      if(this.tvestiarioValue=='maglietta')
+        this.tagliaValue=this.search[0].t_maglietta;
+      else if(this.tvestiarioValue=='scarpe')
+        this.tagliaValue=this.search[0].t_scarpe;
+      else
+        this.tagliaValue=parseInt(this.search[0].t_pantaloni);
+    }
+  }
+  /*ngDoCheck() {
+    console.log(typeof this.tagliaValue)
+  }*/
   private _filter(nome: string): Client[] {
     const filterValue = nome.toLowerCase();
     return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));
