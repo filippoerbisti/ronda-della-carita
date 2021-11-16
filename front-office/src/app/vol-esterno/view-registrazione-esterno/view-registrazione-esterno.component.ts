@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteClientDialogComponent } from '../../delete-client-dialog/delete-client-dialog.component';
+import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete-client-dialog.component';
+import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-client-dialog.component';
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
 
@@ -35,6 +36,8 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
   pageClientSlice = this.clients.slice(0, 5);
   pageSizeOptions: number[] = [5, 10, 20];
 
+  searchClient!: string;
+
   constructor(public dialog: MatDialog) { 
 
   }
@@ -51,10 +54,21 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
+    this.pageClientSlice = this.clients.slice(0, 5);
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DeleteClientDialogComponent);
+  async filterClient() {
+    let search = this.searchClient;
+    try {
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/clients/" + search);
+      console.log(response_filter.status);
+      console.log(response_filter.data);
+      this.clients = response_filter.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+    this.pageClientSlice = this.clients.slice(0, 10); 
   }
 
   OnPageChange(event: PageEvent) {
@@ -65,5 +79,13 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
       endIndex = this.clients.length;
     }
     this.pageClientSlice = this.clients.slice(startIndex, endIndex);
+  }
+
+  openDeleteClientDialog() {
+    const dialogRef = this.dialog.open(DeleteClientDialogComponent);
+  }
+
+  openEditClientDialog() {
+    const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 }

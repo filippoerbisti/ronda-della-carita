@@ -11,19 +11,29 @@ import { ViewOrdineEsternoComponent } from './vol-esterno/view-ordine-esterno/vi
 import { ViewRegistrazioneEsternoComponent } from './vol-esterno/view-registrazione-esterno/view-registrazione-esterno.component';
 import { OrdineInternoComponent } from './vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './vol-interno/registrazione-interno/registrazione-interno.component';
-import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
+import { StoricoAccessiAdminComponent } from './admin/storico-accessi-admin/storico-accessi-admin.component';
+import { OrdineAdminComponent } from './admin/ordine-admin/ordine-admin.component';
+import { RegistrazioneAdminComponent } from './admin/registrazione-admin/registrazione-admin.component';
+import { UserAdminComponent } from './admin/user-admin/user-admin.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'home-admin', component: HomeAdminComponent },
+  { path: 'accessi-admin', component: StoricoAccessiAdminComponent },
+  { path: 'user-admin', component: UserAdminComponent },
+  { path: 'ordine-admin', component: OrdineAdminComponent },
+  { path: 'registrazione-admin', component: RegistrazioneAdminComponent },
   { path: 'home-esterno', component: HomeEsternoComponent },
   { path: 'ordine-esterno', component: OrdineEsternoComponent },
   { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent },
   { path: 'view-ordine-esterno', component: ViewOrdineEsternoComponent },
   { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },
-  { path: 'home-interno', component: SidebarMenuComponent },
-  // { path: 'home-interno', component: HomeInternoComponent },
+  { path: 'home-interno', component: HomeInternoComponent },
   { path: 'ordine-interno', component: OrdineInternoComponent },
   { path: 'registrazione-interno', component: RegistrazioneInternoComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

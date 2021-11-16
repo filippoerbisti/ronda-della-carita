@@ -4,6 +4,8 @@ import axios from "axios";
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-order-dialog.component';
+import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-client-dialog.component';
+import { EditOrderDialogComponent } from 'src/app/edit-order-dialog/edit-order-dialog.component';
 
 interface User {
   id: number,
@@ -32,7 +34,9 @@ interface Client{
   t_scarpe: number,
   note: string,
   //created_at: timestamp,
-  //update_at: timestamp
+  //update_at: timestamp,
+  user_id: number,
+  user?: User
 }
 
 interface Order{
@@ -46,18 +50,22 @@ interface Order{
   status: string,
   note: string,
   //created_at: 'timestamp',
-  //update_at: 'timestamp'
+  //update_at: 'timestamp',
+  client_id: number,
+  client?: Client,
+  user_id: number,
+  user?: User
 }
 
 interface Card {
   id: number,
   n_tessera: string,
   //created_at: timestamp,
-  //update_at: timestramp
-}
-interface Stato {
-  value: string;
-  viewValue: string;
+  //update_at: timestramp,
+  client_id: number,
+  client?: Client,
+  user_id: number,
+  user?: User
 }
 
 @Component({
@@ -70,11 +78,11 @@ export class HomeInternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  sordines: Stato[] = [
-    {value: '', viewValue: 'Tutti'},
-    {value: 'non_disponibile', viewValue: 'Non disponibile'},
-    {value: 'in_attesa', viewValue: 'In attesa'},
-    {value: 'consegnato', viewValue: 'Consegnato'},
+  sordines = [
+    '',
+    'Non disponibile',
+    'In attesa',
+    'Consegnato'
   ];
 
   user: User[] = [];
@@ -85,6 +93,10 @@ export class HomeInternoComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
+
+  state!: string;
+  searchOrder!: string;
+  searchClient!: string;
   
   constructor(public dialog: MatDialog) {
   }
@@ -92,33 +104,70 @@ export class HomeInternoComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/user");
-      console.log(response.status);
-      console.log(response.data);
-      this.user = response.data;
-    } 
-    catch (err) {
-      console.log(err);
-    }
-    try {
-      let response = await axios.get("http://127.0.0.1:8000/api/clients");
-      console.log(response.status);
-      console.log(response.data);
-      this.clients = response.data;
-    } 
-    catch (err) {
-      console.log(err);
-    }
-    try {
-      let response = await axios.get("http://127.0.0.1:8000/api/orders");
-      console.log(response.status);
-      console.log(response.data);
-      this.orders = response.data;
+      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
+      console.log(response_user.status);
+      console.log(response_user.data);
+      this.user = response_user.data;
+
+      let response_client = await axios.get("http://127.0.0.1:8000/api/clients");
+      console.log(response_client.status);
+      console.log(response_client.data);
+      this.clients = response_client.data;
+
+      let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
+      console.log(response_order.status);
+      console.log(response_order.data);
+      this.orders = response_order.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
+    this.pageOrderSlice = this.orders.slice(0, 10); 
+    this.pageClientSlice = this.clients.slice(0, 10);
+  }  
+
+  OnPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.orders.length) {
+      endIndex = this.orders.length;
+    }
+    this.pageOrderSlice = this.orders.slice(startIndex, endIndex); 
+
+    if (endIndex > this.clients.length) {
+      endIndex = this.clients.length;
+    }
+    this.pageClientSlice = this.clients.slice(startIndex, endIndex);
+  }  
+
+  async filterOrder() {
+    let status = this.state;
+    let search = this.searchOrder;
+    try {
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + search);
+      console.log(response_filter.status);
+      console.log(response_filter.data);
+      this.orders = response_filter.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+    this.pageOrderSlice = this.orders.slice(0, 10); 
+  }
+
+  async filterClient() {
+    let search = this.searchClient;
+    try {
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/clients/" + search);
+      console.log(response_filter.status);
+      console.log(response_filter.data);
+      this.clients = response_filter.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+    this.pageClientSlice = this.clients.slice(0, 10); 
   }
 
   openDeleteClientDialog() {
@@ -129,25 +178,11 @@ export class HomeInternoComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
   }
 
-  OnOrderPageChange(event: PageEvent) {
-    console.log(event);
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.orders.length) {
-      endIndex = this.orders.length;
-    }
-    this.pageOrderSlice = this.orders.slice(startIndex, endIndex);
-    
+  openEditOrderDialog() {
+    const dialogRef = this.dialog.open(EditOrderDialogComponent);
   }
-  
-  OnClientPageChange(event: PageEvent) {
-    console.log(event);
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.clients.length) {
-      endIndex = this.clients.length;
-    }
-    this.pageClientSlice = this.clients.slice(startIndex, endIndex);
+
+  openEditClientDialog() {
+    const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
-  
 }

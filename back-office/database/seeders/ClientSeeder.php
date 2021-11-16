@@ -17,6 +17,8 @@ class ClientSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+        $userId = DB::table('users')->pluck('id');
+        
         for ($i = 0; $i < 20; $i++) {
             DB::table('clients')->insert([
                 'nome' => $faker -> firstName,
@@ -29,7 +31,7 @@ class ClientSeeder extends Seeder
                 't_pantaloni' => rand(42, 56),
                 't_scarpe' => rand(36, 48),
                 'created_at' => now(),
-                //'user_id' => factory(App\User::class)->create()->id
+                'user_id' => $faker->randomElement($userId)
             ]);
         }
     }

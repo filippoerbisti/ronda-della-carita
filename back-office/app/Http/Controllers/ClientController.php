@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     public function list() {
-        return Client::all();
+        return Client::with('user')->get();
+    }
+
+    public function filter($search) {
+        $client = Client::with('user')
+                            ->where('nome', '=', $search)
+                            ->orWhere('cognome', '=', $search)
+                            ->orWhere('n_documento', '=', $search)
+                            ->get();
+        return $client;
     }
 
     private function pairing($newClient, $newClientData) {

@@ -1,0 +1,12 @@
+.mat-list-base {
+    display: flex;
+}
+
+.left {
+    text-align: left !important;
+}
+
+.sidenav {
+    position: fixed;
+    z-index: 49;
+}
