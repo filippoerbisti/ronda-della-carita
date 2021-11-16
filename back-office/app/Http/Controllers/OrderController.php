@@ -18,7 +18,7 @@ class OrderController extends Controller
                             ->orWhere('n_ordine', '=', $search)
                             ->orWhere('t_vestiario', '=', $search)
                             ->orWhere('taglia', '=', $search)
-                            ->where('status', '=', $search)
+                            ->orwhere('status', '=', $search)
                             ->get();
             return $order;
         // if ($status == "" && $search != "") {
