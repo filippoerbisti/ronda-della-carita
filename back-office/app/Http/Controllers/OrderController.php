@@ -11,14 +11,14 @@ class OrderController extends Controller
         return Order::with('client')->with('user')->get();
     }
 
-    public function filter($search) {
+    public function filter($search, $status) {
         $order = Order::with('client')
                             ->with('user')
                             ->where('p_ritiro', '=', $search)
                             ->orWhere('n_ordine', '=', $search)
                             ->orWhere('t_vestiario', '=', $search)
                             ->orWhere('taglia', '=', $search)
-                            ->orwhere('status', '=', $search)
+                            ->orwhere('status', '=', $status)
                             ->get();
             return $order;
         // if ($status == "" && $search != "") {

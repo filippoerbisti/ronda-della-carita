@@ -10,7 +10,7 @@ import axios from 'axios';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  isSidebarOpen= true;
+  isSidebarOpen= false;
 
   user = {
     nome: '',
