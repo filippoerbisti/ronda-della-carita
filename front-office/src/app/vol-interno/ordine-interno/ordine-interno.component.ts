@@ -81,8 +81,9 @@ export class OrdineInternoComponent implements OnInit {
     ]
   };
 
-  tvestiarioValue: any = 'maglietta';
+  tvestiarioValue: any= 'maglietta';
   clientValue: any = 'Uomo';
+  tagliaValue: any= ''
 
   constructor(public dialog: MatDialog) {
   }
@@ -117,16 +118,29 @@ export class OrdineInternoComponent implements OnInit {
             this.search.splice(0,this.search.length)
             this.search.push(this.clients[i]);
           }
-          if(this.search[0].genere=='M'){
-            this.choseGender="Uomo";
-          }else{
-            this.choseGender="Donna"
-          }
         }
-      }
+        
+      } 
+    }
+    this.change()
+  }
+  public change(){
+    if(this.search.length!=0){
+      if(this.search[0].genere=='M')
+        this.choseGender="Uomo";
+      else
+        this.choseGender="Donna"
+      if(this.tvestiarioValue=='maglietta')
+        this.tagliaValue=this.search[0].t_maglietta;
+      else if(this.tvestiarioValue=='scarpe')
+        this.tagliaValue=this.search[0].t_scarpe;
+      else
+        this.tagliaValue=parseInt(this.search[0].t_pantaloni);
     }
   }
- 
+  /*ngDoCheck() {
+    console.log(typeof this.tagliaValue)
+  }*/
   private _filter(nome: string): Client[] {
     const filterValue = nome.toLowerCase();
 
