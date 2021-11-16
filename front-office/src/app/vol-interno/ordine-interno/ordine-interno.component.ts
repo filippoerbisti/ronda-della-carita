@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -29,13 +29,16 @@ interface Client{
 export class OrdineInternoComponent implements OnInit {
 
   isLoading = false;  
-
+  nm=""
+  gen=""
+  search: Client[] = [];
   myControl = new FormControl();
   clients: Client[] = [];
   filteredClients: Observable<Client[]> | undefined;
 
-  //choseGender!: string;
+  choseGender="Uomo"
   genders: string[] = ['Uomo', 'Donna'];
+  quantita= 1;
 
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},
@@ -82,7 +85,6 @@ export class OrdineInternoComponent implements OnInit {
   clientValue: any = 'Uomo';
 
   constructor(public dialog: MatDialog) {
-    
   }
   
   async ngOnInit() {
@@ -97,7 +99,6 @@ export class OrdineInternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
-
     this.filteredClients = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.nome)),
@@ -105,12 +106,30 @@ export class OrdineInternoComponent implements OnInit {
       
     );
   }
-
+  public prova(){
+    if(this.nm!=""){
+      let nmo=this.nm.split(' ');
+      for(var i=0; i<this.clients.length;i++){
+        if(this.clients[i].nome==nmo[0] && this.clients[i].cognome==nmo[1]){
+          if(this.search.length==0){
+            this.search.push(this.clients[i]);
+          }else{
+            this.search.splice(0,this.search.length)
+            this.search.push(this.clients[i]);
+          }
+          if(this.search[0].genere=='M'){
+            this.choseGender="Uomo";
+          }else{
+            this.choseGender="Donna"
+          }
+        }
+      }
+    }
+  }
+ 
   private _filter(nome: string): Client[] {
     const filterValue = nome.toLowerCase();
 
     return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));
   }
-
 }
-

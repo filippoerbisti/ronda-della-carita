@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -28,7 +28,7 @@ interface Client{
 export class OrdineEsternoComponent implements OnInit {
 
   isLoading = false;
-
+  temp=[]
   myControl = new FormControl();
   clients: Client[] = [];
   filteredClients: Observable<Client[]> | undefined;
@@ -98,14 +98,12 @@ export class OrdineEsternoComponent implements OnInit {
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.nome)),
       map(nome => (nome ? this._filter(nome) : this.clients.slice())),
-      
     );
+    
   }
-
+  
   private _filter(nome: string): Client[] {
     const filterValue = nome.toLowerCase();
-
     return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));
   }
-
 }
