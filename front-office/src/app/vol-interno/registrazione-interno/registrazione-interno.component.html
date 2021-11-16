@@ -9,21 +9,25 @@
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Nome</mat-label>
                             <input type="text" matInput 
-                                placeholder="Nome"><!--[formControl]="emailFormControl"-->
+                                
+                                placeholder="Nome"><!--[(ngModel)]="newClient.nome"-->
+                                <!--[formControl]="emailFormControl"-->
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Cognome</mat-label>
                             <input type="text" matInput 
-                                placeholder="Cognome"><!--[formControl]="emailFormControl"-->
+                                
+                                placeholder="Cognome"><!--[(ngModel)]="newClient.cognome"-->
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>N. Tessera</mat-label>
                             <input type="number" matInput 
-                                placeholder="N. Tessera"><!--[formControl]="emailFormControl"-->
+                                
+                                placeholder="N. Tessera"><!--[(ngModel)]="newClient.n_tessera"-->
                         </mat-form-field>
                         <div class="flex-col w-full ml-4">
-                            <div>Genere: </div><!--{{ choseGender }}-->
-                            <mat-radio-group class="flex" ><!--[(ngModel)]="choseGender"-->
+                            <div>Genere: </div>
+                            <mat-radio-group class="flex" ><!--[(ngModel)]="newClient.genere"-->
                                 <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender">
                                     {{ gender }}
                                 </mat-radio-button>
@@ -33,7 +37,7 @@
                     <div class="w-full flex">
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Tipo documento:</mat-label>
-                            <mat-select name="tdocument">
+                            <mat-select name="tdocument" ><!--[(ngModel)]="newClient.t_documento"-->
                                 <mat-option *ngFor="let tdocument of tdocuments" [value]="tdocument.value">
                                     {{tdocument.viewValue}}
                                 </mat-option>
@@ -42,12 +46,13 @@
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>N. Documento</mat-label>
                             <input type="number" matInput 
-                                placeholder="N. Documento"><!--[formControl]="emailFormControl"-->
+                                
+                                placeholder="N. Documento"><!--[(ngModel)]="newClient.n_documento"-->
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Nazionalità</mat-label>
-                            <mat-select class="form-control" name="country" id="country">
-                                <mat-option value="" disabled selected>Select Country</mat-option>
+                            <mat-select class="form-control" name="country" id="country" ><!--[(ngModel)]="newClient.nazionalita"-->
+                                <mat-option value="" disabled selected>Seleziona Paese</mat-option>
                                 <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -55,7 +60,7 @@
                     <div class="w-full flex">
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Taglia maglietta:</mat-label>
-                            <mat-select name="tmaglietta">
+                            <mat-select name="tmaglietta" ><!--[(ngModel)]="newClient.t_maglietta"-->
                                 <mat-option *ngFor="let tmaglietta of tmagliettas" [value]="tmaglietta.value">
                                     {{tmaglietta.viewValue}}
                                 </mat-option>
@@ -63,7 +68,7 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Taglia pantaloni:</mat-label>
-                            <mat-select name="tpantaloni">
+                            <mat-select name="tpantaloni"><!-- [(ngModel)]="newClient.t_pantaloni"-->
                                 <mat-option *ngFor="let tpantaloni of tpantalonis" [value]="tpantaloni.value">
                                     {{tpantaloni.viewValue}}
                                 </mat-option>
@@ -71,7 +76,7 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Taglia scarpe:</mat-label>
-                            <mat-select name="tscarpe">
+                            <mat-select name="tscarpe" ><!--[(ngModel)]="newClient.t_scarpe"-->
                                 <mat-option *ngFor="let tscarpe of tscarpes" [value]="tscarpe.value">
                                     {{tscarpe.viewValue}}
                                 </mat-option>
@@ -91,7 +96,7 @@
                         </button>
                     </div>
                     <div class="mr-20">
-                        <button mat-raised-button class="bg-bt-orange text-lg">
+                        <button mat-raised-button class="bg-bt-orange text-lg"><!-- (click)="createClient()"-->
                             <span class="p-2 text-white">CONFERMA</span>
                         </button>
                     </div>

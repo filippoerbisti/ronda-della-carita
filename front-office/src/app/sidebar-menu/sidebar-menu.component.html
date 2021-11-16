@@ -3,18 +3,16 @@
         <button mat-icon-button (click)="sidebarRef.toggle()">
             <mat-icon class="text-white">menu</mat-icon>
         </button>
-        <div class="ml-auto text-white font-regular mr-1 text-lg">
+        <div class="ml-auto text-white mr-1 text-lg">
             {{ user.nome + " " + user.cognome}}
         </div>
-        <div class="">
-            <button mat-icon-button>
-                <mat-icon class="text-white">exit_to_app</mat-icon>
-            </button>
-        </div>
+        <button mat-icon-button>
+            <mat-icon class="text-white">exit_to_app</mat-icon>
+        </button>
     </div>
 </mat-toolbar>
 <mat-sidenav-container class="h-screen pt-10 sidenav">
-    <mat-sidenav #sidebarRef opened mode="over" class="pb-3 bg-nav mt-10 flex inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
+    <mat-sidenav #sidebarRef opened mode="side" class="pb-3 bg-nav mt-10 flex inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
         <mat-list class="h-full w-60 flex flex-col justify-between">
             <div class="mt-8">
                 <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full text-lg text-white left">HOME</button></mat-list-item>
@@ -26,12 +24,10 @@
                 <div class="my-2">
                     <mat-divider></mat-divider>
                 </div>
-                <mat-list-item><button mat-button class="w-full text-lg text-white left">CAMBIA PASSWORD</button></mat-list-item>
+                <mat-list-item><button mat-button routerLink="/change-password" class="w-full text-lg text-white left">CAMBIA PASSWORD</button></mat-list-item>
                 <mat-list-item><button mat-button class="w-full text-lg text-white left">LOGOUT</button></mat-list-item>
             </div>
         </mat-list>
     </mat-sidenav>
-    <mat-sidenav-content class="w-screen h-screen">
-        <app-home-interno></app-home-interno>
-    </mat-sidenav-content>
+    <mat-sidenav-content></mat-sidenav-content>
 </mat-sidenav-container>

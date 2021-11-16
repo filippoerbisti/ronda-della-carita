@@ -19,26 +19,34 @@
                 <span class="font-bold">ASSISTITI REGISTRATI</span>
             </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center mx-2">
             <input 
                 type="text"
                 class="flex-grow mx-auto pl-3 py-2 w-max max-w-xs rounded border  
                 focus:border-nav"
+                [(ngModel)]="searchClient"
                 placeholder="Ricerca..."
             >
+            <div class="ml-6">
+                <button mat-raised-button (click)="filterClient()" class="bg-bt-orange">
+                    <span class="p-2 text-white">FILTRA</span>
+                </button>
+            </div>
         </div>
         <div *ngFor="let client of pageClientSlice" class="mx-2 mt-2">
             <mat-expansion-panel (opened)="panelOpenState = true"
                     (closed)="panelOpenState = false" class="h-full">
                 <mat-expansion-panel-header>
                     <mat-panel-title class="my-auto w-5/12">
-                        <span class="font-bold">{{ client.nome | uppercase }} <br> {{ client.cognome | uppercase}}</span>
+                        <span class="font-bold">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
                     </mat-panel-title>
-                    <mat-panel-description class="my-auto w-5/12 flex justify-center">
-                        <span class="leading-loose text-black mr-auto">N. 123456</span><!--n tessera-->
-                    </mat-panel-description>
                     <div class="w-2/12 flex justify-end">
-                        <button mat-button-basic (click)="openDialog()" class="mr-5 pl-auto">
+                        <button mat-button-basic (click)="openEditClientDialog()" class="ml-auto mr-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                        </button>
+                        <button mat-button-basic (click)="openDeleteClientDialog()" class="mr-5 pl-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>

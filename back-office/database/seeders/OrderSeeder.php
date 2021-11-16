@@ -17,6 +17,9 @@ class OrderSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+        $userId = DB::table('users')->pluck('id');
+        $clientId = DB::table('clients')->pluck('id');
+
         for ($i = 0; $i < 20; $i++) {
             DB::table('orders')->insert([
                 'n_ordine' => $faker -> unique() -> numberBetween(1, 100000),
@@ -27,8 +30,8 @@ class OrderSeeder extends Seeder
                 'quantita' => rand(1, 5),
                 'status' => 'In attesa',
                 'created_at' => now(),
-                //'user_id' => factory(App\User::class)->create()->id,
-                //'client_id' => factory(App\Client::class)->create()->id
+                'user_id' => $faker->randomElement($userId),
+                'client_id' => $faker->randomElement($clientId)
             ]);
         }
     }

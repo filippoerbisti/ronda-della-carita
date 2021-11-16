@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import axios from "axios";
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
@@ -23,7 +24,18 @@ export class RegistrazioneInternoComponent implements OnInit {
 
   isLoading = false;
 
-  //choseGender!: string;
+  // newClient = {
+  //   nome: '',
+  //   cognome: '',
+  //   genere: 'M',
+  //   n_documento: '',
+  //   t_documento: '',
+  //   nazionalita: '',
+  //   t_maglietta: '',
+  //   t_pantaloni: '',
+  //   t_scarpe: ''
+  // };
+
   genders: string[] = ['Uomo', 'Donna'];
 
   tdocuments: Document[] = [
@@ -75,5 +87,15 @@ export class RegistrazioneInternoComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  // async createClient() {
+  //   try {
+  //     let response = await axios.put("http://127.0.0.1:8000/api/client/create", this.newClient);
+  //     console.log(response.data);
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
 }

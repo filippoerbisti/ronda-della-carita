@@ -10,7 +10,7 @@ import axios from 'axios';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  isSidebarOpen= false;
+  isSidebarOpen= true;
 
   user = {
     nome: '',
@@ -27,8 +27,6 @@ export class SidebarMenuComponent implements OnInit {
 
     try {
       let response = await axios.get("http://127.0.0.1:8000/api/user");
-      console.log(response.status);
-      console.log(response.data);
       this.user = response.data;
     } 
     catch (err) {
