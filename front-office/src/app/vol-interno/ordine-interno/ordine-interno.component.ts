@@ -107,7 +107,7 @@ export class OrdineInternoComponent implements OnInit {
       
     );
   }
-  public prova(){
+  public sea(){
     if(this.nm!=""){
       let nmo=this.nm.split(' ');
       for(var i=0; i<this.clients.length;i++){

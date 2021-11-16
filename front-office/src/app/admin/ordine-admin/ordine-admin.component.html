@@ -18,10 +18,11 @@
                             <input type="text"
                                    placeholder="Assistito..."
                                    matInput
+                                   [(ngModel)]="nm"
                                    [formControl]="myControl"
                                    [matAutocomplete]="auto">
-                            <mat-autocomplete #auto="matAutocomplete">
-                              <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome + client.cognome">
+                            <mat-autocomplete (optionSelected)="sea()"  #auto="matAutocomplete">
+                              <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
                                 {{client.nome}} {{client.cognome}}
                               </mat-option>
                             </mat-autocomplete>
@@ -37,7 +38,7 @@
                     <div class="w-full flex">
                         <div class="flex-col w-full">
                             <div>Genere: </div><!--{{ choseGender }}-->
-                            <mat-radio-group class="flex" ><!--[(ngModel)]="choseGender"-->
+                            <mat-radio-group [(ngModel)]="choseGender" class="flex" name="choseGender"(selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
                                 <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender">
                                     {{ gender }}
                                 </mat-radio-button>
@@ -45,7 +46,7 @@
                         </div>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Tipo vestiario:</mat-label>
-                            <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue">
+                            <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue"(selectionChange)="change()">
                                 <mat-option *ngFor="let item of tvestiario" [value]="item.value">
                                     {{item.viewValue}}
                                 </mat-option>
@@ -53,8 +54,8 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Taglia:</mat-label>
-                            <mat-select name="tmaglietta">
-                                <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.value">
+                            <mat-select name="tagliaValue" [(ngModel)]="tagliaValue" (selectionChange)="change()">
+                                <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.viewValue">
                                     {{item.viewValue}}
                                 </mat-option>
                             </mat-select>
@@ -62,7 +63,7 @@
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Quantità</mat-label>
                             <input type="number" matInput 
-                                placeholder="Quantità"><!--[formControl]="emailFormControl"-->
+                                placeholder="Quantità"[(ngModel)]="quantita" name="quantita"><!--[formControl]="emailFormControl"-->
                         </mat-form-field>
                     </div>
                     <div class="w-full border-2">
