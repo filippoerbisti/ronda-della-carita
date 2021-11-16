@@ -38,9 +38,9 @@
                     <div class="w-full flex">
                         <div class="flex-col w-full">
                             <div>Genere: </div><!--{{ choseGender }}-->
-                            <mat-radio-group class="flex" ><!--[(ngModel)]="choseGender"-->
-                                <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender" >
-                                    {{ gender }}
+                            <mat-radio-group [(ngModel)]="choseGender" class="flex" name="choseGender"><!--[(ngModel)]="choseGender"-->
+                                <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender ">
+                                    {{gender}}
                                 </mat-radio-button>
                             </mat-radio-group>
                         </div>
@@ -65,7 +65,7 @@
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Quantità</mat-label>
                             <input type="number" matInput 
-                                placeholder="Quantità"><!--[formControl]="emailFormControl"-->
+                                placeholder="Quantità" [(ngModel)]="quantita" name="quantita"><!--[formControl]="emailFormControl"-->
                         </mat-form-field>
                     </div>
                     <div class="w-full border-2">

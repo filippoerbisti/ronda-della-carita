@@ -36,8 +36,9 @@ export class OrdineInternoComponent implements OnInit {
   clients: Client[] = [];
   filteredClients: Observable<Client[]> | undefined;
 
-  //choseGender!: string;
+  choseGender="Uomo"
   genders: string[] = ['Uomo', 'Donna'];
+  quantita= 1;
 
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},
@@ -110,13 +111,22 @@ export class OrdineInternoComponent implements OnInit {
       let nmo=this.nm.split(' ');
       for(var i=0; i<this.clients.length;i++){
         if(this.clients[i].nome==nmo[0] && this.clients[i].cognome==nmo[1]){
-          this.search.push(this.clients[i]);
-          console.log(this.search)
+          if(this.search.length==0){
+            this.search.push(this.clients[i]);
+          }else{
+            this.search.splice(0,this.search.length)
+            this.search.push(this.clients[i]);
+          }
+          if(this.search[0].genere=='M'){
+            this.choseGender="Uomo";
+          }else{
+            this.choseGender="Donna"
+          }
         }
       }
     }
   }
-  
+ 
   private _filter(nome: string): Client[] {
     const filterValue = nome.toLowerCase();
 
