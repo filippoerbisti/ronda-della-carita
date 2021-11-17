@@ -21,6 +21,9 @@
                                    [(ngModel)]="nm"
                                    [formControl]="myControl"
                                    [matAutocomplete]="auto">
+                                   <button *ngIf="nm" matSuffix mat-icon-button aria-label="Clear" (click)="nm=''">
+                                    <mat-icon>close</mat-icon>
+                                  </button>
                             <mat-autocomplete (optionSelected)="sea()"  #auto="matAutocomplete">
                               <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
                                 {{client.nome}} {{client.cognome}}
@@ -38,7 +41,7 @@
                     <div class="w-full flex">
                         <div class="flex-col w-full">
                             <div>Genere: </div><!--{{ choseGender }}-->
-                            <mat-radio-group [(ngModel)]="choseGender" class="flex" name="choseGender"(selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
+                            <mat-radio-group [(ngModel)]="choseGender" class="flex" name="choseGender" (selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
                                 <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender">
                                     {{ gender }}
                                 </mat-radio-button>
@@ -46,7 +49,7 @@
                         </div>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Tipo vestiario:</mat-label>
-                            <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue"(selectionChange)="change()">
+                            <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue" (selectionChange)="change()">
                                 <mat-option *ngFor="let item of tvestiario" [value]="item.value">
                                     {{item.viewValue}}
                                 </mat-option>

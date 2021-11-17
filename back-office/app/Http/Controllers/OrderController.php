@@ -38,6 +38,12 @@ class OrderController extends Controller
                             ->get();
             return $order;
         }
+        if ($search == "" && $status == "") {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->get();
+            return $order;
+        }
         else {
             $order = Order::with('client')
                             ->with('user')
