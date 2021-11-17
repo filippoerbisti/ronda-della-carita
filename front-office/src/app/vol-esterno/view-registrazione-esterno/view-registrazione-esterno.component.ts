@@ -33,7 +33,7 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
 
   clients: Client[] = [];
 
-  pageClientSlice = this.clients.slice(0, 5);
+  pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];
 
   searchClient!: string;
@@ -54,7 +54,7 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
-    this.pageClientSlice = this.clients.slice(0, 5);
+    this.pageClientSlice = this.clients.slice(0, 10);
   }
 
   async filterClient() {
