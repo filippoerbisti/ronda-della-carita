@@ -57,13 +57,21 @@ export class OrdineAdminComponent implements OnInit {
     ], 
     "pantaloni": [
       {value: 42, viewValue: 42},
+      {value: 43, viewValue: 43},
       {value: 44, viewValue: 44},
+      {value: 45, viewValue: 45},
       {value: 46, viewValue: 46},
+      {value: 47, viewValue: 47},
       {value: 48, viewValue: 48},
+      {value: 49, viewValue: 49},
       {value: 50, viewValue: 50},
+      {value: 51, viewValue: 51},
       {value: 52, viewValue: 52},
+      {value: 53, viewValue: 53},
       {value: 54, viewValue: 54},
+      {value: 55, viewValue: 55},
       {value: 56, viewValue: 56},
+      {value: 57, viewValue: 57},
       {value: 58, viewValue: 58},
     ],
     "scarpe": [
@@ -78,6 +86,8 @@ export class OrdineAdminComponent implements OnInit {
       {value: 44, viewValue: 44},
       {value: 45, viewValue: 45},
       {value: 46, viewValue: 46},
+      {value: 47, viewValue: 47},
+      {value: 48, viewValue: 48},
     ]
   };
 
