@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        nav: '#4984B8',
+        nav: '#1D5D84',
         bt: {
           lavander: '#DFC5FE',
           pink: '#C83CB9',
