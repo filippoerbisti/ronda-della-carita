@@ -11,6 +11,9 @@
                         [(ngModel)]="nm"
                        [formControl]="myControl"
                        [matAutocomplete]="auto">
+                       <button *ngIf="nm" matSuffix mat-icon-button aria-label="Clear" (click)="nm=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
                 <mat-autocomplete (optionSelected)="sea()" #auto="matAutocomplete">
                   <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
                     {{client.nome}} {{client.cognome}}
