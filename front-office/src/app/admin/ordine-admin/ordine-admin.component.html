@@ -41,7 +41,7 @@
                     <div class="w-full flex">
                         <div class="flex-col w-full">
                             <div>Genere: </div><!--{{ choseGender }}-->
-                            <mat-radio-group [(ngModel)]="choseGender" class="flex" name="choseGender"(selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
+                            <mat-radio-group [(ngModel)]="choseGender" class="flex" name="choseGender" (selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
                                 <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender">
                                     {{ gender }}
                                 </mat-radio-button>
@@ -49,7 +49,7 @@
                         </div>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Tipo vestiario:</mat-label>
-                            <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue"(selectionChange)="change()">
+                            <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue" (selectionChange)="change()">
                                 <mat-option *ngFor="let item of tvestiario" [value]="item.value">
                                     {{item.viewValue}}
                                 </mat-option>

@@ -166,12 +166,14 @@ export class HomeAdminComponent implements OnInit {
   }
 
   async filterOrder() {
-    let status = this.state;
     let search = this.searchOrder;
+    let status = this.state;
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + status);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + search + status);
       console.log(response_filter.status);
       console.log(response_filter.data);
+      console.log(status);
+      console.log(search);
       this.orders = response_filter.data;
     }
     catch (err) {
