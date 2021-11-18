@@ -42,7 +42,6 @@ import { OrdineInternoComponent } from './vol-interno/ordine-interno/ordine-inte
 import { RegistrazioneInternoComponent } from './vol-interno/registrazione-interno/registrazione-interno.component';
 import { LoginComponent } from './login/login.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
 import { SidebarAdminMenuComponent } from './sidebar-admin-menu/sidebar-admin-menu.component';
 import { StoricoAccessiAdminComponent } from './admin/storico-accessi-admin/storico-accessi-admin.component';
 import { RegistrazioneAdminComponent } from './admin/registrazione-admin/registrazione-admin.component';
@@ -55,6 +54,7 @@ import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ChooseMansionDialogComponent } from './choose-mansion-dialog/choose-mansion-dialog.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,6 @@ import { ChooseMansionDialogComponent } from './choose-mansion-dialog/choose-man
     RegistrazioneInternoComponent,
     LoginComponent,
     SidebarMenuComponent,
-    ChangePasswordComponent,
     SidebarAdminMenuComponent,
     StoricoAccessiAdminComponent,
     RegistrazioneAdminComponent,
@@ -86,6 +85,7 @@ import { ChooseMansionDialogComponent } from './choose-mansion-dialog/choose-man
     EditUserDialogComponent,
     EditOrderDialogComponent,
     ChooseMansionDialogComponent,
+    ChangePasswordDialogComponent,
   ],
   imports: [
     BrowserModule,
