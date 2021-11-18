@@ -1,76 +1,85 @@
-<div class="flex flex-row justify-center items-center h-screen w-full bg-nav">
-    <div class="flex flex-col w-full px-6 md:w-1/3 bg-white rounded-xl py-10 shadow-xl h-4/6 mx-3 md:h-3/4">
-        <img class="w-44 md:w-2/4 mx-auto pt-8" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
-
-        <!-- SLIDER LOGIN / REGISTRAZIONE -->
-        <div class="flex flex-col flex-grow justify-center w-full mx-auto">
+<div class="h-screen w-full flex justify-center items-center bg-nav">
+    <div class="h-4/6 md:h-3/4 w-full md:w-1/3 flex flex-col py-7 bg-white rounded-xl shadow-2xl">
+        <img class="w-44 md:w-2/4 mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+        <div class="w-full flex flex-col px-6">
             <mat-tab-group mat-align-tabs="center">
                 <mat-tab label="LOGIN">
-                    <form>
-                        <mat-form-field class="w-full" appearance="fill">
-                            <mat-label>Email</mat-label>
-                            <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                                    placeholder="Email">
-                            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                                Please enter a valid email address
-                            </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
-                                Email is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="w-full" appearance="fill">
-                            <mat-label>Password</mat-label>
-                            <input type="password" matInput placeholder="Password">
-                        </mat-form-field>
-                        <a routerLink="/change-password" routerLinkActive="active" class="m-0 p-0 text-bt-orange hover:underline">Password dimenticata?</a>
-                        <button class="w-full h-10" mat-raised-button color="accent" (click)="login()">
-                            <span class="p-2 text-white">ACCEDI</span>
-                        </button>
-                    </form>
-                </mat-tab>
-
-                <mat-tab label="REGISTRATI">
-                    <form class="w-full h-full">
-                        <div class="h-3/4 overflow-y-auto py-2">
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Nome</mat-label>
-                                <input type="text" matInput placeholder="Nome">
-                            </mat-form-field>
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Cognome</mat-label>
-                                <input type="text" matInput placeholder="Cognome">
-                            </mat-form-field>
+                    <mat-card-content>
+                        <form class="py-2">
                             <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Email</mat-label>
-                                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                                        placeholder="Email">
+                                <input type="email" 
+                                    matInput 
+                                    [formControl]="emailFormControl" 
+                                    [errorStateMatcher]="matcher"
+                                    placeholder="Email">
                                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                                    Please enter a valid email address
+                                    Per favore inserisci un indirizzo email valido
                                 </mat-error>
                                 <mat-error *ngIf="emailFormControl.hasError('required')">
-                                    Email is <strong>required</strong>
+                                    Email <strong>obbligatoria</strong>
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Password</mat-label>
                                 <input type="password" matInput placeholder="Password">
                             </mat-form-field>
+                            <a routerLink="/change-password" routerLinkActive="active" class="text-bt-orange hover:underline">Password dimenticata?</a>
+                            <div class="mt-4">
+                                <button class="w-full h-10" mat-raised-button color="accent" (click)="login()">
+                                    <span class="p-2 text-white">ACCEDI</span>
+                                </button>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-tab>
+                <mat-tab label="REGISTRATI">
+                    <mat-card-content>
+                        <form class="py-2">   
+                            <div class="flex">
+                                <mat-form-field class="w-1/2 pr-1" appearance="fill">
+                                    <mat-label>Nome</mat-label>
+                                    <input type="text" matInput placeholder="Nome">
+                                </mat-form-field>
+                                <mat-form-field class="w-1/2 pl-1" appearance="fill">
+                                    <mat-label>Cognome</mat-label>
+                                    <input type="text" matInput placeholder="Cognome">
+                                </mat-form-field>
+                            </div>
                             <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Conferma Password</mat-label>
-                                <input type="password" matInput placeholder="Conferma Password">
+                                <mat-label>Email</mat-label>
+                                <input type="email" 
+                                    matInput 
+                                    [formControl]="emailFormControl" 
+                                    [errorStateMatcher]="matcher"
+                                    placeholder="Email">
+                                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                    Per favore inserisci un indirizzo email valido
+                                </mat-error>
+                                <mat-error *ngIf="emailFormControl.hasError('required')">
+                                    Email <strong>obbligatoria</strong>
+                                </mat-error>
                             </mat-form-field>
-                        </div>
-
-                        <button class="w-full h-10" mat-raised-button color="accent" (click)="registration()">
-                            <span class="p-2 text-white">REGISTRATI</span>
-                        </button>
-                    </form>
-                    
+                            <div class="flex">
+                                <mat-form-field class="w-1/2 pr-1" appearance="fill">
+                                    <mat-label>Password</mat-label>
+                                    <input type="password" matInput placeholder="Password">
+                                </mat-form-field>
+                                <mat-form-field class="w-1/2 pl-1" appearance="fill">
+                                    <mat-label>Conferma Password</mat-label>
+                                    <input type="password" matInput placeholder="Conferma Password">
+                                </mat-form-field>
+                            </div>
+                            <button class="w-full h-10" mat-raised-button color="accent" (click)="registration()">
+                                <span class="p-2 text-white">REGISTRATI</span>
+                            </button>
+                        </form>
+                    </mat-card-content>
                 </mat-tab>
               </mat-tab-group>
         </div>
     </div>
-    <div *ngIf="isLoading" class="grid h-full grid-center">
+    <div *ngIf="isLoading" class="h-full grid grid-center">
         <mat-spinner class="m-auto"></mat-spinner>
     </div>
 </div>

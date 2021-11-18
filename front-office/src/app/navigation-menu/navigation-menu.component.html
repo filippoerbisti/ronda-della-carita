@@ -1,28 +1,27 @@
-<div class="w-full mt-0 bg-nav float-right">
-    
+<div class="w-full float-right mt-0 bg-nav">
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" class="float-right">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
-    <mat-menu #menu="matMenu" class="">
+    <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="/home-esterno" routerLinkActive="active">
-            <span class="">Home</span>
+            <span>HOME</span>
         </button>
-        <button mat-menu-item (click)="openMansionDialog()" class="">
-            <span class="">Cambia mansione</span>
+        <button mat-menu-item (click)="openMansionDialog()">
+            <span>CAMBIA MANSIONE</span>
         </button>
         <button mat-menu-item routerLink="/view-registrazione-esterno" routerLinkActive="active">
-            <span>Assistiti</span>
+            <span>ASSISTITI</span>
         </button>
         <button mat-menu-item routerLink="/view-ordine-esterno" routerLinkActive="active">
-            <span>Ordini</span>
+            <span>ORDINI</span>
         </button>
         <button mat-menu-item (click)="openPasswordDialog()">
-            <span>Cambio password</span>
+            <span>CAMBIA PASSWORD</span>
         </button>
         <button mat-menu-item routerLink="/login" routerLinkActive="active">
-            <span>Logout</span>
+            <span>ESCI</span>
         </button>
     </mat-menu>
 </div>

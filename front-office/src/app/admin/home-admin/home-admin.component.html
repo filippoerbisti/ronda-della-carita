@@ -1,8 +1,8 @@
 <div class="h-full w-full">
     <app-sidebar-admin-menu></app-sidebar-admin-menu>
-    <div *ngIf="!isLoading" class="items-stretch w-full flex">
+    <div *ngIf="!isLoading" class="w-full flex items-stretch">
         <div class="w-full h-full">
-            <div class="text-center mb-4 pt-12 flex items-center justify-around">
+            <div class="flex items-center justify-around mb-4 pt-12 text-center">
                 <img class="w-max" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
                 <div>
                     <mat-card class="text-left">
@@ -13,7 +13,6 @@
                     </mat-card>
                 </div>
             </div>
-            
             <mat-tab-group mat-align-tabs="center" class="w-full flex">
                 <mat-tab label="VOLONTARI">
                     <mat-card class="h-full">
@@ -30,7 +29,7 @@
                                     <input 
                                     [(ngModel)]="searchUser"
                                     type="text"
-                                    class="flex-grow pl-3 py-2 rounded border w-full
+                                    class="w-full flex-grow pl-3 py-2 rounded border
                                     focus:border-nav"
                                     placeholder="Cerca Volontario..."
                                     >
@@ -45,10 +44,10 @@
                                 <mat-expansion-panel (opened)="panelOpenState = true"
                                         (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
-                                        <mat-panel-title class="my-auto w-1/3">
+                                        <mat-panel-title class="w-1/3 my-auto">
                                             <span class="font-bold">{{ user.nome }} {{ user.cognome }}</span>
                                         </mat-panel-title>
-                                        <mat-panel-description class="my-auto w-1/3 flex justify-center">
+                                        <mat-panel-description class="w-1/3 flex justify-center my-auto">
                                             <span class="leading-loose text-black mr-auto">Ruolo: {{ user.ruolo }}</span>
                                         </mat-panel-description>
                                         <div class="w-1/3 flex justify-end">
@@ -91,7 +90,7 @@
                                     <input 
                                     [(ngModel)]="searchOrder"
                                     type="text"
-                                    class="flex-grow pl-3 py-2 rounded border w-full
+                                    class="w-full flex-grow pl-3 py-2 rounded border
                                     focus:border-nav"
                                     placeholder="Cerca Ordine..."
                                     >
@@ -114,11 +113,11 @@
                                 <mat-expansion-panel (opened)="panelOpenState = true"
                                         (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
-                                        <mat-panel-title class="my-auto w-1/3">
+                                        <mat-panel-title class="w-1/3 my-auto">
                                             <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
                                         </mat-panel-title>
-                                        <mat-panel-description class="my-auto w-1/3 flex justify-center">
-                                            <span class="leading-loose text-black mr-auto">Stato: {{order.status }}</span>
+                                        <mat-panel-description class="w-1/3 flex justify-center my-auto">
+                                            <span class="mr-auto leading-loose text-black">Stato: {{order.status }}</span>
                                             <div *ngIf="order.status === 'In attesa'">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -173,7 +172,7 @@
                                 <div class="w-full">
                                     <input 
                                     type="text"
-                                    class="flex-grow pl-3 py-2 rounded border w-full
+                                    class="w-full flex-grow pl-3 py-2 rounded border
                                     focus:border-nav"
                                     [(ngModel)]="searchClient"
                                     placeholder="Cerca Assistito..."
@@ -189,10 +188,10 @@
                                 <mat-expansion-panel (opened)="panelOpenState = true"
                                         (closed)="panelOpenState = false" class="h-full">
                                     <mat-expansion-panel-header>
-                                        <mat-panel-title class="my-auto w-1/3">
+                                        <mat-panel-title class="w-1/3 my-auto">
                                             <span class="font-bold">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
                                         </mat-panel-title>
-                                        <mat-panel-description class="my-auto w-1/3 flex justify-center">
+                                        <mat-panel-description class="w-1/3 flex justify-center my-auto">
                                             <span class="leading-loose text-black">N. tessera 11</span><!--n tessera-->
                                         </mat-panel-description>
                                         <div class="w-1/3 flex justify-end">
@@ -212,8 +211,16 @@
                                     <p>Genere: {{ client.genere }}</p>
                                     <p>Nazionalità: {{ client.nazionalita }}</p>
                                     <table class="w-full">
-                                        <tr><td>Taglia maglia</td><td>Taglia pantaloni</td><td>Taglia scarpe</td></tr>
-                                        <tr><td>{{ client.t_maglietta }}</td><td>{{ client.t_pantaloni }}</td><td>{{ client.t_scarpe }}</td></tr>
+                                        <tr>
+                                            <td>Taglia maglia</td>
+                                            <td>Taglia pantaloni</td>
+                                            <td>Taglia scarpe</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ client.t_maglietta }}</td>
+                                            <td>{{ client.t_pantaloni }}</td>
+                                            <td>{{ client.t_scarpe }}</td>
+                                        </tr>
                                     </table>
                                 </mat-expansion-panel>
                             </div>
@@ -228,7 +235,7 @@
             </mat-tab-group>
         </div>
     </div>
-    <div *ngIf="isLoading" class="grid h-full grid-center m-auto">
+    <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
         <mat-spinner class="m-auto border-nav"></mat-spinner>
     </div>
 </div>

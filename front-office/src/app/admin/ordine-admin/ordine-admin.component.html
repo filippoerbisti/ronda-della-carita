@@ -1,29 +1,28 @@
-<div class="h-full w-full flex">
+<div class="h-full w-full">
     <app-sidebar-admin-menu></app-sidebar-admin-menu>
-    <div *ngIf="!isLoading" class="flex w-full pl-60">
+    <div *ngIf="!isLoading" class="w-full flex">
         <div class="w-full h-full pt-12">
             <mat-card>
                 <p class="font-bold text-2xl">NUOVO ORDINE</p>
                 <form class="w-full mt-3">
-                    <div class="w-1/3 mb-4">
-                        <!-- 
-                        <input 
-                        type="text"
-                        class="flex-grow pl-3 py-2 rounded border w-full
-                        focus:border-nav"
-                        placeholder="Cerca Ordine..."
-                        > -->
+                    <div class="w-2/3 mb-4">
                         <mat-form-field class="w-full" appearance="fill">
                             <mat-label>Assistito:</mat-label>
                             <input type="text"
-                                   placeholder="Assistito..."
-                                   matInput
-                                   [(ngModel)]="nm"
-                                   [formControl]="myControl"
-                                   [matAutocomplete]="auto">
-                                   <button *ngIf="nm" matSuffix mat-icon-button aria-label="Clear" (click)="nm=''">
+                                placeholder="Assistito..."
+                                matInput
+                                [(ngModel)]="nm"
+                                [formControl]="myControl"
+                                [matAutocomplete]="auto"
+                            >
+                                <button *ngIf="nm" 
+                                    matSuffix 
+                                    mat-icon-button 
+                                    aria-label="Clear" 
+                                    (click)="nm = '' "
+                                >
                                     <mat-icon>close</mat-icon>
-                                  </button>
+                                </button>
                             <mat-autocomplete (optionSelected)="sea()"  #auto="matAutocomplete">
                               <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
                                 {{client.nome}} {{client.cognome}}
@@ -39,9 +38,9 @@
                         </mat-form-field>
                     </div>
                     <div class="w-full flex">
-                        <div class="flex-col w-full">
+                        <div class="w-full flex-col">
                             <div>Genere: </div><!--{{ choseGender }}-->
-                            <mat-radio-group [(ngModel)]="choseGender" class="flex" name="choseGender" (selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
+                            <mat-radio-group [(ngModel)]="choseGender" name="choseGender" (selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
                                 <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender">
                                     {{ gender }}
                                 </mat-radio-button>
@@ -90,7 +89,7 @@
             </mat-card>                    
         </div>
     </div>
-    <div *ngIf="isLoading" class="grid h-full grid-center">
+    <div *ngIf="isLoading" class="h-full grid grid-center">
         <mat-spinner class="m-auto"></mat-spinner>
     </div>
 </div>

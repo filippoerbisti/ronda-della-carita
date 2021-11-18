@@ -69,13 +69,12 @@ export class ViewOrdineEsternoComponent implements OnInit {
   clients: Client[] = [];
   orders: Order[] = [];
 
-  pageOrderSlice = this.orders.slice(0, 5);
+  pageOrderSlice = this.orders.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];
 
   searchOrder!: string;
 
   constructor(public dialog: MatDialog) {
-    
   }
 
   async ngOnInit() {
@@ -100,7 +99,7 @@ export class ViewOrdineEsternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
-    this.pageOrderSlice = this.orders.slice(0, 5);
+    this.pageOrderSlice = this.orders.slice(0, 10);
   }
 
   async filterOrder() {
