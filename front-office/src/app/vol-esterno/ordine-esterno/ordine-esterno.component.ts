@@ -36,8 +36,8 @@ export class OrdineEsternoComponent implements OnInit {
   filteredClients: Observable<Client[]> | undefined;
 
   genders: string[] = ['Uomo', 'Donna'];
-  choseGender="Uomo"
-  quantita= 1;
+  choseGender = "Uomo";
+  quantita = 1;
 
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},

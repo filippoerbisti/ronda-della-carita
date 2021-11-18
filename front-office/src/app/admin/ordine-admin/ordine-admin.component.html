@@ -34,13 +34,13 @@
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Punto di ritiro</mat-label>
                             <input type="text" matInput 
-                                placeholder="p_ritiro"><!--[formControl]="emailFormControl"-->
+                                placeholder="p_ritiro">
                         </mat-form-field>
                     </div>
                     <div class="w-full flex">
                         <div class="w-full flex-col">
-                            <div>Genere: </div><!--{{ choseGender }}-->
-                            <mat-radio-group [(ngModel)]="choseGender" name="choseGender" (selectionChange)="change()"><!--[(ngModel)]="choseGender"-->
+                            <div>Genere: </div>
+                            <mat-radio-group [(ngModel)]="choseGender" name="choseGender" (selectionChange)="change()">
                                 <mat-radio-button class="mx-2" *ngFor="let gender of genders" [value]="gender">
                                     {{ gender }}
                                 </mat-radio-button>
@@ -65,7 +65,7 @@
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Quantità</mat-label>
                             <input type="number" matInput 
-                                placeholder="Quantità"[(ngModel)]="quantita" name="quantita"><!--[formControl]="emailFormControl"-->
+                                placeholder="Quantità"[(ngModel)]="quantita" name="quantita">
                         </mat-form-field>
                     </div>
                     <div class="w-full border-2">

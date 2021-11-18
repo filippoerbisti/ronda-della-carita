@@ -7,21 +7,21 @@
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>Nome</mat-label>
                     <input type="text" matInput 
-                        placeholder="Nome"><!--[formControl]="emailFormControl"-->
+                        placeholder="Nome">
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>Cognome</mat-label>
                     <input type="text" matInput 
-                        placeholder="Cognome"><!--[formControl]="emailFormControl"-->
+                        placeholder="Cognome">
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>N. Tessera</mat-label>
                     <input type="number" matInput 
-                        placeholder="N. Tessera"><!--[formControl]="emailFormControl"-->
+                        placeholder="N. Tessera">
                 </mat-form-field>
-                <div class="flex-col w-full">
-                    <div>Genere: </div><!--{{ choseGender }}-->
-                    <mat-radio-group class="flex" ><!--[(ngModel)]="choseGender"-->
+                <div class="w-full flex-col">
+                    <div>Genere: </div>
+                    <mat-radio-group>
                         <mat-radio-button class="mr-2 mt-2 mb-4" *ngFor="let gender of genders" [value]="gender">
                             {{ gender }}
                         </mat-radio-button>
@@ -38,7 +38,7 @@
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>N. Documento</mat-label>
                     <input type="number" matInput 
-                        placeholder="N. Documento"><!--[formControl]="emailFormControl"-->
+                        placeholder="N. Documento">
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>Nazionalità</mat-label>

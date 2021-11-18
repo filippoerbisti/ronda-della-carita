@@ -7,16 +7,16 @@
                 <div>
                     <mat-card class="text-left">
                         <p class="font-bold">Notifiche:</p>
-                        <p>Accessi oggi:  </p>
-                        <p>Ci sono N in attesa</p>
-                        <p>Ci sono N non disponibili</p>
+                        <!-- <p>Ci sono {{ clients.length }} in attesa</p>
+                        <p>Ci sono {{ clients.length }} non disponibili</p> -->
+                        <p>Ci sono {{ clients.length }} assistiti registrati</p>
+                        <p>Ci sono {{ orders.length }} ordini registrati</p>
                     </mat-card>
                 </div>
             </div>
             <mat-tab-group mat-align-tabs="center" class="w-full flex">
                 <mat-tab label="ORDINI">
                     <mat-card class="h-full">
-                        <!-- <mat-card-titJle class="text-center">ORDINI</mat-card-title> -->
                         <mat-card-content>
                             <div class="flex mb-4 pt-2">
                                 <div class="mr-6">
@@ -28,11 +28,11 @@
                                 </div>
                                 <div class="w-full">
                                     <input 
-                                    [(ngModel)]="searchOrder"
-                                    type="text"
-                                    class="flex-grow pl-3 py-2 rounded border w-full
-                                    focus:border-nav"
-                                    placeholder="Cerca Ordine..."
+                                        type="text"
+                                        [(ngModel)]="searchOrder"
+                                        class="w-full flex-grow pl-3 py-2 rounded border
+                                        focus:border-nav"
+                                        placeholder="Cerca Ordine..."
                                     >
                                 </div>
                                 <mat-form-field class="ml-6">
@@ -45,7 +45,7 @@
                                 </mat-form-field>
                                 <div class="ml-6">
                                     <button mat-raised-button (click)="filterOrder()" class="bg-bt-orange">
-                                        <span class="p-2 text-white">FILTRA</span>
+                                        <span class="p-2 text-white">CERCA</span>
                                     </button>
                                 </div>
                             </div>
@@ -53,10 +53,10 @@
                                 <mat-expansion-panel (opened)="panelOpenState = true"
                                         (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
-                                        <mat-panel-title class="my-auto w-1/3">
+                                        <mat-panel-title class="w-1/3 my-auto">
                                             <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
                                         </mat-panel-title>
-                                        <mat-panel-description class="my-auto w-1/3 flex justify-center">
+                                        <mat-panel-description class="w-1/3 flex justify-center my-auto">
                                             <span class="leading-loose text-black mr-auto">Stato: {{order.status }}</span>
                                             <div *ngIf="order.status === 'In attesa'">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,8 +85,18 @@
                                     <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }}</p>
                                     <p>Punto di ritiro: {{ order.p_ritiro }}</p>
                                     <table class="w-full">
-                                        <tr><td>Tipo vestiario</td><td>Genere</td><td>Taglia</td><td>Quantità</td></tr>
-                                        <tr><td>{{ order.t_vestiario }}</td><td>{{ order.genere }}</td><td>{{ order.taglia }}</td><td>{{ order.quantita }}</td></tr>
+                                        <tr>
+                                            <td>Tipo vestiario</td>
+                                            <td>Genere</td>
+                                            <td>Taglia</td>
+                                            <td>Quantità</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ order.t_vestiario }}</td>
+                                            <td>{{ order.genere }}</td>
+                                            <td>{{ order.taglia }}</td>
+                                            <td>{{ order.quantita }}</td>
+                                        </tr>
                                     </table>
                                 </mat-expansion-panel>
                             </div>
@@ -111,16 +121,16 @@
                                 </div>
                                 <div class="w-full">
                                     <input 
-                                    type="text"
-                                    class="flex-grow pl-3 py-2 rounded border w-full
-                                    focus:border-nav"
-                                    [(ngModel)]="searchClient"
-                                    placeholder="Cerca Assistito..."
+                                        type="text"
+                                        class="w-full flex-grow pl-3 py-2 rounded border
+                                        focus:border-nav"
+                                        [(ngModel)]="searchClient"
+                                        placeholder="Cerca Assistito..."
                                     >
                                 </div>
                                 <div class="ml-6">
                                     <button mat-raised-button (click)="filterClient()" class="bg-bt-orange">
-                                        <span class="p-2 text-white">FILTRA</span>
+                                        <span class="p-2 text-white">CERCA</span>
                                     </button>
                                 </div>
                             </div>
@@ -128,11 +138,11 @@
                                 <mat-expansion-panel (opened)="panelOpenState = true"
                                         (closed)="panelOpenState = false" class="h-full">
                                     <mat-expansion-panel-header>
-                                        <mat-panel-title class="my-auto w-1/3">
+                                        <mat-panel-title class="w-1/3 my-auto">
                                             <span class="font-bold">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
                                         </mat-panel-title>
-                                        <mat-panel-description class="my-auto w-1/3 flex justify-center">
-                                            <span class="leading-loose text-black">N. tessera 11</span><!--n tessera-->
+                                        <mat-panel-description class="w-1/3 flex justify-center my-auto">
+                                            <span class="leading-loose text-black">N. tessera 11</span>
                                         </mat-panel-description>
                                         <div class="w-1/3 flex justify-end">
                                             <button mat-button-basic (click)="openEditClientDialog()" class="mr-5 pl-auto">
@@ -151,8 +161,16 @@
                                     <p>Genere: {{ client.genere }}</p>
                                     <p>Nazionalità: {{ client.nazionalita }}</p>
                                     <table class="w-full">
-                                        <tr><td>Taglia maglia</td><td>Taglia pantaloni</td><td>Taglia scarpe</td></tr>
-                                        <tr><td>{{ client.t_maglietta }}</td><td>{{ client.t_pantaloni }}</td><td>{{ client.t_scarpe }}</td></tr>
+                                        <tr>
+                                            <td>Taglia maglia</td>
+                                            <td>Taglia pantaloni</td>
+                                            <td>Taglia scarpe</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ client.t_maglietta }}</td>
+                                            <td>{{ client.t_pantaloni }}</td>
+                                            <td>{{ client.t_scarpe }}</td>
+                                        </tr>
                                     </table>
                                 </mat-expansion-panel>
                             </div>
@@ -167,7 +185,7 @@
             </mat-tab-group>
         </div>
     </div>
-    <div *ngIf="isLoading" class="grid h-full grid-center m-auto">
+    <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
         <mat-spinner class="m-auto border-nav"></mat-spinner>
     </div>
 </div>
