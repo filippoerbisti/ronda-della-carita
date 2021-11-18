@@ -6,6 +6,9 @@
         </svg>
     </button>
     <mat-menu #menu="matMenu" class="">
+        <button mat-menu-item routerLink="/home-esterno" routerLinkActive="active">
+            <span class="">Home</span>
+        </button>
         <button mat-menu-item (click)="openDialog()" class="">
             <span class="">Cambia mansione</span>
         </button>

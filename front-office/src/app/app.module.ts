@@ -52,6 +52,8 @@ import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dial
 import { EditClientDialogComponent } from './edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -107,7 +109,13 @@ import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.
     MatRadioModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
