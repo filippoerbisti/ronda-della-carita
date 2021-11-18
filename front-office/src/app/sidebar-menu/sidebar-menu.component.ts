@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeMansionDialogComponent } from '../change-mansion-dialog/change-mansion-dialog.component';
 import axios from 'axios';
+import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -35,8 +36,12 @@ export class SidebarMenuComponent implements OnInit {
 
   }
 
-  openDialog() {
+  openMansionDialog() {
     const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
+  }
+
+  openPasswordDialog() {
+    const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
   }
 
   openSidebar() {

@@ -16,7 +16,7 @@
         <mat-list class="h-full w-60 flex flex-col justify-between">
             <div class="mt-8">
                 <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full text-lg text-white left">HOME</button></mat-list-item>
-                <mat-list-item><button mat-button (click)="openDialog()" class="w-full text-lg text-white left">CAMBIA MANSIONI</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="openMansionDialog()" class="w-full text-lg text-white left">CAMBIA MANSIONI</button></mat-list-item>
                 <mat-list-item><button mat-button routerLink="/registrazione-interno" routerLinkActive="active" class="w-full text-lg text-white left">NUOVO ASSISTITO</button></mat-list-item>
                 <mat-list-item><button mat-button routerLink="/ordine-interno" routerLinkActive="active" class="w-full text-lg text-white left">NUOVO ORDINE</button></mat-list-item>
             </div>
@@ -24,7 +24,7 @@
                 <div class="my-2">
                     <mat-divider></mat-divider>
                 </div>
-                <mat-list-item><button mat-button routerLink="/change-password" routerLinkActive="active" class="w-full text-lg text-white left">CAMBIA PASSWORD</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="openPasswordDialog()" class="w-full text-lg text-white left">CAMBIA PASSWORD</button></mat-list-item>
                 <mat-list-item><button mat-button routerLink="/login" routerLinkActive="active" class="w-full text-lg text-white left">LOGOUT</button></mat-list-item>
             </div>
         </mat-list>

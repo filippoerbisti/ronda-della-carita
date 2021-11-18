@@ -9,7 +9,7 @@
         <button mat-menu-item routerLink="/home-esterno" routerLinkActive="active">
             <span class="">Home</span>
         </button>
-        <button mat-menu-item (click)="openDialog()" class="">
+        <button mat-menu-item (click)="openMansionDialog()" class="">
             <span class="">Cambia mansione</span>
         </button>
         <button mat-menu-item routerLink="/view-registrazione-esterno" routerLinkActive="active">
@@ -18,7 +18,7 @@
         <button mat-menu-item routerLink="/view-ordine-esterno" routerLinkActive="active">
             <span>Ordini</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="openPasswordDialog()">
             <span>Cambio password</span>
         </button>
         <button mat-menu-item routerLink="/login" routerLinkActive="active">
