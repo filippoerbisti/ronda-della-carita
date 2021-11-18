@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeMansionDialogComponent } from '../change-mansion-dialog/change-mansion-dialog.component';
+import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -16,8 +17,12 @@ export class NavigationMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openDialog() {
+  openMansionDialog() {
     const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
+  }
+
+  openPasswordDialog() {
+    const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
   }
 
 }

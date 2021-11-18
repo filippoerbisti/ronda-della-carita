@@ -9,6 +9,7 @@ module.exports = {
           lavander: '#DFC5FE',
           pink: '#C83CB9',
           orange: '#EB7837',
+          gray: '#E1E1E1'
         }
       },
     },

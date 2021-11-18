@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
@@ -25,7 +24,6 @@ import { RegistrazioneInternoComponent } from './vol-interno/registrazione-inter
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'change-password', component: ChangePasswordComponent },
   { path: 'home-admin', component: HomeAdminComponent },
   { path: 'accessi-admin', component: StoricoAccessiAdminComponent },
   { path: 'user-admin', component: UserAdminComponent },

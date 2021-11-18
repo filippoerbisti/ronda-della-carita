@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-choose-mansion-dialog',
@@ -9,9 +10,15 @@ export class ChooseMansionDialogComponent implements OnInit {
 
   isLoading = false;
   
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<ChooseMansionDialogComponent>,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 
 }
