@@ -54,6 +54,7 @@ import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.com
 import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ChooseMansionDialogComponent } from './choose-mansion-dialog/choose-mansion-dialog.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { environment } from '../environments/environment';
     EditClientDialogComponent,
     EditUserDialogComponent,
     EditOrderDialogComponent,
+    ChooseMansionDialogComponent,
   ],
   imports: [
     BrowserModule,
