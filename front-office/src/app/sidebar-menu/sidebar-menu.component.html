@@ -6,7 +6,7 @@
         <div class="ml-auto text-white mr-1 text-lg">
             {{ user.nome + " " + user.cognome}}
         </div>
-        <button mat-icon-button>
+        <button mat-icon-button routerLink="/login" routerLinkActive="active">
             <mat-icon class="text-white">exit_to_app</mat-icon>
         </button>
     </div>
@@ -24,8 +24,8 @@
                 <div class="my-2">
                     <mat-divider></mat-divider>
                 </div>
-                <mat-list-item><button mat-button routerLink="/change-password" class="w-full text-lg text-white left">CAMBIA PASSWORD</button></mat-list-item>
-                <mat-list-item><button mat-button class="w-full text-lg text-white left">LOGOUT</button></mat-list-item>
+                <mat-list-item><button mat-button routerLink="/change-password" routerLinkActive="active" class="w-full text-lg text-white left">CAMBIA PASSWORD</button></mat-list-item>
+                <mat-list-item><button mat-button routerLink="/login" routerLinkActive="active" class="w-full text-lg text-white left">LOGOUT</button></mat-list-item>
             </div>
         </mat-list>
     </mat-sidenav>
