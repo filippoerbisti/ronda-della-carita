@@ -1,5 +1,5 @@
 <div class="h-screen">
-    <div *ngIf="!isLoading">
+    <div *ngIf="!isLoading" class="flex flex-col h-full">
         <app-navigation-menu></app-navigation-menu>
         <div class="text-center mb-4">
             <img class="w-44 md:w-1/4 mx-auto pt-8" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
@@ -26,15 +26,15 @@
                 </svg>
             </button>
         </form>
-        <div class="md:flex md:flex-row items-center w-full justify-center md:pt-15 space-y-3 md:space-y-0 pt-6">
-            <a routerLink="/registrazione-esterno" routerLinkActive="active" class="flex flex-col px-5 h-32 md:w-1/4">
+        <div class="md:flex md:flex-row flex flex-col flex-grow w-full justify-center md:pt-15 space-y-3 md:space-y-0 md:pt-6 mb-10">
+            <a routerLink="/registrazione-esterno" routerLinkActive="active" class="flex flex-col px-5 h-1/4 md:w-1/4">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
                     <span class="p-2 text-white">NUOVO ASSISTITO</span>
                 </button>
             </a>
-            <a routerLink="/ordine-esterno" routerLinkActive="active" class="flex flex-col px-5 h-32 md:w-1/4">
+            <a routerLink="/ordine-esterno" routerLinkActive="active" class="flex flex-col px-5 h-1/4 md:w-1/4">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
-                    <span class="p-2 text-white">NUOVO ORDINE</span>
+                    <span class="text-white">NUOVO ORDINE</span>
                 </button>
             </a>
         </div>
