@@ -1,10 +1,7 @@
 <div *ngIf="!isLoading">
-    <h2 mat-dialog-title>Modifica Ordine <span class="font-bold">N. numero</span></h2>
+    <h2 mat-dialog-title>Modifica Assistito <span class="font-bold">Nome e cognome</span></h2>
     <div>
         <form class="w-full mt-3">
-            <div class="w-full flex-col">
-                <span>Nome Cognome N. Tessera</span>
-            </div>
             <div class="w-full flex-col">
                 <mat-form-field appearance="fill" class="w-full mt-4">
                     <mat-label>Tipo documento:</mat-label>
@@ -17,7 +14,6 @@
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>N. Documento</mat-label>
                     <input type="number" matInput 
-                        
                         placeholder="N. Documento"><!--[(ngModel)]="newClient.n_documento"-->
                 </mat-form-field>
             </div>
@@ -58,7 +54,7 @@
         </mat-dialog-actions>
     </div>
 </div>
-<div *ngIf="isLoading" class="grid h-full grid-center">
+<div *ngIf="isLoading" class="h-full grid grid-center">
     <mat-spinner class="m-auto"></mat-spinner>
 </div>
 

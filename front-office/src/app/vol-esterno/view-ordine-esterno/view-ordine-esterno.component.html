@@ -1,39 +1,37 @@
 <div class="h-screen">
-    <div *ngIf="!isLoading">
+    <div *ngIf="!isLoading" class="flex flex-col">
         <app-navigation-menu></app-navigation-menu>
-        <div class="text-center mb-4">
-            <img class="w-max mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
-            <div class="flex justify-around mt-2">
-                <button mat-raised-button class="bg-bt-pink">
-                    <a routerLink="/home-esterno" routerLinkActive="active">
-                        <span class="p-2 text-white">INDIETRO</span>
-                    </a>
-                </button>
-                <button mat-raised-button class="bg-bt-orange">
-                    <a routerLink="/ordine-esterno" routerLinkActive="active">
-                        <span class="p-2 text-white">NUOVO ORDINE</span>
-                    </a>
-                </button>
+        <div class="md:w-2/3 md:mx-auto">
+            <div class="text-center mb-4 px-2">
+                <div class="font-bold text-lg mt-2 py-3 ">
+                    <span class="font-bold md:text-2xl">ORDINI</span>
+                </div>
+                <div class="flex justify-between mt-2 px-2">
+                    <button mat-raised-button class="bg-bt-pink">
+                        <a routerLink="/home-esterno" routerLinkActive="active">
+                            <span class="p-2 text-white">INDIETRO</span>
+                        </a>
+                    </button>
+                    <button mat-raised-button class="bg-bt-orange">
+                        <a routerLink="/registrazione-esterno" routerLinkActive="active">
+                            <span class="p-2 text-white">NUOVO ORDINE</span>
+                        </a>
+                    </button>
+                </div>
             </div>
-            <div class="font-bold text-lg mt-2">
-                <span class="font-bold">ORDINI REGISTRATI</span>
-            </div>
-        </div>
-        <div class="flex items-center mb-2 mx-2">
-            <input 
-                type="text"
-                class="flex-grow mx-auto pl-3 py-2 w-max max-w-xs rounded border 
-                focus:border-nav"
-                [(ngModel)]="searchOrder"
-                placeholder="Ricerca..."
-            >
-            <div class="ml-6">
+            <div class="flex items-center mx-2 px-2 space-x-3 my-6">
+                <input 
+                    type="text"
+                    class="flex-grow mx-auto pl-3 py-2 rounded border  
+                    focus:border-nav"
+                    [(ngModel)]="searchOrder"
+                    placeholder="Ricerca..."
+                >
                 <button mat-raised-button (click)="filterOrder()" class="bg-bt-orange">
-                    <span class="p-2 text-white">FILTRA</span>
+                    <span class=" text-white">CERCA</span>
                 </button>
-            </div>
-        </div>
-        <div *ngFor="let order of pageOrderSlice" class="mx-2 mt-2">
+            </div>        
+        <div *ngFor="let order of pageOrderSlice" class="mx-2 mt-2 px-2">
             <mat-expansion-panel (opened)="panelOpenState = true"
                     (closed)="panelOpenState = false" class="h-full">
                 <mat-expansion-panel-header>
@@ -56,18 +54,28 @@
                 <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }}</p>
                 <p>Punto di ritiro: {{ order.p_ritiro }}</p>
                 <table class="w-full">
-                    <tr><td>Tipo vestiario</td><td>Genere</td><td>Taglia</td><td>Quantità</td></tr>
-                    <tr><td>{{ order.t_vestiario }}</td><td>{{ order.genere }}</td><td>{{ order.taglia }}</td><td>{{ order.quantita }}</td></tr>
+                    <tr>
+                        <td>Tipo vestiario</td>
+                        <td>Genere</td>
+                        <td>Taglia</td>
+                        <td>Quantità</td>
+                    </tr>
+                    <tr>
+                        <td>{{ order.t_vestiario }}</td>
+                        <td>{{ order.genere }}</td>
+                        <td>{{ order.taglia }}</td>
+                        <td>{{ order.quantita }}</td>
+                    </tr>
                 </table>
             </mat-expansion-panel>
         </div>
         <mat-paginator [length]="this.orders.length"
-            [pageSize]="5"
+            [pageSize]="10"
             [pageSizeOptions]="pageSizeOptions"
             (page)="OnPageChange($event)">
         </mat-paginator>
     </div>
-    <div *ngIf="isLoading" class="grid h-full grid-center">
+    <div *ngIf="isLoading" class="h-full grid grid-center">
         <mat-spinner class="m-auto"></mat-spinner>
     </div>
 </div>

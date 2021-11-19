@@ -3,23 +3,21 @@
         <app-navigation-menu></app-navigation-menu>
         <div class="md:w-2/3 md:mx-auto">
             <div class="text-center mb-4 px-2">
-                <!-- <img class="w-max mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita"> -->
                 <div class="font-bold text-lg mt-2 py-3 ">
                     <span class="font-bold md:text-2xl">ASSISTITI</span>
                 </div>
                 <div class="flex justify-between mt-2 px-2">
                     <button mat-raised-button class="bg-bt-pink">
                         <a routerLink="/home-esterno" routerLinkActive="active">
-                            <span class="text-white text-xs">INDIETRO</span>
+                            <span class="p-2 text-white">INDIETRO</span>
                         </a>
                     </button>
                     <button mat-raised-button class="bg-bt-orange">
                         <a routerLink="/registrazione-esterno" routerLinkActive="active">
-                            <span class=" text-white text-xs">NUOVO ASSISTITO</span>
+                            <span class="p-2 text-white">NUOVO ASSISTITO</span>
                         </a>
                     </button>
                 </div>
-                
             </div>
             <div class="flex items-center mx-2 px-2 space-x-3 my-6">
                 <input 
@@ -29,11 +27,9 @@
                     [(ngModel)]="searchClient"
                     placeholder="Ricerca..."
                 >
-                <div class="">
-                    <button mat-raised-button (click)="filterClient()" class="bg-bt-orange">
-                        <span class=" text-white">CERCA</span>
-                    </button>
-                </div>
+                <button mat-raised-button (click)="filterClient()" class="bg-bt-orange">
+                    <span class=" text-white">CERCA</span>
+                </button>
             </div>
             <div *ngFor="let client of pageClientSlice" class="mx-2 mt-2 px-2">
                 <mat-expansion-panel (opened)="panelOpenState = true"
@@ -58,8 +54,16 @@
                     <p>Genere: {{ client.genere }}</p>
                     <p>Nazionalità: {{ client.nazionalita }}</p>
                     <table class="w-full">
-                        <tr><td>Taglia maglia</td><td>Taglia pantaloni</td><td>Taglia scarpe</td></tr>
-                        <tr><td>{{ client.t_maglietta }}</td><td>{{ client.t_pantaloni }}</td><td>{{ client.t_scarpe }}</td></tr>
+                        <tr>
+                            <td>Taglia maglia</td>
+                            <td>Taglia pantaloni</td>
+                            <td>Taglia scarpe</td>
+                        </tr>
+                        <tr>
+                            <td>{{ client.t_maglietta }}</td>
+                            <td>{{ client.t_pantaloni }}</td>
+                            <td>{{ client.t_scarpe }}</td>
+                        </tr>
                     </table>
                 </mat-expansion-panel>
             </div>
@@ -70,7 +74,7 @@
             </mat-paginator>
         </div>
         
-    <div *ngIf="isLoading" class="grid h-full grid-center">
+    <div *ngIf="isLoading" class="h-full grid grid-center">
         <mat-spinner class="m-auto"></mat-spinner>
     </div>
 </div>

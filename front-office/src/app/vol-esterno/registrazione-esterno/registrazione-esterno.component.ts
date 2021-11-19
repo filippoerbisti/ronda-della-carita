@@ -22,7 +22,6 @@ export class RegistrazioneEsternoComponent implements OnInit {
 
   isLoading = false;
 
-  //choseGender!: string;
   genders: string[] = ['Uomo', 'Donna'];
 
   tdocuments: Document[] = [
