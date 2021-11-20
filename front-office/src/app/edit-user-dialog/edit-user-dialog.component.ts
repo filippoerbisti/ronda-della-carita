@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { IUser } from '../shared/interface/iuser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -10,20 +11,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-
-interface User {
-  id: number,
-  nome: string,
-  cognome: string,
-  ruolo: string,
-  interno: boolean,
-  email: string,
-  //email_verified_at: timestamp,
-  password: string,
-  remember_token: string,
-  created_at: Date,
-  //update_at: timestamp
-};
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -38,7 +25,7 @@ export class EditUserDialogComponent implements OnInit {
 
   isLoading = false;
 
-  users: User[] = [];
+  users: IUser[] = [];
 
   checked = false;
 

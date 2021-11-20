@@ -34,8 +34,8 @@
                         <div class="font-bold">{{ history.user?.nome }} {{ history.user?.cognome }}</div>
                         <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
                         <div>Interno: 
-                            <span *ngIf="history.user?.interno == true">Sì</span>
-                            <span *ngIf="history.user?.interno == false">No</span>
+                            <span *ngIf="history.interno == true">Sì</span>
+                            <span *ngIf="history.interno == false">No</span>
                         </div>
                     </div>
                     <hr>

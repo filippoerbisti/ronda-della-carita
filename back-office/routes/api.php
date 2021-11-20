@@ -41,6 +41,12 @@ Route::get("/orders", [OrderController::class, "list"]);
 
 Route::get("/orders/{search}{status}", [OrderController::class, "filter"]);
 
+//Route::get("/orders/{fastsearch}", [OrderController::class, "fastSearch"]);
+
+Route::get("/orders/nondisp", [OrderController::class, "countOrderNonDisp"]);
+
+Route::get("/orders/inattesa", [OrderController::class, "countOrderInAttesa"]);
+
 Route::post("/order/create", [OrderController::class, "create"]);
 
 Route::delete("/order/delete", [OrderController::class, "delete"]);

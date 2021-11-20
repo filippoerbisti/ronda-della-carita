@@ -3,11 +3,10 @@ export interface IUser {
     nome: string,
     cognome: string,
     ruolo: string,
-    interno: boolean,
     email: string,
-    //email_verified_at: timestamp,
+    email_verified_at: Date,
     password: string,
     remember_token: string,
-    //created_at: timestamp,
-    //update_at: timestamp
+    created_at: Date,
+    update_at: Date
 }

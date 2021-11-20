@@ -6,67 +6,10 @@ import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete
 import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-order-dialog.component';
 import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-client-dialog.component';
 import { EditOrderDialogComponent } from 'src/app/edit-order-dialog/edit-order-dialog.component';
-
-interface User {
-  id: number,
-  nome: string,
-  cognome: string,
-  ruolo: string,
-  interno: boolean,
-  email: string,
-  //email_verified_at: timestamp,
-  password: string,
-  remember_token: string,
-  //created_at: timestamp,
-  //update_at: timestamp
-};
-
-interface Client{
-  id: number,
-  nome: string,
-  cognome: string,
-  genere: string,
-  n_documento: string,
-  t_documento: string,
-  nazionalita: string,
-  t_maglietta: string,
-  t_pantaloni: string,
-  t_scarpe: number,
-  note: string,
-  //created_at: timestamp,
-  //update_at: timestamp,
-  user_id: number,
-  user?: User
-}
-
-interface Order{
-  id: number,
-  n_ordine: number,
-  p_ritiro: string
-  genere: string,
-  t_vestiario: string,
-  taglia: string,
-  quantita: number,
-  status: string,
-  note: string,
-  //created_at: 'timestamp',
-  //update_at: 'timestamp',
-  client_id: number,
-  client?: Client,
-  user_id: number,
-  user?: User
-}
-
-interface Card {
-  id: number,
-  n_tessera: string,
-  //created_at: timestamp,
-  //update_at: timestramp,
-  client_id: number,
-  client?: Client,
-  user_id: number,
-  user?: User
-}
+import { IUser } from 'src/app/shared/interface/iuser';
+import { IClient } from 'src/app/shared/interface/iclient';
+import { IOrder } from 'src/app/shared/interface/iorder';
+import { ICard } from 'src/app/shared/interface/icard';
 
 @Component({
   selector: 'app-home-interno',
@@ -85,10 +28,10 @@ export class HomeInternoComponent implements OnInit {
     'Consegnato'
   ];
 
-  user: User[] = [];
-  clients: Client[] = [];
-  orders: Order[] = [];
-  cards: Card[] = [];
+  user: IUser[] = [];
+  clients: IClient[] = [];
+  orders: IOrder[] = [];
+  cards: ICard[] = [];
 
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);

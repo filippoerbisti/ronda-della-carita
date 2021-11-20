@@ -1,19 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
-
-interface User {
-  id: number,
-  nome: string,
-  cognome: string,
-  ruolo: string,
-  interno: boolean,
-  email: string,
-  //email_verified_at: timestamp,
-  password: string,
-  remember_token: string,
-  created_at: Date,
-  //update_at: timestamp
-};
+import { IUser } from '../shared/interface/iuser';
 
 @Component({
   selector: 'app-delete-user-dialog',
@@ -24,7 +11,7 @@ export class DeleteUserDialogComponent implements OnInit {
 
   isLoading = false;
 
-  users: User[] = [];
+  users: IUser[] = [];
 
   constructor() { }
 

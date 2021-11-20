@@ -16,7 +16,6 @@ export class SidebarAdminMenuComponent implements OnInit {
     nome: '',
     cognome: '',
     ruolo: 'string',
-    interno: 'boolean',
     email: 'string',
     password: 'string'
   };

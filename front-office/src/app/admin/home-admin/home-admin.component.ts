@@ -8,67 +8,10 @@ import { DeleteUserDialogComponent } from 'src/app/delete-user-dialog/delete-use
 import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from 'src/app/edit-user-dialog/edit-user-dialog.component';
 import { EditOrderDialogComponent } from 'src/app/edit-order-dialog/edit-order-dialog.component';
-
-interface User {
-  id: number,
-  nome: string,
-  cognome: string,
-  ruolo: string,
-  interno: boolean,
-  email: string,
-  //email_verified_at: timestamp,
-  password: string,
-  remember_token: string,
-  created_at: Date,
-  //update_at: timestamp
-};
-
-interface Client{
-  id: number,
-  nome: string,
-  cognome: string,
-  genere: string,
-  n_documento: string,
-  t_documento: string,
-  nazionalita: string,
-  t_maglietta: string,
-  t_pantaloni: string,
-  t_scarpe: number,
-  note: string,
-  //created_at: timestamp,
-  //update_at: timestamp,
-  user_id: number,
-  user?: User
-}
-
-interface Order{
-  id: number,
-  n_ordine: number,
-  p_ritiro: string
-  genere: string,
-  t_vestiario: string,
-  taglia: string,
-  quantita: number,
-  status: string,
-  note: string,
-  //created_at: 'timestamp',
-  //update_at: 'timestamp',
-  client_id: number,
-  client?: Client,
-  user_id: number,
-  user?: User
-}
-
-interface Card {
-  id: number,
-  n_tessera: string,
-  //created_at: timestamp,
-  //update_at: timestramp,
-  client_id: number,
-  client?: Client,
-  user_id: number,
-  user?: User
-}
+import { IUser } from 'src/app/shared/interface/iuser';
+import { IOrder } from 'src/app/shared/interface/iorder';
+import { ICard } from 'src/app/shared/interface/icard';
+import { IClient } from 'src/app/shared/interface/iclient';
 
 @Component({
   selector: 'app-home-admin',
@@ -87,10 +30,10 @@ export class HomeAdminComponent implements OnInit {
     'Consegnato'
   ];
 
-  users: User[] = [];
-  clients: Client[] = [];
-  orders: Order[] = [];
-  cards: Card[] = [];
+  users: IUser[] = [];
+  clients: IClient[] = [];
+  orders: IOrder[] = [];
+  cards: ICard[] = [];
 
   pageUserSlice = this.users.slice(0, 10);
   pageOrderSlice = this.orders.slice(0, 10);
@@ -101,6 +44,8 @@ export class HomeAdminComponent implements OnInit {
   state!: string;
   searchOrder!: string;
   searchClient!: string;
+  orderNonDisp!: string;
+  orderInAttesa!: string;
   
   constructor(public dialog: MatDialog) {
   }
@@ -122,6 +67,16 @@ export class HomeAdminComponent implements OnInit {
       console.log(response_order.status);
       console.log(response_order.data);
       this.orders = response_order.data;
+
+      let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
+      console.log(response_order_nondisp.status);
+      console.log(response_order_nondisp.data);
+      this.orderNonDisp = response_order_nondisp.data;
+
+      let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
+      console.log(response_order_inattesa.status);
+      console.log(response_order_inattesa.data);
+      this.orderInAttesa = response_order_inattesa.data;
     } 
     catch (err) {
       console.log(err);

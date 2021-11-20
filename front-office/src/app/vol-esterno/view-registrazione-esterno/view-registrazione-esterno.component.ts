@@ -4,22 +4,7 @@ import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete
 import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-client-dialog.component';
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
-
-interface Client{
-  id: number,
-  nome: string,
-  cognome: string,
-  genere: string,
-  n_documento: string,
-  t_documento: string,
-  nazionalita: string,
-  t_maglietta: string,
-  t_pantaloni: string,
-  t_scarpe: number,
-  note: string,
-  //created_at: timestamp,
-  //update_at: timestamp
-}
+import { IClient } from 'src/app/shared/interface/iclient';
 
 @Component({
   selector: 'app-view-registrazione-esterno',
@@ -31,7 +16,7 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  clients: Client[] = [];
+  clients: IClient[] = [];
 
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];

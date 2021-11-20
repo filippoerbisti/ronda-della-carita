@@ -7,30 +7,33 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function list() {
+    public function list()
+    {
         return User::all();
     }
 
-    public function anagrafica() {
+    public function anagrafica()
+    {
         //$id = 1;
         //return User::where('id', $id)->get();
         return User::first();
     }
 
-    public function filter($search) {
-        $user = User::where('nome', '=', $search)
-                        ->orWhere('cognome', '=', $search)
-                        ->orWhere('email', '=', $search)
-                        ->orWhere('ruolo', '=', $search)
-                        ->get();
+    public function filter($search)
+    {
+        $user = User::where('nome', 'LIKE', "%$search%")
+                    ->orWhere('cognome', 'LIKE', "%$search%")
+                    ->orWhere('email', 'LIKE', "%$search%")
+                    ->orWhere('ruolo', 'LIKE', "%$search%")
+                    ->get();
         return $user;
     }
 
-    private function pairing($newUser, $newUserData) {
+    private function pairing($newUser, $newUserData)
+    {
         $newUser->nome = $newUserData->nome;
         $newUser->cognome = $newUserData->cognome;
         $newUser->ruolo = $newUserData->ruolo;
-        $newUser->interno = $newUserData->interno;
         $newUser->email = $newUserData->email;
         $newUser->email_verified_at = $newUserData->email_verified_at;
         $newUser->password = $newUserData->password;
@@ -42,7 +45,8 @@ class UserController extends Controller
         return $newUser;
     }
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $request->validate([
             'nome' => 'required',
             'cognome' => 'required',
@@ -51,21 +55,23 @@ class UserController extends Controller
         ]);
 
         $newUserData = json_decode($request->getContent());
-        $newUser = new User();   
+        $newUser = new User();
 
         $newUser = $this->pairing($newUser, $newUserData);
         return $newUser;
     }
 
-    public function modify(Request $request, $id) {
+    public function modify(Request $request, $id)
+    {
         $user = User::find($id);
-        $newUserData = json_decode($request->getContent());   
+        $newUserData = json_decode($request->getContent());
 
         $user = $this->pairing($user, $newUserData);
         return $user;
     }
 
-    public function delete(Request $request, $id) {
+    public function delete(Request $request, $id)
+    {
         $user = User::where("id", $id)->delete();
 
         return $user;

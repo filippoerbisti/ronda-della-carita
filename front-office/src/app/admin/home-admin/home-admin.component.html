@@ -7,9 +7,9 @@
                 <div>
                     <mat-card class="text-left">
                         <p class="font-bold">Notifiche:</p>
-                        <!--<p>Accessi oggi:  </p>
-                        <p>Ci sono {{ clients.length }} in attesa</p>
-                        <p>Ci sono {{ clients.length }} non disponibili</p> -->
+                        <p>Accessi oggi:  </p>
+                        <p>Ci sono {{ orderInAttesa }} in attesa</p>
+                        <p>Ci sono {{ orderNonDisp }} non disponibili</p>
                         <p>Ci sono {{ clients.length }} assistiti registrati</p>
                         <p>Ci sono {{ orders.length }} ordini registrati</p>
                     </mat-card>
@@ -29,11 +29,11 @@
                                 </div>
                                 <div class="w-full">
                                     <input 
-                                    [(ngModel)]="searchUser"
-                                    type="text"
-                                    class="w-full flex-grow pl-3 py-2 rounded border
-                                    focus:border-nav"
-                                    placeholder="Cerca Volontario..."
+                                        [(ngModel)]="searchUser"
+                                        type="text"
+                                        class="w-full flex-grow pl-3 py-2 rounded border
+                                        focus:border-nav"
+                                        placeholder="Cerca Volontario..."
                                     >
                                 </div>
                                 <div class="ml-6">

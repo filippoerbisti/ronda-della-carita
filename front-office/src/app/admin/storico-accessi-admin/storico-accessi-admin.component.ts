@@ -1,27 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import axios from "axios";
-
-interface User {
-  id: number,
-  nome: string,
-  cognome: string,
-  ruolo: string,
-  interno: boolean,
-  email: string,
-  //email_verified_at: timestamp,
-  password: string,
-  remember_token: string,
-  //created_at: timestamp,
-  //update_at: timestamp
-};
-
-interface History {
-  id: number,
-  ultimo_accesso: Date,
-  user_id: number,
-  user?: User
-};
+import { IUser } from 'src/app/shared/interface/iuser';
+import { IHistory } from 'src/app/shared/interface/ihistory';
 
 @Component({
   selector: 'app-storico-accessi-admin',
@@ -33,7 +14,7 @@ export class StoricoAccessiAdminComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  histories: History[] = [];
+  histories: IHistory[] = [];
 
   pageHistorySlice = this.histories.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];

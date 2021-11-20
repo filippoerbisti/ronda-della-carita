@@ -3,22 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
-
-interface Client{
-  id: number,
-  nome: string,
-  cognome: string,
-  genere: string,
-  n_documento: string,
-  t_documento: string,
-  nazionalita: string,
-  t_maglietta: string,
-  t_pantaloni: string,
-  t_scarpe: number,
-  note: string,
-  //created_at: timestamp,
-  //update_at: timestamp
-}
+import { IClient } from '../shared/interface/iclient';
 
 @Component({
   selector: 'app-edit-order-dialog',
@@ -30,8 +15,8 @@ export class EditOrderDialogComponent implements OnInit {
   isLoading = false;  
 
   myControl = new FormControl();
-  clients: Client[] = [];
-  filteredClients: Observable<Client[]> | undefined;
+  clients: IClient[] = [];
+  filteredClients: Observable<IClient[]> | undefined;
 
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},
@@ -100,7 +85,7 @@ export class EditOrderDialogComponent implements OnInit {
     );
   }
 
-  private _filter(nome: string): Client[] {
+  private _filter(nome: string): IClient[] {
     const filterValue = nome.toLowerCase();
 
     return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));

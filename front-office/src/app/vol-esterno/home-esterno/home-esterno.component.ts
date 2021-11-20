@@ -14,7 +14,6 @@ export class HomeEsternoComponent implements OnInit {
     nome: 'string',
     cognome: 'string',
     ruolo: 'string',
-    interno: 'boolean',
     email: 'string',
     password: 'string'
   };

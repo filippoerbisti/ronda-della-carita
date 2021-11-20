@@ -11,44 +11,73 @@ class OrderController extends Controller
         return Order::with('client')->with('user')->get();
     }
 
+    public function countOrderInAttesa() {
+        return Order::with('client')->with('user')->where('status', '=', 'In attesa')->count();
+    }
+
+    public function countOrderNonDisp() {
+        return Order::with('client')->with('user')->where('status', '=', 'Non disponibile')->count();
+    }
+
+    // public function fastSearch($fastsearch) {
+    //     $search = Order::with('client')
+    //                     ->with('user')
+    //                     ->where('p_ritiro', '=', $fastsearch)
+    //                     ->orWhere('n_ordine', '=', $fastsearch)
+    //                     ->orWhere('t_vestiario', '=', $fastsearch)
+    //                     ->orWhere('taglia', '=', $fastsearch)
+    //                     ->get();
+    //     return $search;
+    // }
+
     public function filter($search, $status) {
-        // $order = Order::with('client')
+        $order = Order::query()
+                        ->when(!empty($search), function ($query) use ($search) {
+                            $query->with('client')
+                                    ->with('user')
+                                    ->where('p_ritiro', 'LIKE', "%$search%")
+                                    ->orWhere('n_ordine', 'LIKE', "%$search%")
+                                    ->orWhere('t_vestiario', 'LIKE', "%$search%")
+                                    ->orWhere('taglia', '=', "$search")
+                                    ->get();
+                        })
+                        ->when(!empty($search), function ($query) use ($status) {
+                            $query->with('client')
+                                    ->with('user')
+                                    ->where('status', '=', $status)
+                                    ->get();
+                        })
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+        return $order;
+        // if ($status == "" && $search != "") {
+        //     $order = Order::with('client')
         //                     ->with('user')
         //                     ->where('p_ritiro', '=', $search)
         //                     ->orWhere('n_ordine', '=', $search)
         //                     ->orWhere('t_vestiario', '=', $search)
         //                     ->orWhere('taglia', '=', $search)
-        //                     ->orwhere('status', '=', $status)
         //                     ->get();
         //     return $order;
-        if ($status == "" && $search != "") {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->where('p_ritiro', '=', $search)
-                            ->orWhere('n_ordine', '=', $search)
-                            ->orWhere('t_vestiario', '=', $search)
-                            ->orWhere('taglia', '=', $search)
-                            ->get();
-            return $order;
-        }
-        if ($search == "" && $status != "") {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->where('status', '=', $status)
-                            ->get();
-            return $order;
-        }
-        if ($search == "" && $status == "") {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->get();
-            return $order;
-        }
-        else {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->get();
-        }
+        // }
+        // if ($search == "" && $status != "") {
+        //     $order = Order::with('client')
+        //                     ->with('user')
+        //                     ->where('status', '=', $status)
+        //                     ->get();
+        //     return $order;
+        // }
+        // if ($search == "" && $status == "") {
+        //     $order = Order::with('client')
+        //                     ->with('user')
+        //                     ->get();
+        //     return $order;
+        // }
+        // else {
+        //     $order = Order::with('client')
+        //                     ->with('user')
+        //                     ->get();
+        // }
     }
 
     private function pairing($newOrder, $newOrderData) {

@@ -4,56 +4,9 @@ import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-o
 import { EditOrderDialogComponent } from 'src/app/edit-order-dialog/edit-order-dialog.component';
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
-
-interface User {
-  id: number,
-  nome: string,
-  cognome: string,
-  ruolo: string,
-  interno: boolean,
-  email: string,
-  //email_verified_at: timestamp,
-  password: string,
-  remember_token: string,
-  //created_at: timestamp,
-  //update_at: timestamp
-};
-
-interface Client{
-  id: number,
-  nome: string,
-  cognome: string,
-  genere: string,
-  n_documento: string,
-  t_documento: string,
-  nazionalita: string,
-  t_maglietta: string,
-  t_pantaloni: string,
-  t_scarpe: number,
-  note: string,
-  //created_at: timestamp,
-  //update_at: timestamp,
-  user_id: number,
-  user?: User
-}
-
-interface Order{
-  id: number,
-  n_ordine: number,
-  p_ritiro: string
-  genere: string,
-  t_vestiario: string,
-  taglia: string,
-  quantita: number,
-  status: string,
-  note: string,
-  //created_at: 'timestamp',
-  //update_at: 'timestamp',
-  client_id: number,
-  client?: Client,
-  user_id: number,
-  user1?: User
-}
+import { IUser } from 'src/app/shared/interface/iuser';
+import { IClient } from 'src/app/shared/interface/iclient';
+import { IOrder } from 'src/app/shared/interface/iorder';
 
 @Component({
   selector: 'app-view-ordine-esterno',
@@ -65,9 +18,9 @@ export class ViewOrdineEsternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  user: User[] = [];
-  clients: Client[] = [];
-  orders: Order[] = [];
+  user: IUser[] = [];
+  clients: IClient[] = [];
+  orders: IOrder[] = [];
 
   pageOrderSlice = this.orders.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];
