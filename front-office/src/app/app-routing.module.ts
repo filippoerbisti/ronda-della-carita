@@ -27,6 +27,7 @@ import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dial
 import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
 import { EditClientDialogComponent } from './edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'home-esterno', component: HomeEsternoComponent },
   { path: 'ordine-esterno', component: OrdineEsternoComponent },
   { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent },
+  { path: 'scanner-qr', component: ScannerQrComponent },
   { path: 'view-ordine-esterno', component: ViewOrdineEsternoComponent },
   { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },
   { path: 'home-interno', component: HomeInternoComponent },

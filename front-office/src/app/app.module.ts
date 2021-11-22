@@ -56,6 +56,9 @@ import { environment } from '../environments/environment';
 import { ChooseMansionDialogComponent } from './choose-mansion-dialog/choose-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
+import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +89,7 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
     EditOrderDialogComponent,
     ChooseMansionDialogComponent,
     ChangePasswordDialogComponent,
+    ScannerQrComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +116,7 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
     MatSelectModule,
     MatAutocompleteModule,
     MatCheckboxModule,
+    ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
