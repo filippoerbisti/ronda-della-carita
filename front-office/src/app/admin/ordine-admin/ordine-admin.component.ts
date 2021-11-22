@@ -78,7 +78,11 @@ export class OrdineAdminComponent implements OnInit {
 
   tvestiarioValue: any= 'maglietta';
   clientValue: any = 'Uomo';
-  tagliaValue: any= ''
+  tagliaValue: any= '';
+
+  newOrder = {
+
+  };
 
   constructor(public dialog: MatDialog) {
     

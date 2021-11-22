@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import axios from "axios";
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/delete-order-dialog/delete-order-dialog.component';
@@ -47,7 +48,9 @@ export class HomeAdminComponent implements OnInit {
   orderNonDisp!: string;
   orderInAttesa!: string;
   
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private router: Router) {
   }
 
   async ngOnInit() {
@@ -153,6 +156,7 @@ export class HomeAdminComponent implements OnInit {
 
   openDeleteUserDialog() {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent);
+    // this.router.navigate(['/user/delete', { id: userId }]);
   }
 
   openDeleteClientDialog() {

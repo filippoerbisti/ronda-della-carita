@@ -14,8 +14,7 @@ class UserController extends Controller
 
     public function anagrafica()
     {
-        //$id = 1;
-        //return User::where('id', $id)->get();
+
         return User::first();
     }
 

@@ -13,12 +13,14 @@ export class DeleteUserDialogComponent implements OnInit {
 
   users: IUser[] = [];
 
-  constructor() { }
+  userId!: any[];
+
+  constructor() {}
 
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/users");
+      let response = await axios.get("http://127.0.0.1:8000/api/users/" + this.userId);
       console.log(response.status);
       console.log(response.data);
       this.users = response.data;

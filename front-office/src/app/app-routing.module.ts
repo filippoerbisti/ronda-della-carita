@@ -20,6 +20,13 @@ import { HomeInternoComponent } from './vol-interno/home-interno/home-interno.co
 import { OrdineInternoComponent } from './vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './vol-interno/registrazione-interno/registrazione-interno.component';
 
+import { DeleteOrderDialogComponent } from './delete-order-dialog/delete-order-dialog.component';
+import { DeleteClientDialogComponent } from './delete-client-dialog/delete-client-dialog.component';
+import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
+
+import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
+import { EditClientDialogComponent } from './edit-client-dialog/edit-client-dialog.component';
+import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 
 
 const routes: Routes = [
@@ -37,6 +44,12 @@ const routes: Routes = [
   { path: 'home-interno', component: HomeInternoComponent },
   { path: 'ordine-interno', component: OrdineInternoComponent },
   { path: 'registrazione-interno', component: RegistrazioneInternoComponent },
+  { path: 'order/delete/:id', component: DeleteOrderDialogComponent },
+  { path: 'client/delete/:id', component: DeleteClientDialogComponent },
+  { path: 'user/delete/:id', component: DeleteUserDialogComponent },
+  { path: 'order/edit/:id', component: EditOrderDialogComponent },
+  { path: 'client/edit/:id', component: EditClientDialogComponent },
+  { path: 'user/edit/:id', component: EditUserDialogComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
