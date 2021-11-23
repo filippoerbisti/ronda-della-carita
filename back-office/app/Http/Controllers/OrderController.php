@@ -13,6 +13,8 @@ class OrderController extends Controller
 
     public function countOrderInAttesa() {
         return Order::with('client')->with('user')->where('status', '=', 'In attesa')->count();
+        //$orderCount = $order->count();
+        //return $order;
     }
 
     public function countOrderNonDisp() {
