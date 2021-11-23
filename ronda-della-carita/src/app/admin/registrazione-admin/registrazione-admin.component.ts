@@ -4,6 +4,8 @@ import axios from "axios";
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
+import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 interface Document {
   value: string;
@@ -16,11 +18,11 @@ interface Value {
 }
 
 @Component({
-  selector: 'app-registrazione-interno',
-  templateUrl: './registrazione-interno.component.html',
-  styleUrls: ['./registrazione-interno.component.css']
+  selector: 'app-registrazione-admin',
+  templateUrl: './registrazione-admin.component.html',
+  styleUrls: ['./registrazione-admin.component.css']
 })
-export class RegistrazioneInternoComponent implements OnInit {
+export class RegistrazioneAdminComponent implements OnInit {
 
   isLoading = false;
 
@@ -80,22 +82,45 @@ export class RegistrazioneInternoComponent implements OnInit {
     {value: 45, viewValue: 45},
     {value: 46, viewValue: 46},
   ];
-  
-  constructor(public dialog: MatDialog) {
 
-  }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  durationInSeconds = 3;
+  
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    public router:Router
+    ) { }
 
   ngOnInit(): void {
   }
 
-  // async createClient() {
-  //   try {
-  //     let response = await axios.put("http://127.0.0.1:8000/api/client/create", this.newClient);
-  //     console.log(response.data);
-  //   }
-  //   catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  createClient() {
+    //try {
+//     let response = await axios.put("http://127.0.0.1:8000/api/client/create", this.newClient);
+//     console.log(response.data);
+//   }
+//   catch (err) {
+//     console.log(err);
+//   }
+// if(tuttto bene con i dati e salva nel db) {
+//   this.router.navigateByUrl('/home-interno');
+//   this.snackBar.open("Ordine creato con successo!", '', {
+//   horizontalPosition: this.horizontalPosition,
+//   duration: this.durationInSeconds * 1000
+// })
+// } else {
+//   errore dati sbagliati o qualcosa non va
+//   this.snackBar.open("Ordine creato con successo!", '', {
+//   horizontalPosition: this.horizontalPosition,
+//   duration: this.durationInSeconds * 1000
+// })
+// }
+      this.router.navigateByUrl('/home-admin');
+      this.snackBar.open("Assistito registrato con successo!", '', {
+      horizontalPosition: this.horizontalPosition,
+      duration: this.durationInSeconds * 1000
+    })
+  }
 
 }

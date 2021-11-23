@@ -45,8 +45,8 @@ export class HomeAdminComponent implements OnInit {
   state!: string;
   searchOrder!: string;
   searchClient!: string;
-  orderNonDisp!: string;
-  orderInAttesa!: string;
+  orderNonDisp!: number;
+  orderInAttesa!: number;
   
   constructor(
     public dialog: MatDialog,

@@ -25,6 +25,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
@@ -116,6 +117,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     MatSelectModule,
     MatAutocompleteModule,
     MatCheckboxModule,
+    MatSnackBarModule,
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

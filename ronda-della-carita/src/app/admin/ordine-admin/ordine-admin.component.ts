@@ -1,29 +1,31 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
 import { IClient } from 'src/app/shared/interface/iclient';
+import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ordine-interno',
-  templateUrl: './ordine-interno.component.html',
-  styleUrls: ['./ordine-interno.component.css']
+  selector: 'app-ordine-admin',
+  templateUrl: './ordine-admin.component.html',
+  styleUrls: ['./ordine-admin.component.css']
 })
-export class OrdineInternoComponent implements OnInit {
+export class OrdineAdminComponent implements OnInit {
 
   isLoading = false;  
-  nm=""
-  gen=""
+  nm = "";
+  gen = "";
   search: IClient[] = [];
   myControl = new FormControl();
   clients: IClient[] = [];
   filteredClients: Observable<IClient[]> | undefined;
 
-  choseGender="Uomo"
+  choseGender = "Uomo";
   genders: string[] = ['Uomo', 'Donna'];
-  quantita= 1;
+  quantita = 1;
 
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},
@@ -78,10 +80,20 @@ export class OrdineInternoComponent implements OnInit {
 
   tvestiarioValue: any= 'maglietta';
   clientValue: any = 'Uomo';
-  tagliaValue: any= ''
+  tagliaValue: any= '';
 
-  constructor(public dialog: MatDialog) {
-  }
+  newOrder = {
+
+  };
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  durationInSeconds = 3;
+
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    public router:Router
+    ) { }
   
   async ngOnInit() {
     this.isLoading = true;
@@ -95,6 +107,7 @@ export class OrdineInternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
+
     this.filteredClients = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.nome)),
@@ -102,15 +115,16 @@ export class OrdineInternoComponent implements OnInit {
       
     );
   }
+
   public sea(){
-    if(this.nm!=""){
-      let nmo=this.nm.split(' ');
-      for(var i=0; i<this.clients.length;i++){
-        if(this.clients[i].nome==nmo[0] && this.clients[i].cognome==nmo[1]){
-          if(this.search.length==0){
+    if(this.nm != ""){
+      let nmo = this.nm.split(' ');
+      for(var i = 0; i < this.clients.length; i++){
+        if(this.clients[i].nome == nmo[0] && this.clients[i].cognome == nmo[1]){
+          if(this.search.length == 0){
             this.search.push(this.clients[i]);
-          }else{
-            this.search.splice(0,this.search.length)
+          } else {
+            this.search.splice(0, this.search.length)
             this.search.push(this.clients[i]);
           }
         }
@@ -118,18 +132,19 @@ export class OrdineInternoComponent implements OnInit {
     }
     this.change()
   }
+
   public change(){
-    if(this.search.length!=0){
-      if(this.search[0].genere=='M')
-        this.choseGender="Uomo";
+    if(this.search.length != 0){
+      if(this.search[0].genere == 'M')
+        this.choseGender = "Uomo";
       else
-        this.choseGender="Donna"
-      if(this.tvestiarioValue=='maglietta')
-        this.tagliaValue=this.search[0].t_maglietta;
-      else if(this.tvestiarioValue=='scarpe')
-        this.tagliaValue=this.search[0].t_scarpe;
+        this.choseGender = "Donna"
+      if(this.tvestiarioValue == 'maglietta')
+        this.tagliaValue = this.search[0].t_maglietta;
+      else if(this.tvestiarioValue == 'scarpe')
+        this.tagliaValue = this.search[0].t_scarpe;
       else
-        this.tagliaValue=parseInt(this.search[0].t_pantaloni);
+        this.tagliaValue = parseInt(this.search[0].t_pantaloni);
     }
   }
   /*ngDoCheck() {
@@ -137,7 +152,35 @@ export class OrdineInternoComponent implements OnInit {
   }*/
   private _filter(nome: string): IClient[] {
     const filterValue = nome.toLowerCase();
-
     return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));
   }
+
+  createOrder() {
+    //try {
+//     let response = await axios.put("http://127.0.0.1:8000/api/client/create", this.newClient);
+//     console.log(response.data);
+//   }
+//   catch (err) {
+//     console.log(err);
+//   }
+// if(tuttto bene con i dati e salva nel db) {
+//   this.router.navigateByUrl('/home-interno');
+//   this.snackBar.open("Ordine creato con successo!", '', {
+//   horizontalPosition: this.horizontalPosition,
+//   duration: this.durationInSeconds * 1000
+// })
+// } else {
+//   errore dati sbagliati o qualcosa non va
+//   this.snackBar.open("Ordine creato con successo!", '', {
+//   horizontalPosition: this.horizontalPosition,
+//   duration: this.durationInSeconds * 1000
+// })
+// }
+      this.router.navigateByUrl('/home-admin');
+      this.snackBar.open("Ordine creato con successo!", '', {
+      horizontalPosition: this.horizontalPosition,
+      duration: this.durationInSeconds * 1000
+    })
+  }
+
 }
