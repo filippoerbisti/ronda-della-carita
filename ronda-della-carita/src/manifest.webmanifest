@@ -6,5 +6,8 @@
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
-  "icons": "assets/icon-ronda.jpg"
+  "icons": {
+    "src": "assets/icon-ronda.jpg",
+    "type": "image/jpg"
+  }
 }
