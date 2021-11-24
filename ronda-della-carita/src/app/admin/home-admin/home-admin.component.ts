@@ -47,11 +47,12 @@ export class HomeAdminComponent implements OnInit {
   searchClient!: string;
   orderNonDisp!: number;
   orderInAttesa!: number;
+  accessiOggi!: number;
   
   constructor(
     public dialog: MatDialog,
-    private router: Router) {
-  }
+    private router: Router
+    ) { }
 
   async ngOnInit() {
     this.isLoading = true;
@@ -80,6 +81,11 @@ export class HomeAdminComponent implements OnInit {
       console.log(response_order_inattesa.status);
       console.log(response_order_inattesa.data);
       this.orderInAttesa = response_order_inattesa.data;
+
+      let response_accessi_oggi = await axios.get("http://127.0.0.1:8000/api/history/accessi");
+      console.log(response_accessi_oggi.status);
+      console.log(response_accessi_oggi.data);
+      this.accessiOggi = response_accessi_oggi.data;
     } 
     catch (err) {
       console.log(err);

@@ -41,6 +41,8 @@ export class HomeInternoComponent implements OnInit {
   state!: string;
   searchOrder!: string;
   searchClient!: string;
+  orderNonDisp!: number;
+  orderInAttesa!: number;
   
   constructor(
     public dialog: MatDialog,
@@ -64,6 +66,16 @@ export class HomeInternoComponent implements OnInit {
       console.log(response_order.status);
       console.log(response_order.data);
       this.orders = response_order.data;
+
+      let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
+      console.log(response_order_nondisp.status);
+      console.log(response_order_nondisp.data);
+      this.orderNonDisp = response_order_nondisp.data;
+
+      let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
+      console.log(response_order_inattesa.status);
+      console.log(response_order_inattesa.data);
+      this.orderInAttesa = response_order_inattesa.data;
     } 
     catch (err) {
       console.log(err);
