@@ -20,4 +20,12 @@ export class ChangeMansionDialogComponent implements OnInit {
     console.log(this.current_route);
   }
 
+  goToHomeInterno() {
+    this.router.navigateByUrl('/home-interno');
+  }
+
+  goToHomeEsterno() {
+    this.router.navigateByUrl('/home-esterno');
+  }
+
 }

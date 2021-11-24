@@ -10,6 +10,7 @@ import { IUser } from 'src/app/shared/interface/iuser';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-interno',
@@ -41,8 +42,10 @@ export class HomeInternoComponent implements OnInit {
   searchOrder!: string;
   searchClient!: string;
   
-  constructor(public dialog: MatDialog) {
-  }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+    ) {}
 
   async ngOnInit() {
     this.isLoading = true;
@@ -69,6 +72,14 @@ export class HomeInternoComponent implements OnInit {
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
   }  
+
+  goToRegistrazioneInterno() {
+    this.router.navigateByUrl('/registrazione-interno');
+  }
+
+  goToOrdineInterno() {
+    this.router.navigateByUrl('/ordine-interno');
+  }
 
   OnPageChange(event: PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;

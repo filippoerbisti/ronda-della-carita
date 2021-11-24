@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { Router } from '@angular/router';
 import { countries } from 'src/app/shared/store/country-data-store';
 
 interface Document {
@@ -67,9 +68,13 @@ export class RegistrazioneEsternoComponent implements OnInit {
     {value: 46, viewValue: 46},
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToHomeEsterno() {
+    this.router.navigateByUrl('/home-esterno');
   }
 
 }

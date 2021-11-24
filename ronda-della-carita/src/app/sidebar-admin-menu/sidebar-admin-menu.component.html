@@ -6,7 +6,7 @@
         <div class="ml-auto text-white mr-1 text-lg">
             {{ user.nome + " " + user.cognome}}
         </div>
-        <button mat-icon-button routerLink="/login" routerLinkActive="active">
+        <button mat-icon-button (click)="goToLogin()">
             <mat-icon class="text-white">exit_to_app</mat-icon>
         </button>
     </div>
@@ -15,19 +15,19 @@
     <mat-sidenav #sidebarRef opened mode="side" class="pb-3 bg-nav mt-10 flex inset-y-0 left-0 z-50" [(opened)]="isSidebarOpen">
         <mat-list class="h-full w-60 flex flex-col justify-between">
             <div class="mt-8">
-                <mat-list-item><button mat-button routerLink="/home-admin" routerLinkActive="active" class="w-full text-lg text-white left">HOME</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/registrazione-admin" routerLinkActive="active" class="w-full text-lg text-white left">RICHIESTE CONFERMA</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/accessi-admin" routerLinkActive="active" class="w-full text-lg text-white left">STORICO ACCESSI</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/user-admin" routerLinkActive="active" class="w-full text-lg text-white left">NUOVO VOLONTARIO</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/registrazione-admin" routerLinkActive="active" class="w-full text-lg text-white left">NUOVO ASSISTITO</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/ordine-admin" routerLinkActive="active" class="w-full text-lg text-white left">NUOVO ORDINE</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToHomeAdmin()" class="w-full text-lg text-white left">HOME</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToRichiesteAdmin()" class="w-full text-lg text-white left">RICHIESTE CONFERMA</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToAccessiAdmin()" class="w-full text-lg text-white left">STORICO ACCESSI</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToUserAdmin()" class="w-full text-lg text-white left">NUOVO VOLONTARIO</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToRegistrazioneAdmin()" class="w-full text-lg text-white left">NUOVO ASSISTITO</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToOrdineAdmin()" class="w-full text-lg text-white left">NUOVO ORDINE</button></mat-list-item>
             </div>
             <div class="mb-8">
                 <div class="my-2">
                     <mat-divider></mat-divider>
                 </div>
                 <mat-list-item><button mat-button (click)="openPasswordDialog()" class="w-full text-lg text-white left">CAMBIA PASSWORD</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/login" routerLinkActive="active" class="w-full text-lg text-white left">LOGOUT</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToLogin()" class="w-full text-lg text-white left">LOGOUT</button></mat-list-item>
             </div>
         </mat-list>
     </mat-sidenav>

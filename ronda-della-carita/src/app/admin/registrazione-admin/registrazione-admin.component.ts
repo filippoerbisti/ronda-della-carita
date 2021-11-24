@@ -95,6 +95,10 @@ export class RegistrazioneAdminComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToHomeAdmin() {
+    this.router.navigateByUrl('/home-admin');
+  }
+
   createClient() {
     //try {
 //     let response = await axios.put("http://127.0.0.1:8000/api/client/create", this.newClient);

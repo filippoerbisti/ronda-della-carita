@@ -52,6 +52,10 @@ export class UserAdminComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToHomeAdmin() {
+    this.router.navigateByUrl('/home-admin');
+  }
+
   async createUser() {
     // try {
     //   let response = await axios.post("http://127.0.0.1:8000/api/user/create", this.newUser);

@@ -110,6 +110,11 @@ export class OrdineInternoComponent implements OnInit {
       
     );
   }
+
+  goToHomeInterno() {
+    this.router.navigateByUrl('/home-interno');
+  }
+  
   public sea(){
     if(this.nm!=""){
       let nmo=this.nm.split(' ');

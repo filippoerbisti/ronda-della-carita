@@ -21,7 +21,7 @@
                             <div class="flex mb-4 pt-2">
                                 <div class="mr-6">
                                     <button mat-raised-button class="bg-bt-orange">
-                                        <a routerLink="/ordine-interno" routerLinkActive="active">
+                                        <a (click)="goToOrdineInterno()">
                                             <span class="p-2 text-white">NUOVO ORDINE</span>
                                         </a>
                                     </button>
@@ -119,7 +119,7 @@
                             <div class="flex mb-4 pt-2">
                                 <div class="mr-6">
                                     <button mat-raised-button class="bg-bt-orange">
-                                        <a routerLink="/registrazione-interno" routerLinkActive="active">
+                                        <a (click)="goToRegistrazioneInterno()">
                                             <span class="p-2 text-white">NUOVO ASSISTITO</span>
                                         </a>
                                     </button>

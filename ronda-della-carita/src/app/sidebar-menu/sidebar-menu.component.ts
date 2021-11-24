@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangeMansionDialogComponent } from '../change-mansion-dialog/change-mansion-dialog.component';
 import axios from 'axios';
 import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -21,7 +22,10 @@ export class SidebarMenuComponent implements OnInit {
     password: 'string'
   };
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+    ) { }
 
   async ngOnInit() {
 
@@ -33,6 +37,22 @@ export class SidebarMenuComponent implements OnInit {
       console.log(err);
     }
 
+  }
+
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+  }
+
+  goToHomeInterno() {
+    this.router.navigateByUrl('/home-interno');
+  }
+
+  goToRegistrazioneInterno() {
+    this.router.navigateByUrl('/registrazione-interno');
+  }
+
+  goToOrdineInterno() {
+    this.router.navigateByUrl('/ordine-interno');
   }
 
   openMansionDialog() {

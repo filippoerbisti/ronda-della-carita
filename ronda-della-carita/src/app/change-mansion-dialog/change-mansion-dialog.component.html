@@ -3,7 +3,7 @@
     <div *ngIf="current_route === home_esterno_url">
         <h1>INTERNO</h1>
         <mat-dialog-actions align="end">
-            <button mat-button routerLink="/home-interno" routerLinkActive="active" mat-dialog-close class="bg-bt-orange">
+            <button mat-button (click)="goToHomeInterno()" mat-dialog-close class="bg-bt-orange">
                 <span class="p-2 text-white">CONFERMA</span>
             </button>
             <button mat-button cdkFocusInitial mat-dialog-close>
@@ -14,7 +14,7 @@
     <div *ngIf="current_route != home_esterno_url">
         <h1>ESTERNO</h1>
         <mat-dialog-actions align="end">
-            <button mat-button routerLink="/home-esterno" routerLinkActive="active" mat-dialog-close class="bg-bt-orange">
+            <button mat-button (click)="goToHomeEsterno()" mat-dialog-close class="bg-bt-orange">
                 <span class="p-2 text-white">CONFERMA</span>
             </button>
             <button mat-button cdkFocusInitial mat-dialog-close>

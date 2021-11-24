@@ -5,22 +5,22 @@
         </svg>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/home-esterno" routerLinkActive="active">
+        <button mat-menu-item (click)="goToHomeEsterno()">
             <span>HOME</span>
         </button>
         <button mat-menu-item (click)="openMansionDialog()">
             <span>CAMBIA MANSIONE</span>
         </button>
-        <button mat-menu-item routerLink="/view-registrazione-esterno" routerLinkActive="active">
+        <button mat-menu-item (click)="goToViewRegistrazioneEsterno()">
             <span>ASSISTITI</span>
         </button>
-        <button mat-menu-item routerLink="/view-ordine-esterno" routerLinkActive="active">
+        <button mat-menu-item (click)="goToViewOrdineEsterno()">
             <span>ORDINI</span>
         </button>
         <button mat-menu-item (click)="openPasswordDialog()">
             <span>CAMBIA PASSWORD</span>
         </button>
-        <button mat-menu-item routerLink="/login" routerLinkActive="active">
+        <button mat-menu-item (click)="goToLogin()">
             <span>ESCI</span>
         </button>
     </mat-menu>

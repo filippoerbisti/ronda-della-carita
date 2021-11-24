@@ -33,53 +33,53 @@ class OrderController extends Controller
     // }
 
     public function filter($search, $status) {
-        $order = Order::query()
-                        ->when(!empty($search), function ($query) use ($search) {
-                            $query->with('client')
-                                    ->with('user')
-                                    ->where('p_ritiro', 'LIKE', "%$search%")
-                                    ->orWhere('n_ordine', 'LIKE', "%$search%")
-                                    ->orWhere('t_vestiario', 'LIKE', "%$search%")
-                                    ->orWhere('taglia', '=', "$search")
-                                    ->get();
-                        })
-                        ->when(!empty($search), function ($query) use ($status) {
-                            $query->with('client')
-                                    ->with('user')
-                                    ->where('status', '=', $status)
-                                    ->get();
-                        })
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
-        return $order;
-        // if ($status == "" && $search != "") {
-        //     $order = Order::with('client')
-        //                     ->with('user')
-        //                     ->where('p_ritiro', '=', $search)
-        //                     ->orWhere('n_ordine', '=', $search)
-        //                     ->orWhere('t_vestiario', '=', $search)
-        //                     ->orWhere('taglia', '=', $search)
-        //                     ->get();
-        //     return $order;
-        // }
-        // if ($search == "" && $status != "") {
-        //     $order = Order::with('client')
-        //                     ->with('user')
-        //                     ->where('status', '=', $status)
-        //                     ->get();
-        //     return $order;
-        // }
-        // if ($search == "" && $status == "") {
-        //     $order = Order::with('client')
-        //                     ->with('user')
-        //                     ->get();
-        //     return $order;
-        // }
-        // else {
-        //     $order = Order::with('client')
-        //                     ->with('user')
-        //                     ->get();
-        // }
+        // $order = Order::query()
+        //                 ->when(!empty($search), function ($query) use ($search) {
+        //                     $query->with('client')
+        //                             ->with('user')
+        //                             ->where('p_ritiro', 'LIKE', "%$search%")
+        //                             ->orWhere('n_ordine', 'LIKE', "%$search%")
+        //                             ->orWhere('t_vestiario', 'LIKE', "%$search%")
+        //                             ->orWhere('taglia', '=', "$search")
+        //                             ->get();
+        //                 })
+        //                 ->when(!empty($search), function ($query) use ($status) {
+        //                     $query->with('client')
+        //                             ->with('user')
+        //                             ->where('status', '=', $status)
+        //                             ->get();
+        //                 })
+        //                 ->orderBy('created_at', 'DESC')
+        //                 ->get();
+        // return $order;
+        if ($status == "" && $search != "") {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->where('p_ritiro', '=', $search)
+                            ->orWhere('n_ordine', '=', $search)
+                            ->orWhere('t_vestiario', '=', $search)
+                            ->orWhere('taglia', '=', $search)
+                            ->get();
+            return $order;
+        }
+        if ($search == "" && $status != "") {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->where('status', '=', $status)
+                            ->get();
+            return $order;
+        }
+        if ($search == "" && $status == "") {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->get();
+            return $order;
+        }
+        else {
+            $order = Order::with('client')
+                            ->with('user')
+                            ->get();
+        }
     }
 
     private function pairing($newOrder, $newOrderData) {

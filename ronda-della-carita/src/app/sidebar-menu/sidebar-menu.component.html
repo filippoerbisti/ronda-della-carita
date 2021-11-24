@@ -6,7 +6,7 @@
         <div class="ml-auto mr-1 text-white text-lg">
             {{ user.nome + " " + user.cognome}}
         </div>
-        <button mat-icon-button routerLink="/login" routerLinkActive="active">
+        <button mat-icon-button (click)="goToLogin()">
             <mat-icon class="text-white">exit_to_app</mat-icon>
         </button>
     </div>
@@ -15,17 +15,17 @@
     <mat-sidenav #sidebarRef opened mode="side" class="flex inset-y-0 left-0 z-50 pb-3 mt-10 bg-nav" [(opened)]="isSidebarOpen">
         <mat-list class="h-full w-60 flex flex-col justify-between">
             <div class="mt-8">
-                <mat-list-item><button mat-button routerLink="/home-interno" routerLinkActive="active" class="w-full left text-lg text-white">HOME</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToHomeInterno()" class="w-full left text-lg text-white">HOME</button></mat-list-item>
                 <mat-list-item><button mat-button (click)="openMansionDialog()" class="w-full left text-lg text-white">CAMBIA MANSIONI</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/registrazione-interno" routerLinkActive="active" class="w-full left text-lg text-white">NUOVO ASSISTITO</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/ordine-interno" routerLinkActive="active" class="w-full left text-lg text-white">NUOVO ORDINE</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToRegistrazioneInterno()" class="w-full left text-lg text-white">NUOVO ASSISTITO</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToOrdineInterno()" class="w-full left text-lg text-white">NUOVO ORDINE</button></mat-list-item>
             </div>
             <div class="mb-8">
                 <div class="my-2">
                     <mat-divider></mat-divider>
                 </div>
                 <mat-list-item><button mat-button (click)="openPasswordDialog()" class="w-full left text-lg text-white">CAMBIA PASSWORD</button></mat-list-item>
-                <mat-list-item><button mat-button routerLink="/login" routerLinkActive="active" class="w-full left text-lg text-white">ESCI</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToLogin()" class="w-full left text-lg text-white">ESCI</button></mat-list-item>
             </div>
         </mat-list>
     </mat-sidenav>

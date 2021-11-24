@@ -5,6 +5,7 @@ import { EditClientDialogComponent } from 'src/app/edit-client-dialog/edit-clien
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
 import { IClient } from 'src/app/shared/interface/iclient';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-registrazione-esterno',
@@ -23,9 +24,10 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
 
   searchClient!: string;
 
-  constructor(public dialog: MatDialog) { 
-
-  }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+    ) { }
 
   async ngOnInit() {
     this.isLoading = true;
@@ -40,6 +42,14 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
     }
     this.isLoading = false;
     this.pageClientSlice = this.clients.slice(0, 10);
+  }
+
+  goToRegistrazioneEsterno() {
+    this.router.navigateByUrl('/registrazione-esterno');
+  }
+
+  goToHomeEsterno() {
+    this.router.navigateByUrl('/home-esterno');
   }
 
   async filterClient() {

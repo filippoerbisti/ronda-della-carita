@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import axios from "axios";
 
 @Component({
@@ -18,7 +19,7 @@ export class HomeEsternoComponent implements OnInit {
     password: 'string'
   };
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   async ngOnInit() {
@@ -33,6 +34,18 @@ export class HomeEsternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
+  }
+
+  goToRegistrazioneEsterno() {
+    this.router.navigateByUrl('/registrazione-esterno');
+  }
+
+  goToOrdineEsterno() {
+    this.router.navigateByUrl('/ordine-esterno');
+  }
+
+  goToScannerQr() {
+    this.router.navigateByUrl('/scanner-qr');
   }
 
 }

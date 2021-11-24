@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ChangeMansionDialogComponent } from '../change-mansion-dialog/change-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
 
@@ -10,11 +11,16 @@ import { ChangePasswordDialogComponent } from '../change-password-dialog/change-
 })
 export class NavigationMenuComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {
-    
-  }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  goToHomeEsterno() {
+    this.router.navigateByUrl('/home-esterno');
   }
 
   openMansionDialog() {
@@ -23,6 +29,18 @@ export class NavigationMenuComponent implements OnInit {
 
   openPasswordDialog() {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
+  }
+
+  goToViewRegistrazioneEsterno() {
+    this.router.navigateByUrl('/view-registrazione-esterno');
+  }
+
+  goToViewOrdineEsterno() {
+    this.router.navigateByUrl('/view-ordine-esterno');
+  }
+
+  goToLogin() {
+    this.router.navigateByUrl('/login');
   }
 
 }

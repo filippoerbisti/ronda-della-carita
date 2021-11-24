@@ -95,6 +95,10 @@ export class RegistrazioneInternoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToHomeInterno() {
+    this.router.navigateByUrl('/home-interno');
+  }
+
   createClient() {
           //try {
       //     let response = await axios.put("http://127.0.0.1:8000/api/client/create", this.newClient);

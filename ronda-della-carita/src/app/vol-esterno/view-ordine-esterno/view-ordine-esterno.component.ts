@@ -7,6 +7,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { IUser } from 'src/app/shared/interface/iuser';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IOrder } from 'src/app/shared/interface/iorder';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-ordine-esterno',
@@ -27,8 +28,10 @@ export class ViewOrdineEsternoComponent implements OnInit {
 
   searchOrder!: string;
 
-  constructor(public dialog: MatDialog) {
-  }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+    ) { }
 
   async ngOnInit() {
     this.isLoading = true;
@@ -53,6 +56,14 @@ export class ViewOrdineEsternoComponent implements OnInit {
     }
     this.isLoading = false;
     this.pageOrderSlice = this.orders.slice(0, 10);
+  }
+
+  goToOrdineEsterno() {
+    this.router.navigateByUrl('/ordine-esterno');
+  }
+
+  goToHomeEsterno() {
+    this.router.navigateByUrl('/home-esterno');
   }
 
   async filterOrder() {

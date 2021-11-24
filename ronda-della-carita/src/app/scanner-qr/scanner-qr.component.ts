@@ -25,4 +25,8 @@ export class ScannerQrComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToHomeEsterno() {
+    this.router.navigateByUrl('/home-esterno');
+  }
+
 }

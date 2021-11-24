@@ -24,7 +24,7 @@
                                 <mat-label>Password</mat-label>
                                 <input type="password" matInput placeholder="Password">
                             </mat-form-field>
-                            <a routerLink="/change-password" routerLinkActive="active" class="text-bt-orange hover:underline">Password dimenticata?</a>
+                            <a (click)="goToChangePassword()" class="text-bt-orange hover:underline">Password dimenticata?</a>
                             <div class="mt-4">
                                 <button class="w-full h-10" mat-raised-button color="accent" (click)="login()">
                                     <span class="p-2 text-white">ACCEDI</span>

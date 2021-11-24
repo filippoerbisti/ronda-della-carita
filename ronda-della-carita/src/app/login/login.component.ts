@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChooseMansionDialogComponent } from '../choose-mansion-dialog/choose-mansion-dialog.component';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -25,9 +26,16 @@ export class LoginComponent implements OnInit {
 
   isLoading = false;
   
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  goToChangePassword() {
+    this.router.navigateByUrl('/change-password');
   }
 
   login() {

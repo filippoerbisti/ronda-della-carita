@@ -8,12 +8,12 @@
                 </div>
                 <div class="flex justify-between mt-2 px-2">
                     <button mat-raised-button class="bg-bt-pink">
-                        <a routerLink="/home-esterno" routerLinkActive="active">
+                        <a (click)="goToHomeEsterno()">
                             <span class="p-2 text-white">INDIETRO</span>
                         </a>
                     </button>
                     <button mat-raised-button class="bg-bt-orange">
-                        <a routerLink="/ordine-esterno" routerLinkActive="active">
+                        <a (click)="goToOrdineEsterno()">
                             <span class="p-2 text-white">NUOVO ORDINE</span>
                         </a>
                     </button>

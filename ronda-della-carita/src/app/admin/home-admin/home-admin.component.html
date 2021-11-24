@@ -23,7 +23,7 @@
                             <div class="flex mb-4 pt-2">
                                 <div class="mr-6">
                                     <button mat-raised-button class="bg-bt-orange">
-                                        <a routerLink="/user-admin" routerLinkActive="active">
+                                        <a (click)="goToUserAdmin()">
                                             <span class="p-2 text-white">NUOVO VOLONTARIO</span>
                                         </a>
                                     </button>
@@ -84,7 +84,7 @@
                             <div class="flex mb-4 pt-2">
                                 <div class="mr-6">
                                     <button mat-raised-button class="bg-bt-orange">
-                                        <a routerLink="/ordine-admin" routerLinkActive="active">
+                                        <a (click)="goToOrderAdmin()">
                                             <span class="p-2 text-white">NUOVO ORDINE</span>
                                         </a>
                                     </button>
@@ -182,7 +182,7 @@
                             <div class="flex mb-4 pt-2">
                                 <div class="mr-6">
                                     <button mat-raised-button class="bg-bt-orange">
-                                        <a routerLink="/registrazione-admin" routerLinkActive="active">
+                                        <a (click)="goToClientAdmin()">
                                             <span class="p-2 text-white">NUOVO ASSISTITO</span>
                                         </a>
                                     </button>

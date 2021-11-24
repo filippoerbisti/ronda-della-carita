@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import axios from "axios";
 import { IClient } from 'src/app/shared/interface/iclient';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ordine-esterno',
@@ -77,8 +78,9 @@ export class OrdineEsternoComponent implements OnInit {
 
   tvestiarioValue: any= 'maglietta';
   clientValue: any = 'Uomo';
-  tagliaValue: any= ''
-  constructor() { }
+  tagliaValue: any= '';
+
+  constructor(private router: Router) { }
 
   async ngOnInit() {
     this.isLoading = true;
@@ -98,8 +100,12 @@ export class OrdineEsternoComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.nome)),
       map(nome => (nome ? this._filter(nome) : this.clients.slice())),
     );
-    
   }
+
+  goToHomeEsterno() {
+    this.router.navigateByUrl('/home-esterno');
+  }
+
   public sea(){
     if(this.nm!=""){
       let nmo=this.nm.split(' ');

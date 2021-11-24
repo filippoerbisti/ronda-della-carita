@@ -116,6 +116,10 @@ export class OrdineAdminComponent implements OnInit {
     );
   }
 
+  goToHomeAdmin() {
+    this.router.navigateByUrl('/home-admin');
+  }
+
   public sea(){
     if(this.nm != ""){
       let nmo = this.nm.split(' ');

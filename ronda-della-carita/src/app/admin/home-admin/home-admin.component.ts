@@ -90,6 +90,18 @@ export class HomeAdminComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10);
   }  
 
+  goToUserAdmin() {
+    this.router.navigateByUrl('/user-admin');
+  }
+
+  goToOrderAdmin() {
+    this.router.navigateByUrl('/order-admin');
+  }
+
+  goToClientAdmin() {
+    this.router.navigateByUrl('/client-admin');
+  }
+
   OnPageChange(event: PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
