@@ -4,7 +4,7 @@
             <mat-icon class="text-white">menu</mat-icon>
         </button>
         <div class="ml-auto mr-1 text-white text-lg">
-            {{ user.nome + " " + user.cognome}}
+            {{ user.nome | uppercase }} {{ user.cognome | uppercase}}
         </div>
         <button mat-icon-button (click)="goToLogin()">
             <mat-icon class="text-white">exit_to_app</mat-icon>

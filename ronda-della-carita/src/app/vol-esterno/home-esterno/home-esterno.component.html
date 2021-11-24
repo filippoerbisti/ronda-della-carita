@@ -6,7 +6,7 @@
             <div class="mt-2 font-bold text-lg">
                 <div class="py-6 md:py-6">
                     <p class="text-nav">VOLONTARIO ESTERNO</p>
-                    <p class="text-nav font-medium">Bentornato, {{ user.nome }}</p>
+                    <p class="text-nav font-medium">Bentornato, {{ user.nome | uppercase}} {{ user.cognome |uppercase }}</p>
                 </div>
             </div>
         </div>

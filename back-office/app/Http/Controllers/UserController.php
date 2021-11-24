@@ -14,7 +14,6 @@ class UserController extends Controller
 
     public function anagrafica()
     {
-
         return User::first();
     }
 
