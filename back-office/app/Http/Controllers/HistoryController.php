@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\History;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
@@ -21,5 +22,9 @@ class HistoryController extends Controller
                         ->orderBy('ultimo_accesso', 'desc')
                         ->get();
         return $history;
+    }
+
+    public function countAccessi() {
+        return History::with('user')->where('ultimo_accesso', '>=', Carbon::today())->count(); 
     }
 }
