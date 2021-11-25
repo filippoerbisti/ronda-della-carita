@@ -284,12 +284,12 @@
                                     >
                                 </div>
                                 <div class="ml-6">
-                                    <button mat-raised-button (click)="search('nuovoassisitio')" class="bg-bt-orange">
+                                    <button mat-raised-button (click)="search('nuovoassistito')" class="bg-bt-orange">
                                         <span class="p-2 text-white">CERCA</span>
                                     </button>
                                 </div>
                             </div>
-                            <div *ngIf="searchClients.length==0">
+                            <div *ngIf="searchClients.length == 0">
                                 <div *ngFor="let client of pageClientSlice" class="mt-2">
                                     <mat-expansion-panel (opened)="panelOpenState = true"
                                             (closed)="panelOpenState = false" class="h-full">
@@ -331,7 +331,7 @@
                                     </mat-expansion-panel>
                                 </div>
                             </div>
-                            <div *ngIf="searchClients.length!=0">
+                            <div *ngIf="searchClients.length != 0">
                                 <div *ngFor="let client of searchClients" class="mt-2">
                                     <mat-expansion-panel (opened)="panelOpenState = true"
                                             (closed)="panelOpenState = false" class="h-full">
