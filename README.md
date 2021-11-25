@@ -11,13 +11,13 @@ npm install -g @angular/cli
 ```
 
 2. Scaricare il progetto
-3. Entrare nella cartella ronda-della-carità 
+3. Entrare nella cartella ```/ronda-della-carita``` 
 4. Eseguire nel terminale:
 ```
 npm install
 ```
 
-5. Entrare nella cartella back-office
+5. Entrare nella cartella ```/back-office```
 6. Eseguire nel terminale:
 ```
 composer install
