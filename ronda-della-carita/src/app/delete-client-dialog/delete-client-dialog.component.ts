@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import axios from "axios";
 import { IClient } from '../shared/interface/iclient';
 
@@ -9,6 +9,13 @@ import { IClient } from '../shared/interface/iclient';
 })
 export class DeleteClientDialogComponent implements OnInit {
 
+  @Input()
+  get clientId(): string { return this._clientId; }
+  set clientId(clientId: string) {
+    this._clientId = (clientId && clientId.trim());
+  }
+  private _clientId = '';
+  
   isLoading = false;
 
   clients: IClient[] = [];
@@ -17,8 +24,10 @@ export class DeleteClientDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
+    let clientId = this.clientId;
+    console.log(this.clientId);
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/clients");
+      let response = await axios.get("http://127.0.0.1:8000/api/client/" + clientId);
       console.log(response.status);
       console.log(response.data);
       this.clients = response.data;
@@ -30,9 +39,9 @@ export class DeleteClientDialogComponent implements OnInit {
   }
 
   async deleteClient() {
-    let client_id = this.clients; 
-      console.log(client_id);
-      await axios.delete("http://127.0.0.1:8000/api/clients/" + client_id)
+    let clientId = this.clients; 
+    console.log(clientId);
+    await axios.delete("http://127.0.0.1:8000/api/clients/" + clientId)
         .then(response => {
           console.log(response);
         });

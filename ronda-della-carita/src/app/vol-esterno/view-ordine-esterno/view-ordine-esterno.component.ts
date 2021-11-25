@@ -90,12 +90,14 @@ export class ViewOrdineEsternoComponent implements OnInit {
     this.pageOrderSlice = this.orders.slice(startIndex, endIndex);
   }
 
-  openDeleteOrderDialog() {
+  openDeleteOrderDialog(orderId: number) {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+    console.log(orderId);
   }
 
-  openEditOrderDialog() {
+  openEditOrderDialog(orderId: number) {
     const dialogRef = this.dialog.open(EditOrderDialogComponent);
+    console.log(orderId);
   }
 
 }
