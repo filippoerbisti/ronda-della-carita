@@ -36,16 +36,14 @@ export class HomeAdminComponent implements OnInit {
   orders: IOrder[] = [];
   cards: ICard[] = [];
 
-<<<<<<< HEAD
   userId!: number;
   orderId!: number;
   clientId!: number;
-=======
+  
   searchUsers:IUser[]=[];
   searchClients:IClient[]=[];
   searchOrders:IOrder[]=[];
 
->>>>>>> 19644b3395c992bb322ac40908b04e2706a07b33
 
   pageUserSlice = this.users.slice(0, 10);
   pageOrderSlice = this.orders.slice(0, 10);
