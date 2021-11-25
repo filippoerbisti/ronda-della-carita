@@ -1,0 +1,28 @@
+<div class="flex flex-col">
+  <app-navigation-menu></app-navigation-menu>
+  <div>
+    <h1 class="text-center">SCANNER QR</h1>
+    <zxing-scanner (scanSuccess)="onCodeResult($event)" class="w-full md:w-1/2  mx-auto"></zxing-scanner>
+    <div class="mt-3 flex px-6">
+      <div class="mr-auto">
+          <button mat-raised-button class="bg-bt-gray text-lg">
+              <a (click)="goToHomeEsterno()" class="p-2 text-white">
+                  <span class="p-2 text-white">INDIETRO</span>
+              </a>
+          </button>
+      </div>
+      <div class="mb-6">
+          <button mat-raised-button class="bg-bt-orange text-lg">
+              <span class="p-2 text-white">CONFERMA</span>
+          </button>
+      </div>
+    </div> 
+    <!-- <section class="results" *ngIf="qrResultString">
+      <div>
+        <h3>Result</h3>
+        <p>{{ qrResultString }}</p>
+      </div>
+      <button mat-icon-button (click)="clearResult()">Clear</button>
+    </section> -->
+  </div>
+</div>

@@ -22,7 +22,6 @@ class UserSeeder extends Seeder
                 'nome' => $faker -> firstName,
                 'cognome' => $faker -> lastName,
                 'ruolo' => 'Volontario',
-                'interno' => rand(0, 1),
                 'email' => $faker -> unique()-> freeEmail,
                 'email_verified_at' => now(),
                 'password' => Hash::make('password'),
