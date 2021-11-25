@@ -12,24 +12,21 @@ npm install -g @angular/cli
 
 2. Scaricare il progetto
 3. Entrare nella cartella ronda-della-carità 
-4. Eseguire``` npm install ```nel terminale
-
-5. Entrare nella cartella back-office
-6. Eseguire``` composer install ```nel terminale
-7. 
-Una volta scaricato il progetto, nella cartella del frontend lanciare i comandi:
+4. Eseguire nel terminale:
 ```
 npm install
-npm install -g yarn
-yarn add axios
 ```
-Nella cartella del backend, invece, lanciare il comando:
+
+5. Entrare nella cartella back-office
+6. Eseguire nel terminale:
 ```
-composer update
+composer install
 ```
 
 # Collegare il DB al backend
 
+Nella cartella ```/back-office``` cercare il file ```.env.example```
+Creare file ```.env``` uguale al file ```.env.example```
 Nel backend, creare il file **.env** e cercare la riga giusta in cui scrivere **DB_DATABASE=cinemissimo_db**.
 
 # Effettuare le migrazioni
