@@ -26,7 +26,7 @@ composer install
 # Collegare il DB al backend
 
 Nella cartella ```/back-office``` cercare il file ```.env.example```
-Creare file ```.env``` uguale al file ```.env.example```
+Creare file ```.env``` uguale al file ```.env.example```, e modificare il nome del database **DB_DATABASE=<nome db>**
 Nel backend, creare il file **.env** e cercare la riga giusta in cui scrivere **DB_DATABASE=cinemissimo_db**.
 
 # Effettuare le migrazioni
