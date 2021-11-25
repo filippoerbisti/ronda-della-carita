@@ -12,15 +12,18 @@ class OrderController extends Controller
         return Order::with('client')->with('user')->get();
     }
 
+    public function id($id) {
+        return Order::with('client')->where('id', $id)->get();
+    }
 
     public function countOrderInAttesa() {
-        return Order::with('client')->with('user')->where('status', '=', 'In attesa')->count();
+        return Order::with('client')->with('user')->where('status', 'In attesa')->count();
         //$orderCount = $order->count();
         //return $order;
     }
 
     public function countOrderNonDisp() {
-        return Order::with('client')->with('user')->where('status', '=', 'Non disponibile')->count();
+        return Order::with('client')->with('user')->where('status', 'Non disponibile')->count();
     }
 
     // public function fastSearch($fastsearch) {
@@ -40,7 +43,7 @@ class OrderController extends Controller
         if($status!="all"){
             $order = Order::with('client')
                             ->with('user')
-                            ->where('status', '=', $status)
+                            ->where('status', $status)
                             ->get();
         }else{
             $order = Order::with('client')
@@ -61,7 +64,7 @@ class OrderController extends Controller
         //                 ->when(!empty($search), function ($query) use ($status) {
         //                     $query->with('client')
         //                             ->with('user')
-        //                             ->where('status', '=', $status)
+        //                             ->where('status', $status)
         //                             ->get();
         //                 })
         //                 ->orderBy('created_at', 'DESC')

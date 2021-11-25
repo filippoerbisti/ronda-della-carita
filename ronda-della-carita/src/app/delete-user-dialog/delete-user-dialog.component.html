@@ -1,12 +1,12 @@
 <div *ngIf="!isLoading">
     <h2 mat-dialog-title>Sei sicuro di voler eliminare</h2>
-    <div>
-        <h1>NOME E COGNOME</h1>
+    <div *ngFor="let user of users">
+        <h1 class="font-bold">{{ user.nome }} {{ user.cognome }}</h1>
         <mat-dialog-actions align="end">
             <button mat-button (click)="deleteUser()" mat-dialog-close class="bg-bt-orange">
                 <span class="p-2 text-white">CONFERMA</span>
             </button>
-            <button mat-button cdkFocusInitial mat-dialog-close>
+            <button mat-button cdkFocusInitial (click)="clearCache()" mat-dialog-close>
                 <span class="p-2">ANNULLA</span>
             </button>
         </mat-dialog-actions>

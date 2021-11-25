@@ -80,11 +80,14 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
 
   openDeleteClientDialog(clientId: number) {
     this.clientId = clientId;
+    localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
     console.log(clientId);
   }
 
   openEditClientDialog(clientId: number) {
+    this.clientId = clientId;
+    localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(EditClientDialogComponent);
     console.log(clientId);
   }

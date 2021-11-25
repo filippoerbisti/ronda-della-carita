@@ -12,6 +12,10 @@ class UserController extends Controller
         return User::all();
     }
 
+    public function id($id) {
+        return User::where('id', $id)->get();
+    }
+
     public function anagrafica()
     {
         return User::first();

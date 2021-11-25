@@ -3,6 +3,7 @@ import axios from "axios";
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
+import { IClient } from '../shared/interface/iclient';
 
 interface Document {
   value: string;
@@ -22,6 +23,9 @@ interface Value {
 export class EditClientDialogComponent implements OnInit {
 
   isLoading = false;
+
+  clients: IClient[] = [];
+  clientId!: number;
 
   // newClient = {
   //   nome: '',
@@ -80,11 +84,28 @@ export class EditClientDialogComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.isLoading = true;
+    this.clientId = localStorage["id"];
+    let clientId = this.clientId;
+    try {
+      let response_order = await axios.get("http://127.0.0.1:8000/api/client/" + clientId);
+      console.log(response_order.status);
+      console.log(response_order.data);
+      this.clients = response_order.data;
+    } 
+    catch (err) {
+      console.log(err);
+    }
+    this.isLoading = false;
+  }
+
+  clearCache() {
+    localStorage.removeItem("id");
   }
 
   editClient() {
-
+    window.location.reload();
   }
 
 }

@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 export class OrdineEsternoComponent implements OnInit {
 
   isLoading = false;
-  nm=""
-  gen=""
+  nm = "";
+  gen = "";
   search: IClient[] = [];
   myControl = new FormControl();
   clients: IClient[] = [];

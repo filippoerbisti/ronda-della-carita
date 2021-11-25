@@ -27,6 +27,7 @@ export class ViewOrdineEsternoComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 20];
 
   searchOrder!: string;
+  orderId!: number;
 
   constructor(
     public dialog: MatDialog,
@@ -91,11 +92,15 @@ export class ViewOrdineEsternoComponent implements OnInit {
   }
 
   openDeleteOrderDialog(orderId: number) {
+    this.orderId = orderId;
+    localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
     console.log(orderId);
   }
 
   openEditOrderDialog(orderId: number) {
+    this.orderId = orderId;
+    localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(EditOrderDialogComponent);
     console.log(orderId);
   }

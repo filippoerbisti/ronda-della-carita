@@ -13,7 +13,7 @@ class ClientController extends Controller
 
     public function id($id) {
         return Client::with('user')
-                        ->where('id', '=', $id)
+                        ->where('id', $id)
                         ->get();
     }
 

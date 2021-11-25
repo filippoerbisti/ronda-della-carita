@@ -12,15 +12,17 @@ export class DeleteUserDialogComponent implements OnInit {
   isLoading = false;
 
   users: IUser[] = [];
+  userId!: number;
 
-  userId!: any[];
-
-  constructor() {}
+  constructor() { }
 
   async ngOnInit() {
     this.isLoading = true;
+    this.userId = localStorage["id"];
+    let userId = this.userId;
+    console.log(this.userId);
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/users/" + this.userId);
+      let response = await axios.get("http://127.0.0.1:8000/api/user/" + userId);
       console.log(response.status);
       console.log(response.data);
       this.users = response.data;
@@ -31,13 +33,22 @@ export class DeleteUserDialogComponent implements OnInit {
     this.isLoading = false;
   }
 
+  clearCache() {
+    localStorage.removeItem("id");
+  }
+
   async deleteUser() {
-    let user_id = this.users; 
-      console.log(user_id);
-      await axios.delete("http://127.0.0.1:8000/api/users/" + user_id)
-        .then(response => {
+    this.isLoading = true;
+    this.userId = localStorage["id"];
+    let userId = this.userId; 
+    console.log(userId);
+      await axios.delete("http://127.0.0.1:8000/api/user/delete/" + userId)
+        .then(response => {userId
           console.log(response);
         });
+    localStorage.removeItem("id");
+    window.location.reload();
+    this.isLoading = false;
   }
 
 }

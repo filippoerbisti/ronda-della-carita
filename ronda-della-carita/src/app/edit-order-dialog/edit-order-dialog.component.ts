@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
 import { IClient } from '../shared/interface/iclient';
+import { IOrder } from '../shared/interface/iorder';
 
 @Component({
   selector: 'app-edit-order-dialog',
@@ -13,10 +14,17 @@ import { IClient } from '../shared/interface/iclient';
 export class EditOrderDialogComponent implements OnInit {
 
   isLoading = false;  
-
+  nm = "";
+  gen = "";
   myControl = new FormControl();
   clients: IClient[] = [];
+  orders: IOrder[] = [];
+  orderId!: number;
   filteredClients: Observable<IClient[]> | undefined;
+
+  genders: string[] = ['Uomo', 'Donna'];
+  choseGender = "Uomo";
+  quantita = 1;
 
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},
@@ -35,13 +43,21 @@ export class EditOrderDialogComponent implements OnInit {
     ], 
     "pantaloni": [
       {value: 42, viewValue: 42},
+      {value: 43, viewValue: 43},
       {value: 44, viewValue: 44},
+      {value: 45, viewValue: 45},
       {value: 46, viewValue: 46},
+      {value: 47, viewValue: 47},
       {value: 48, viewValue: 48},
+      {value: 49, viewValue: 49},
       {value: 50, viewValue: 50},
+      {value: 51, viewValue: 51},
       {value: 52, viewValue: 52},
+      {value: 53, viewValue: 53},
       {value: 54, viewValue: 54},
+      {value: 55, viewValue: 55},
       {value: 56, viewValue: 56},
+      {value: 57, viewValue: 57},
       {value: 58, viewValue: 58},
     ],
     "scarpe": [
@@ -56,43 +72,41 @@ export class EditOrderDialogComponent implements OnInit {
       {value: 44, viewValue: 44},
       {value: 45, viewValue: 45},
       {value: 46, viewValue: 46},
+      {value: 47, viewValue: 47},
+      {value: 48, viewValue: 48},
     ]
   };
 
-  tvestiarioValue: any = 'maglietta';
+  tvestiarioValue: any= 'maglietta';
   clientValue: any = 'Uomo';
+  tagliaValue: any= '';
 
   constructor() { }
 
   async ngOnInit() {
     this.isLoading = true;
+    this.orderId = localStorage["id"];
+    let orderId = this.orderId;
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/clients");
-      console.log(response.status);
-      console.log(response.data);
-      this.clients = response.data;
+      let response_order = await axios.get("http://127.0.0.1:8000/api/order/" + orderId);
+      console.log(response_order.status);
+      console.log(response_order.data);
+      this.orders = response_order.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
-
-    this.filteredClients = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => (typeof value === 'string' ? value : value.nome)),
-      map(nome => (nome ? this._filter(nome) : this.clients.slice())),
-      
-    );
   }
 
-  private _filter(nome: string): IClient[] {
-    const filterValue = nome.toLowerCase();
-
-    return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));
+  clearCache() {
+    localStorage.removeItem("id");
   }
 
   editOrder() {
-    
+    window.location.reload();
   }
+
+  
 
 }

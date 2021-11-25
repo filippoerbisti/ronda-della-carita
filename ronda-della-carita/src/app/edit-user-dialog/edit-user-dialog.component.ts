@@ -26,6 +26,7 @@ export class EditUserDialogComponent implements OnInit {
   isLoading = false;
 
   users: IUser[] = [];
+  userId!: number;
 
   checked = false;
 
@@ -35,18 +36,25 @@ export class EditUserDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
+    this.userId = localStorage["id"];
+    let userId = this.userId;
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/users");
-      console.log(response.status);
-      console.log(response.data);
-      this.users = response.data;
+      let response_order = await axios.get("http://127.0.0.1:8000/api/user/" + userId);
+      console.log(response_order.status);
+      console.log(response_order.data);
+      this.users = response_order.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
   }
-  editUser() {
 
+  clearCache() {
+    localStorage.removeItem("id");
+  }
+
+  editUser() {
+    window.location.reload();
   }
 }

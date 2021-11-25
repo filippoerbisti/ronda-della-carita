@@ -8,22 +8,17 @@ import { IClient } from '../shared/interface/iclient';
   styleUrls: ['./delete-client-dialog.component.css']
 })
 export class DeleteClientDialogComponent implements OnInit {
-
-  @Input()
-  get clientId(): string { return this._clientId; }
-  set clientId(clientId: string) {
-    this._clientId = (clientId && clientId.trim());
-  }
-  private _clientId = '';
   
   isLoading = false;
 
   clients: IClient[] = [];
+  clientId!: number;
 
   constructor() { }
 
   async ngOnInit() {
     this.isLoading = true;
+    this.clientId = localStorage["id"];
     let clientId = this.clientId;
     console.log(this.clientId);
     try {
@@ -38,13 +33,22 @@ export class DeleteClientDialogComponent implements OnInit {
     this.isLoading = false;
   }
 
+  clearCache() {
+    localStorage.removeItem("id");
+  }
+
   async deleteClient() {
-    let clientId = this.clients; 
+    this.isLoading = true;
+    this.clientId = localStorage["id"];
+    let clientId = this.clientId; 
     console.log(clientId);
-    await axios.delete("http://127.0.0.1:8000/api/clients/" + clientId)
+      await axios.delete("http://127.0.0.1:8000/api/client/delete/" + clientId)
         .then(response => {
           console.log(response);
         });
+    localStorage.removeItem("id");
+    window.location.reload();
+    this.isLoading = false;
   }
 
 }

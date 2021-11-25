@@ -13,7 +13,6 @@ import { IUser } from 'src/app/shared/interface/iuser';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { IClient } from 'src/app/shared/interface/iclient';
-import { DIR_DOCUMENT_FACTORY } from '@angular/cdk/bidi/dir-document-token';
 
 @Component({
   selector: 'app-home-admin',
@@ -36,6 +35,10 @@ export class HomeAdminComponent implements OnInit {
   clients: IClient[] = [];
   orders: IOrder[] = [];
   cards: ICard[] = [];
+
+  userId!: number;
+  orderId!: number;
+  clientId!: number;
 
   pageUserSlice = this.users.slice(0, 10);
   pageOrderSlice = this.orders.slice(0, 10);
@@ -177,28 +180,39 @@ export class HomeAdminComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10); 
   }
 
-  openDeleteUserDialog() {
+  openDeleteUserDialog(userId: number) {
+    this.userId = userId;
+    localStorage["id"] = this.userId;
     const dialogRef = this.dialog.open(DeleteUserDialogComponent);
-    // this.router.navigate(['/user/delete', { id: userId }]);
   }
 
-  openDeleteClientDialog() {
+  openDeleteClientDialog(clientId: number) {
+    this.clientId = clientId;
+    localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
   }
 
-  openDeleteOrderDialog() {
+  openDeleteOrderDialog(orderId: number) {
+    this.orderId = orderId;
+    localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
   }
 
-  openEditUserDialog() {
+  openEditUserDialog(userId: number) {
+    this.userId = userId;
+    localStorage["id"] = this.userId;
     const dialogRef = this.dialog.open(EditUserDialogComponent);
   }
 
-  openEditOrderDialog() {
+  openEditOrderDialog(orderId: number) {
+    this.orderId = orderId;
+    localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(EditOrderDialogComponent);
   }
 
-  openEditClientDialog() {
+  openEditClientDialog(clientId: number) {
+    this.clientId = clientId;
+    localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 }

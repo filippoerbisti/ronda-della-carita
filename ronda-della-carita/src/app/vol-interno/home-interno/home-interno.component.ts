@@ -43,6 +43,9 @@ export class HomeInternoComponent implements OnInit {
   searchClient!: string;
   orderNonDisp!: number;
   orderInAttesa!: number;
+
+  clientId!: number;
+  orderId!: number;
   
   constructor(
     public dialog: MatDialog,
@@ -141,19 +144,27 @@ export class HomeInternoComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10); 
   }
 
-  openDeleteClientDialog() {
+  openDeleteClientDialog(clientId: number) {
+    this.clientId = clientId;
+    localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
   }
 
-  openDeleteOrderDialog() {
+  openDeleteOrderDialog(orderId: number) {
+    this.orderId = orderId;
+    localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
   }
 
-  openEditOrderDialog() {
+  openEditOrderDialog(orderId: number) {
+    this.orderId = orderId;
+    localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(EditOrderDialogComponent);
   }
 
-  openEditClientDialog() {
+  openEditClientDialog(clientId: number) {
+    this.clientId = clientId;
+    localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 }
