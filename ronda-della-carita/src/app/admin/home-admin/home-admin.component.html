@@ -98,7 +98,7 @@
                                 </div>
                                 <mat-form-field class="ml-6">
                                     <mat-label>Stato Ordine:</mat-label>
-                                    <mat-select name="sordine" [(ngModel)]="state"> 
+                                    <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
                                         <mat-option *ngFor="let sordine of sordines" [value]="sordine">
                                             {{sordine}}
                                         </mat-option>
