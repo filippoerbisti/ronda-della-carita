@@ -19,6 +19,13 @@ export class ViewOrdineEsternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
+  sordines = [
+    '',
+    'Non disponibile',
+    'In attesa',
+    'Consegnato'
+  ];
+
   user: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
@@ -26,6 +33,7 @@ export class ViewOrdineEsternoComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];
 
+  state!: string;
   searchOrder!: string;
   orderId!: number;
 
@@ -69,8 +77,15 @@ export class ViewOrdineEsternoComponent implements OnInit {
 
   async filterOrder() {
     let search = this.searchOrder;
+    let status = this.state;
+    if(status == ""){
+      status = "all";
+    }
+    status = JSON.stringify(status);
+    console.log(status);
+    console.log(search);
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + search);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/"+status);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.orders = response_filter.data;

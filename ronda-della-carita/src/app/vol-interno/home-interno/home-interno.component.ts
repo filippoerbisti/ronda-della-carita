@@ -112,10 +112,10 @@ export class HomeInternoComponent implements OnInit {
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.state;
-    if(status==""){
-      status="all";
+    if(status == ""){
+      status = "all";
     }
-    status=JSON.stringify(status);
+    status = JSON.stringify(status);
     console.log(status);
     console.log(search);
     try {
