@@ -42,7 +42,7 @@ Route::put("/client/modify", [ClientController::class, "modify"]);
 Route::get("/orders", [OrderController::class, "list"]);
 
 
-Route::get("/orders/{search}/{status}", [OrderController::class, "filter"]);
+Route::get("/orders/filt/{status}", [OrderController::class, "filter"]);
 
 //Route::get("/orders/{fastsearch}", [OrderController::class, "fastSearch"]);
 
