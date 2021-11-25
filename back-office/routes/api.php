@@ -25,7 +25,7 @@ Route::get("/history", [HistoryController::class, "list"]);
 
 Route::get("/history/{filter}", [HistoryController::class, "filter"]);
 
-Route::get("/history/accessi", [HistoryController::class, "countAccessi"]);
+Route::get("/history/accessi/count", [HistoryController::class, "countAccessi"]);
 
 
 Route::get("/clients", [ClientController::class, "list"]);
@@ -40,6 +40,7 @@ Route::put("/client/modify", [ClientController::class, "modify"]);
 
 
 Route::get("/orders", [OrderController::class, "list"]);
+
 
 Route::get("/orders/{search}/{status}", [OrderController::class, "filter"]);
 

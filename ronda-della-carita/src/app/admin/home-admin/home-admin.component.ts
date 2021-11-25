@@ -82,7 +82,7 @@ export class HomeAdminComponent implements OnInit {
       console.log(response_order_inattesa.data);
       this.orderInAttesa = response_order_inattesa.data;
 
-      let response_accessi_oggi = await axios.get("http://127.0.0.1:8000/api/history/accessi");
+      let response_accessi_oggi = await axios.get("http://127.0.0.1:8000/api/history/accessi/count");
       console.log(response_accessi_oggi.status);
       console.log(response_accessi_oggi.data);
       this.accessiOggi = response_accessi_oggi.data;
@@ -144,8 +144,16 @@ export class HomeAdminComponent implements OnInit {
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.state;
+    if(this.searchOrder==undefined){
+      search="";
+    }
+    let pass={
+      search: this.searchOrder,
+      status:this.state
+    }
+    let te=JSON.stringify(pass);
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + search + status);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/"+te);
       console.log(response_filter.status);
       console.log(response_filter.data);
       console.log(status);
