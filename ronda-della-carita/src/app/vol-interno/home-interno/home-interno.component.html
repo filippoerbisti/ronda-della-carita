@@ -3,7 +3,8 @@
     <div *ngIf="!isLoading" class="w-full flex items-stretch">
         <div class="w-full h-full">
             <div class="flex items-center justify-around mb-4 pt-12 text-center">
-                <img class="w-max" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+                <!-- TODO: VEDERE COME E DOVE METTERE IL LOGO -->
+                <!-- <img class="w-max" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita"> -->
                 <div>
                     <mat-card class="text-left">
                         <p class="font-bold">Notifiche:</p>
@@ -13,39 +14,66 @@
                     </mat-card>
                 </div>
             </div>
-            <mat-tab-group mat-align-tabs="center" class="w-full flex">
+
+            <mat-tab-group mat-align-tabs="center" class="flex w-full">
                 <mat-tab label="ORDINI">
+                    
                     <mat-card class="h-full">
                         <mat-card-content>
-                            <div class="flex mb-4 pt-2">
-                                <div class="mr-6">
-                                    <button mat-raised-button class="bg-bt-orange">
-                                        <a (click)="goToOrdineInterno()">
-                                            <span class="p-2 text-white">NUOVO ORDINE</span>
-                                        </a>
+                            <div class="md:flex mb-4 pt-2 md:space-x-6">
+
+                                <!-- NEW ORDER -->
+                                <div class="md:flex flex-col justify-center hidden">
+                                    <button mat-raised-button class="bg-bt-orange" (click)="goToOrdineInterno()">
+                                        <span class="p-2 text-white">NUOVO ORDINE</span>
                                     </button>
                                 </div>
+
                                 <div class="w-full">
-                                    <input 
+                                    <div class="flex items-center md:space-x-6 space-x-3">
+
+                                        <!-- SEARCHBAR -->
+                                        <input 
                                         type="text"
                                         [(ngModel)]="searchOrder"
-                                        class="w-full flex-grow pl-3 py-2 rounded border
+                                        class="w-full  flex-grow pl-3 py-2 rounded border
                                         focus:border-nav"
                                         placeholder="Cerca Ordine..."
-                                    >
-                                </div>
-                                <mat-form-field class="ml-6">
-                                    <mat-label>Stato Ordine:</mat-label>
-                                    <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                        <mat-option *ngFor="let sordine of sordines" [value]="sordine">
-                                            {{sordine}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <div class="ml-6">
-                                    <button mat-raised-button (click)="filterOrder()" class="bg-bt-orange">
-                                        <span class="p-2 text-white">CERCA</span>
-                                    </button>
+                                        >
+
+                                        <!-- SELECT STATUS -->
+                                        <div class="hidden md:flex">
+                                            <mat-form-field class="">
+                                                <mat-label>Stato Ordine:</mat-label>
+                                                <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
+                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine">
+                                                        {{sordine}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <!-- SEARCH BUTTON -->
+                                        <div class="flex md:flex-col">
+                                            <button mat-raised-button (click)="filterOrder()" class="bg-bt-orange">
+                                                <span class="p-2 text-white">CERCA</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex md:hidden">
+
+                                        <!-- SELECT STATUS [MOBILE]-->
+                                        <div class="w-full mt-3">
+                                            <mat-form-field class="w-full">
+                                                <mat-label>Stato Ordine:</mat-label>
+                                                <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
+                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine">
+                                                        {{sordine}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div *ngFor="let order of pageOrderSlice" class="mt-2">
@@ -56,7 +84,7 @@
                                             <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
                                         </mat-panel-title>
                                         <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                            <span class="leading-loose text-black mr-auto">Stato: {{order.status }}</span>
+                                            <span class="leading-loose text-black mr-auto hidden md:inline">Stato: {{order.status }}</span>
                                             <div *ngIf="order.status === 'In attesa'">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -74,12 +102,12 @@
                                             </div>
                                         </mat-panel-description>
                                         <div class="w-1/3 flex justify-end">
-                                            <button mat-button-basic (click)="openEditOrderDialog()" class="ml-auto mr-5">
+                                            <button mat-button-basic (click)="openEditOrderDialog()" class="ml-auto mr-3 md:mr-5">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                 </svg>
                                             </button>
-                                            <button mat-button-basic (click)="openDeleteOrderDialog()" class="mr-5">
+                                            <button mat-button-basic (click)="openDeleteOrderDialog()" class="mr-3 md:mr-5">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
@@ -104,11 +132,21 @@
                                     </table>
                                 </mat-expansion-panel>
                             </div>
+
+
+                            
                             <mat-paginator [length]="this.orders.length"
                                 [pageSize]="10"
                                 [pageSizeOptions]="pageSizeOptions"
                                 (page)="OnPageChange($event)">
                             </mat-paginator>
+                            <!-- NEW ORDER [MOBILE] -->
+                            <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
+                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden" (click)="goToOrdineInterno()">
+                                <div class="flex w-full h-full justify-center items-center text-3xl text-white">
+                                    +
+                                </div>
+                            </div>
                         </mat-card-content>
                     </mat-card>
                 </mat-tab>
