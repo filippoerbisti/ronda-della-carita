@@ -168,8 +168,16 @@ export class HomeAdminComponent implements OnInit {
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.state;
+    if(this.searchOrder==undefined){
+      search="";
+    }
+    let pass={
+      search: this.searchOrder,
+      status:this.state
+    }
+    let te=JSON.stringify(pass);
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/" + search + status);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/"+te);
       console.log(response_filter.status);
       console.log(response_filter.data);
       console.log(status);

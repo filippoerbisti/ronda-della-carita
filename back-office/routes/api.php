@@ -39,7 +39,7 @@ Route::put("/client/modify", [ClientController::class, "modify"]);
 
 Route::get("/orders", [OrderController::class, "list"]);
 
-Route::get("/orders/{search}{status}", [OrderController::class, "filter"]);
+Route::get("/orders/{pass}", [OrderController::class, "filter"]);
 
 Route::post("/order/create", [OrderController::class, "create"]);
 

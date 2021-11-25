@@ -11,7 +11,13 @@ class OrderController extends Controller
         return Order::with('client')->with('user')->get();
     }
 
-    public function filter($search, $status) {
+    public function filter($jsonArray) {
+        $pass=json_decode($jsonArray);
+        $status=$pass->{'status'};
+        //$search=$pass->{'search'};
+        $search="";
+        //$pass="Consegnato";
+        
         // $order = Order::with('client')
         //                     ->with('user')
         //                     ->where('p_ritiro', '=', $search)
