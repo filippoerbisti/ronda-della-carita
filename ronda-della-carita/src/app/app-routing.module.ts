@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CommonComponentsComponent } from './common-components/common-components.component';
+
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -31,6 +33,7 @@ import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';
 
 
 const routes: Routes = [
+  { path: 'commons', component: CommonComponentsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home-admin', component: HomeAdminComponent },
   { path: 'accessi-admin', component: StoricoAccessiAdminComponent },
