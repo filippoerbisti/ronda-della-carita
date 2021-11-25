@@ -13,6 +13,7 @@ import { IUser } from 'src/app/shared/interface/iuser';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { IClient } from 'src/app/shared/interface/iclient';
+import { DIR_DOCUMENT_FACTORY } from '@angular/cdk/bidi/dir-document-token';
 
 @Component({
   selector: 'app-home-admin',
@@ -144,18 +145,14 @@ export class HomeAdminComponent implements OnInit {
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.state;
-    if(this.searchOrder==undefined){
-      search="";
+    if(status==""){
+      status="all";
     }
-    let pass={
-      search: this.searchOrder,
-      status:this.state
-    }
-    let te=JSON.stringify(pass);
+    status=JSON.stringify(status);
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/"+te);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/"+status);
       console.log(response_filter.status);
-      console.log(response_filter.data);
+      console.log("data",response_filter.data);
       console.log(status);
       console.log(search);
       this.orders = response_filter.data;
