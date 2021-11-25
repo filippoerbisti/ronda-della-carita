@@ -47,7 +47,7 @@
                                                 <mat-label>Stato Ordine:</mat-label>
                                                 <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
                                                     <mat-option *ngFor="let sordine of sordines" [value]="sordine">
-                                                        {{sordine}}
+                                                        {{sordine}} 
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -132,9 +132,6 @@
                                     </table>
                                 </mat-expansion-panel>
                             </div>
-
-
-                            
                             <mat-paginator [length]="this.orders.length"
                                 [pageSize]="10"
                                 [pageSizeOptions]="pageSizeOptions"
@@ -155,10 +152,8 @@
                         <mat-card-content>
                             <div class="flex mb-4 pt-2">
                                 <div class="mr-6">
-                                    <button mat-raised-button class="bg-bt-orange">
-                                        <a (click)="goToRegistrazioneInterno()">
-                                            <span class="p-2 text-white">NUOVO ASSISTITO</span>
-                                        </a>
+                                    <button mat-raised-button class="bg-bt-orange" (click)="goToRegistrazioneInterno()">
+                                        <span class="p-2 text-white">NUOVO ASSISTITO</span>
                                     </button>
                                 </div>
                                 <div class="w-full">

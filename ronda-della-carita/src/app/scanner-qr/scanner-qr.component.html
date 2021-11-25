@@ -5,15 +5,13 @@
     <zxing-scanner (scanSuccess)="onCodeResult($event)" class="w-full md:w-1/2  mx-auto"></zxing-scanner>
     <div class="mt-3 flex px-6">
       <div class="mr-auto">
-          <button mat-raised-button class="bg-bt-gray text-lg">
-              <a (click)="goToHomeEsterno()" class="p-2 text-white">
-                  <span class="p-2 text-white">INDIETRO</span>
-              </a>
+          <button mat-raised-button class="bg-bt-gray text-lg" (click)="goToHomeEsterno()">
+            <span class="p-2 text-white">INDIETRO</span>
           </button>
       </div>
       <div class="mb-6">
           <button mat-raised-button class="bg-bt-orange text-lg">
-              <span class="p-2 text-white">CONFERMA</span>
+            <span class="p-2 text-white">CONFERMA</span>
           </button>
       </div>
     </div> 
