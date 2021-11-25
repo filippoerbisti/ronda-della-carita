@@ -59,6 +59,7 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
 
 import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { CommonComponentsComponent } from './common-components/common-components.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ChooseMansionDialogComponent,
     ChangePasswordDialogComponent,
     ScannerQrComponent,
+    CommonComponentsComponent,
   ],
   imports: [
     BrowserModule,
