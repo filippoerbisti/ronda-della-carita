@@ -37,13 +37,13 @@ php artisan migrate
 
 # Serve
 
+Nella cartella ```/back-office``` eseguire nel terminale:
+```
+php artisan serve
+```
+
 Nella cartella ```/ronda-della-carita``` eseguire nel terminale:
 ```
 ng serve / ng s
 ```
 Naviga in ```https://localhost:4200/```. L'applicazione automaticmente si ricarica ad ogni modifica dei file
-
-Nella cartella ```/back-office``` eseguire nel terminale:
-```
-php artisan serve
-```
