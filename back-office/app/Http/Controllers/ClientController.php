@@ -13,9 +13,10 @@ class ClientController extends Controller
 
     public function filter($search) {
         $client = Client::with('user')
-                            ->where('nome', '=', $search)
-                            ->orWhere('cognome', '=', $search)
-                            ->orWhere('n_documento', '=', $search)
+                            ->where('nome', 'LIKE', "%$search%")
+                            ->orWhere('cognome', 'LIKE', "%$search%")
+                            ->orWhere('n_documento', 'LIKE', "%$search%")
+                            ->orWhere('nazionalita', 'LIKE', "%$search%")
                             ->get();
         return $client;
     }

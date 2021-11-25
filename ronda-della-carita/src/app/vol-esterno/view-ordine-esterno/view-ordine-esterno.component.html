@@ -1,0 +1,81 @@
+<div class="h-screen">
+    <div *ngIf="!isLoading" class="flex flex-col">
+        <app-navigation-menu></app-navigation-menu>
+        <div class="md:w-2/3 md:mx-auto">
+            <div class="text-center mb-4 px-2">
+                <div class="font-bold text-lg mt-2 py-3 ">
+                    <span class="font-bold md:text-2xl">ORDINI</span>
+                </div>
+                <div class="flex justify-between mt-2 px-2">
+                    <button mat-raised-button class="bg-bt-pink">
+                        <a (click)="goToHomeEsterno()">
+                            <span class="p-2 text-white">INDIETRO</span>
+                        </a>
+                    </button>
+                    <button mat-raised-button class="bg-bt-orange">
+                        <a (click)="goToOrdineEsterno()">
+                            <span class="p-2 text-white">NUOVO ORDINE</span>
+                        </a>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center mx-2 px-2 space-x-3 my-6">
+                <input 
+                    type="text"
+                    class="flex-grow mx-auto pl-3 py-2 rounded border  
+                    focus:border-nav"
+                    [(ngModel)]="searchOrder"
+                    placeholder="Ricerca..."
+                >
+                <button mat-raised-button (click)="filterOrder()" class="bg-bt-orange">
+                    <span class=" text-white">CERCA</span>
+                </button>
+            </div>        
+        <div *ngFor="let order of pageOrderSlice" class="mx-2 mt-2 px-2">
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false" class="h-full">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="my-auto w-5/12">
+                        <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
+                    </mat-panel-title>
+                    <div class="w-2/12 flex justify-end">
+                        <button mat-button-basic (click)="openEditOrderDialog()" class="ml-auto mr-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                        </button>
+                        <button mat-button-basic (click)="openDeleteOrderDialog()" class="mr-5 pl-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </mat-expansion-panel-header>
+                <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }}</p>
+                <p>Punto di ritiro: {{ order.p_ritiro }}</p>
+                <table class="w-full">
+                    <tr>
+                        <td>Tipo vestiario</td>
+                        <td>Genere</td>
+                        <td>Taglia</td>
+                        <td>Quantità</td>
+                    </tr>
+                    <tr>
+                        <td>{{ order.t_vestiario }}</td>
+                        <td>{{ order.genere }}</td>
+                        <td>{{ order.taglia }}</td>
+                        <td>{{ order.quantita }}</td>
+                    </tr>
+                </table>
+            </mat-expansion-panel>
+        </div>
+        <mat-paginator [length]="this.orders.length"
+            [pageSize]="10"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="OnPageChange($event)">
+        </mat-paginator>
+    </div>
+    <div *ngIf="isLoading" class="h-full grid grid-center">
+        <mat-spinner class="m-auto"></mat-spinner>
+    </div>
+</div>

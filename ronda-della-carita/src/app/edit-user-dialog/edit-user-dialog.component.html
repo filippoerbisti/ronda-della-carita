@@ -1,0 +1,65 @@
+<div *ngIf="!isLoading">
+    <h2 mat-dialog-title>Modifica Volontario <span class="font-bold">NOME E COGNOME</span></h2>
+    <div>
+        <form class="w-full mt-3">
+            <div class="w-full flex">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Nome</mat-label>
+                    <input type="text" matInput 
+                        placeholder="Nome"><!--[(ngModel)]="newClient.nome"-->
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full ml-4">
+                    <mat-label>Cognome</mat-label>
+                    <input type="text" matInput 
+                        placeholder="Cognome"><!--[(ngModel)]="newClient.cognome"-->
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full ml-4">
+                    <mat-label>N. Tessera</mat-label>
+                    <input type="number" matInput 
+                        placeholder="N. Tessera"><!--[(ngModel)]="newClient.n_tessera"-->
+                </mat-form-field>
+            </div>
+            <div class="w-full flex">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Email</mat-label>
+                    <input type="email" 
+                        matInput 
+                        [formControl]="emailFormControl" 
+                        [errorStateMatcher]="matcher"
+                        placeholder="Email">
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                        Per favore inserisci un indirizzo email valido
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Email <strong>obbligatoria</strong>
+                    </mat-error><!--[(ngModel)]="newClient.email"-->
+                </mat-form-field>
+                <div class="flex-col w-full ml-4">
+                    <div>Ruolo: </div>
+                    <mat-radio-group><!--[(ngModel)]="newClient.ruolo"-->
+                        <mat-radio-button class="mx-2" *ngFor="let rule of rules" [value]="rule">
+                            {{ rule }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="w-full flex-col ml-4">
+                    <div>Interno: </div>
+                    <mat-checkbox>Sì</mat-checkbox><!--[(ngModel)]="checked" -->
+                </div>
+            </div>
+        </form>  
+        <mat-dialog-actions align="end">
+            <button mat-button (click)="editUser()" mat-dialog-close class="bg-bt-orange">
+                <span class="p-2 text-white">CONFERMA</span>
+            </button>
+            <button mat-button cdkFocusInitial mat-dialog-close>
+                <span class="p-2">ANNULLA</span>
+            </button>
+        </mat-dialog-actions>
+    </div>
+</div>
+<div *ngIf="isLoading" class="h-full grid grid-center">
+    <mat-spinner class="m-auto"></mat-spinner>
+</div>
+
+
