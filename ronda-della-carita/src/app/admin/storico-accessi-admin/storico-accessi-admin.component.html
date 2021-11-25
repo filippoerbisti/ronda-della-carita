@@ -24,7 +24,7 @@
                 </div>
                 <div *ngFor="let history of pageHistorySlice" class="mt-2 mx-4">
                     <div class="grid grid-cols-3 gap-4 mb-2">
-                        <div class="font-bold">{{ history.user?.nome }} {{ history.user?.cognome }}</div>
+                        <div class="font-bold">{{ history.user?.nome | uppercase }} {{ history.user?.cognome | uppercase }}</div>
                         <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
                         <div>Interno: 
                             <span *ngIf="history.interno == true">Sì</span>
