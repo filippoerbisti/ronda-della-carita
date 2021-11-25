@@ -30,6 +30,8 @@ Route::get("/history/accessi/count", [HistoryController::class, "countAccessi"])
 
 Route::get("/clients", [ClientController::class, "list"]);
 
+Route::get("/client/{id}", [ClientController::class, "id"]);
+
 Route::get("/clients/{filter}", [ClientController::class, "filter"]);
 
 Route::post("/client/create", [ClientController::class, "create"]);

@@ -11,6 +11,12 @@ class ClientController extends Controller
         return Client::with('user')->get();
     }
 
+    public function id($id) {
+        return Client::with('user')
+                        ->where('id', '=', $id)
+                        ->get();
+    }
+
     public function filter($search) {
         $client = Client::with('user')
                             ->where('nome', 'LIKE', "%$search%")

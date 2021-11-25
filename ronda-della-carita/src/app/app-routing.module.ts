@@ -49,12 +49,6 @@ const routes: Routes = [
   { path: 'home-interno', component: HomeInternoComponent },
   { path: 'ordine-interno', component: OrdineInternoComponent },
   { path: 'registrazione-interno', component: RegistrazioneInternoComponent },
-  { path: 'order/delete/:id', component: DeleteOrderDialogComponent },
-  { path: 'client/delete/:id', component: DeleteClientDialogComponent },
-  { path: 'user/delete/:id', component: DeleteUserDialogComponent },
-  { path: 'order/edit/:id', component: EditOrderDialogComponent },
-  { path: 'client/edit/:id', component: EditClientDialogComponent },
-  { path: 'user/edit/:id', component: EditUserDialogComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

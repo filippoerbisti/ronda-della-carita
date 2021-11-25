@@ -24,6 +24,8 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
 
   searchClient!: string;
 
+  clientId!: number;
+
   constructor(
     public dialog: MatDialog,
     private router: Router
@@ -76,11 +78,14 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(startIndex, endIndex);
   }
 
-  openDeleteClientDialog() {
+  openDeleteClientDialog(clientId: number) {
+    this.clientId = clientId;
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
+    console.log(clientId);
   }
 
-  openEditClientDialog() {
+  openEditClientDialog(clientId: number) {
     const dialogRef = this.dialog.open(EditClientDialogComponent);
+    console.log(clientId);
   }
 }
