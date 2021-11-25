@@ -11,7 +11,12 @@ npm install -g @angular/cli
 ```
 
 2. Scaricare il progetto
-3. Entrare nella cartella ronda-della-carità ed eseguire npm install nel terminale
+3. Entrare nella cartella ronda-della-carità 
+4. Eseguire``` npm install ```nel terminale
+
+5. Entrare nella cartella back-office
+6. Eseguire``` composer install ```nel terminale
+7. 
 Una volta scaricato il progetto, nella cartella del frontend lanciare i comandi:
 ```
 npm install
