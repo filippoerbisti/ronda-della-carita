@@ -23,18 +23,27 @@ npm install
 composer install
 ```
 
-# Collegare il DB al backend
+# Collegamento DB
 
 Nella cartella ```/back-office``` cercare il file ```.env.example```
-Creare file ```.env``` uguale al file ```.env.example```, e modificare il nome del database **DB_DATABASE=<nome db>**
-Nel backend, creare il file **.env** e cercare la riga giusta in cui scrivere **DB_DATABASE=cinemissimo_db**.
+Creare file ```.env``` uguale al file ```.env.example```, e modificare il nome del database **DB_DATABASE = nome_db**
 
 # Effettuare le migrazioni
-Per effettuare le migrazioni **(nome del database: cinemissimo_db)**, nella cartella del backend lanciare il comando
+
+Per creare la struttura del database, entrare nella cartella ```/back-office``` ed eseguire nel terminale:
 ```
 php artisan migrate
 ```
 
+# Serve
 
+Nella cartella ```/ronda-della-carita``` eseguire nel terminale:
+```
+ng serve / ng s
+```
+Naviga in ```https://localhost:4200/```. L'applicazione automaticmente si ricarica ad ogni modifica dei file
 
-
+Nella cartella ```/back-office``` eseguire nel terminale:
+```
+php artisan serve
+```
