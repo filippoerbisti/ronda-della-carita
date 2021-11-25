@@ -126,7 +126,7 @@ export class HomeInternoComponent implements OnInit {
     }
     this.pageOrderSlice = this.orders.slice(0, 10); 
   }
-
+  
   async filterClient() {
     let search = this.searchClient;
     try {
