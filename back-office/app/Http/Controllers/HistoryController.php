@@ -25,6 +25,7 @@ class HistoryController extends Controller
     }
 
     public function countAccessi() {
-        return History::with('user')->where('ultimo_accesso', '>=', Carbon::today())->count(); 
+        $history = History::with('user')->where('ultimo_accesso', '>=', Carbon::today())->count();
+        return $history; 
     }
 }
