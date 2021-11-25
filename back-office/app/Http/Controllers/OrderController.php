@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -33,7 +34,20 @@ class OrderController extends Controller
     //     return $search;
     // }
 
-    public function filter($search, $status) {
+    public function filter($status) {
+        $search="";
+        $status=json_decode($status);
+        if($status!="all"){
+            $order = Order::with('client')
+                            ->with('user')
+                            ->where('status', '=', $status)
+                            ->get();
+        }else{
+            $order = Order::with('client')
+                            ->with('user')
+                            ->get();
+        }
+        return $order;
         // $order = Order::query()
         //                 ->when(!empty($search), function ($query) use ($search) {
         //                     $query->with('client')
@@ -53,34 +67,6 @@ class OrderController extends Controller
         //                 ->orderBy('created_at', 'DESC')
         //                 ->get();
         // return $order;
-        if ($status == "" && $search != "") {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->where('p_ritiro', '=', $search)
-                            ->orWhere('n_ordine', '=', $search)
-                            ->orWhere('t_vestiario', '=', $search)
-                            ->orWhere('taglia', '=', $search)
-                            ->get();
-            return $order;
-        }
-        if ($search == "" && $status != "") {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->where('status', '=', $status)
-                            ->get();
-            return $order;
-        }
-        if ($search == "" && $status == "") {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->get();
-            return $order;
-        }
-        else {
-            $order = Order::with('client')
-                            ->with('user')
-                            ->get();
-        }
     }
 
     private function pairing($newOrder, $newOrderData) {
