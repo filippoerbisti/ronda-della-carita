@@ -3,6 +3,7 @@ La Ronda della Carità è una associazione di carità che 365 giorni all'anno di
 
 #NoProfit
 
+
 # Installazione
 
 1. Installare globalmente angular:
@@ -23,10 +24,12 @@ npm install
 composer update
 ```
 
+
 # Collegamento DB
 
 Nella cartella ```/back-office``` cercare il file ```.env.example```
 Creare file ```.env``` uguale al file ```.env.example```, e modificare il nome del database **DB_DATABASE = nome_db**
+
 
 # Effettuare le migrazioni
 
@@ -34,6 +37,7 @@ Per creare la struttura del database, entrare nella cartella ```/back-office``` 
 ```
 php artisan migrate
 ```
+
 
 # Serve
 
