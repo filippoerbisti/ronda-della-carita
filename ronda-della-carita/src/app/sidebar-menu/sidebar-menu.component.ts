@@ -41,6 +41,7 @@ export class SidebarMenuComponent implements OnInit {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
+    localStorage.removeItem("ruolo");
   }
 
   goToHomeInterno() {

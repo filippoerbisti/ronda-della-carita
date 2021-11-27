@@ -41,6 +41,7 @@ export class NavigationMenuComponent implements OnInit {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
+    localStorage.removeItem("ruolo");
   }
 
 }

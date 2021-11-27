@@ -40,6 +40,7 @@ export class SidebarAdminMenuComponent implements OnInit {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
+    localStorage.removeItem("ruolo");
   }
 
   goToHomeAdmin() {
