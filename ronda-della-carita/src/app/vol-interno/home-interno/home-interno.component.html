@@ -35,14 +35,14 @@
                                         <input 
                                         type="text"
                                         [(ngModel)]="searchOrder"
-                                        class="w-full  flex-grow pl-3 py-2 rounded border
+                                        class="w-full h-auto flex-grow pl-3 py-2 rounded border
                                         focus:border-nav"
                                         placeholder="Cerca Ordine..."
                                         >
 
                                         <!-- SELECT STATUS -->
-                                        <div class="hidden md:flex">
-                                            <mat-form-field class="">
+                                        <div class="hidden md:flex mt-3">
+                                            <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
                                                 <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
                                                     <mat-option *ngFor="let sordine of sordines" [value]="sordine">

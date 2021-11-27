@@ -24,8 +24,8 @@
                     >
 
                     <!-- SELECT STATUS -->
-                    <div class="hidden md:flex">
-                        <mat-form-field class="">
+                    <div class="hidden md:flex mt-3">
+                        <mat-form-field class="w-full">
                             <mat-label>Stato Ordine:</mat-label>
                             <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
                                 <mat-option *ngFor="let sordine of sordines" [value]="sordine">
