@@ -1,8 +1,8 @@
 <div class="h-screen">
-    <div *ngIf="!isLoading" class="flex flex-col">
+    <div *ngIf="!isLoading">
         <app-navigation-menu></app-navigation-menu>
-        <p class="font-bold text-2xl text-center pt-4 py-2">ORDINI</p>
-        <div class="md:flex mb-4 md:space-x-6 px-2">
+        <p class="font-bold text-2xl pt-16 px-2">ORDINI</p>
+        <div class="md:flex md:space-x-6 px-2 py-2">
 
             <!-- NEW ORDER -->
             <div class="md:flex flex-col justify-center hidden">
@@ -42,7 +42,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="flex md:hidden px-2">
+                <div class="flex md:hidden">
 
                     <!-- SELECT STATUS [MOBILE]-->
                     <div class="w-full mt-3">
@@ -121,7 +121,7 @@
         </mat-paginator>
         <!-- NEW ORDER [MOBILE] -->
         <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-        <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden" (click)="goToOrdineEsterno()">
+        <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineEsterno()">
             <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                 +
             </div>

@@ -138,7 +138,7 @@
                             </mat-paginator>
                             <!-- NEW ORDER [MOBILE] -->
                             <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden" (click)="goToOrdineInterno()">
+                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineInterno()">
                                 <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                                     +
                                 </div>
@@ -223,9 +223,9 @@
                                 [pageSizeOptions]="pageSizeOptions"
                                 (page)="OnPageChange($event)">
                             </mat-paginator>
-                            <!-- NEW Client [MOBILE] -->
+                            <!-- NEW CLIENT [MOBILE] -->
                             <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden" (click)="goToRegistrazioneInterno()">
+                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToRegistrazioneInterno()">
                                 <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                                     +
                                 </div>
