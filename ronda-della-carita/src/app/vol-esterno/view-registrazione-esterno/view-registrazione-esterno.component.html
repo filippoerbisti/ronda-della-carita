@@ -1,8 +1,8 @@
 <div class="h-screen">
     <div *ngIf="!isLoading">
         <app-navigation-menu></app-navigation-menu>
-        <p class="font-bold text-2xl pt-16 px-2">ASSISTITI</p>
-        <div class="md:flex mb-4 md:space-x-6 px-2 py-2">
+        <p class="font-bold text-2xl px-4 pt-5">ASSISTITI</p>
+        <div class="md:flex mb-4 md:space-x-6 px-4">
 
             <!-- NEW CLIENT-->
             <div class="md:flex flex-col justify-center hidden">
@@ -10,6 +10,7 @@
                     <span class="p-2 text-white">NUOVO ASSISTITO</span>
                 </button>
             </div>
+
             <div class="w-full">
                 <div class="flex items-center md:space-x-6 space-x-3">
 
@@ -17,7 +18,7 @@
                     <input 
                     type="text"
                     [(ngModel)]="searchClient"
-                    class="w-full  flex-grow pl-3 py-2 rounded border
+                    class="w-full flex-grow pl-3 py-2 rounded border
                     focus:border-nav"
                     placeholder="Cerca Cliente..."
                     >
@@ -31,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div *ngFor="let client of pageClientSlice" class="px-2 mb-2">
+        <div *ngFor="let client of pageClientSlice" class="px-4 mb-2">
             <mat-expansion-panel (opened)="panelOpenState = true"
                     (closed)="panelOpenState = false" class="h-full">
                 <mat-expansion-panel-header>
