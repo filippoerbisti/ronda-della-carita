@@ -1,6 +1,6 @@
 <div *ngIf="!isLoading">
     <h2 mat-dialog-title>Sei sicuro di voler passare a</h2>
-    <div *ngIf="current_route === home_esterno_url">
+    <div *ngIf="ruolo === 'esterno'">
         <h1>INTERNO</h1>
         <mat-dialog-actions align="end">
             <button mat-button (click)="goToHomeInterno()" mat-dialog-close class="bg-bt-orange">
@@ -11,7 +11,7 @@
             </button>
         </mat-dialog-actions>
     </div>
-    <div *ngIf="current_route != home_esterno_url">
+    <div *ngIf="ruolo === 'interno'">
         <h1>ESTERNO</h1>
         <mat-dialog-actions align="end">
             <button mat-button (click)="goToHomeEsterno()" mat-dialog-close class="bg-bt-orange">

@@ -10,22 +10,24 @@ export class ChangeMansionDialogComponent implements OnInit {
 
   isLoading = false;
 
-  current_route = this.router.url;
-  home_esterno_url = "/home-esterno";
+  ruolo!: string;
 
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log(this.current_route);
+    this.ruolo = localStorage["ruolo"];
   }
 
   goToHomeInterno() {
     this.router.navigateByUrl('/home-interno');
+    localStorage.removeItem("ruolo");
+    localStorage["ruolo"] = "interno";
   }
 
   goToHomeEsterno() {
     this.router.navigateByUrl('/home-esterno');
+    localStorage.removeItem("ruolo");
+    localStorage["ruolo"] = "esterno";
   }
-
 }

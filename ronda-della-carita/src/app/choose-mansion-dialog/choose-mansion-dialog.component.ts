@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class ChooseMansionDialogComponent implements OnInit {
 
   isLoading = false;
+
+  ruolo!: string;
   
   constructor(
     public dialogRef: MatDialogRef<ChooseMansionDialogComponent>,
@@ -19,13 +21,17 @@ export class ChooseMansionDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToHomeInterno() {
+  goToHomeInterno(ruolo: string) {
     this.dialogRef.close();
+    this.ruolo = ruolo;
+    localStorage["ruolo"] = this.ruolo;
     this.router.navigateByUrl('/home-interno');
   }
 
-  goToHomeEsterno() {
+  goToHomeEsterno(ruolo: string) {
     this.dialogRef.close();
+    this.ruolo = ruolo;
+    localStorage["ruolo"] = this.ruolo;
     this.router.navigateByUrl('/home-esterno');
   }
 
