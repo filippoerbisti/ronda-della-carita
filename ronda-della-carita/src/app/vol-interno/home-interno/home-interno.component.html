@@ -2,10 +2,22 @@
     <app-sidebar-menu></app-sidebar-menu>
     <div *ngIf="!isLoading" class="w-full flex items-stretch">
         <div class="w-full h-full">
-            <div class="flex items-center justify-around mb-4 pt-12 text-center">
+            <div class="md:flex hidden items-center justify-around mb-4 pt-12 text-center">
                 <!-- TODO: VEDERE COME E DOVE METTERE IL LOGO -->   
-                <img class="w-max md:flex sm:hidden" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+                <img class="" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
              
+                <div>
+                    <mat-card class="text-left">
+                        <p class="font-bold">Notifiche:</p>
+                        <p>Ci sono {{ orderInAttesa }} ordini in attesa</p>
+                        <p>Ci sono {{ orderNonDisp }} ordini non disponibili</p>
+                        <!-- <p>Ci sono {{ orderNonDisp }} ordini da confermare</p> -->
+                    </mat-card>
+                </div>
+            </div>
+
+            <div class="flex md:hidden items-center justify-around mb-4 pt-12 text-center">
+                <!-- TODO: VEDERE COME E DOVE METTERE IL LOGO -->              
                 <div>
                     <mat-card class="text-left">
                         <p class="font-bold">Notifiche:</p>
