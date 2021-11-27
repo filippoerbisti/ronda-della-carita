@@ -10,29 +10,30 @@
                 </div>
             </div>
         </div>
-        <!-- <form class="flex items-center justify-center px-5">
-            <input 
-                type="text"
-                class="w-max max-w-xs flex-grow px-3 py-2 rounded border
-                focus:border-nav"
-                [(ngModel)]="searchFast"
-                placeholder="Ricerca rapida"
-            >
-            <button class="p-2 ml-2 bg-bt-orange rounded-md text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </button>
-        </form> -->
-        <div class="md:flex md:flex-row flex flex-col flex-grow w-full justify-center md:pt-15 space-y-3 md:space-y-0 md:pt-6 mb-10">
-            <a (click)="goToRegistrazioneEsterno()" class="h-1/4 md:w-1/4 flex flex-col px-5">
+        <!-- MD DEVICE -->
+        <div class="md:flex hidden md:flex-row flex flex-col flex-grow w-full justify-center pt-15 space-y-3 md:space-y-0 mb-10">
+            <a (click)="goToOrdineEsterno()" class="flex flex-col px-5 h-2/4 w-2/4">
+                <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                    <span class="text-white">NUOVO ORDINE</span>
+                </button>
+            </a>
+            <a (click)="goToRegistrazioneEsterno()" class="h-2/4 w-2/4 flex flex-col px-5">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
                     <span class="p-2 text-white">NUOVO ASSISTITO</span>
                 </button>
             </a>
+        </div>
+
+        <!-- SM DEVICE -->
+        <div class="flex md:hidden flex-row flex flex-col flex-grow w-full justify-center md:pt-15 space-y-3 md:space-y-0 md:pt-6 mb-10">
             <a (click)="goToOrdineEsterno()" class="flex flex-col px-5 h-1/4 md:w-1/4">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
                     <span class="text-white">NUOVO ORDINE</span>
+                </button>
+            </a>
+            <a (click)="goToRegistrazioneEsterno()" class="h-1/4 md:w-1/4 flex flex-col px-5">
+                <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                    <span class="p-2 text-white">NUOVO ASSISTITO</span>
                 </button>
             </a>
         </div>
