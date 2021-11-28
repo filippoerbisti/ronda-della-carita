@@ -94,7 +94,7 @@
                                     </mat-expansion-panel>
                                 </div>
                             </div>
-                            <div *ngIf="searchUsers.length!=0">
+                            <div *ngIf="searchUsers.length != 0">
                                 <div  *ngFor="let user of searchUsers" class="mt-2">
                                     <mat-expansion-panel (opened)="panelOpenState = true"
                                             (closed)="panelOpenState = false">
@@ -163,12 +163,17 @@
                                         >
 
                                         <!-- SELECT STATUS -->
-                                        <div class="hidden md:flex mt-3">
+                                        <div class="hidden md:flex">
                                             <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
                                                 <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine">
-                                                        {{sordine}} 
+                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
+                                                        <div class="flex items-center">
+                                                        <span class="mr-auto">{{ sordine.value }}</span>
+                                                        <div *ngIf="sordine.value != ''">
+                                                            <img :src={{sordine.img_path}} alt="" class="h-6 w-6" :class="{{sordine.class}}">
+                                                        </div>
+                                                    </div>
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -188,8 +193,13 @@
                                             <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
                                                 <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine">
-                                                        {{sordine}}
+                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
+                                                        <div class="flex items-center">
+                                                        <span class="mr-auto">{{ sordine.value }}</span>
+                                                        <div *ngIf="sordine.value != ''">
+                                                            <img :src={{sordine.img_path}} alt="" class="h-6 w-6" :class="{{sordine.class}}">
+                                                        </div>
+                                                    </div>
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>

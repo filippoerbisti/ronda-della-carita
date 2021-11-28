@@ -28,8 +28,13 @@
                         <mat-form-field class="w-full">
                             <mat-label>Stato Ordine:</mat-label>
                             <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                <mat-option *ngFor="let sordine of sordines" [value]="sordine">
-                                    {{sordine}} 
+                                <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
+                                    <div class="flex items-center">
+                                    <span class="mr-auto">{{ sordine.value }}</span>
+                                    <div *ngIf="sordine.value != ''">
+                                        <img :src={{sordine.img_path}} alt="" class="h-6 w-6" :class="{{sordine.class}}">
+                                    </div>
+                                </div>
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -45,12 +50,17 @@
                 <div class="flex md:hidden">
 
                     <!-- SELECT STATUS [MOBILE]-->
-                    <div class="w-full">
+                    <div class="w-full mt-3">
                         <mat-form-field class="w-full">
                             <mat-label>Stato Ordine:</mat-label>
                             <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                <mat-option *ngFor="let sordine of sordines" [value]="sordine">
-                                    {{sordine}}
+                                <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
+                                    <div class="flex items-center">
+                                    <span class="mr-auto">{{ sordine.value }}</span>
+                                    <div *ngIf="sordine.value != ''">
+                                        <img :src={{sordine.img_path}} alt="" class="h-6 w-6" :class="{{sordine.class}}">
+                                    </div>
+                                </div>
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -114,18 +124,18 @@
                 </table>
             </mat-expansion-panel>
         </div>
-        <mat-paginator [length]="this.orders.length"
+        <mat-paginator  [length]="this.orders.length"
             [pageSize]="10"
             [pageSizeOptions]="pageSizeOptions"
             (page)="OnPageChange($event)">
         </mat-paginator>
         <!-- NEW ORDER [MOBILE] -->
         <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-        <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineEsterno()">
+        <!-- <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineEsterno()">
             <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                 +
             </div>
-        </div>
+        </div> -->
     </div>
     <div *ngIf="isLoading" class="h-full grid grid-center">
         <mat-spinner class="m-auto"></mat-spinner>

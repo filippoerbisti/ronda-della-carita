@@ -23,10 +23,10 @@ export class HomeInternoComponent implements OnInit {
   panelOpenState = false;
 
   sordines = [
-    '',
-    'Non disponibile',
-    'In attesa',
-    'Consegnato'
+    {value: ''},
+    {value: 'Non disponibile', img_path: "https://img.icons8.com/material-outlined/50/000000/delete-sign.png", class: "text-red-800"},
+    {value: 'In attesa', img_path: "https://img.icons8.com/material-outlined/50/000000/clock.png", class: "text-blue-800"},
+    {value: 'Consegnato',  img_path: "https://img.icons8.com/material-outlined/50/000000/checkmark.png", class: "text-green-800"}
   ];
 
   user: IUser[] = [];
