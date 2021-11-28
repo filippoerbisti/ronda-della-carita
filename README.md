@@ -50,4 +50,4 @@ Nella cartella ```/ronda-della-carita``` eseguire nel terminale:
 ```
 ng serve / ng s
 ```
-Naviga in ```https://localhost:4200/```. L'applicazione automaticmente si ricarica ad ogni modifica dei file
+Naviga in ```https://localhost:4200/```. L'applicazione automaticamente si ricarica ad ogni modifica dei file
