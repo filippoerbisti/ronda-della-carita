@@ -63,7 +63,7 @@ class UserController extends Controller
         return $newUser;
     }
 
-    public function modify(Request $request, $id)
+    public function edit(Request $request, $id)
     {
         $user = User::find($id);
         $newUserData = json_decode($request->getContent());

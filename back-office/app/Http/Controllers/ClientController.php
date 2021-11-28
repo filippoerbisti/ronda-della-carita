@@ -54,7 +54,7 @@ class ClientController extends Controller
         return $newClient;
     }
 
-    public function modify(Request $request, $id) {
+    public function edit(Request $request, $id) {
         $client = Client::find($id);
         $newClientData = json_decode($request->getContent());   
 

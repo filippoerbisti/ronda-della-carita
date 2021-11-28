@@ -20,7 +20,7 @@ Route::post("/user/create", [UserController::class, "create"]);
 
 Route::delete("/user/delete/{id}", [UserController::class, "delete"]);
 
-Route::put("/user/edit/{id}", [UserController::class, "modify"]);
+Route::put("/user/edit/{id}", [UserController::class, "edit"]);
 
 
 Route::get("/history", [HistoryController::class, "list"]);
@@ -40,7 +40,7 @@ Route::post("/client/create", [ClientController::class, "create"]);
 
 Route::delete("/client/delete/{id}", [ClientController::class, "delete"]);
 
-Route::put("/client/edit/{id}", [ClientController::class, "modify"]);
+Route::put("/client/edit/{id}", [ClientController::class, "edit"]);
 
 
 Route::get("/orders", [OrderController::class, "list"]);
@@ -59,7 +59,7 @@ Route::post("/order/create", [OrderController::class, "create"]);
 
 Route::delete("/order/delete/{id}", [OrderController::class, "delete"]);
 
-Route::put("/order/edit/{id}", [OrderController::class, "modify"]);
+Route::put("/order/edit/{id}", [OrderController::class, "edit"]);
 
 
 Route::get("/cards", [CardController::class, "list"]);
@@ -68,4 +68,4 @@ Route::post("/card/create", [CardController::class, "create"]);
 
 Route::delete("/card/delete/{id}", [CardController::class, "delete"]);
 
-Route::put("/card/edit/{id}", [CardController::class, "modify"]);
+Route::put("/card/edit/{id}", [CardController::class, "edit"]);

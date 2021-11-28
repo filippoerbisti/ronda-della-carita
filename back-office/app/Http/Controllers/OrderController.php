@@ -38,14 +38,14 @@ class OrderController extends Controller
     // }
 
     public function filter($status) {
-        $search="";
-        $status=json_decode($status);
-        if($status!="all"){
+        $search = "";
+        $status = json_decode($status);
+        if ($status != "all" ) {
             $order = Order::with('client')
                             ->with('user')
                             ->where('status', $status)
                             ->get();
-        }else{
+        } else {
             $order = Order::with('client')
                             ->with('user')
                             ->get();
@@ -98,7 +98,7 @@ class OrderController extends Controller
         return $newOrder;
     }
 
-    public function modify(Request $request, $id) {
+    public function edit(Request $request, $id) {
         $order = Order::find($id);
         $newOrderData = json_decode($request->getContent());   
 

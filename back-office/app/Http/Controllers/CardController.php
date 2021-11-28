@@ -30,7 +30,7 @@ class CardController extends Controller
         return $newCard;
     }
 
-    public function modify(Request $request, $id) {
+    public function edit(Request $request, $id) {
         $card = Card::find($id);
         $newCardData = json_decode($request->getContent());   
 
