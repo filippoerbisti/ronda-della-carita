@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   registration() {
-
+    this.router.navigateByUrl('/home-admin');
   }
 
 }
