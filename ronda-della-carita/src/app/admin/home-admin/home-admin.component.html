@@ -34,30 +34,38 @@
                 <mat-tab label="VOLONTARI">
                     <mat-card class="h-full">
                         <mat-card-content>
-                            <div class="flex mb-4 pt-2">
-                                <div class="mr-6">
+                            <div class="md:flex mb-4 pt-2 md:space-x-6">
+
+                                <!-- NEW USER -->
+                                <div class="md:flex flex-col justify-center hidden">
                                     <button mat-raised-button class="bg-bt-orange" (click)="goToUserAdmin()">
                                         <span class="p-2 text-white">NUOVO VOLONTARIO</span>
                                     </button>
                                 </div>
+
                                 <div class="w-full">
-                                    <input 
-                                        [(ngModel)]="searchUser"
-                                        type="text"
-                                        (change)="search('volontario')"
-                                        class="w-full flex-grow pl-3 py-2 rounded border
-                                        focus:border-nav"
-                                        placeholder="Cerca Volontario..."
-                                    >
-                                    
-                                </div>
-                                <div class="ml-6">
-                                    <button mat-raised-button (click)="search('volontario')" class="bg-bt-orange">
-                                        <span class="p-2 text-white">CERCA</span>
-                                    </button>
+                                    <div class="flex items-center md:space-x-6 space-x-3">
+
+                                        <!-- SEARCHBAR -->
+                                        <input 
+                                            [(ngModel)]="searchUser"
+                                            type="text"
+                                            (change)="search('volontario')"
+                                            class="w-full flex-grow pl-3 py-2 rounded border
+                                            focus:border-nav"
+                                            placeholder="Cerca Volontario..."
+                                        >
+
+                                        <!-- SEARCH BUTTON -->
+                                        <div class="flex md:flex-col">
+                                            <button mat-raised-button (click)="search('volontario')" class="bg-bt-orange">
+                                                <span class="p-2 text-white">CERCA</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div *ngIf="searchUsers.length==0">
+                            <div *ngIf="searchUsers.length == 0">
                                 <div  *ngFor="let user of pageUserSlice" class="mt-2">
                                     <mat-expansion-panel (opened)="panelOpenState = true"
                                             (closed)="panelOpenState = false">
@@ -66,7 +74,7 @@
                                                 <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
                                             </mat-panel-title>
                                             <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                                <span class="leading-loose text-black mr-auto">Ruolo: {{ user.ruolo }}</span>
+                                                <span class="leading-loose text-black mr-auto hidden md:inline">Ruolo: {{ user.ruolo }}</span>
                                             </mat-panel-description>
                                             <div class="w-1/3 flex justify-end">
                                                 <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-5">
@@ -120,6 +128,13 @@
                                 [pageSizeOptions]="pageSizeOptions"
                                 (page)="OnPageChange($event)">
                             </mat-paginator>
+                            <!-- NEW USER [MOBILE] -->
+                            <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
+                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToUserAdmin()">
+                                <div class="flex w-full h-full justify-center items-center text-3xl text-white">
+                                    +
+                                </div>
+                            </div>
                         </mat-card-content>
                     </mat-card>
                 </mat-tab>
