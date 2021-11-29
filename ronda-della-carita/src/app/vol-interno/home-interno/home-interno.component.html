@@ -60,11 +60,11 @@
                                                 <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
                                                     <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
                                                         <div class="flex items-center">
-                                                        <span class="mr-auto">{{ sordine.value }}</span>
-                                                        <div *ngIf="sordine.value != ''">
-                                                            <img :src={{sordine.img_path}} alt="" class="h-6 w-6" :class="{{sordine.class}}">
+                                                            <span class="mr-auto">{{ sordine.value }}</span>
+                                                            <div *ngIf="sordine.value != ''">
+                                                                <img :src={{sordine.img_path}} alt="" class="h-6 w-6" :class="{{sordine.class}}">
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
