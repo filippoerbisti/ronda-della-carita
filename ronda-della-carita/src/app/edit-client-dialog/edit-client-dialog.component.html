@@ -46,11 +46,11 @@
                 </div>
             </form>  
             <mat-dialog-actions align="end">
-                <button mat-button (click)="editClient()" mat-dialog-close class="bg-bt-orange">
-                    <span class="p-2 text-white">CONFERMA</span>
-                </button>
                 <button mat-button cdkFocusInitial (click)="clearCache()" mat-dialog-close>
                     <span class="p-2">ANNULLA</span>
+                </button>
+                <button mat-button (click)="editClient()" mat-dialog-close class="bg-bt-orange">
+                    <span class="p-2 text-white">CONFERMA</span>
                 </button>
             </mat-dialog-actions>
         </div>
