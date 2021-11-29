@@ -154,14 +154,22 @@
                                     </table>
                                 </mat-expansion-panel>
                             </div>
-                            <mat-paginator [length]="this.orders.length"
-                                [pageSize]="10"
-                                [pageSizeOptions]="pageSizeOptions"
-                                (page)="OnPageChange($event)">
-                            </mat-paginator>
+                            <div class="md:flex hidden justify-end -mr-4 -mb-4">
+                                <mat-paginator [length]="this.orders.length"
+                                    [pageSize]="10"
+                                    [pageSizeOptions]="pageSizeOptions"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
+                            <div class="flex md:hidden justify-center ml-3 mt-2">
+                                <mat-paginator [length]="this.orders.length" class="mb-16"
+                                    [pageSize]="10"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
                             <!-- NEW ORDER [MOBILE] -->
                             <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineInterno()">
+                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineInterno()">
                                 <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                                     +
                                 </div>
@@ -241,14 +249,22 @@
                                     </table>
                                 </mat-expansion-panel>
                             </div>
-                            <mat-paginator [length]="this.clients.length"
-                                [pageSize]="10"
-                                [pageSizeOptions]="pageSizeOptions"
-                                (page)="OnPageChange($event)">
-                            </mat-paginator>
+                            <div class="md:flex hidden justify-end -mr-4 -mb-4">
+                                <mat-paginator [length]="this.clients.length"
+                                    [pageSize]="10"
+                                    [pageSizeOptions]="pageSizeOptions"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
+                            <div class="flex md:hidden justify-center ml-3 mt-2">
+                                <mat-paginator [length]="this.clients.length" class="mb-16"
+                                    [pageSize]="10"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
                             <!-- NEW CLIENT [MOBILE] -->
                             <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToRegistrazioneInterno()">
+                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToRegistrazioneInterno()">
                                 <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                                     +
                                 </div>

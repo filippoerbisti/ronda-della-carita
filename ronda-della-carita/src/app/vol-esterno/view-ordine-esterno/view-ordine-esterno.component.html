@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div *ngFor="let order of pageOrderSlice" class="px-4 mb-2">
+        <div *ngFor="let order of pageOrderSlice" class="px-4 mt-2">
             <mat-expansion-panel (opened)="panelOpenState = true"
                     (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
@@ -124,18 +124,26 @@
                 </table>
             </mat-expansion-panel>
         </div>
-        <mat-paginator  [length]="this.orders.length"
-            [pageSize]="10"
-            [pageSizeOptions]="pageSizeOptions"
-            (page)="OnPageChange($event)">
-        </mat-paginator>
+        <div class="md:flex hidden justify-end">
+            <mat-paginator [length]="this.orders.length"
+                [pageSize]="10"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="OnPageChange($event)">
+            </mat-paginator>
+        </div>
+        <div class="flex md:hidden justify-center ml-4">
+            <mat-paginator [length]="this.orders.length" class="mb-20"
+                [pageSize]="10"
+                (page)="OnPageChange($event)">
+            </mat-paginator>
+        </div>
         <!-- NEW ORDER [MOBILE] -->
         <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-        <!-- <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineEsterno()">
+        <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineEsterno()">
             <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                 +
             </div>
-        </div> -->
+        </div>
     </div>
     <div *ngIf="isLoading" class="h-full grid grid-center">
         <mat-spinner class="m-auto"></mat-spinner>

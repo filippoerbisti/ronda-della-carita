@@ -77,12 +77,12 @@
                                                 <span class="leading-loose text-black mr-auto hidden md:inline">Ruolo: {{ user.ruolo }}</span>
                                             </mat-panel-description>
                                             <div class="w-1/3 flex justify-end">
-                                                <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-5">
+                                                <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-3 md:mr-5">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                     </svg>
                                                 </button>
-                                                <button mat-button-basic (click)="openDeleteUserDialog(user.id)" class="mr-5">
+                                                <button mat-button-basic (click)="openDeleteUserDialog(user.id)" class="mr-3 md:mr-5">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
@@ -106,12 +106,12 @@
                                                 <span class="leading-loose text-black mr-auto">Ruolo: {{ user.ruolo }}</span>
                                             </mat-panel-description>
                                             <div class="w-1/3 flex justify-end">
-                                                <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-5">
+                                                <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-3 md:mr-5">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                     </svg>
                                                 </button>
-                                                <button mat-button-basic (click)="openDeleteUserDialog(user.id)" class="mr-5">
+                                                <button mat-button-basic (click)="openDeleteUserDialog(user.id)" class="mr-3 md:mr-5">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
@@ -123,14 +123,22 @@
                                     </mat-expansion-panel>
                                 </div>
                             </div>
-                            <mat-paginator [length]="this.users.length"
-                                [pageSize]="10"
-                                [pageSizeOptions]="pageSizeOptions"
-                                (page)="OnPageChange($event)">
-                            </mat-paginator>
+                            <div class="md:flex hidden justify-end -mr-4 -mb-4">
+                                <mat-paginator [length]="this.users.length"
+                                    [pageSize]="10"
+                                    [pageSizeOptions]="pageSizeOptions"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
+                            <div class="flex md:hidden justify-center ml-3 mt-2">
+                                <mat-paginator [length]="this.users.length" class="mb-16"
+                                    [pageSize]="10"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
                             <!-- NEW USER [MOBILE] -->
                             <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToUserAdmin()">
+                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToUserAdmin()">
                                 <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                                     +
                                 </div>
@@ -263,18 +271,27 @@
                                     </table>
                                 </mat-expansion-panel>
                             </div>
-                            <mat-paginator [length]="this.orders.length"
-                                [pageSize]="10"
-                                [pageSizeOptions]="pageSizeOptions"
-                                (page)="OnPageChange($event)">
-                            </mat-paginator>
+                            <div class="md:flex hidden justify-end -mr-4 -mb-4">
+                                <mat-paginator [length]="this.orders.length"
+                                    [pageSize]="10"
+                                    [pageSizeOptions]="pageSizeOptions"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
+                            <div class="flex md:hidden justify-center ml-3 mt-2">
+                                <mat-paginator [length]="this.orders.length" class="mb-16"
+                                    [pageSize]="10"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
                             <!-- NEW ORDER [MOBILE] -->
                             <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToOrdineAdmin()">
+                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToUserAdmin()">
                                 <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                                     +
                                 </div>
                             </div>
+ 
                         </mat-card-content>
                     </mat-card>
                 </mat-tab>
@@ -350,18 +367,27 @@
                                     </table>
                                 </mat-expansion-panel>
                             </div>
-                            <mat-paginator [length]="this.clients.length"
-                                [pageSize]="10"
-                                [pageSizeOptions]="pageSizeOptions"
-                                (page)="OnPageChange($event)">
-                            </mat-paginator>
+                            <div class="md:flex hidden justify-end -mr-4 -mb-4">
+                                <mat-paginator [length]="this.clients.length"
+                                    [pageSize]="10"
+                                    [pageSizeOptions]="pageSizeOptions"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
+                            <div class="flex md:hidden justify-center ml-3 mt-2">
+                                <mat-paginator [length]="this.clients.length" class="mb-16"
+                                    [pageSize]="10"
+                                    (page)="OnPageChange($event)">
+                                </mat-paginator>
+                            </div>
                             <!-- NEW CLIENT [MOBILE] -->
                             <!-- TODO: SPOSTARLO IN UNA POSIZIONE PIU' SENSATA, ORA NON SI PUO' CAMBIARE PAGINA -->
-                            <div class="fixed w-16 h-16 bottom-12 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToRegistrazioneAdmin()">
+                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange md:hidden cursor-pointer" (click)="goToUserAdmin()">
                                 <div class="flex w-full h-full justify-center items-center text-3xl text-white">
                                     +
                                 </div>
                             </div>
+ 
                         </mat-card-content>
                     </mat-card>
                 </mat-tab>
