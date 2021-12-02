@@ -9,21 +9,29 @@ use Illuminate\Support\Facades\Log;
 class OrderController extends Controller
 {
     public function list() {
-        return Order::with('client')->with('user')->get();
+        return Order::with('client')
+                    ->with('user')
+                    ->get();
     }
 
     public function id($id) {
-        return Order::with('client')->where('id', $id)->get();
+        return Order::with('client')
+                    ->where('id', $id)
+                    ->get();
     }
 
     public function countOrderInAttesa() {
-        return Order::with('client')->with('user')->where('status', 'In attesa')->count();
-        //$orderCount = $order->count();
-        //return $order;
+        return Order::with('client')
+                    ->with('user')
+                    ->where('status', 'In attesa')
+                    ->count();
     }
 
     public function countOrderNonDisp() {
-        return Order::with('client')->with('user')->where('status', 'Non disponibile')->count();
+        return Order::with('client')
+                    ->with('user')
+                    ->where('status', 'Non disponibile')
+                    ->count();
     }
 
     // public function fastSearch($fastsearch) {
@@ -106,7 +114,7 @@ class OrderController extends Controller
         return $order;
     }
 
-    public function delete(Request $request, $id) {
+    public function delete($id) {
         $order = Order::where("id", $id)->delete();
 
         return $order;

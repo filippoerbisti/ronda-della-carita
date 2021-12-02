@@ -13,17 +13,17 @@ class ClientController extends Controller
 
     public function id($id) {
         return Client::with('user')
-                        ->where('id', $id)
-                        ->get();
+                    ->where('id', $id)
+                    ->get();
     }
 
     public function filter($search) {
         $client = Client::with('user')
-                            ->where('nome', 'LIKE', "%$search%")
-                            ->orWhere('cognome', 'LIKE', "%$search%")
-                            ->orWhere('n_documento', 'LIKE', "%$search%")
-                            ->orWhere('nazionalita', 'LIKE', "%$search%")
-                            ->get();
+                        ->where('nome', 'LIKE', "%$search%")
+                        ->orWhere('cognome', 'LIKE', "%$search%")
+                        ->orWhere('n_documento', 'LIKE', "%$search%")
+                        ->orWhere('nazionalita', 'LIKE', "%$search%")
+                        ->get();
         return $client;
     }
 
@@ -62,7 +62,7 @@ class ClientController extends Controller
         return $client;
     }
 
-    public function delete(Request $request, $id) {
+    public function delete($id) {
         $client = Client::where("id", $id)->delete();
 
         return $client;

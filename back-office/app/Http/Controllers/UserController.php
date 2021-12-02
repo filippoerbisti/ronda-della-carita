@@ -13,7 +13,8 @@ class UserController extends Controller
     }
 
     public function id($id) {
-        return User::where('id', $id)->get();
+        return User::where('id', $id)
+                    ->get();
     }
 
     public function anagrafica()
@@ -72,7 +73,7 @@ class UserController extends Controller
         return $user;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $user = User::where("id", $id)->delete();
 

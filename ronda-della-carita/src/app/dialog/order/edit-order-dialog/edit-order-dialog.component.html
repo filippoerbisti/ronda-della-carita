@@ -1,7 +1,7 @@
 <div *ngIf="!isLoading">
     <div *ngFor="let order of orders">
         <h2 mat-dialog-title>Modifica Ordine N. <span class="font-bold">{{ order.n_ordine }}</span>
-        di <span class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }}</span></h2>
+        di <span class="font-bold">{{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</span></h2>
         <div>
             <form class="w-full mt-3">
                 <div class="w-full flex">

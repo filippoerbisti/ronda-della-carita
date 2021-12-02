@@ -1,7 +1,7 @@
 <div *ngIf="!isLoading">
     <h2 mat-dialog-title>Sei sicuro di voler eliminare</h2>
     <div *ngFor="let user of users">
-        <h1 class="font-bold">{{ user.nome }} {{ user.cognome }}</h1>
+        <h1 class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</h1>
         <mat-dialog-actions align="end">
             <button mat-button cdkFocusInitial (click)="clearCache()" mat-dialog-close>
                 <span class="p-2">ANNULLA</span>

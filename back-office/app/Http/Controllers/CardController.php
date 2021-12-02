@@ -38,7 +38,7 @@ class CardController extends Controller
         return $card;
     }
 
-    public function delete(Request $request, $id) {
+    public function delete($id) {
         $card = Card::where("id", $id)->delete();
 
         return $card;
