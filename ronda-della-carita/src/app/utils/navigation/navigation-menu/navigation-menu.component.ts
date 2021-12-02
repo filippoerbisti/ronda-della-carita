@@ -11,16 +11,51 @@ import { ChangePasswordDialogComponent } from '../../../dialog/change-password-d
 })
 export class NavigationMenuComponent implements OnInit {
 
+  ruolo!: string;
+
   constructor(
     public dialog: MatDialog,
     private router: Router
     ) { }
 
   ngOnInit(): void {
+    this.ruolo = localStorage["ruolo"];
   }
 
-  goToHomeEsterno() {
-    this.router.navigateByUrl('/home-esterno');
+  
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+    localStorage.removeItem("ruolo");
+  }
+
+  goToHome() {
+    if (this.ruolo === "interno") {
+      this.router.navigateByUrl('/home-interno');
+    } else if (this.ruolo === "esterno") {
+      this.router.navigateByUrl('/home-esterno');
+    } else {
+      this.router.navigateByUrl('/page-not-found')
+    }
+  }
+
+  goToRegistrazione() {
+    if (this.ruolo === "interno") {
+      this.router.navigateByUrl('/registrazione-interno');
+    } else if (this.ruolo === "esterno") {
+      this.router.navigateByUrl('/view-registrazione-esterno');
+    } else {
+      this.router.navigateByUrl('/page-not-found')
+    }
+  }
+
+  goToOrdine() {
+    if (this.ruolo === "interno") {
+      this.router.navigateByUrl('/ordine-interno');
+    } else if (this.ruolo === "esterno") {
+      this.router.navigateByUrl('/view-ordine-esterno');
+    } else {
+      this.router.navigateByUrl('/page-not-found')
+    }
   }
 
   openMansionDialog() {
@@ -29,19 +64,6 @@ export class NavigationMenuComponent implements OnInit {
 
   openPasswordDialog() {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
-  }
-
-  goToViewRegistrazioneEsterno() {
-    this.router.navigateByUrl('/view-registrazione-esterno');
-  }
-
-  goToViewOrdineEsterno() {
-    this.router.navigateByUrl('/view-ordine-esterno');
-  }
-
-  goToLogin() {
-    this.router.navigateByUrl('/login');
-    localStorage.removeItem("ruolo");
   }
 
 }

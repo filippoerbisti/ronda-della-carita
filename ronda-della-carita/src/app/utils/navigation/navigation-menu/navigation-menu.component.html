@@ -5,17 +5,17 @@
         </svg>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="goToHomeEsterno()">
+        <button mat-menu-item (click)="goToHome()">
             <span>HOME</span>
         </button>
         <button mat-menu-item (click)="openMansionDialog()">
             <span>CAMBIA MANSIONE</span>
         </button>
-        <button mat-menu-item (click)="goToViewOrdineEsterno()">
-            <span>ORDINI</span>
+        <button mat-menu-item (click)="goToOrdine()">
+            <span *ngIf="this.ruolo === 'interno'">NUOVO ORDINE</span> <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
         </button>
-        <button mat-menu-item (click)="goToViewRegistrazioneEsterno()">
-            <span>ASSISTITI</span>
+        <button mat-menu-item (click)="goToRegistrazione()">
+            <span *ngIf="this.ruolo === 'interno'">NUOVO ASSISTITO</span> <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
         </button>
         <button mat-menu-item (click)="openPasswordDialog()">
             <span>CAMBIA PASSWORD</span>

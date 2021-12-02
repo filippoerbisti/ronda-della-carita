@@ -1,5 +1,6 @@
 <div class="h-full w-full">
-    <app-navigation-menu></app-navigation-menu>
+    <app-sidebar-menu class="md:flex hidden mb-10"></app-sidebar-menu>
+    <app-navigation-menu class="flex md:hidden"></app-navigation-menu>
     <div *ngIf="!isLoading" class="w-full flex">
         <div class="w-full h-full">
             <mat-card>

@@ -1,7 +1,8 @@
 <div class="h-full w-full">
-    <app-sidebar-menu></app-sidebar-menu>
+    <app-sidebar-menu class="md:flex hidden mb-12"></app-sidebar-menu>
+    <app-navigation-menu class="flex md:hidden"></app-navigation-menu>
     <div *ngIf="!isLoading" class="w-full flex">
-        <div class="w-full h-full pt-12">
+        <div class="w-full h-full">
             <mat-card>
                 <p class="font-bold text-2xl">NUOVO ASSISTITO</p>
                 <form class="w-full mt-3">

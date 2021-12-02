@@ -15,10 +15,14 @@
     <mat-sidenav #sidebarRef opened mode="side" class="flex inset-y-0 left-0 z-50 pb-3 mt-10 bg-nav" [(opened)]="isSidebarOpen">
         <mat-list class="h-full w-60 flex flex-col justify-between">
             <div class="mt-8">
-                <mat-list-item><button mat-button (click)="goToHomeInterno()" class="w-full left text-lg text-white">HOME</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToHome()" class="w-full left text-lg text-white">HOME</button></mat-list-item>
                 <mat-list-item><button mat-button (click)="openMansionDialog()" class="w-full left text-lg text-white">CAMBIA MANSIONI</button></mat-list-item>
-                <mat-list-item><button mat-button (click)="goToOrdineInterno()" class="w-full left text-lg text-white">NUOVO ORDINE</button></mat-list-item>
-                <mat-list-item><button mat-button (click)="goToRegistrazioneInterno()" class="w-full left text-lg text-white">NUOVO ASSISTITO</button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToOrdine()" class="w-full left text-lg text-white">
+                    <span *ngIf="this.ruolo === 'interno'">NUOVO ORDINE</span> <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
+                </button></mat-list-item>
+                <mat-list-item><button mat-button (click)="goToRegistrazione()" class="w-full left text-lg text-white">
+                    <span *ngIf="this.ruolo === 'interno'">NUOVO ASSISTITO</span> <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
+                </button></mat-list-item>
             </div>
             <div class="mb-8">
                 <div class="my-2">

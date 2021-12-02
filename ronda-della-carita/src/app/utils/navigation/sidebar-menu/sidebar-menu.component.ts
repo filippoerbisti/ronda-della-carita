@@ -22,13 +22,15 @@ export class SidebarMenuComponent implements OnInit {
     password: 'string'
   };
 
+  ruolo!: string;
+
   constructor(
     public dialog: MatDialog,
     private router: Router
     ) { }
 
   async ngOnInit() {
-
+    this.ruolo = localStorage["ruolo"];
     try {
       let response = await axios.get("http://127.0.0.1:8000/api/user");
       this.user = response.data;
@@ -44,16 +46,34 @@ export class SidebarMenuComponent implements OnInit {
     localStorage.removeItem("ruolo");
   }
 
-  goToHomeInterno() {
-    this.router.navigateByUrl('/home-interno');
+  goToHome() {
+    if (this.ruolo === "interno") {
+      this.router.navigateByUrl('/home-interno');
+    } else if (this.ruolo === "esterno") {
+      this.router.navigateByUrl('/home-esterno');
+    } else {
+      this.router.navigateByUrl('/page-not-found')
+    }
   }
 
-  goToRegistrazioneInterno() {
-    this.router.navigateByUrl('/registrazione-interno');
+  goToRegistrazione() {
+    if (this.ruolo === "interno") {
+      this.router.navigateByUrl('/registrazione-interno');
+    } else if (this.ruolo === "esterno") {
+      this.router.navigateByUrl('/view-registrazione-esterno');
+    } else {
+      this.router.navigateByUrl('/page-not-found')
+    }
   }
 
-  goToOrdineInterno() {
-    this.router.navigateByUrl('/ordine-interno');
+  goToOrdine() {
+    if (this.ruolo === "interno") {
+      this.router.navigateByUrl('/ordine-interno');
+    } else if (this.ruolo === "esterno") {
+      this.router.navigateByUrl('/view-ordine-esterno');
+    } else {
+      this.router.navigateByUrl('/page-not-found')
+    }
   }
 
   openMansionDialog() {

@@ -1,6 +1,7 @@
 <div class="h-screen">
     <div *ngIf="!isLoading">
-        <app-navigation-menu></app-navigation-menu>
+        <app-sidebar-menu class="md:flex hidden mb-10"></app-sidebar-menu>
+        <app-navigation-menu class="flex md:hidden"></app-navigation-menu>
         <p class="font-bold text-2xl px-4 pt-5">ORDINI</p>
         <div class="md:flex mb-4 md:space-x-6 px-4">
 
