@@ -1,6 +1,6 @@
 <div *ngIf="!isLoading">
     <div *ngFor="let user of users">
-        <h2 mat-dialog-title>Modifica Volontario <span class="font-bold">{{ user.nome }} {{ user.cognome }}</span></h2>
+        <h2 mat-dialog-title>Modifica Volontario <span class="font-bold">{{ user.nome | uppercase}} {{ user.cognome | uppercase }}</span></h2>
         <div>
             <form class="w-full mt-3">
                 <div class="w-full flex">
