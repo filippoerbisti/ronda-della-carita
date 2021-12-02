@@ -3,18 +3,24 @@
   <div>
     <h1 class="text-center">SCANNER QR</h1>
     <zxing-scanner (scanSuccess)="onCodeResult($event)" class="w-full md:w-1/2  mx-auto"></zxing-scanner>
-    <div class="mt-3 flex px-2">
+    <div class="mt-3 flex px-2 mb-6 space-x-2">
       <div class="mr-auto">
-          <button mat-raised-button class="bg-bt-gray text-lg" (click)="goToHomeEsterno()">
-            <span class="p-2 text-white">INDIETRO</span>
+          <button mat-button class="backButton text-lg" (click)="goToHomeEsterno()">
+              <mat-icon class="text-bt-orange">
+                  keyboard_arrow_left
+              </mat-icon>
+              <span class="p-2">INDIETRO</span>
           </button>
       </div>
-      <div class="mb-6">
-          <button mat-raised-button class="bg-bt-orange text-lg">
-            <span class="p-2 text-white">CONFERMA</span>
+      <div>
+          <button mat-button class="confirmButton text-lg">
+              <span class="p-2">CONFERMA</span>
+              <mat-icon class="">
+                  keyboard_arrow_right
+              </mat-icon>
           </button>
       </div>
-    </div> 
+  </div> 
     <!-- <section class="results" *ngIf="qrResultString">
       <div>
         <h3>Result</h3>
