@@ -61,6 +61,7 @@ import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { CommonComponentsComponent } from './common-components/common-components.component';
+import { NavigationAdminMenuComponent } from './utils/navigation/navigation-admin-menu/navigation-admin-menu.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { CommonComponentsComponent } from './common-components/common-components
     ChooseMansionDialogComponent,
     ChangePasswordDialogComponent,
     ScannerQrComponent,
-    CommonComponentsComponent
+    CommonComponentsComponent,
+    NavigationAdminMenuComponent
   ],
   imports: [
     BrowserModule,
