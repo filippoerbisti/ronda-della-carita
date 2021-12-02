@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ChangeMansionDialogComponent } from '../change-mansion-dialog/change-mansion-dialog.component';
-import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
+import { ChangeMansionDialogComponent } from '../../dialog/change-mansion-dialog/change-mansion-dialog.component';
+import { ChangePasswordDialogComponent } from '../../dialog/change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-navigation-menu',

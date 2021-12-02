@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
-import { IOrder } from '../shared/interface/iorder';
+import { IOrder } from '../../shared/interface/iorder';
 
 @Component({
   selector: 'app-delete-order-dialog',

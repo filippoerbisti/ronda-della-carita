@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { IUser } from '../shared/interface/iuser';
+import { IUser } from '../../shared/interface/iuser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {

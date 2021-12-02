@@ -3,8 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
-import { IClient } from '../shared/interface/iclient';
-import { IOrder } from '../shared/interface/iorder';
+import { IClient } from '../../shared/interface/iclient';
+import { IOrder } from '../../shared/interface/iorder';
 
 @Component({
   selector: 'app-edit-order-dialog',
