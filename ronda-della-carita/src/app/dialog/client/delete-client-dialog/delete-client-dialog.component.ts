@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import axios from "axios";
-import { IClient } from '../../shared/interface/iclient';
+import { IClient } from '../../../shared/interface/iclient';
 
 @Component({
   selector: 'app-delete-client-dialog',

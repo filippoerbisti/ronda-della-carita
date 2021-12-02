@@ -22,13 +22,13 @@ import { HomeInternoComponent } from './users/vol-interno/home-interno/home-inte
 import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
 
-import { DeleteOrderDialogComponent } from './dialog/delete-order-dialog/delete-order-dialog.component';
-import { DeleteClientDialogComponent } from './dialog/delete-client-dialog/delete-client-dialog.component';
-import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component';
+import { DeleteOrderDialogComponent } from './dialog/order/delete-order-dialog/delete-order-dialog.component';
+import { DeleteClientDialogComponent } from './dialog/client/delete-client-dialog/delete-client-dialog.component';
+import { DeleteUserDialogComponent } from './dialog/user/delete-user-dialog/delete-user-dialog.component';
 
-import { EditOrderDialogComponent } from './dialog/edit-order-dialog/edit-order-dialog.component';
-import { EditClientDialogComponent } from './dialog/edit-client-dialog/edit-client-dialog.component';
-import { EditUserDialogComponent } from './dialog/edit-user-dialog/edit-user-dialog.component';
+import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
+import { EditClientDialogComponent } from './dialog/client/edit-client-dialog/edit-client-dialog.component';
+import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-user-dialog.component';
 import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';
 
 

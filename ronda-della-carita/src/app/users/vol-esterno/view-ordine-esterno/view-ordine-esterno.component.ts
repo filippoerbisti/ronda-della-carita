@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteOrderDialogComponent } from 'src/app/dialog/delete-order-dialog/delete-order-dialog.component';
-import { EditOrderDialogComponent } from 'src/app/dialog/edit-order-dialog/edit-order-dialog.component';
+import { DeleteOrderDialogComponent } from 'src/app/dialog/order/delete-order-dialog/delete-order-dialog.component';
+import { EditOrderDialogComponent } from 'src/app/dialog/order/edit-order-dialog/edit-order-dialog.component';
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
 import { IUser } from 'src/app/shared/interface/iuser';

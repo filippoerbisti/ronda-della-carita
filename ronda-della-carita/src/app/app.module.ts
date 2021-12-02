@@ -34,11 +34,11 @@ import { HomeEsternoComponent } from './users/vol-esterno/home-esterno/home-este
 import { OrdineEsternoComponent } from './users/vol-esterno/ordine-esterno/ordine-esterno.component';
 import { RegistrazioneEsternoComponent } from './users/vol-esterno/registrazione-esterno/registrazione-esterno.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ChangeMansionDialogComponent } from './dialog/change-mansion-dialog/change-mansion-dialog.component';
+import { ChangeMansionDialogComponent } from './dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ViewOrdineEsternoComponent } from './users/vol-esterno/view-ordine-esterno/view-ordine-esterno.component';
 import { ViewRegistrazioneEsternoComponent } from './users/vol-esterno/view-registrazione-esterno/view-registrazione-esterno.component';
-import { DeleteClientDialogComponent } from './dialog/delete-client-dialog/delete-client-dialog.component';
-import { DeleteOrderDialogComponent } from './dialog/delete-order-dialog/delete-order-dialog.component';
+import { DeleteClientDialogComponent } from './dialog/client/delete-client-dialog/delete-client-dialog.component';
+import { DeleteOrderDialogComponent } from './dialog/order/delete-order-dialog/delete-order-dialog.component';
 import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
 import { LoginComponent } from './login/login.component';
@@ -48,13 +48,13 @@ import { StoricoAccessiAdminComponent } from './users/admin/storico-accessi-admi
 import { RegistrazioneAdminComponent } from './users/admin/registrazione-admin/registrazione-admin.component';
 import { OrdineAdminComponent } from './users/admin/ordine-admin/ordine-admin.component';
 import { UserAdminComponent } from './users/admin/user-admin/user-admin.component';
-import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component';
-import { EditClientDialogComponent } from './dialog/edit-client-dialog/edit-client-dialog.component';
-import { EditUserDialogComponent } from './dialog/edit-user-dialog/edit-user-dialog.component';
-import { EditOrderDialogComponent } from './dialog/edit-order-dialog/edit-order-dialog.component';
+import { DeleteUserDialogComponent } from './dialog/user/delete-user-dialog/delete-user-dialog.component';
+import { EditClientDialogComponent } from './dialog/client/edit-client-dialog/edit-client-dialog.component';
+import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-user-dialog.component';
+import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { ChooseMansionDialogComponent } from './dialog/choose-mansion-dialog/choose-mansion-dialog.component';
+import { ChooseMansionDialogComponent } from './dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from './dialog/change-password-dialog/change-password-dialog.component';
 
 import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';

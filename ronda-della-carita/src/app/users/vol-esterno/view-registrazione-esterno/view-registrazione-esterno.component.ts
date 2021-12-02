@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteClientDialogComponent } from 'src/app/dialog/delete-client-dialog/delete-client-dialog.component';
-import { EditClientDialogComponent } from 'src/app/dialog/edit-client-dialog/edit-client-dialog.component';
+import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
+import { EditClientDialogComponent } from 'src/app/dialog/client/edit-client-dialog/edit-client-dialog.component';
 import axios from "axios";
 import { PageEvent } from '@angular/material/paginator';
 import { IClient } from 'src/app/shared/interface/iclient';
