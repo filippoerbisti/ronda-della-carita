@@ -27,13 +27,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 
-import { NavigationMenuComponent } from './navigation/navigation-menu/navigation-menu.component';
+import { NavigationMenuComponent } from './utils/navigation/navigation-menu/navigation-menu.component';
 import { HomeAdminComponent } from './users/admin/home-admin/home-admin.component';
 import { HomeInternoComponent } from './users/vol-interno/home-interno/home-interno.component';
 import { HomeEsternoComponent } from './users/vol-esterno/home-esterno/home-esterno.component';
 import { OrdineEsternoComponent } from './users/vol-esterno/ordine-esterno/ordine-esterno.component';
 import { RegistrazioneEsternoComponent } from './users/vol-esterno/registrazione-esterno/registrazione-esterno.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 import { ChangeMansionDialogComponent } from './dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ViewOrdineEsternoComponent } from './users/vol-esterno/view-ordine-esterno/view-ordine-esterno.component';
 import { ViewRegistrazioneEsternoComponent } from './users/vol-esterno/view-registrazione-esterno/view-registrazione-esterno.component';
@@ -42,8 +42,8 @@ import { DeleteOrderDialogComponent } from './dialog/order/delete-order-dialog/d
 import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
 import { LoginComponent } from './login/login.component';
-import { SidebarMenuComponent } from './navigation/sidebar-menu/sidebar-menu.component';
-import { SidebarAdminMenuComponent } from './navigation/sidebar-admin-menu/sidebar-admin-menu.component';
+import { SidebarMenuComponent } from './utils/navigation/sidebar-menu/sidebar-menu.component';
+import { SidebarAdminMenuComponent } from './utils/navigation/sidebar-admin-menu/sidebar-admin-menu.component';
 import { StoricoAccessiAdminComponent } from './users/admin/storico-accessi-admin/storico-accessi-admin.component';
 import { RegistrazioneAdminComponent } from './users/admin/registrazione-admin/registrazione-admin.component';
 import { OrdineAdminComponent } from './users/admin/ordine-admin/ordine-admin.component';
@@ -57,7 +57,7 @@ import { environment } from '../environments/environment';
 import { ChooseMansionDialogComponent } from './dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from './dialog/change-password-dialog/change-password-dialog.component';
 
-import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';
+import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({

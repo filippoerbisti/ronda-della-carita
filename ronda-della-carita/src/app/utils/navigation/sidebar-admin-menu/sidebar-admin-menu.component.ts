@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangePasswordDialogComponent } from '../../dialog/change-password-dialog/change-password-dialog.component';
+import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
 import axios from 'axios';
 import { Router } from '@angular/router';
 

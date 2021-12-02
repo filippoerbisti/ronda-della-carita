@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonComponentsComponent } from './common-components/common-components.component';
 
 import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 
 import { HomeAdminComponent } from './users/admin/home-admin/home-admin.component';
 import { StoricoAccessiAdminComponent } from './users/admin/storico-accessi-admin/storico-accessi-admin.component';
@@ -29,7 +29,7 @@ import { DeleteUserDialogComponent } from './dialog/user/delete-user-dialog/dele
 import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
 import { EditClientDialogComponent } from './dialog/client/edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-user-dialog.component';
-import { ScannerQrComponent } from './scanner-qr/scanner-qr.component';
+import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
 
 const routes: Routes = [
