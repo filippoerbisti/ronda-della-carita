@@ -112,6 +112,7 @@ export class HomeInternoComponent implements OnInit {
     }
     this.pageClientSlice = this.clients.slice(startIndex, endIndex);
   }  
+  
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.state;
@@ -122,7 +123,7 @@ export class HomeInternoComponent implements OnInit {
     console.log(status);
     console.log(search);
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/"+status);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" + status);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.orders = response_filter.data;

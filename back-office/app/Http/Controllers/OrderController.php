@@ -34,17 +34,6 @@ class OrderController extends Controller
                     ->count();
     }
 
-    // public function fastSearch($fastsearch) {
-    //     $search = Order::with('client')
-    //                     ->with('user')
-    //                     ->where('p_ritiro', '=', $fastsearch)
-    //                     ->orWhere('n_ordine', '=', $fastsearch)
-    //                     ->orWhere('t_vestiario', '=', $fastsearch)
-    //                     ->orWhere('taglia', '=', $fastsearch)
-    //                     ->get();
-    //     return $search;
-    // }
-
     public function filter($status) {
         $search = "";
         $status = json_decode($status);
@@ -52,6 +41,14 @@ class OrderController extends Controller
             $order = Order::with('client')
                             ->with('user')
                             ->where('status', $status)
+                            ->get();
+        } else if ($search != null) {
+            $order = Order::with('client')
+                            ->with('user') 
+                            ->where('p_ritiro', 'LIKE', "%$search%")
+                            ->orWhere('n_ordine', '=', "%$search%")
+                            ->orWhere('t_vestiario', 'LIKE', "%$search%")
+                            ->orWhere('taglia', '=', "$search")
                             ->get();
         } else {
             $order = Order::with('client')
