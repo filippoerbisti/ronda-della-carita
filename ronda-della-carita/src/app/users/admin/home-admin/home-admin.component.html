@@ -23,7 +23,9 @@
                     (closed)="panelOpenState = false" [expanded]="true">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="w-1/3 my-auto">
-                            <span class="font-bold">Notifiche:</span>
+                            <span class="font-bold mt-4" [matBadge]="countNotifiche" matBadgeOverlap="false">
+                                Notifiche:
+                            </span>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <p>Accessi oggi: {{ accessiOggi }}</p>

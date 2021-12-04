@@ -54,6 +54,8 @@ export class HomeAdminComponent implements OnInit {
   state!: string;
   searchOrder!: string;
   searchClient!: string;
+
+  countNotifiche!: number;
   orderNonDisp!: number;
   orderInAttesa!: number;
   accessiOggi!: number;
@@ -100,6 +102,7 @@ export class HomeAdminComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
+    this.countNotifiche = this.accessiOggi + this.orderInAttesa + this.orderNonDisp;
     this.pageUserSlice = this.users.slice(0, 10); 
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);

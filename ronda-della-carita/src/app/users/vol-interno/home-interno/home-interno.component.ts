@@ -46,6 +46,8 @@ export class HomeInternoComponent implements OnInit {
 
   clientId!: number;
   orderId!: number;
+
+  countNotifiche!: number;
   
   constructor(
     public dialog: MatDialog,
@@ -84,6 +86,7 @@ export class HomeInternoComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
+    this.countNotifiche = this.orderInAttesa + this.orderNonDisp;
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
   }  

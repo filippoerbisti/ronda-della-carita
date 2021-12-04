@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
+import { MatBadgeModule } from '@angular/material/badge'; 
 
 import { NavigationMenuComponent } from './utils/navigation/navigation-menu/navigation-menu.component';
 import { HomeAdminComponent } from './users/admin/home-admin/home-admin.component';
@@ -123,6 +124,7 @@ import { NavigationAdminMenuComponent } from './utils/navigation/navigation-admi
     MatAutocompleteModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatBadgeModule,
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
