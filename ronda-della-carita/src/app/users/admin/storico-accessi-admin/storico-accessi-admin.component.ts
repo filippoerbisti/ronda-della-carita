@@ -16,6 +16,7 @@ export class StoricoAccessiAdminComponent implements OnInit {
 
   histories: IHistory[] = [];
 
+  todayAccess: IHistory[] = [];
   pageHistorySlice = this.histories.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
 
@@ -30,11 +31,17 @@ export class StoricoAccessiAdminComponent implements OnInit {
       console.log(response.status);
       console.log(response.data);
       this.histories = response.data;
+
+      let response_access_today = await axios.get("http://127.0.0.1:8000/api/history/accessi/today");
+      console.log(response_access_today.status);
+      console.log(response_access_today.data);
+      this.todayAccess = response_access_today.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
+
     this.pageHistorySlice = this.histories.slice(0, 10); 
   }  
 

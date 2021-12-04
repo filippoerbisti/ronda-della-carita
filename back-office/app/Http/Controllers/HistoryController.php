@@ -32,4 +32,11 @@ class HistoryController extends Controller
                             ->count();
         return $history; 
     }
+
+    public function todayAccessi() {
+        $history = History::with('user')
+                            ->where('ultimo_accesso', '>=', Carbon::today())
+                            ->get();
+        return $history; 
+    }
 }

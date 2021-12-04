@@ -29,6 +29,8 @@ Route::get("/history/{filter}", [HistoryController::class, "filter"]);
 
 Route::get("/history/accessi/count", [HistoryController::class, "countAccessi"]);
 
+Route::get("/history/accessi/today", [HistoryController::class, "todayAccessi"]);
+
 
 Route::get("/clients", [ClientController::class, "list"]);
 

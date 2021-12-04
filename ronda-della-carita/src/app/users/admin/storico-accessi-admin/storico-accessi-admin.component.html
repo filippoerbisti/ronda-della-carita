@@ -20,22 +20,37 @@
                     </button>
                 </div>
             </div>
-            <div *ngFor="let history of pageHistorySlice" class="mt-2 mx-4">
-                <div class="grid grid-cols-3 gap-4 mb-2">
-                    <div class="font-bold">{{ history.user?.nome | uppercase }} {{ history.user?.cognome | uppercase }}</div>
-                    <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
-                    <div>Interno: 
-                        <span *ngIf="history.interno == true">Sì</span>
-                        <span *ngIf="history.interno == false">No</span>
-                    </div>
+            <details class="mb-10 mx-4">
+                <summary class="font-bold text-xl">OGGI</summary>
+                <div *ngFor="let history of todayAccess" class="mt-2 mx-4">
+                    <div class="grid grid-cols-3 gap-4 mb-2">
+                        <div class="font-bold">{{ history.user?.nome | uppercase }} {{ history.user?.cognome | uppercase }}</div>
+                        <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
+                        <div>Interno: 
+                            <span *ngIf="history.interno == true">Sì</span>
+                            <span *ngIf="history.interno == false">No</span>
+                        </div>
+                    </div>    
                 </div>
-                <hr>
-            </div>
-            <mat-paginator [length]="this.histories.length"
-                [pageSize]="10"
-                [pageSizeOptions]="pageSizeOptions"
-                (page)="OnPageChange($event)">
-            </mat-paginator>
+            </details>
+            <details class="mx-4 mb-4">
+                <summary class="font-bold text-xl">TUTTI</summary>
+                <div *ngFor="let history of pageHistorySlice" class="mt-2 mx-4">
+                    <div class="grid grid-cols-3 gap-4 mb-2">
+                        <div class="font-bold">{{ history.user?.nome | uppercase }} {{ history.user?.cognome | uppercase }}</div>
+                        <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
+                        <div>Interno: 
+                            <span *ngIf="history.interno == true">Sì</span>
+                            <span *ngIf="history.interno == false">No</span>
+                        </div>
+                    </div>    
+                </div>
+                <mat-paginator [length]="this.histories.length"
+                    [pageSize]="10"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="OnPageChange($event)">
+                </mat-paginator>
+            </details>
         </div>
     </div>
     <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
