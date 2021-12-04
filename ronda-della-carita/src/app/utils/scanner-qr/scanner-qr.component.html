@@ -1,9 +1,9 @@
-<div class="flex flex-col">
+<div class="flex flex-col ">
   <app-navigation-menu></app-navigation-menu>
-  <div>
+  <div class="max-h-screen-sm h-screen">
     <h1 class="text-center">SCANNER QR</h1>
     <p class="text-center text-base">Inquadra il QR dell'assistito per creare un nuovo ordine</p>
-    <zxing-scanner (scanSuccess)="onCodeResult($event)" class="w-full md:w-1/2  mx-auto"></zxing-scanner>
+    <zxing-scanner (scanSuccess)="onCodeResult($event)" class="w-full md:w-1/2 h-1/2 mx-auto"></zxing-scanner>
     <div class="mt-3 flex px-2 mb-6 space-x-2">
       <div class="mr-auto">
           <button mat-button class="backButton text-lg" (click)="goToHomeEsterno()">
