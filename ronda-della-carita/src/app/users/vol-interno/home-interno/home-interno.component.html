@@ -17,16 +17,18 @@
                 </div>
             </div>
 
-            <div class="flex md:hidden items-center justify-around mb-4 pt-12 text-center">
-                <!-- TODO: VEDERE COME E DOVE METTERE IL LOGO -->              
-                <div>
-                    <mat-card class="text-left">
-                        <p class="font-bold">Notifiche:</p>
-                        <p>Ci sono {{ orderInAttesa }} ordini in attesa</p>
-                        <p>Ci sono {{ orderNonDisp }} ordini non disponibili</p>
-                        <!-- <p>Ci sono {{ orderNonDisp }} ordini da confermare</p> -->
-                    </mat-card>
-                </div>
+            <div class="flex md:hidden items-center justify-around mb-4">
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="w-1/3 my-auto">
+                            <span class="font-bold">Notifiche:</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Ci sono {{ orderInAttesa }} ordini in attesa</p>
+                    <p>Ci sono {{ orderNonDisp }} ordini non disponibili</p>
+                <!-- <p>Ci sono {{ orderNonDisp }} ordini da confermare</p> -->
+                </mat-expansion-panel>
             </div>
 
             <mat-tab-group mat-align-tabs="center" class="flex w-full">
