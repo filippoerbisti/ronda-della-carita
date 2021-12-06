@@ -39,7 +39,12 @@ class CardController extends Controller
     }
 
     public function delete($id) {
-        $card = Card::where("id", $id)->delete();
+        $card = Card::where("id", $id)
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->foreign('client_id')
+                    ->references('id')->on('clients')
+                    ->onDelete('cascade');
 
         return $card;
     }
