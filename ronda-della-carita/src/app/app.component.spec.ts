@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'front-office'`, () => {
+  it(`should have as title 'ronda-della-carita'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('front-office');
+    expect(app.title).toEqual('ronda-della-carita');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('front-office app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('ronda-della-carita app is running!');
   });
 });
