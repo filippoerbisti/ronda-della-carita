@@ -1,0 +1,20 @@
+<div *ngIf="!isLoading">
+    <div>
+        <h1>Scegliere la mansione di oggi</h1>
+    </div>
+    <div class="flex items-center space-x-4">
+        <div class="w-1/2 ml-auto">
+            <button class="w-full h-10" mat-raised-button color="primary" (click)="goToHomeInterno('interno')">
+                <span class="p-2 text-white">INTERNO</span>
+            </button>
+        </div>
+        <div class="w-1/2 mr-auto">
+            <button class="w-full h-10" mat-raised-button color="accent" (click)="goToHomeEsterno('esterno')">
+                <span class="p-2 text-white">ESTERNO</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div *ngIf="isLoading" class="h-full grid grid-center">
+    <mat-spinner class="m-auto"></mat-spinner>
+</div>

@@ -12,6 +12,11 @@ class UserController extends Controller
         return User::all();
     }
 
+    public function id($id) {
+        return User::where('id', $id)
+                    ->get();
+    }
+
     public function anagrafica()
     {
         return User::first();
@@ -59,7 +64,7 @@ class UserController extends Controller
         return $newUser;
     }
 
-    public function modify(Request $request, $id)
+    public function edit(Request $request, $id)
     {
         $user = User::find($id);
         $newUserData = json_decode($request->getContent());
@@ -68,7 +73,7 @@ class UserController extends Controller
         return $user;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $user = User::where("id", $id)->delete();
 

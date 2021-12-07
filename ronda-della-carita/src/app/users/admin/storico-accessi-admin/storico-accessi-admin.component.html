@@ -1,0 +1,61 @@
+<div class="h-full w-full">
+    <app-sidebar-admin-menu class="md:flex hidden mb-12"></app-sidebar-admin-menu>
+    <app-navigation-admin-menu class="flex md:hidden"></app-navigation-admin-menu>
+    <div *ngIf="!isLoading" class="w-full flex items-stretch">
+        <div class="w-full h-full">
+            <p class="font-bold text-2xl px-4 pt-4">ACCESSI</p>
+            <div class="flex mb-4 mx-4">
+                <div class="w-full">
+                    <input 
+                        [(ngModel)]="searchAccess"
+                        type="text"
+                        class="flex-grow pl-3 py-2 rounded border w-full
+                        focus:border-nav"
+                        placeholder="Cerca Volontario..."
+                    >
+                </div>
+                <div class="ml-6">
+                    <button mat-raised-button (click)="filterHistory()" class="bg-bt-orange">
+                        <span class="p-2 text-white">CERCA</span>
+                    </button>
+                </div>
+            </div>
+            <details class="mb-10 mx-4" open>
+                <summary class="font-bold text-xl">OGGI</summary>
+                <div *ngFor="let history of todayAccess" class="mt-2 mx-4">
+                    <div class="md:grid grid-cols-3 gap-4 mb-2">
+                        <div class="font-bold">{{ history.user?.nome | uppercase }} {{ history.user?.cognome | uppercase }}</div>
+                        <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
+                        <div>Interno: 
+                            <span *ngIf="history.interno == true">Sì</span>
+                            <span *ngIf="history.interno == false">No</span>
+                        </div>
+                    </div>
+                    <hr>  
+                </div>
+            </details>
+            <details class="mx-4 mb-4">
+                <summary class="font-bold text-xl">TUTTI</summary>
+                <div *ngFor="let history of pageHistorySlice" class="mt-2 mx-4">
+                    <div class="md:grid grid-cols-3 gap-4 mb-2">
+                        <div class="font-bold">{{ history.user?.nome | uppercase }} {{ history.user?.cognome | uppercase }}</div>
+                        <div>Ultimo Accesso: {{ history.ultimo_accesso }}</div>
+                        <div>Interno: 
+                            <span *ngIf="history.interno == true">Sì</span>
+                            <span *ngIf="history.interno == false">No</span>
+                        </div>
+                    </div> 
+                    <hr>   
+                </div>
+                <mat-paginator [length]="this.histories.length"
+                    [pageSize]="10"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="OnPageChange($event)">
+                </mat-paginator>
+            </details>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
+        <mat-spinner class="m-auto border-nav"></mat-spinner>
+    </div>
+</div>
