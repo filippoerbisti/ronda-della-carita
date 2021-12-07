@@ -3,23 +3,36 @@
     <div *ngIf="ruolo === 'esterno'">
         <h1>INTERNO</h1>
         <mat-dialog-actions align="end">
-            <button mat-button (click)="goToHomeInterno()" mat-dialog-close class="bg-bt-orange">
-                <span class="p-2 text-white">CONFERMA</span>
-            </button>
-            <button mat-button cdkFocusInitial mat-dialog-close>
+            <!-- <button mat-button cdkFocusInitial mat-dialog-close>
                 <span class="p-2">ANNULLA</span>
             </button>
+            <button mat-button (click)="goToHomeInterno()" mat-dialog-close class="bg-bt-orange">
+                <span class="p-2 text-white">CONFERMA</span>
+            </button> -->
+            <div class="flex">
+                <button mat-button class="backButton text-lg w-1/2">
+                    <span class="p-2">ANNULLA</span>
+                </button>
+                <button mat-button (click)="goToHomeInterno()" mat-dialog-close class="bg-bt-orange w-1/2">
+                    <span class="p-2 text-white">CONFERMA</span>
+                </button>
+            </div>
         </mat-dialog-actions>
     </div>
     <div *ngIf="ruolo === 'interno'">
         <h1>ESTERNO</h1>
-        <mat-dialog-actions align="end">
-            <button mat-button (click)="goToHomeEsterno()" mat-dialog-close class="bg-bt-orange">
-                <span class="p-2 text-white">CONFERMA</span>
-            </button>
-            <button mat-button cdkFocusInitial mat-dialog-close>
+        <mat-dialog-actions align="end" class="">
+            <!-- <button mat-button cdkFocusInitial mat-dialog-close>
                 <span class="p-2">ANNULLA</span>
-            </button>
+            </button> -->
+            <div class="flex">
+                <button mat-button class="backButton text-lg w-1/2">
+                    <span class="p-2">ANNULLA</span>
+                </button>
+                <button mat-button (click)="goToHomeEsterno()" mat-dialog-close class="bg-bt-orange w-1/2">
+                    <span class="p-2 text-white">CONFERMA</span>
+                </button>
+            </div>
         </mat-dialog-actions>
     </div>
 </div>
