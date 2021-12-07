@@ -28,8 +28,8 @@
                         </mat-expansion-panel-header>
                         <div class="flex flex-col text-left">
                             <p>Ci sono {{ orderInAttesa }} ordini in attesa</p>
-                            <p *ngif="orderNonDisp = 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
-                            <p *ngif="orderNonDisp = 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
+                            <p *ngif="orderNonDisp === 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
+                            <p *ngif="orderNonDisp === 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
                         </div>
                     <!-- <p>Ci sono {{ orderNonDisp }} ordini da confermare</p> -->
                     </mat-expansion-panel>
