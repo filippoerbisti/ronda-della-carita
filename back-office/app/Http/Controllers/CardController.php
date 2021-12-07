@@ -30,7 +30,7 @@ class CardController extends Controller
         return $newCard;
     }
 
-    public function modify(Request $request, $id) {
+    public function edit(Request $request, $id) {
         $card = Card::find($id);
         $newCardData = json_decode($request->getContent());   
 
@@ -38,8 +38,13 @@ class CardController extends Controller
         return $card;
     }
 
-    public function delete(Request $request, $id) {
-        $card = Card::where("id", $id)->delete();
+    public function delete($id) {
+        $card = Card::where("id", $id)
+                    ->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->foreign('client_id')
+                    ->references('id')->on('clients')
+                    ->onDelete('cascade');
 
         return $card;
     }

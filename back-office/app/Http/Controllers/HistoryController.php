@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 class HistoryController extends Controller
 {
     public function list() {
-        $history = History::with('user')->orderBy('ultimo_accesso', 'desc')->get();
+        $history = History::with('user')
+                            ->orderBy('ultimo_accesso', 'desc')
+                            ->get();
         return $history;
     }
 
@@ -25,7 +27,16 @@ class HistoryController extends Controller
     }
 
     public function countAccessi() {
-        $history = History::with('user')->where('ultimo_accesso', '>=', Carbon::today())->count();
+        $history = History::with('user')
+                            ->where('ultimo_accesso', '>=', Carbon::today())
+                            ->count();
+        return $history; 
+    }
+
+    public function todayAccessi() {
+        $history = History::with('user')
+                            ->where('ultimo_accesso', '>=', Carbon::today())
+                            ->get();
         return $history; 
     }
 }

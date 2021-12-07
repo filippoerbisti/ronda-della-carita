@@ -2,5 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --bt-orange: #EB7837
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.backButton {
+    border: 2px solid var(--bt-orange)!important;
+    color: var(--bt-orange);
+}
+
+/* .backButton:hover{
+    background-color: var(--bt-orange)!important;
+    color: white;
+
+} */
+
+
+.confirmButton {
+    border: 2px solid var(--bt-orange)!important;
+    color: white;
+    background-color: var(--bt-orange);
+}

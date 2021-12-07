@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChooseMansionDialogComponent } from '../choose-mansion-dialog/choose-mansion-dialog.component';
+import { ChooseMansionDialogComponent } from '../dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   registration() {
-
+    this.router.navigateByUrl('/home-admin');
   }
 
 }
