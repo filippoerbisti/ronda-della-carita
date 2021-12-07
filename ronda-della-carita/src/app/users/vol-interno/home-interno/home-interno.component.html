@@ -27,6 +27,7 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="flex flex-col text-left">
+<<<<<<< HEAD
                             <p>
                                 <span *ngIf="orderInAttesa === 1"> C'è {{ orderInAttesa }} ordine in attesa</span>
                                 <span else>Ci sono {{ orderInAttesa }} ordini in attesa</span>
@@ -35,6 +36,11 @@
                                 <span *ngIf="orderNonDisp === 1"> C'è {{ orderNonDisp }} ordine non disponibile</span>
                                 <span else>Ci sono {{ orderNonDisp }} ordini non disponibili</span>
                             </p>
+=======
+                            <p>Ci sono {{ orderInAttesa }} ordini in attesa</p>
+                            <p *ngif="orderNonDisp === 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
+                            <p *ngif="orderNonDisp === 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
+>>>>>>> 87c780bea369227d3704fce657a1422a181a95b6
                         </div>
                     <!-- <p>Ci sono {{ orderNonDisp }} ordini da confermare</p> -->
                     </mat-expansion-panel>
