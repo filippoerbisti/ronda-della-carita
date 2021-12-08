@@ -103,11 +103,11 @@ export class HomeAdminComponent implements OnInit {
   }
 
   goToOrdineAdmin() {
-    this.router.navigateByUrl('/order-admin');
+    this.router.navigateByUrl('/ordine-admin');
   }
 
   goToRegistrazioneAdmin() {
-    this.router.navigateByUrl('/client-admin');
+    this.router.navigateByUrl('/registrazione-admin');
   }
 
   OnPageChange(event: PageEvent) {

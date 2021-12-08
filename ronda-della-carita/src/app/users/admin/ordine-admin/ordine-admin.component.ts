@@ -7,6 +7,7 @@ import axios from "axios";
 import { IClient } from 'src/app/shared/interface/iclient';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { IParam } from 'src/app/shared/interface/iparam';
 
 @Component({
   selector: 'app-ordine-admin',
@@ -24,7 +25,7 @@ export class OrdineAdminComponent implements OnInit {
   filteredClients: Observable<IClient[]> | undefined;
 
   choseGender = "Uomo";
-  genders: string[] = ['Uomo', 'Donna'];
+  genders: IParam[] = [];
   quantita = 1;
 
   public tvestiario = [
