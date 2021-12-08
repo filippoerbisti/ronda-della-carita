@@ -13,7 +13,7 @@
                         <p>Accessi oggi: {{ accessiOggi }}</p>
                         <p>Ci sono {{ orderInAttesa }} ordini in attesa</p>
                         <p>Ci sono {{ orderNonDisp }} ordini non disponibili</p>
-                        <!-- <p>Ci sono {{ orderNonDisp }} ordini da confermare</p> -->
+                        <p>Ci sono {{ orderDaConf }} ordini da confermare</p>
                     </mat-card>
                 </div>
             </div>
@@ -179,14 +179,15 @@
                                         <div class="hidden md:flex">
                                             <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
-                                                <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
+                                                <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
+                                                    <mat-option *ngFor="let order_status of orders_status" [value]="order_status.value">
                                                         <div class="flex items-center">
-                                                        <span class="mr-auto">{{ sordine.name }}</span>
-                                                        <div *ngIf="sordine.value != ''">
-                                                            <img :src={{sordine.img_path}} alt="" class="h-6 w-6">
+                                                            <span class="mr-auto">{{ order_status.name }}</span>
+                                                            <img *ngIf="order_status.value == 'cons'" src="https://img.icons8.com/material-outlined/50/000000/checkmark.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="order_status.value == 'no_disp'" src="https://img.icons8.com/material-outlined/50/000000/delete-sign.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="order_status.value == 'attesa'" src="https://img.icons8.com/material-outlined/50/000000/clock.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="order_status.value == 'da_conf'" src="https://img.icons8.com/material-outlined/24/000000/box-important--v1.png" alt="" class="h-6 w-6">
                                                         </div>
-                                                    </div>
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -205,13 +206,14 @@
                                         <div class="w-full mt-3">
                                             <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
-                                                <mat-select name="sordine" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                                    <mat-option *ngFor="let sordine of sordines" [value]="sordine.value">
+                                                <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
+                                                    <mat-option *ngFor="let order_status of orders_status" [value]="order_status.value">
                                                         <div class="flex items-center">
-                                                            <span class="mr-auto">{{ sordine.name }}</span>
-                                                            <div *ngIf="sordine.value != ''">
-                                                                <img :src={{sordine.img_path}} alt="" class="h-6 w-6">
-                                                            </div>
+                                                            <span class="mr-auto">{{ order_status.name }}</span>
+                                                            <img *ngIf="order_status.value == 'cons'" src="https://img.icons8.com/material-outlined/50/000000/checkmark.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="order_status.value == 'no_disp'" src="https://img.icons8.com/material-outlined/50/000000/delete-sign.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="order_status.value == 'attesa'" src="https://img.icons8.com/material-outlined/50/000000/clock.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="order_status.value == 'da_conf'" src="https://img.icons8.com/material-outlined/24/000000/box-important--v1.png" alt="" class="h-6 w-6">
                                                         </div>
                                                     </mat-option>
                                                 </mat-select>

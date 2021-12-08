@@ -35,6 +35,13 @@ Route::get("/history/accessi/count", [HistoryController::class, "countAccessi"])
 Route::get("/history/accessi/today", [HistoryController::class, "todayAccessi"]);
 
 
+Route::get("/param/gender", [ParamController::class, "gender"]);
+
+Route::get("/param/type_doc", [ParamController::class, "type_doc"]);
+
+Route::get("/param/order_status", [ParamController::class, "order_status"]);
+
+
 Route::get("/clients", [ClientController::class, "list"]);
 
 Route::get("/client/{id}", [ClientController::class, "id"]);
@@ -59,6 +66,8 @@ Route::get("/orders/filt/{status}", [OrderController::class, "filter"]);
 Route::get("/orders/nondisp", [OrderController::class, "countOrderNonDisp"]);
 
 Route::get("/orders/inattesa", [OrderController::class, "countOrderInAttesa"]);
+
+Route::get("/orders/daconf", [OrderController::class, "countOrderDaConf"]);
 
 Route::post("/order/create", [OrderController::class, "create"]);
 

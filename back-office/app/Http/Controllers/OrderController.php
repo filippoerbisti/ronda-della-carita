@@ -43,6 +43,15 @@ class OrderController extends Controller
                     ->count();
     }
 
+    public function countOrderDaConf() {
+        return Order::with('client')
+                    ->with('user')
+                    ->with('param')
+                    ->with('clothe')
+                    ->where('param_id', 10)
+                    ->count();
+    }
+
     public function filter($status) {
         $search = "";
         $status = json_decode($status);
@@ -51,7 +60,8 @@ class OrderController extends Controller
                             ->with('user')
                             ->with('param')
                             ->with('clothe')
-                            ->where('status', $status)
+                            ->join('params', 'orders.param_id', '=', 'params.id')
+                            ->where('value', $status)
                             ->get();
         } else if ($search != null) {
             $order = Order::with('client')
@@ -60,7 +70,9 @@ class OrderController extends Controller
                             ->with('clothe')
                             ->where('p_ritiro', 'LIKE', "%$search%")
                             ->orWhere('n_ordine', '=', "%$search%")
-                            ->orWhere('t_vestiario', 'LIKE', "%$search%")
+                            ->join('params', 'orders.param_id', '=', 'params.id')
+                            ->orwhere('value', 'LIKE', "%$search%")
+                            ->join('clothes', 'orders.param_id', '=', 'clothes.id')
                             ->orWhere('taglia', '=', "$search")
                             ->get();
         } else {
@@ -71,25 +83,6 @@ class OrderController extends Controller
                             ->get();
         }
         return $order;
-        // $order = Order::query()
-        //                 ->when(!empty($search), function ($query) use ($search) {
-        //                     $query->with('client')
-        //                             ->with('user')
-        //                             ->where('p_ritiro', 'LIKE', "%$search%")
-        //                             ->orWhere('n_ordine', 'LIKE', "%$search%")
-        //                             ->orWhere('t_vestiario', 'LIKE', "%$search%")
-        //                             ->orWhere('taglia', '=', "$search")
-        //                             ->get();
-        //                 })
-        //                 ->when(!empty($search), function ($query) use ($status) {
-        //                     $query->with('client')
-        //                             ->with('user')
-        //                             ->where('status', $status)
-        //                             ->get();
-        //                 })
-        //                 ->orderBy('created_at', 'DESC')
-        //                 ->get();
-        // return $order;
     }
 
     private function pairing($newOrder, $newOrderData) {

@@ -28,7 +28,8 @@ class UserController extends Controller
         $user = User::where('nome', 'LIKE', "%$search%")
                     ->orWhere('cognome', 'LIKE', "%$search%")
                     ->orWhere('email', 'LIKE', "%$search%")
-                    ->orWhere('ruolo', 'LIKE', "%$search%")
+                    ->join('params', 'clients.param_id', '=', 'params.id')
+                    ->orWhere('name', 'LIKE', "%$search%")
                     ->with('param')
                     ->get();
         return $user;

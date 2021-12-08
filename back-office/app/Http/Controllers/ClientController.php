@@ -23,11 +23,16 @@ class ClientController extends Controller
     }
 
     public function filter($search) {
-        $client = Client::with('user')->with('document')->with('param')
+        $client = Client::with('user')
+                        ->with('document')
+                        ->with('param')
                         ->where('nome', 'LIKE', "%$search%")
                         ->orWhere('cognome', 'LIKE', "%$search%")
-                        ->orWhere('n_documento', 'LIKE', "%$search%")
                         ->orWhere('nazionalita', 'LIKE', "%$search%")
+                        ->join('documents', 'clients.document_id', '=', 'documents.id')
+                        ->orWhere('n_documento', 'LIKE', "%$search%")
+                        ->join('params', 'documents.param_id', '=', 'params.id')
+                        ->orWhere('name', 'LIKE', "%$search%")
                         ->get();
         return $client;
     }

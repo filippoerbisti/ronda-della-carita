@@ -13,6 +13,7 @@ import { IUser } from 'src/app/shared/interface/iuser';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { IClient } from 'src/app/shared/interface/iclient';
+import { IParam } from 'src/app/shared/interface/iparam';
 
 @Component({
   selector: 'app-home-admin',
@@ -24,32 +25,7 @@ export class HomeAdminComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  sordines = [
-    {
-      value: '',
-      name: 'Tutti'
-    },
-    {
-      value: 'no_disp', 
-      name: 'Non disponibile',
-      img_path: "https://img.icons8.com/material-outlined/50/000000/delete-sign.png"
-    },
-    {
-      value: 'attesa',
-      name: 'In attesa',
-      img_path: "https://img.icons8.com/material-outlined/50/000000/clock.png",
-    },
-    {
-      value: 'cons',
-      name: 'Consegnato',  
-      img_path: "https://img.icons8.com/material-outlined/50/000000/checkmark.png"
-    },
-    {
-      value: 'da_conf',
-      name: 'Da confermare',
-      img_path: "https://img.icons8.com/material-outlined/24/000000/box-important--v1.png"
-    }
-  ];
+  orders_status: IParam[] = [];
 
   users: IUser[] = [];
   clients: IClient[] = [];
@@ -60,9 +36,9 @@ export class HomeAdminComponent implements OnInit {
   orderId!: number;
   clientId!: number;
   
-  searchUsers:IUser[]=[];
-  searchClients:IClient[]=[];
-  searchOrders:IOrder[]=[];
+  searchUsers: IUser[] = [];
+  searchClients: IClient[] = [];
+  searchOrders: IOrder[] = [];
 
   pageUserSlice = this.users.slice(0, 10);
   pageOrderSlice = this.orders.slice(0, 10);
@@ -77,6 +53,7 @@ export class HomeAdminComponent implements OnInit {
   countNotifiche!: number;
   orderNonDisp!: number;
   orderInAttesa!: number;
+  orderDaConf!: number;
   accessiOggi!: number;
   
   constructor(
@@ -87,6 +64,9 @@ export class HomeAdminComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
+      let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
+      this.orders_status = response_order_status.data;
+
       let response_user = await axios.get("http://127.0.0.1:8000/api/users");
       this.users = response_user.data;
 
@@ -102,6 +82,9 @@ export class HomeAdminComponent implements OnInit {
       let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
 
+      let response_order_daconf = await axios.get("http://127.0.0.1:8000/api/orders/daconf");
+      this.orderDaConf = response_order_daconf.data;
+
       let response_accessi_oggi = await axios.get("http://127.0.0.1:8000/api/history/accessi/count");
       this.accessiOggi = response_accessi_oggi.data;
     } 
@@ -109,7 +92,7 @@ export class HomeAdminComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
-    this.countNotifiche = this.accessiOggi + this.orderInAttesa + this.orderNonDisp;
+    this.countNotifiche = this.accessiOggi + this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
     this.pageUserSlice = this.users.slice(0, 10); 
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
@@ -230,7 +213,7 @@ export class HomeAdminComponent implements OnInit {
     }
     status = JSON.stringify(status);
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" +status);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" + status);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
