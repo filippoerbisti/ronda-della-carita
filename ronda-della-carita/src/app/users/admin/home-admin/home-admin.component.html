@@ -55,7 +55,7 @@
                                         <input 
                                             [(ngModel)]="searchUser"
                                             type="text"
-                                            (change)="search('volontario')"
+                                            
                                             class="w-full flex-grow pl-3 py-2 rounded border
                                             focus:border-nav"
                                             placeholder="Cerca Volontario..."
@@ -63,7 +63,7 @@
 
                                         <!-- SEARCH BUTTON -->
                                         <div class="flex md:flex-col">
-                                            <button mat-raised-button (click)="search('volontario')" class="bg-bt-orange">
+                                            <button mat-raised-button (click)="filterUser()" class="bg-bt-orange">
                                                 <span class="p-2 text-white">CERCA</span>
                                             </button>
                                         </div>
