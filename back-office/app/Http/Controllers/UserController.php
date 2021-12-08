@@ -9,17 +9,18 @@ class UserController extends Controller
 {
     public function list()
     {
-        return User::all();
+        return User::with('param')->get();
     }
 
     public function id($id) {
         return User::where('id', $id)
+                    ->with('param')
                     ->get();
     }
 
     public function anagrafica()
     {
-        return User::first();
+        return User::with('param')->first();
     }
 
     public function filter($search)
@@ -28,6 +29,7 @@ class UserController extends Controller
                     ->orWhere('cognome', 'LIKE', "%$search%")
                     ->orWhere('email', 'LIKE', "%$search%")
                     ->orWhere('ruolo', 'LIKE', "%$search%")
+                    ->with('param')
                     ->get();
         return $user;
     }

@@ -121,22 +121,22 @@ export class OrdineEsternoComponent implements OnInit {
         
       } 
     }
-    this.change()
+    //this.change()
   }
-  public change(){
-    if(this.search.length!=0){
-      if(this.search[0].genere=='M')
-        this.choseGender="Uomo";
-      else
-        this.choseGender="Donna"
-      if(this.tvestiarioValue=='maglietta')
-        this.tagliaValue=this.search[0].t_maglietta;
-      else if(this.tvestiarioValue=='scarpe')
-        this.tagliaValue=this.search[0].t_scarpe;
-      else
-        this.tagliaValue=parseInt(this.search[0].t_pantaloni);
-    }
-  }
+  // public change(){
+  //   if(this.search.length!=0){
+  //     if(this.search[0].genere=='M')
+  //       this.choseGender="Uomo";
+  //     else
+  //       this.choseGender="Donna"
+  //     if(this.tvestiarioValue=='maglietta')
+  //       this.tagliaValue=this.search[0].t_maglietta;
+  //     else if(this.tvestiarioValue=='scarpe')
+  //       this.tagliaValue=this.search[0].t_scarpe;
+  //     else
+  //       this.tagliaValue=parseInt(this.search[0].t_pantaloni);
+  //   }
+  // }
   /*ngDoCheck() {
     console.log(typeof this.tagliaValue)
   }*/

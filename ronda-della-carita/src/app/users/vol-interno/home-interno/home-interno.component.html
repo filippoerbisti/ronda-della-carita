@@ -27,20 +27,9 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="flex flex-col text-left">
-<<<<<<< HEAD
-                            <p>
-                                <span *ngIf="orderInAttesa === 1"> C'è {{ orderInAttesa }} ordine in attesa</span>
-                                <span else>Ci sono {{ orderInAttesa }} ordini in attesa</span>
-                            </p>
-                            <p>
-                                <span *ngIf="orderNonDisp === 1"> C'è {{ orderNonDisp }} ordine non disponibile</span>
-                                <span else>Ci sono {{ orderNonDisp }} ordini non disponibili</span>
-                            </p>
-=======
                             <p>Ci sono {{ orderInAttesa }} ordini in attesa</p>
                             <p *ngif="orderNonDisp === 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
                             <p *ngif="orderNonDisp === 1">C'è {{ orderNonDisp }} ordine non disponibile</p>
->>>>>>> 87c780bea369227d3704fce657a1422a181a95b6
                         </div>
                     <!-- <p>Ci sono {{ orderNonDisp }} ordini da confermare</p> -->
                     </mat-expansion-panel>
@@ -126,18 +115,18 @@
                                             <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
                                         </mat-panel-title>
                                         <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                            <span class="leading-loose text-black mr-auto hidden md:inline">Stato: {{order.status }}</span>
-                                            <div *ngIf="order.status === 'In attesa'">
+                                            <span class="leading-loose text-black mr-auto hidden md:inline">Stato: {{order.param?.name }}</span>
+                                            <div *ngIf="order.param?.value === 'attesa'">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
                                             </div>
-                                            <div *ngIf="order.status === 'Consegnato'">
+                                            <div *ngIf="order.param?.value === 'cons'">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                 </svg>
                                             </div>
-                                            <div *ngIf="order.status === 'Non disponibile'">
+                                            <div *ngIf="order.param?.value === 'no_disp'">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
@@ -166,9 +155,9 @@
                                             <td>Quantità</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ order.t_vestiario }}</td>
-                                            <td>{{ order.genere }}</td>
-                                            <td>{{ order.taglia }}</td>
+                                            <td>{{ order.clothe?.t_vestiario }}</td>
+                                            <td>{{ order.param?.name }}</td>
+                                            <td>{{ order.clothe?.taglia }}</td>
                                             <td>{{ order.quantita }}</td>
                                         </tr>
                                     </table>
@@ -252,8 +241,8 @@
                                             </button>
                                         </div>
                                     </mat-expansion-panel-header>
-                                    <p class="font-bold">{{ client.t_documento }} N. {{ client.n_documento }}</p>
-                                    <p>Genere: {{ client.genere }}</p>
+                                    <p class="font-bold">{{ client.document?.param?.name }} N. {{ client.document?.n_documento }}</p>
+                                    <p>Genere: {{ client.param?.name }}</p>
                                     <p>Nazionalità: {{ client.nazionalita }}</p>
                                     <table class="w-full">
                                         <tr>

@@ -1,12 +1,15 @@
+import { IDocument } from "./idocument";
+import { IParam } from "./iparam";
 import { IUser } from "./iuser";
 
 export interface IClient {
     id: number,
     nome: string,
     cognome: string,
-    genere: string,
-    n_documento: string,
-    t_documento: string,
+    param_id: number,
+    param?: IParam,
+    document_id: number,
+    document?: IDocument,
     nazionalita: string,
     t_maglietta: string,
     t_pantaloni: string,

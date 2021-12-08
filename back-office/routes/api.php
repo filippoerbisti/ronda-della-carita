@@ -3,8 +3,11 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\ClotheController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ParamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

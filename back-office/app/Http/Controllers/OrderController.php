@@ -11,11 +11,16 @@ class OrderController extends Controller
     public function list() {
         return Order::with('client')
                     ->with('user')
+                    ->with('param')
+                    ->with('clothe')
                     ->get();
     }
 
     public function id($id) {
         return Order::with('client')
+                    ->with('user')
+                    ->with('clothe')
+                    ->with('param')
                     ->where('id', $id)
                     ->get();
     }
@@ -23,14 +28,18 @@ class OrderController extends Controller
     public function countOrderInAttesa() {
         return Order::with('client')
                     ->with('user')
-                    ->where('status', 'In attesa')
+                    ->with('param')
+                    ->with('clothe')
+                    ->where('param_id', 9)
                     ->count();
     }
 
     public function countOrderNonDisp() {
         return Order::with('client')
                     ->with('user')
-                    ->where('status', 'Non disponibile')
+                    ->with('param')
+                    ->with('clothe')
+                    ->where('param_id', 8)
                     ->count();
     }
 
@@ -40,11 +49,15 @@ class OrderController extends Controller
         if ($status != "all" ) {
             $order = Order::with('client')
                             ->with('user')
+                            ->with('param')
+                            ->with('clothe')
                             ->where('status', $status)
                             ->get();
         } else if ($search != null) {
             $order = Order::with('client')
                             ->with('user') 
+                            ->with('param')
+                            ->with('clothe')
                             ->where('p_ritiro', 'LIKE', "%$search%")
                             ->orWhere('n_ordine', '=', "%$search%")
                             ->orWhere('t_vestiario', 'LIKE', "%$search%")
@@ -53,6 +66,8 @@ class OrderController extends Controller
         } else {
             $order = Order::with('client')
                             ->with('user')
+                            ->with('param')
+                            ->with('clothe')
                             ->get();
         }
         return $order;

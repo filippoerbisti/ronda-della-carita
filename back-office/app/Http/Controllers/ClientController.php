@@ -8,17 +8,22 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     public function list() {
-        return Client::with('user')->get();
+        return Client::with('user')
+                    ->with('document')
+                    ->with('param')
+                    ->get();
     }
 
     public function id($id) {
-        return Client::with('user')
-                    ->where('id', $id)
+        return Client::where('id', $id)
+                    ->with('user')
+                    ->with('document')
+                    ->with('param')
                     ->get();
     }
 
     public function filter($search) {
-        $client = Client::with('user')
+        $client = Client::with('user')->with('document')->with('param')
                         ->where('nome', 'LIKE', "%$search%")
                         ->orWhere('cognome', 'LIKE', "%$search%")
                         ->orWhere('n_documento', 'LIKE', "%$search%")

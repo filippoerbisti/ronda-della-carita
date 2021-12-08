@@ -12,6 +12,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public $with = [
+        'orders',
+        'clients',
+        'histories'
+    ];
+
     public function card() {
         return $this->belongsTo(Card::class);
     }
@@ -26,6 +32,10 @@ class User extends Authenticatable
 
     public function histories() {
         return $this->hasMany(History::class);
+    }
+
+    public function param() {
+        return $this->belongsTo(Param::class);
     }
     
     /**

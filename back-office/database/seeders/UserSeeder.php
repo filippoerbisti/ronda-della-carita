@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             DB::table('users')->insert([
                 'nome' => $faker -> firstName,
                 'cognome' => $faker -> lastName,
-                'ruolo' => 'Volontario',
+                'param_id' => 1,
                 'email' => $faker -> unique()-> freeEmail,
                 'email_verified_at' => now(),
                 'password' => Hash::make('password'),

@@ -56,8 +56,8 @@
                         </button>
                     </div>
                 </mat-expansion-panel-header>
-                <p class="font-bold">{{ client.t_documento }} N. {{ client.n_documento }}</p>
-                <p>Genere: {{ client.genere }}</p>
+                <p class="font-bold">{{ client.document?.param?.name }} N. {{ client.document?.n_documento }}</p>
+                <p>Genere: {{ client.param?.name }}</p>
                 <p>Nazionalità: {{ client.nazionalita }}</p>
                 <table class="w-full">
                     <tr>
