@@ -181,6 +181,7 @@
                                             <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
                                                 <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
+                                                    <mat-option value="all"></mat-option>
                                                     <mat-option *ngFor="let order_status of orders_status" [value]="order_status.value">
                                                         <div class="flex items-center">
                                                             <span class="mr-auto">{{ order_status.name }}</span>
