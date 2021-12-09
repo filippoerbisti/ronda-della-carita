@@ -11,11 +11,16 @@ class OrderController extends Controller
     public function list() {
         return Order::with('client')
                     ->with('user')
+                    ->with('param')
+                    ->with('clothe')
                     ->get();
     }
 
     public function id($id) {
         return Order::with('client')
+                    ->with('user')
+                    ->with('clothe')
+                    ->with('param')
                     ->where('id', $id)
                     ->get();
     }
@@ -23,14 +28,27 @@ class OrderController extends Controller
     public function countOrderInAttesa() {
         return Order::with('client')
                     ->with('user')
-                    ->where('status', 'In attesa')
+                    ->with('param')
+                    ->with('clothe')
+                    ->where('param_id', 9)
                     ->count();
     }
 
     public function countOrderNonDisp() {
         return Order::with('client')
                     ->with('user')
-                    ->where('status', 'Non disponibile')
+                    ->with('param')
+                    ->with('clothe')
+                    ->where('param_id', 8)
+                    ->count();
+    }
+
+    public function countOrderDaConf() {
+        return Order::with('client')
+                    ->with('user')
+                    ->with('param')
+                    ->with('clothe')
+                    ->where('param_id', 10)
                     ->count();
     }
 
@@ -40,41 +58,31 @@ class OrderController extends Controller
         if ($status != "all" ) {
             $order = Order::with('client')
                             ->with('user')
-                            ->where('status', $status)
+                            ->with('param')
+                            ->with('clothe')
+                            ->join('params', 'orders.param_id', '=', 'params.id')
+                            ->where('value', $status)
                             ->get();
         } else if ($search != null) {
             $order = Order::with('client')
                             ->with('user') 
+                            ->with('param')
+                            ->with('clothe')
                             ->where('p_ritiro', 'LIKE', "%$search%")
                             ->orWhere('n_ordine', '=', "%$search%")
-                            ->orWhere('t_vestiario', 'LIKE', "%$search%")
+                            ->join('params', 'orders.param_id', '=', 'params.id')
+                            ->orwhere('value', 'LIKE', "%$search%")
+                            ->join('clothes', 'orders.param_id', '=', 'clothes.id')
                             ->orWhere('taglia', '=', "$search")
                             ->get();
         } else {
             $order = Order::with('client')
                             ->with('user')
+                            ->with('param')
+                            ->with('clothe')
                             ->get();
         }
         return $order;
-        // $order = Order::query()
-        //                 ->when(!empty($search), function ($query) use ($search) {
-        //                     $query->with('client')
-        //                             ->with('user')
-        //                             ->where('p_ritiro', 'LIKE', "%$search%")
-        //                             ->orWhere('n_ordine', 'LIKE', "%$search%")
-        //                             ->orWhere('t_vestiario', 'LIKE', "%$search%")
-        //                             ->orWhere('taglia', '=', "$search")
-        //                             ->get();
-        //                 })
-        //                 ->when(!empty($search), function ($query) use ($status) {
-        //                     $query->with('client')
-        //                             ->with('user')
-        //                             ->where('status', $status)
-        //                             ->get();
-        //                 })
-        //                 ->orderBy('created_at', 'DESC')
-        //                 ->get();
-        // return $order;
     }
 
     private function pairing($newOrder, $newOrderData) {

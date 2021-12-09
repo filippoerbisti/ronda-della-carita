@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\History;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller

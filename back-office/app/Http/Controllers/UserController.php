@@ -9,17 +9,18 @@ class UserController extends Controller
 {
     public function list()
     {
-        return User::all();
+        return User::with('param')->get();
     }
 
     public function id($id) {
         return User::where('id', $id)
+                    ->with('param')
                     ->get();
     }
 
     public function anagrafica()
     {
-        return User::first();
+        return User::with('param')->first();
     }
 
     public function filter($search)
@@ -27,7 +28,9 @@ class UserController extends Controller
         $user = User::where('nome', 'LIKE', "%$search%")
                     ->orWhere('cognome', 'LIKE', "%$search%")
                     ->orWhere('email', 'LIKE', "%$search%")
-                    ->orWhere('ruolo', 'LIKE', "%$search%")
+                    ->with('param')
+                    ->join('params', 'users.param_id', '=', 'params.id')
+                    ->orWhere('name', $search)
                     ->get();
         return $user;
     }

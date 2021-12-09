@@ -16,4 +16,12 @@ class Order extends Model
     public function client() {
         return $this->belongsTo(Client::class);
     }
+
+    public function param() {
+        return $this->belongsTo(Param::class);
+    }
+
+    public function clothe() {
+        return $this->belongsTo(Clothe::class);
+    }
 }

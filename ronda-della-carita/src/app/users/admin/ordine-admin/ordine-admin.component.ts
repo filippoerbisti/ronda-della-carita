@@ -7,6 +7,7 @@ import axios from "axios";
 import { IClient } from 'src/app/shared/interface/iclient';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { IParam } from 'src/app/shared/interface/iparam';
 
 @Component({
   selector: 'app-ordine-admin',
@@ -24,7 +25,7 @@ export class OrdineAdminComponent implements OnInit {
   filteredClients: Observable<IClient[]> | undefined;
 
   choseGender = "Uomo";
-  genders: string[] = ['Uomo', 'Donna'];
+  genders: IParam[] = [];
   quantita = 1;
 
   public tvestiario = [
@@ -134,23 +135,23 @@ export class OrdineAdminComponent implements OnInit {
         }
       } 
     }
-    this.change()
+    //this.change()
   }
 
-  public change(){
-    if(this.search.length != 0){
-      if(this.search[0].genere == 'M')
-        this.choseGender = "Uomo";
-      else
-        this.choseGender = "Donna"
-      if(this.tvestiarioValue == 'maglietta')
-        this.tagliaValue = this.search[0].t_maglietta;
-      else if(this.tvestiarioValue == 'scarpe')
-        this.tagliaValue = this.search[0].t_scarpe;
-      else
-        this.tagliaValue = parseInt(this.search[0].t_pantaloni);
-    }
-  }
+  // public change(){
+  //   if(this.search.length != 0){
+  //     if(this.search[0].genere == 'M')
+  //       this.choseGender = "Uomo";
+  //     else
+  //       this.choseGender = "Donna"
+  //     if(this.tvestiarioValue == 'maglietta')
+  //       this.tagliaValue = this.search[0].t_maglietta;
+  //     else if(this.tvestiarioValue == 'scarpe')
+  //       this.tagliaValue = this.search[0].t_scarpe;
+  //     else
+  //       this.tagliaValue = parseInt(this.search[0].t_pantaloni);
+  //   }
+  // }
   /*ngDoCheck() {
     console.log(typeof this.tagliaValue)
   }*/
