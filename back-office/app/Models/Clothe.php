@@ -9,12 +9,12 @@ class Clothe extends Model
 {
     use HasFactory;
 
-    public $with = [
-        'orders'
-    ];
+    public function order() {
+        return $this->belongsTo(Order::class);
+    }
 
-    public function orders() {
-        return $this->hasMany(Order::class);
+    public function inventory() {
+        return $this->belongsTo(Inventory::class);
     }
 
     public function param() {

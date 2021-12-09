@@ -15,7 +15,6 @@ class CardController extends Controller
         $newCard->n_tessera = $newCardData->n_tessera;
         $newCard->created_at = $newCardData->created_at;
         $newCard->update_at = $newCardData->update_at;
-        $newCard->user_id = $newCardData->user_id;
         $newCard->client_id = $newCardData->client_id;
 
         $newCard->save();
@@ -40,8 +39,6 @@ class CardController extends Controller
 
     public function delete($id) {
         $card = Card::where("id", $id)
-                    ->foreign('user_id')
-                    ->references('id')->on('users')
                     ->foreign('client_id')
                     ->references('id')->on('clients')
                     ->onDelete('cascade');

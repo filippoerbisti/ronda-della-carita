@@ -17,11 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('n_ordine')->nullable();
             $table->string('p_ritiro')->nullable();
-            $table->char('genere', 1)->nullable();
-            $table->string('t_vestiario')->nullable();
-            $table->string('taglia')->nullable();
             $table->integer('quantita')->nullable();
-            $table->string('status')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
         });

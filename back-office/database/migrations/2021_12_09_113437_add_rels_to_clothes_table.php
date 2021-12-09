@@ -14,6 +14,10 @@ class AddRelsToClothesTable extends Migration
     public function up()
     {
         Schema::table('clothes', function (Blueprint $table) {
+            $table->bigInteger("order_id")->unsigned()->nullable();
+            $table->foreign("order_id")->references("id")->on("orders");
+            $table->bigInteger("inventory_id")->unsigned()->nullable();
+            $table->foreign("inventory_id")->references("id")->on("inventories");
             $table->bigInteger("param_id")->unsigned()->nullable();
             $table->foreign("param_id")->references("id")->on("params");
         });
@@ -27,6 +31,10 @@ class AddRelsToClothesTable extends Migration
     public function down()
     {
         Schema::table('clothes', function (Blueprint $table) {
+            $table->dropForeign(["order_id"]);
+            $table->dropColumn(["order_id"]);
+            $table->dropForeign(["inventory_id"]);
+            $table->dropColumn(["inventory_id"]);
             $table->dropForeign(["param_id"]);
             $table->dropColumn(["param_id"]);
         });

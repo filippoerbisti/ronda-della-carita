@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RemoveColInternoToUsersTable extends Migration
+class CreateInventoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class RemoveColInternoToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('interno');
+        Schema::create('inventories', function (Blueprint $table) {
+            $table->id();
+            $table->text('t_vestiario');
+            $table->text('taglia');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class RemoveColInternoToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('interno');
-        });
+        Schema::dropIfExists('inventories');
     }
 }

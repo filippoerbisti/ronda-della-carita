@@ -18,10 +18,6 @@ class User extends Authenticatable
         'histories'
     ];
 
-    public function card() {
-        return $this->belongsTo(Card::class);
-    }
-
     public function orders() {
         return $this->hasMany(Order::class);
     }

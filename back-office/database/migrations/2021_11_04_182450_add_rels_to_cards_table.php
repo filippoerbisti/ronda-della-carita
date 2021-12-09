@@ -14,8 +14,6 @@ class AddRelsToCardsTable extends Migration
     public function up()
     {
         Schema::table('cards', function (Blueprint $table) {
-            $table->bigInteger("user_id")->unsigned()->nullable();
-            $table->foreign("user_id")->references("id")->on("users");
             $table->bigInteger("client_id")->unsigned()->nullable();
             $table->foreign("client_id")->references("id")->on("clients");
         });
@@ -29,8 +27,6 @@ class AddRelsToCardsTable extends Migration
     public function down()
     {
         Schema::table('cards', function (Blueprint $table) {
-            $table->dropForeign(["user_id"]);
-            $table->dropColumn(["user_id"]);
             $table->dropForeign(["client_id"]);
             $table->dropColumn(["client_id"]);
         });

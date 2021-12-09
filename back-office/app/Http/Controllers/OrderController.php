@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Clothe;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -11,55 +12,47 @@ class OrderController extends Controller
     public function list() {
         return Order::with('client')
                     ->with('user')
-                    ->with('param')
-                    ->with('clothe')
                     ->get();
     }
 
     public function id($id) {
         return Order::with('client')
                     ->with('user')
-                    ->with('clothe')
-                    ->with('param')
                     ->where('id', $id)
                     ->get();
     }
 
     public function countOrderInAttesa() {
-        return Order::with('client')
-                    ->with('user')
-                    ->with('param')
-                    ->with('clothe')
-                    ->where('param_id', 9)
-                    ->count();
+        return Clothe::with('order')
+                        ->with('inventory')
+                        ->with('param')
+                        ->where('param_id', 9)
+                        ->count();
     }
 
     public function countOrderNonDisp() {
-        return Order::with('client')
-                    ->with('user')
-                    ->with('param')
-                    ->with('clothe')
-                    ->where('param_id', 8)
-                    ->count();
+        return Clothe::with('order')
+                        ->with('inventory')
+                        ->with('param')
+                        ->where('param_id', 8)
+                        ->count();
     }
 
     public function countOrderDaConf() {
-        return Order::with('client')
-                    ->with('user')
-                    ->with('param')
-                    ->with('clothe')
-                    ->where('param_id', 10)
-                    ->count();
+        return Clothe::with('order')
+                        ->with('inventory')
+                        ->with('param')
+                        ->where('param_id', 10)
+                        ->count();
     }
 
     public function filter($status) {
         $search = "";
         $status = json_decode($status);
         if ($status != "all" ) {
-            $order = Order::with('client')
-                            ->with('user')
+            $order = Clothe::with('order')
+                            ->with('inventory')
                             ->with('param')
-                            ->with('clothe')
                             ->join('params', 'orders.param_id', '=', 'params.id')
                             ->where('value', $status)
                             ->get();

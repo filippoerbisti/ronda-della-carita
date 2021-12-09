@@ -16,14 +16,12 @@ class CardSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $userId = DB::table('users')->pluck('id');
         $clientId = DB::table('clients')->pluck('id');
         
         for ($i = 0; $i < 20; $i++) {
             DB::table('cards')->insert([
                 'n_tessera' => Str::random(10),
                 'created_at' => now(),
-                'user_id' => $faker->randomElement($userId),
                 'client_id' => $faker->randomElement($clientId)
             ]);
         }

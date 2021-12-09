@@ -9,6 +9,10 @@ class Order extends Model
 {
     use HasFactory;
 
+    public $with = [
+        'clothes'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -17,11 +21,7 @@ class Order extends Model
         return $this->belongsTo(Client::class);
     }
 
-    public function param() {
-        return $this->belongsTo(Param::class);
-    }
-
-    public function clothe() {
-        return $this->belongsTo(Clothe::class);
+    public function clothes() {
+        return $this->hasMany(Clothe::class);
     }
 }

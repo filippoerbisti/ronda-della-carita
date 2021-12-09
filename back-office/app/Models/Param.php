@@ -11,18 +11,14 @@ class Param extends Model
 
     public $with = [
         'users',
-        'orders',
         'clients',
         'documents',
-        'clothes'
+        'clothes',
+        'inventories'
     ];
 
     public function users() {
         return $this->hasMany(User::class);
-    }
-
-    public function orders() {
-        return $this->hasMany(Order::class);
     }
 
     public function clients() {
@@ -35,5 +31,9 @@ class Param extends Model
 
     public function clothes() {
         return $this->hasMany(Clothe::class);
+    }
+
+    public function inventories() {
+        return $this->hasMany(Inventory::class);
     }
 }
