@@ -25,9 +25,8 @@ export class OrdineAdminComponent implements OnInit {
   filteredClients: Observable<IClient[]> | undefined;
 
   choseGender = "Uomo";
-  genders: IParam[] = [];
   quantita = 1;
-
+  
   public tvestiario = [
     {value: 'maglietta', viewValue: "Maglietta"},
     {value: 'pantaloni', viewValue: 'Pantaloni'},
@@ -120,7 +119,6 @@ export class OrdineAdminComponent implements OnInit {
   goToHomeAdmin() {
     this.router.navigateByUrl('/home-admin');
   }
-
   public sea(){
     if(this.nm != ""){
       let nmo = this.nm.split(' ');
@@ -135,25 +133,25 @@ export class OrdineAdminComponent implements OnInit {
         }
       } 
     }
-    //this.change()
+    this.change()
   }
-
-  // public change(){
-  //   if(this.search.length != 0){
-  //     if(this.search[0].genere == 'M')
-  //       this.choseGender = "Uomo";
-  //     else
-  //       this.choseGender = "Donna"
-  //     if(this.tvestiarioValue == 'maglietta')
-  //       this.tagliaValue = this.search[0].t_maglietta;
-  //     else if(this.tvestiarioValue == 'scarpe')
-  //       this.tagliaValue = this.search[0].t_scarpe;
-  //     else
-  //       this.tagliaValue = parseInt(this.search[0].t_pantaloni);
-  //   }
-  // }
+  public change(){
+    if(this.search.length != 0){
+      if(this.search[0].param?.value== 'M')
+        this.choseGender = "Uomo";
+      else
+        this.choseGender = "Donna"
+      if(this.tvestiarioValue == 'maglietta')
+        this.tagliaValue = this.search[0].t_maglietta;
+      else if(this.tvestiarioValue == 'scarpe')
+        this.tagliaValue = this.search[0].t_scarpe;
+      else
+        this.tagliaValue = parseInt(this.search[0].t_pantaloni);
+    }
+  }
   /*ngDoCheck() {
-    console.log(typeof this.tagliaValue)
+    if(this.search[0]!=undefined)
+      console.log(this.search[0].param?.value)
   }*/
   private _filter(nome: string): IClient[] {
     const filterValue = nome.toLowerCase();
