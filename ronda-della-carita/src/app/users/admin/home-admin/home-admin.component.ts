@@ -129,78 +129,78 @@ export class HomeAdminComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(startIndex, endIndex);
   }  
 
-  // public filter(type: string) {
-  //   switch(type){
-  //     case 'user':
-  //       for (let index in this.users) {
-  //         if(this.users[index].nome.toLowerCase() == this.searchUser.toLowerCase()) {
-  //           let put = true;
-  //           for (let anotherIndex in this.searchUsers) {
-  //             if (this.searchUsers[index] === this.users[anotherIndex]) {
-  //               put = false;
-  //             }
-  //           }
-  //           if (put)
-  //             this.searchUsers.push(this.users[index]);
-  //         }
-  //       }
-  //       break;
-  //     case 'ordine':
-  //       for (let index in this.orders) {
-  //         if (this.orders[index].n_ordine.toString() == this.searchOrder) {
-  //           let put = true;
-  //           for (let anotherIndex in this.searchOrders) {
-  //             if (this.searchOrders[index] === this.orders[anotherIndex]) {
-  //               put = false;
-  //             }
-  //           }
-  //           if (put)
-  //             this.searchOrders.push(this.orders[index]);
-  //         }
-  //       } 
-  //       break;
-  //     case 'nuovoassistito':
-  //       for (let index in this.clients) {
-  //         if (this.clients[index].nome.toLowerCase() == this.searchClient.toLowerCase()) {
-  //           let put=true;
-  //           for (let anotherIndex in this.searchClients) {
-  //             if (this.searchClients[index] === this.clients[anotherIndex]){
-  //               put = false;
-  //             }
-  //           }
-  //           if (put)
-  //             this.searchClients.push(this.clients[index]);
-  //         }
-  //       }
-  //       break;
-  //   }
-    
-  // }
-  // public search(were: string) {
-  //   switch(were) {
-  //     case 'nuovoassistito':
-  //       if (this.searchClient == "" || this.searchClient == " ") {
-  //         this.searchClients.splice(0, this.searchClients.length);
-  //         this.searchClient = "";
-  //       }
-  //       this.filter('nuovoassistito');
-  //       break;
-  //     case 'ordine':
-  //       if (this.searchOrder == "" || this.searchOrder == " "){
-  //         this.searchOrders.splice(0,this.searchOrders.length);
-  //         this.searchOrder = "";
-  //       }
-  //       this.filter('ordine');
-  //       break;
-  //     case 'volontario':
-  //       if (this.searchUser == "" || this.searchUser == " ") {
-  //         this.searchUsers.splice(0, this.searchUsers.length);
-  //         this.searchUser="";
-  //       }
-  //       this.filter('user');
-  //       break;
-  //   }
-  // }
+  public filter(type: string) {
+    switch(type){
+      case 'user':
+        for (let index in this.users) {
+          if(this.users[index].nome.toLowerCase() == this.searchUser.toLowerCase()) {
+            let put = true;
+            for (let anotherIndex in this.searchUsers) {
+              if (this.searchUsers[index] === this.users[anotherIndex]) {
+                put = false;
+              }
+            }
+            if (put)
+              this.searchUsers.push(this.users[index]);
+          }
+        }
+        break;
+      case 'ordine':
+        for (let index in this.orders) {
+          if (this.orders[index].n_ordine.toString() == this.searchOrder) {
+            let put = true;
+            for (let anotherIndex in this.searchOrders) {
+              if (this.searchOrders[index] === this.orders[anotherIndex]) {
+                put = false;
+              }
+            }
+            if (put)
+              this.searchOrders.push(this.orders[index]);
+          }
+        } 
+        break;
+      case 'nuovoassistito':
+        for (let index in this.clients) {
+          if (this.clients[index].nome.toLowerCase() == this.searchClient.toLowerCase()) {
+            let put=true;
+            for (let anotherIndex in this.searchClients) {
+              if (this.searchClients[index] === this.clients[anotherIndex]){
+                put = false;
+              }
+            }
+            if (put)
+              this.searchClients.push(this.clients[index]);
+          }
+        }
+        break;
+    }
+ 
+  }
+  public search(were: string) {
+    switch(were) {
+      case 'nuovoassistito':
+        if (this.searchClient == "" || this.searchClient == " ") {
+          this.searchClients.splice(0, this.searchClients.length);
+          this.searchClient = "";
+        }
+        this.filter('nuovoassistito');
+        break;
+      case 'ordine':
+        if (this.searchOrder == "" || this.searchOrder == " "){
+          this.searchOrders.splice(0,this.searchOrders.length);
+          this.searchOrder = "";
+        }
+        this.filter('ordine');
+        break;
+      case 'volontario':
+        if (this.searchUser == "" || this.searchUser == " ") {
+          this.searchUsers.splice(0, this.searchUsers.length);
+          this.searchUser="";
+        }
+        this.filter('user');
+        break;
+    }
+  }
 
   async filterUser() {
     let search = this.searchUser;
