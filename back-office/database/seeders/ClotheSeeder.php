@@ -27,7 +27,7 @@ class ClotheSeeder extends Seeder
                 'created_at' => now(),
                 'order_id' => $faker->randomElement($orderId),
                 'inventory_id' => $faker->randomElement($inventoryId),
-                'param_id' => $faker->randomElement($paramId)
+                'param_id' => rand(7, 10)
             ]);
         }
     }
