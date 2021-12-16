@@ -9,13 +9,13 @@ class Param extends Model
 {
     use HasFactory;
 
-    public $with = [
-        'users',
-        'clients',
-        'documents',
-        'clothes',
-        'inventories'
-    ];
+    // public $with = [
+    //     'users',
+    //     'clients',
+    //     'documents',
+    //     'clothes',
+    //     'inventories'
+    // ];
 
     public function users() {
         return $this->hasMany(User::class);

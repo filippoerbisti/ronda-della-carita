@@ -121,12 +121,9 @@
                         <td>Taglia</td>
                         <td>Quantità</td>
                     </tr>
-                    <tr *ngFor="let clothe of clothes">
+                    <tr *ngFor="let clothe of order.clothes">
                         <td>{{ clothe.inventory?.t_vestiario }}</td>
-                        <td>
-                            <span *ngIf="clothe.param_id == 2">Femmina</span>
-                            <span *ngIf="clothe.param_id == 3">Maschio</span>
-                        </td>
+                        <td>{{ clothe.inventory?.param?.value }}</td>
                         <td>{{ clothe.inventory?.taglia }}</td>
                         <td>{{ clothe.quantita }}</td>
                     </tr>
