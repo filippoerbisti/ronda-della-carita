@@ -162,12 +162,14 @@
                                             <td>Genere</td>
                                             <td>Taglia</td>
                                             <td>Quantità</td>
+                                            <td>Stato</td>
                                         </tr>
                                         <tr *ngFor="let clothe of order.clothes">
                                             <td>{{ clothe.inventory?.t_vestiario }}</td>
                                             <td>{{ clothe.inventory?.param?.value }}</td>
                                             <td>{{ clothe.inventory?.taglia }}</td>
                                             <td>{{ clothe.quantita }}</td>
+                                            <td>{{ clothe.param?.name }}</td>
                                         </tr>
                                     </table>
                                 </mat-expansion-panel>
