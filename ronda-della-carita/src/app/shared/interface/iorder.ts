@@ -1,5 +1,6 @@
 import { IUser } from "./iuser";
 import { IClient } from "./iclient";
+import { IClothe } from "./iclothe";
 
 export interface IOrder {
     id: number,
@@ -13,4 +14,5 @@ export interface IOrder {
     user?: IUser,
     client_id: number,
     client?: IClient,
+    clothes?: IClothe
 }
