@@ -7,6 +7,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { IUser } from 'src/app/shared/interface/iuser';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IOrder } from 'src/app/shared/interface/iorder';
+import { IParam } from 'src/app/shared/interface/iparam';
+import { IClothe } from 'src/app/shared/interface/iclothe';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,16 +21,12 @@ export class ViewOrdineEsternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  sordines = [
-    {value: ''},
-    {value: 'Non disponibile', img_path: "https://img.icons8.com/material-outlined/50/000000/delete-sign.png", class: "text-red-800"},
-    {value: 'In attesa', img_path: "https://img.icons8.com/material-outlined/50/000000/clock.png", class: "text-blue-800"},
-    {value: 'Consegnato',  img_path: "https://img.icons8.com/material-outlined/50/000000/checkmark.png", class: "text-green-800"}
-  ];
+  orders_status: IParam[] = [];
 
   user: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
+  clothes: IClothe[] = [];
 
   pageOrderSlice = this.orders.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];

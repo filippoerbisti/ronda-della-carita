@@ -14,6 +14,7 @@ import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IParam } from 'src/app/shared/interface/iparam';
+import { IClothe } from 'src/app/shared/interface/iclothe';
 
 @Component({
   selector: 'app-home-admin',
@@ -31,6 +32,7 @@ export class HomeAdminComponent implements OnInit {
   clients: IClient[] = [];
   orders: IOrder[] = [];
   cards: ICard[] = [];
+  clothes: IClothe[] = [];
 
   userId!: number;
   orderId!: number;
@@ -75,6 +77,9 @@ export class HomeAdminComponent implements OnInit {
 
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
       this.orders = response_order.data;
+
+      let response_clothe = await axios.get("http://127.0.0.1:8000/api/clothes");
+      this.clothes = response_clothe.data;
 
       let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
