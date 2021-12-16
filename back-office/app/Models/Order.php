@@ -10,7 +10,10 @@ class Order extends Model
     use HasFactory;
 
     public $with = [
-        'clothes'
+        'clothes',
+        'clothes.inventory',
+        'clothes.param',
+        'clothes.inventory.param'
     ];
 
     public function user() {

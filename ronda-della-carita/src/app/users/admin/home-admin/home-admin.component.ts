@@ -14,6 +14,7 @@ import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IParam } from 'src/app/shared/interface/iparam';
+import { IClothe } from 'src/app/shared/interface/iclothe';
 
 @Component({
   selector: 'app-home-admin',
@@ -31,6 +32,7 @@ export class HomeAdminComponent implements OnInit {
   clients: IClient[] = [];
   orders: IOrder[] = [];
   cards: ICard[] = [];
+  // clothes: IClothe[] = [];
 
   userId!: number;
   orderId!: number;

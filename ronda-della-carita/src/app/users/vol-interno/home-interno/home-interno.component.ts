@@ -11,6 +11,8 @@ import { IClient } from 'src/app/shared/interface/iclient';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { Router } from '@angular/router';
+import { IClothe } from 'src/app/shared/interface/iclothe';
+import { IParam } from 'src/app/shared/interface/iparam';
 
 @Component({
   selector: 'app-home-interno',
@@ -22,17 +24,13 @@ export class HomeInternoComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  sordines = [
-    {value: ''},
-    {value: 'Non disponibile', img_path: "https://img.icons8.com/material-outlined/50/000000/delete-sign.png", class: "text-red-800"},
-    {value: 'In attesa', img_path: "https://img.icons8.com/material-outlined/50/000000/clock.png", class: "text-blue-800"},
-    {value: 'Consegnato',  img_path: "https://img.icons8.com/material-outlined/50/000000/checkmark.png", class: "text-green-800"}
-  ];
+  orders_status: IParam[] = [];
 
   user: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
   cards: ICard[] = [];
+  clothes: IClothe[] = [];
 
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
@@ -57,29 +55,22 @@ export class HomeInternoComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
+      let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
+      this.orders_status = response_order_status.data;
+
       let response_user = await axios.get("http://127.0.0.1:8000/api/user");
-      console.log(response_user.status);
-      console.log(response_user.data);
       this.user = response_user.data;
 
       let response_client = await axios.get("http://127.0.0.1:8000/api/clients");
-      console.log(response_client.status);
-      console.log(response_client.data);
       this.clients = response_client.data;
 
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
-      console.log(response_order.status);
-      console.log(response_order.data);
       this.orders = response_order.data;
 
       let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
-      console.log(response_order_nondisp.status);
-      console.log(response_order_nondisp.data);
       this.orderNonDisp = response_order_nondisp.data;
 
       let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
-      console.log(response_order_inattesa.status);
-      console.log(response_order_inattesa.data);
       this.orderInAttesa = response_order_inattesa.data;
     } 
     catch (err) {
