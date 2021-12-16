@@ -43,19 +43,16 @@ export class ViewOrdineEsternoComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
+      let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
+      this.orders_status = response_order_status.data;
+
       let response_user = await axios.get("http://127.0.0.1:8000/api/user");
-      console.log(response_user.status);
-      console.log(response_user.data);
       this.user = response_user.data;
 
       let response_client = await axios.get("http://127.0.0.1:8000/api/clients");
-      console.log(response_client.status);
-      console.log(response_client.data);
       this.clients = response_client.data;
 
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
-      console.log(response_order.status);
-      console.log(response_order.data);
       this.orders = response_order.data;
     } 
     catch (err) {

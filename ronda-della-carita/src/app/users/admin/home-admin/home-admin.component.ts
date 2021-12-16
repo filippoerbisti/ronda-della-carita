@@ -78,9 +78,6 @@ export class HomeAdminComponent implements OnInit {
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
       this.orders = response_order.data;
 
-      // let response_clothe = await axios.get("http://127.0.0.1:8000/api/clothes");
-      // this.clothes = response_clothe.data;
-
       let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
 
@@ -101,7 +98,6 @@ export class HomeAdminComponent implements OnInit {
     this.pageUserSlice = this.users.slice(0, 10); 
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
-    console.log(this.orders);
   }  
 
   goToUserAdmin() {
