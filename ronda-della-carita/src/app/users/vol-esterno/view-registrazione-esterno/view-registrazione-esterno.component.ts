@@ -22,6 +22,8 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];
 
+  searchClients: IClient[] = [];
+
   searchClient!: string;
 
   clientId!: number;
@@ -52,6 +54,37 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
 
   goToHomeEsterno() {
     this.router.navigateByUrl('/home-esterno');
+  }
+
+  public filter(type: string) {
+    switch(type){
+      case 'nuovoassistito':
+        for (let index in this.clients) {
+          if (this.clients[index].nome.toLowerCase() == this.searchClient.toLowerCase()) {
+            let put=true;
+            for (let anotherIndex in this.searchClients) {
+              if (this.searchClients[index] === this.clients[anotherIndex]){
+                put = false;
+              }
+            }
+            if (put)
+              this.searchClients.push(this.clients[index]);
+          }
+        }
+        break;
+    }
+ 
+  }
+  public search(were: string) {
+    switch(were) {
+      case 'nuovoassistito':
+        if (this.searchClient == "" || this.searchClient == " ") {
+          this.searchClients.splice(0, this.searchClients.length);
+          this.searchClient = "";
+        }
+        this.filter('nuovoassistito');
+        break;
+    }
   }
 
   async filterClient() {

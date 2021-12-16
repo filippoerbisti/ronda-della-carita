@@ -19,6 +19,7 @@
                     <input 
                     type="text"
                     [(ngModel)]="searchClient"
+                    (change)="filterClient()"
                     class="w-full flex-grow pl-3 py-2 rounded border
                     focus:border-nav"
                     placeholder="Cerca Cliente..."

@@ -31,6 +31,8 @@ export class ViewOrdineEsternoComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20];
 
+  searchOrders: IOrder[] = [];
+
   state!: string;
   searchOrder!: string;
   orderId!: number;
@@ -68,6 +70,36 @@ export class ViewOrdineEsternoComponent implements OnInit {
 
   goToHomeEsterno() {
     this.router.navigateByUrl('/home-esterno');
+  }
+
+  public filter(type: string) {
+    switch(type){
+      case 'ordine':
+        for (let index in this.orders) {
+          if (this.orders[index].n_ordine.toString() == this.searchOrder) {
+            let put = true;
+            for (let anotherIndex in this.searchOrders) {
+              if (this.searchOrders[index] === this.orders[anotherIndex]) {
+                put = false;
+              }
+            }
+            if (put)
+              this.searchOrders.push(this.orders[index]);
+          }
+        }
+    }
+ 
+  }
+  public search(were: string) {
+    switch(were) {
+      case 'ordine':
+        if (this.searchOrder == "" || this.searchOrder == " "){
+          this.searchOrders.splice(0,this.searchOrders.length);
+          this.searchOrder = "";
+        }
+        this.filter('ordine');
+        break;
+    }
   }
 
   async filterOrder() {
