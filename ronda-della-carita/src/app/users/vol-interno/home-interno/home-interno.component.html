@@ -17,6 +17,7 @@
                 </div> -->
 
                 <div class="flex items-center justify-around">
+                    
                     <mat-expansion-panel (opened)="panelOpenState = true" 
                         (closed)="panelOpenState = false" [expanded]="true" class="padding-y">
                         <mat-expansion-panel-header >
@@ -27,11 +28,11 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="flex flex-col text-left">
-                            <p>
-                                <span *ngIf="orderInAttesa === 1"> C'è {{ orderInAttesa }} ordine in attesa</span>
-                                <span else>Ci sono {{ orderInAttesa }} ordini in attesa</span>
+                            <p *ngIf="orderInAttesa !== 0">
+                                <span *ngIf="orderInAttesa > 1">Ci sono {{ orderInAttesa }} ordini in attesa</span>
+                                <span else>C'è {{ orderInAttesa }} ordine in attesa</span>
                             </p>
-                            <p>
+                            <p *ngIf="orderNonDisp !== 0">
                                 <span *ngIf="orderNonDisp === 1"> C'è {{ orderNonDisp }} ordine non disponibile</span>
                                 <span else>Ci sono {{ orderNonDisp }} ordini non disponibili</span>
                             </p>
