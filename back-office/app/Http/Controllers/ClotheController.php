@@ -14,12 +14,20 @@ class ClotheController extends Controller
                         ->get();
         return $clothe;
     }
+
     public function id($id) {
         $clothe = Clothe::where('id', $id)
                         ->with('param')
                         ->with('order')
                         ->with('inventory')
                         ->get();
+        return $clothe;
+    }
+
+    public function totPezzi($id) {
+        $clothe = Clothe::groupBy('order_id')
+                        ->sum('quantita')
+                        ->where('order_id', $id);
         return $clothe;
     }
 }

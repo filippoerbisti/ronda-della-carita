@@ -84,6 +84,8 @@ Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
 // Clothe
 Route::get('/clothes', [ClotheController::class, 'list']);
 
+Route::get('/clothes/totpezzi', [ClotheController::class, 'totPezzi']);
+
 
 // Card
 Route::get('/cards', [CardController::class, 'list']);
