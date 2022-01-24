@@ -57,6 +57,7 @@ export class HomeAdminComponent implements OnInit {
   orderInAttesa!: number;
   orderDaConf!: number;
   accessiOggi!: number;
+  totPezzi!: number;
   
   constructor(
     public dialog: MatDialog,
@@ -89,6 +90,9 @@ export class HomeAdminComponent implements OnInit {
 
       let response_accessi_oggi = await axios.get("http://127.0.0.1:8000/api/history/accessi/count");
       this.accessiOggi = response_accessi_oggi.data;
+      
+      let response_totpezzi = await axios.get("http://127.0.0.1:8000/api/clothes/totpezzi");
+      this.totPezzi = response_totpezzi.data;
     } 
     catch (err) {
       console.log(err);
