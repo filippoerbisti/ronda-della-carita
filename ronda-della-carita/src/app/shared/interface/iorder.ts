@@ -14,5 +14,6 @@ export interface IOrder {
     user?: IUser,
     client_id: number,
     client?: IClient,
-    clothes: IClothe[]
+    clothes: IClothe[],
+    n_clothes:number
 }
