@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Clothe;
 use App\Models\Order;
+use Illuminate\Foundation\Bus\PendingClosureDispatch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
     public function list() {
-        return Order::with('client')
+        $order= Order::with('client')
                     ->with('user')
                     ->get();
+        for($i=0;$i<count($order);$i++){
+            $id=$order[$i]->id;
+
+            $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
+            $order[$i]->setAttribute("n_clothes",$n_clothes);
+        }
+        return $order;
     }
 
     public function id($id) {
