@@ -15,6 +15,8 @@ import { IClothe } from 'src/app/shared/interface/iclothe';
 export class EditOrderDialogComponent implements OnInit {
 
   isLoading = false;  
+  panelOpenState = false;
+  
   nm = "";
   gen = "";
   myControl = new FormControl();
@@ -94,13 +96,12 @@ export class EditOrderDialogComponent implements OnInit {
       let response_order = await axios.get("http://127.0.0.1:8000/api/order/" + orderId);
       console.log(response_order.status);
       console.log(response_order.data);
+      this.order = response_order.data;
 
-      let clotheId = this.clotheId;
-      let response_clothe = await axios.get("http://127.0.0.1:8000/api/clothe/" + clotheId);
+      let clotheId = this.order.id;
+      let response_clothe = await axios.get("http://127.0.0.1:8000/api/clothe/edit/" + clotheId);
       console.log(response_clothe.status);
       console.log(response_clothe.data);
-
-      this.order = response_order.data;
       this.clothes = response_clothe.data;
     } 
     catch (err) {
