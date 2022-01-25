@@ -1,7 +1,7 @@
 <div *ngIf="!isLoading">
-    <div *ngFor="let user of users">
+    <div>
         <h2 mat-dialog-title>Modifica Volontario <span class="font-bold">{{ user.nome | uppercase}} {{ user.cognome | uppercase }}</span></h2>
-        <div>
+        <mat-dialog-content>
             <form class="w-full mt-3">
                 <div class="w-full flex">
                     <mat-form-field appearance="fill" class="w-full">
@@ -49,15 +49,15 @@
                     </div>
                 </div>
             </form>  
-            <mat-dialog-actions align="end">
-                <button mat-button cdkFocusInitial (click)="clearCache()" mat-dialog-close>
-                    <span class="p-2">ANNULLA</span>
-                </button>
-                <button mat-button (click)="editUser()" mat-dialog-close class="bg-bt-orange">
-                    <span class="p-2 text-white">CONFERMA</span>
-                </button>
-            </mat-dialog-actions>
-        </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button cdkFocusInitial (click)="clearCache()" mat-dialog-close>
+                <span class="p-2">ANNULLA</span>
+            </button>
+            <button mat-button (click)="editUser()" mat-dialog-close class="bg-bt-orange">
+                <span class="p-2 text-white">CONFERMA</span>
+            </button>
+        </mat-dialog-actions>
     </div>
 </div>
 <div *ngIf="isLoading" class="h-full grid grid-center">
