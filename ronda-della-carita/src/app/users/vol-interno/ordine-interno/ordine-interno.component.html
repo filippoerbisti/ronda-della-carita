@@ -44,7 +44,6 @@
                         <mat-form-field appearance="fill" class="w-full ml-4">
                             <mat-label>Taglia:</mat-label>
                             <mat-select (selectionChange)="change()" name="tagliaValue" [(ngModel)]="tagliaValue">
-                                <!-- -->
                                 <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.viewValue">
                                     {{item.viewValue}}
                                 </mat-option>

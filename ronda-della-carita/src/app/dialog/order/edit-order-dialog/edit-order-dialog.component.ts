@@ -118,6 +118,4 @@ export class EditOrderDialogComponent implements OnInit {
     window.location.reload();
   }
 
-  
-
 }
