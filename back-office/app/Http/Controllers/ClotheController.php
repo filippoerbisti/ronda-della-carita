@@ -20,14 +20,7 @@ class ClotheController extends Controller
                         ->with('param')
                         ->with('order')
                         ->with('inventory')
-                        ->get();
-        return $clothe;
-    }
-
-    public function totPezzi($id) {
-        $clothe = Clothe::groupBy('order_id')
-                        ->sum('quantita')
-                        ->where('order_id', $id);
+                        ->first();
         return $clothe;
     }
 }

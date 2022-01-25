@@ -19,7 +19,7 @@ class ClientController extends Controller
                     ->with('user')
                     ->with('document')
                     ->with('param')
-                    ->get();
+                    ->first();
     }
 
     public function filter($search) {

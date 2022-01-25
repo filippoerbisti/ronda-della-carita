@@ -1,17 +1,17 @@
 <div *ngIf="!isLoading">
     <h2 mat-dialog-title>Sei sicuro di voler eliminare l'ordine</h2>
-    <div *ngFor="let order of orders">
+    <mat-dialog-content>
         <h1 class="font-bold">N. {{ order.n_ordine }}</h1>
         <h3>di <span class="font-bold">{{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</span></h3>
-        <mat-dialog-actions align="end">
-            <button mat-button cdkFocusInitial (click)="clearCache()" mat-dialog-close>
-                <span class="p-2">ANNULLA</span>
-            </button>
-            <button mat-button (click)="deleteOrder()" mat-dialog-close class="bg-bt-orange">
-                <span class="p-2 text-white">CONFERMA</span>
-            </button>
-        </mat-dialog-actions>
-    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button cdkFocusInitial (click)="clearCache()" mat-dialog-close>
+            <span class="p-2">ANNULLA</span>
+        </button>
+        <button mat-button (click)="deleteOrder()" mat-dialog-close class="bg-bt-orange">
+            <span class="p-2 text-white">CONFERMA</span>
+        </button>
+    </mat-dialog-actions>
 </div>
 <div *ngIf="isLoading" class="h-full grid grid-center">
     <mat-spinner class="m-auto"></mat-spinner>

@@ -11,7 +11,7 @@ export class DeleteClientDialogComponent implements OnInit {
   
   isLoading = false;
 
-  clients: IClient[] = [];
+  client!: IClient;
   clientId!: number;
 
   constructor() { }
@@ -25,7 +25,7 @@ export class DeleteClientDialogComponent implements OnInit {
       let response = await axios.get("http://127.0.0.1:8000/api/client/" + clientId);
       console.log(response.status);
       console.log(response.data);
-      this.clients = response.data;
+      this.client = response.data;
     } 
     catch (err) {
       console.log(err);

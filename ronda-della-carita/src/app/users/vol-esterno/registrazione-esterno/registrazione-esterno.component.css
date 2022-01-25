@@ -8,4 +8,9 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+} 
+
+
+::ng-deep .mat-card {
+  box-shadow: none !important;
 }

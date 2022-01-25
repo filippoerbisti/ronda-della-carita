@@ -24,7 +24,7 @@ export class EditClientDialogComponent implements OnInit {
 
   isLoading = false;
 
-  clients: IClient[] = [];
+  client!: IClient;
   clientId!: number;
 
   // newClient = {
@@ -92,7 +92,7 @@ export class EditClientDialogComponent implements OnInit {
       let response_order = await axios.get("http://127.0.0.1:8000/api/client/" + clientId);
       console.log(response_order.status);
       console.log(response_order.data);
-      this.clients = response_order.data;
+      this.client = response_order.data;
     } 
     catch (err) {
       console.log(err);

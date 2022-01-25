@@ -22,6 +22,10 @@ export class SidebarMenuComponent implements OnInit {
     password: 'string'
   };
 
+  countNotifiche!: number;
+  orderNonDisp!: number;
+  orderInAttesa!: number;
+
   ruolo!: string;
 
   constructor(
@@ -31,13 +35,27 @@ export class SidebarMenuComponent implements OnInit {
 
   async ngOnInit() {
     this.ruolo = localStorage["ruolo"];
+
+    try {
+      
+    } catch (error) {
+      console.log(error);      
+    }
+
+
     try {
       let response = await axios.get("http://127.0.0.1:8000/api/user");
       this.user = response.data;
+      let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
+      this.orderNonDisp = response_order_nondisp.data;
+
+      let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
+      this.orderInAttesa = response_order_inattesa.data;
     } 
     catch (err) {
       console.log(err);
     }
+    this.countNotifiche = this.orderInAttesa + this.orderNonDisp;
 
   }
 

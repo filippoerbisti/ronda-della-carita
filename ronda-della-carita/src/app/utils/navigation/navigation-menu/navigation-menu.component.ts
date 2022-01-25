@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
+import axios from 'axios';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -18,7 +19,7 @@ export class NavigationMenuComponent implements OnInit {
     private router: Router
     ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.ruolo = localStorage["ruolo"];
   }
 

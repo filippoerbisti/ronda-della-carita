@@ -27,7 +27,7 @@ class OrderController extends Controller
         return Order::with('client')
                     ->with('user')
                     ->where('id', $id)
-                    ->get();
+                    ->first();
     }
 
     public function countOrderInAttesa() {

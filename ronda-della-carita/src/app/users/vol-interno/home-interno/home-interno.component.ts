@@ -42,13 +42,13 @@ export class HomeInternoComponent implements OnInit {
   state!: string;
   searchOrder!: string;
   searchClient!: string;
-  orderNonDisp!: number;
-  orderInAttesa!: number;
+  // orderNonDisp!: number;
+  // orderInAttesa!: number;
 
   clientId!: number;
   orderId!: number;
 
-  countNotifiche!: number;
+  // countNotifiche!: number;
   
   constructor(
     public dialog: MatDialog,
@@ -70,17 +70,17 @@ export class HomeInternoComponent implements OnInit {
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
       this.orders = response_order.data;
 
-      let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
-      this.orderNonDisp = response_order_nondisp.data;
+      // let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
+      // this.orderNonDisp = response_order_nondisp.data;
 
-      let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
-      this.orderInAttesa = response_order_inattesa.data;
+      // let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
+      // this.orderInAttesa = response_order_inattesa.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
-    this.countNotifiche = this.orderInAttesa + this.orderNonDisp;
+    // this.countNotifiche = this.orderInAttesa + this.orderNonDisp;
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
   }  

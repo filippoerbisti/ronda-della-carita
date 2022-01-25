@@ -11,7 +11,7 @@ export class DeleteUserDialogComponent implements OnInit {
 
   isLoading = false;
 
-  users: IUser[] = [];
+  user!: IUser;
   userId!: number;
 
   constructor() { }
@@ -25,7 +25,7 @@ export class DeleteUserDialogComponent implements OnInit {
       let response = await axios.get("http://127.0.0.1:8000/api/user/" + userId);
       console.log(response.status);
       console.log(response.data);
-      this.users = response.data;
+      this.user = response.data;
     } 
     catch (err) {
       console.log(err);
