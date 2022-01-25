@@ -10,6 +10,6 @@ class DocumentController extends Controller
     public function id($id) {
         return Document::where('id', $id)
                     ->with('param')
-                    ->get();
+                    ->first();
     }
 }

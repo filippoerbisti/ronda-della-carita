@@ -20,7 +20,7 @@ class ClotheController extends Controller
                         ->with('param')
                         ->with('order')
                         ->with('inventory')
-                        ->get();
+                        ->first();
         return $clothe;
     }
 
