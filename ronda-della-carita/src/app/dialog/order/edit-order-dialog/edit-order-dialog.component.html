@@ -1,17 +1,18 @@
 <div *ngIf="!isLoading">
     <div>
         <h2 mat-dialog-title>Modifica Ordine N. <span class="font-bold">{{ order.n_ordine }}</span>
-        di <span class="font-bold">{{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</span></h2>
+            di <span class="font-bold">{{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</span>
+        </h2>
         <div>
             <form class="w-full mt-3">
                 <div class="w-full flex">
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Punto di ritiro</mat-label>
                         <input type="text" matInput 
-                            placeholder="p_ritiro">
+                            placeholder="Punto di ritiro">
                     </mat-form-field>
                 </div>
-                <div *ngFor="let clothe of clothes" class="w-full flex-col">
+                <div *ngFot="let clothe of clothes" class="w-full flex-col">
                     <mat-form-field appearance="fill" class="w-full mt-4">
                         <mat-label>Tipo vestiario:</mat-label>
                         <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue">

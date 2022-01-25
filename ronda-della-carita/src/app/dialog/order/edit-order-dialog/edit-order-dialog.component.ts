@@ -19,7 +19,7 @@ export class EditOrderDialogComponent implements OnInit {
   gen = "";
   myControl = new FormControl();
   clients: IClient[] = [];
-  order: IOrder[] = [];
+  order!: IOrder;
   orderId!: number;
   clothes: IClothe[] = [];
   clotheId!: number;
@@ -99,7 +99,9 @@ export class EditOrderDialogComponent implements OnInit {
       let response_clothe = await axios.get("http://127.0.0.1:8000/api/clothe/" + clotheId);
       console.log(response_clothe.status);
       console.log(response_clothe.data);
+
       this.order = response_order.data;
+      this.clothes = response_clothe.data;
     } 
     catch (err) {
       console.log(err);

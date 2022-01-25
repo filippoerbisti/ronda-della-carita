@@ -23,11 +23,4 @@ class ClotheController extends Controller
                         ->first();
         return $clothe;
     }
-
-    public function totPezzi($id) {
-        $clothe = Clothe::groupBy('order_id')
-                        ->sum('quantita')
-                        ->where('order_id', $id);
-        return $clothe;
-    }
 }
