@@ -1,5 +1,5 @@
 <div *ngIf="!isLoading">
-    <div *ngFor="let order of orders">
+    <div>
         <h2 mat-dialog-title>Modifica Ordine N. <span class="font-bold">{{ order.n_ordine }}</span>
         di <span class="font-bold">{{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</span></h2>
         <div>
@@ -11,7 +11,7 @@
                             placeholder="p_ritiro">
                     </mat-form-field>
                 </div>
-                <div class="w-full flex-col">
+                <div *ngFor="let clothe of clothes" class="w-full flex-col">
                     <mat-form-field appearance="fill" class="w-full mt-4">
                         <mat-label>Tipo vestiario:</mat-label>
                         <mat-select name="tvestiario" [(ngModel)]="tvestiarioValue">

@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
 import { IClient } from '../../../shared/interface/iclient';
 import { IOrder } from '../../../shared/interface/iorder';
+import { IClothe } from 'src/app/shared/interface/iclothe';
 
 @Component({
   selector: 'app-edit-order-dialog',
@@ -18,8 +19,10 @@ export class EditOrderDialogComponent implements OnInit {
   gen = "";
   myControl = new FormControl();
   clients: IClient[] = [];
-  orders: IOrder[] = [];
+  order: IOrder[] = [];
   orderId!: number;
+  clothes: IClothe[] = [];
+  clotheId!: number;
   filteredClients: Observable<IClient[]> | undefined;
 
   genders: string[] = ['Uomo', 'Donna'];
@@ -91,7 +94,12 @@ export class EditOrderDialogComponent implements OnInit {
       let response_order = await axios.get("http://127.0.0.1:8000/api/order/" + orderId);
       console.log(response_order.status);
       console.log(response_order.data);
-      this.orders = response_order.data;
+
+      let clotheId = this.clotheId;
+      let response_clothe = await axios.get("http://127.0.0.1:8000/api/clothe/" + clotheId);
+      console.log(response_clothe.status);
+      console.log(response_clothe.data);
+      this.order = response_order.data;
     } 
     catch (err) {
       console.log(err);
