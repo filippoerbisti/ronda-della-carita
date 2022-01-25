@@ -11,7 +11,7 @@ export class DeleteOrderDialogComponent implements OnInit {
 
   isLoading = false;
 
-  orders: IOrder[] = [];
+  order!: IOrder;
   orderId!: number;
 
   constructor() { }
@@ -25,7 +25,7 @@ export class DeleteOrderDialogComponent implements OnInit {
       let response = await axios.get("http://127.0.0.1:8000/api/order/" + orderId);
       console.log(response.status);
       console.log(response.data);
-      this.orders = response.data;
+      this.order = response.data;
     } 
     catch (err) {
       console.log(err);

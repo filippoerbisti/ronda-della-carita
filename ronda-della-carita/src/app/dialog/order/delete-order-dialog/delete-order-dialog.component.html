@@ -1,6 +1,6 @@
 <div *ngIf="!isLoading">
     <h2 mat-dialog-title>Sei sicuro di voler eliminare l'ordine</h2>
-    <div *ngFor="let order of orders">
+    <div>
         <h1 class="font-bold">N. {{ order.n_ordine }}</h1>
         <h3>di <span class="font-bold">{{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</span></h3>
         <mat-dialog-actions align="end">
