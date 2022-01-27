@@ -4,6 +4,7 @@ import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-man
 import axios from 'axios';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
 import { Router } from '@angular/router';
+import { IOrder } from 'src/app/shared/interface/iorder';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -22,9 +23,14 @@ export class SidebarMenuComponent implements OnInit {
     password: 'string'
   };
 
+  inattesa_orders: IOrder[] = [];
+  daconf_orders: IOrder[] = [];
+  nondisp_orders: IOrder[] = [];
+
   countNotifiche!: number;
   orderNonDisp!: number;
   orderInAttesa!: number;
+  orderDaConf!: number;
 
   ruolo!: string;
 
@@ -35,27 +41,27 @@ export class SidebarMenuComponent implements OnInit {
 
   async ngOnInit() {
     this.ruolo = localStorage["ruolo"];
-
     try {
-      
-    } catch (error) {
-      console.log(error);      
-    }
+      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
+      this.user = response_user.data;
+      let response_inattesa_orders = await axios.get("http://127.0.0.1:8000/api/orders/notif/inattesa");
+      this.inattesa_orders = response_inattesa_orders.data;
+      let response_daconf_orders = await axios.get("http://127.0.0.1:8000/api/orders/notif/daconf");
+      this.daconf_orders = response_daconf_orders.data;
+      let response_nondisp_orders = await axios.get("http://127.0.0.1:8000/api/orders/notif/nondisp");
+      this.nondisp_orders = response_nondisp_orders.data;
 
-
-    try {
-      let response = await axios.get("http://127.0.0.1:8000/api/user");
-      this.user = response.data;
       let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
-
       let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
+      let response_order_daconf= await axios.get("http://127.0.0.1:8000/api/orders/daconf");
+      this.orderDaConf = response_order_daconf.data;
     } 
     catch (err) {
       console.log(err);
     }
-    this.countNotifiche = this.orderInAttesa + this.orderNonDisp;
+    this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
 
   }
 
