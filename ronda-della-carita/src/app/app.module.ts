@@ -63,6 +63,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { CommonComponentsComponent } from './common-components/common-components.component';
 import { NavigationAdminMenuComponent } from './utils/navigation/navigation-admin-menu/navigation-admin-menu.component';
+import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { NavigationAdminMenuComponent } from './utils/navigation/navigation-admi
     ChangePasswordDialogComponent,
     ScannerQrComponent,
     CommonComponentsComponent,
-    NavigationAdminMenuComponent
+    NavigationAdminMenuComponent,
+    ViewOrderNotificationDialogComponent
   ],
   imports: [
     BrowserModule,

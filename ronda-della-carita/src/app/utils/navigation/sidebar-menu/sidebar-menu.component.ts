@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import axios from 'axios';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
+import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { Router } from '@angular/router';
-import { IOrder } from 'src/app/shared/interface/iorder';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -23,16 +23,13 @@ export class SidebarMenuComponent implements OnInit {
     password: 'string'
   };
 
-  inattesa_orders: IOrder[] = [];
-  daconf_orders: IOrder[] = [];
-  nondisp_orders: IOrder[] = [];
-
   countNotifiche!: number;
   orderNonDisp!: number;
   orderInAttesa!: number;
   orderDaConf!: number;
 
   ruolo!: string;
+  typeNotification!: string;
 
   constructor(
     public dialog: MatDialog,
@@ -44,13 +41,6 @@ export class SidebarMenuComponent implements OnInit {
     try {
       let response_user = await axios.get("http://127.0.0.1:8000/api/user");
       this.user = response_user.data;
-      let response_inattesa_orders = await axios.get("http://127.0.0.1:8000/api/orders/notif/inattesa");
-      this.inattesa_orders = response_inattesa_orders.data;
-      let response_daconf_orders = await axios.get("http://127.0.0.1:8000/api/orders/notif/daconf");
-      this.daconf_orders = response_daconf_orders.data;
-      let response_nondisp_orders = await axios.get("http://127.0.0.1:8000/api/orders/notif/nondisp");
-      this.nondisp_orders = response_nondisp_orders.data;
-
       let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
       let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
@@ -106,6 +96,27 @@ export class SidebarMenuComponent implements OnInit {
 
   openPasswordDialog() {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
+  }
+
+  viewOrderInAttesa() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "In attesa";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderNonDisp() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Non disponibile";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderDaConf() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Da confermare";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
 
   openSidebar() {
