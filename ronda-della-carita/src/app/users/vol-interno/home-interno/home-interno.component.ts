@@ -195,6 +195,7 @@ export class HomeInternoComponent implements OnInit {
   }
 
   openDeleteClientDialog(clientId: number) {
+    this.panelOpenState == true;
     this.clientId = clientId;
     localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
