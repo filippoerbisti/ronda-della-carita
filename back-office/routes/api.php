@@ -70,9 +70,15 @@ Route::get('/orders/filt/{status}', [OrderController::class, 'filter']);
 
 Route::get('/orders/nondisp', [OrderController::class, 'countOrderNonDisp']);
 
+Route::get('/orders/notif/nondisp', [OrderController::class, 'orderNonDisp']);
+
 Route::get('/orders/inattesa', [OrderController::class, 'countOrderInAttesa']);
 
+Route::get('/orders/notif/inattesa', [OrderController::class, 'orderInAttesa']);
+
 Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);
+
+Route::get('/orders/notif/daconf', [OrderController::class, 'orderDaConf']);
 
 Route::post('/order/create', [OrderController::class, 'create']);
 

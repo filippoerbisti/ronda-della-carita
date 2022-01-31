@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import axios from 'axios';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
+import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,8 +26,10 @@ export class SidebarMenuComponent implements OnInit {
   countNotifiche!: number;
   orderNonDisp!: number;
   orderInAttesa!: number;
+  orderDaConf!: number;
 
   ruolo!: string;
+  typeNotification!: string;
 
   constructor(
     public dialog: MatDialog,
@@ -35,27 +38,20 @@ export class SidebarMenuComponent implements OnInit {
 
   async ngOnInit() {
     this.ruolo = localStorage["ruolo"];
-
     try {
-      
-    } catch (error) {
-      console.log(error);      
-    }
-
-
-    try {
-      let response = await axios.get("http://127.0.0.1:8000/api/user");
-      this.user = response.data;
+      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
+      this.user = response_user.data;
       let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
-
       let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
+      let response_order_daconf= await axios.get("http://127.0.0.1:8000/api/orders/daconf");
+      this.orderDaConf = response_order_daconf.data;
     } 
     catch (err) {
       console.log(err);
     }
-    this.countNotifiche = this.orderInAttesa + this.orderNonDisp;
+    this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
 
   }
 
@@ -100,6 +96,27 @@ export class SidebarMenuComponent implements OnInit {
 
   openPasswordDialog() {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
+  }
+
+  viewOrderInAttesa() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "In attesa";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderNonDisp() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Non disponibile";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderDaConf() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Da confermare";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
 
   openSidebar() {

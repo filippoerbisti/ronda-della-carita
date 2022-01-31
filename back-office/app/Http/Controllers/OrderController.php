@@ -38,12 +38,28 @@ class OrderController extends Controller
                         ->count();
     }
 
+    public function orderInAttesa() {
+        return Clothe::with('order')
+                        ->with('inventory')
+                        ->with('param')
+                        ->where('param_id', 9)
+                        ->get();
+    }
+
     public function countOrderNonDisp() {
         return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
                         ->where('param_id', 8)
                         ->count();
+    }
+
+    public function orderNonDisp() {
+        return Clothe::with('order')
+                        ->with('inventory')
+                        ->with('param')
+                        ->where('param_id', 8)
+                        ->get();
     }
 
     public function countOrderDaConf() {
@@ -53,6 +69,14 @@ class OrderController extends Controller
                         ->with('param')
                         ->where('param_id', 10)
                         ->count();
+    }
+
+    public function orderDaConf() {
+        return Clothe::with('order')
+                        ->with('inventory')
+                        ->with('param')
+                        ->where('param_id', 10)
+                        ->get();
     }
 
     public function filter($status) {
