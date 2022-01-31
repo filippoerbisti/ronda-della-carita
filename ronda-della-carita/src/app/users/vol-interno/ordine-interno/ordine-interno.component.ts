@@ -7,6 +7,13 @@ import axios from "axios";
 import { IClient } from 'src/app/shared/interface/iclient';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
+
+export interface IClothes {
+  type: string,
+  size: string,
+  number: number
+}
 
 @Component({
   selector: 'app-ordine-interno',
@@ -32,6 +39,18 @@ export class OrdineInternoComponent implements OnInit {
     {value: 'pantaloni', viewValue: 'Pantaloni'},
     {value: 'scarpe', viewValue: 'Scarpe'},
   ];
+
+  // newClothe !: IClothes;
+
+  // clothes: IClothes[] = [];
+
+  public newClothe = {
+    type: String,
+    size: String,
+    number: Number
+  }
+
+  public clothes : any[] = []
 
   public tvestiarioUseCaseMapping: any = {
     "maglietta": [
@@ -173,5 +192,11 @@ export class OrdineInternoComponent implements OnInit {
       horizontalPosition: this.horizontalPosition,
       duration: this.durationInSeconds * 1000
     })
+  }
+
+  
+
+  addClothe(){
+    this.clothes.push(this.newClothe); 
   }
 }
