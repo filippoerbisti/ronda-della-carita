@@ -228,7 +228,6 @@ export class HomeAdminComponent implements OnInit {
     }
     let search = this.searchOrder;
     let status = this.state;
-    status = JSON.stringify(status);
     try {
       let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" + status);
       console.log(response_filter.status);

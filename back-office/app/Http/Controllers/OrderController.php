@@ -48,6 +48,7 @@ class OrderController extends Controller
 
     public function countOrderDaConf() {
         return Clothe::with('order')
+                        ->with('order')
                         ->with('inventory')
                         ->with('param')
                         ->where('param_id', 10)
@@ -56,13 +57,13 @@ class OrderController extends Controller
 
     public function filter($status) {
         $search = "";
-        $status = json_decode($status);
-        /*return Clothe::with('order')
+        return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
                         ->join('params','clothes.param_id','=','params.id')
-                        ->where('value',"cons")
-                        ->get();*/
+                        ->where('value',$status)
+                        ->get();
+        
         if ($status != "all" ) {
             $order = Clothe::with('order')
                             ->with('inventory')
