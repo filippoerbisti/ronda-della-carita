@@ -2,19 +2,19 @@
     <div *ngIf="view_notification === inAttesa">
         <h2>Ordini in attesa</h2>
         <div *ngFor="let order of inAttesaOrders">
-            <p>qauntita:{{order.quantita}}</p>
+            <p>quantità:{{order.quantita}}</p>
         </div>
     </div>
     <div *ngIf="view_notification === nonDisp">
         <h2>Ordini non disponibili</h2>
         <div *ngFor="let order of nonDispOrders">
-            <p>qauntita:{{order.quantita}}</p>
+            <p>quantità:{{order.quantita}}</p>
         </div>
     </div>
     <div *ngIf="view_notification === daConf">
         <h2>Ordini da confermare</h2>
         <div *ngFor="let order of daConfOrders">
-            <p>qauntita:{{order.quantita}}</p>
+            <p>quantità:{{order.quantita}}</p>
         </div>
     </div>
 </div>
