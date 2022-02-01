@@ -10,7 +10,6 @@ class Client extends Model
     use HasFactory;
 
     public $with = [
-        'orders'
     ];
 
     public function card() {
