@@ -6,6 +6,7 @@ use App\Models\Clothe;
 use App\Models\Order;
 use Illuminate\Foundation\Bus\PendingClosureDispatch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
@@ -16,7 +17,6 @@ class OrderController extends Controller
                     ->get();
         for($i=0;$i<count($order);$i++){
             $id=$order[$i]->id;
-
             $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
             $order[$i]->setAttribute("n_clothes",$n_clothes);
         }
@@ -64,6 +64,7 @@ class OrderController extends Controller
 
     public function countOrderDaConf() {
         return Clothe::with('order')
+                        ->with('order')
                         ->with('inventory')
                         ->with('param')
                         ->where('param_id', 10)
@@ -80,12 +81,18 @@ class OrderController extends Controller
 
     public function filter($status) {
         $search = "";
-        $status = json_decode($status);
+        return Clothe::with('order')
+                        ->with('inventory')
+                        ->with('param')
+                        ->join('params','clothes.param_id','=','params.id')
+                        ->where('value',$status)
+                        ->get();
+        
         if ($status != "all" ) {
             $order = Clothe::with('order')
                             ->with('inventory')
                             ->with('param')
-                            ->join('params', 'orders.param_id', '=', 'params.id')
+                            ->join('params', 'clothes.param_id', '=', 'params.id')
                             ->where('value', $status)
                             ->get();
         } else if ($search != null) {

@@ -12,5 +12,6 @@ export interface IClothe {
     inventory_id: number,
     inventory?: IInventory,
     param_id: number,
-    param?: IParam
+    param?: IParam,
+    open:boolean
 }
