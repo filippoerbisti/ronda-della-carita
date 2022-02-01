@@ -24,7 +24,6 @@ export class EditOrderDialogComponent implements OnInit {
   order!: IOrder;
   orderId!: number;
   clothes: IClothe[] = [];
-  open:boolean=false;
   clotheId!: number;
   filteredClients: Observable<IClient[]> | undefined;
 
@@ -105,7 +104,7 @@ export class EditOrderDialogComponent implements OnInit {
         console.log(response_order.data.clothes[i]);
       }*/
       for(let i =0; i<this.orders.length;i++){
-        this.orders[i].open="true";
+        this.orders[i].open="false";
       }
       console.log("oreds",this.orders);
       let clotheId = this.order.id;
@@ -121,7 +120,7 @@ export class EditOrderDialogComponent implements OnInit {
   }
   press(clothe:any){
     console.log("clothe",clothe)
-    clothe.open=false;
+    clothe.open=true;
     console.log("open or not"+clothe.open)
   }
   save(prova:any){
