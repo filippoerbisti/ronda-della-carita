@@ -22,31 +22,21 @@
                         </mat-expansion-panel-header>
                         <mat-form-field appearance="fill" class="w-full mt-4">
                             <mat-label>Tipo vestiario:</mat-label>
-                            <mat-select name="tvestiario" [(ngModel)]="order.clothes[i].inventory.t_vestiario" (click)="press(clothe)">
-                                <mat-option *ngFor="let item of tvestiario" [value]="item.value" >
-                                    <div *ngIf="clothe.open">
-                                        {{item.viewValue}}
-                                    </div>
-                                    <div *ngIf="!clothe.open">
-                                        {{order.clothes[i].inventory.t_vestiario}}
-                                    </div>
+                            <mat-select [(value)]='clothe.inventory.t_vestiario'>
+                                <mat-option *ngFor="let item of tvestiario" value="{{item.value}}" >
+                                    {{item.viewValue}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Taglia:</mat-label>
-                            <mat-select name="tmaglietta" [(ngModel)]='clothe.inventory.taglia' (click)="press(clothe)">
-                                <mat-option *ngFor="let item of tvestiarioUseCaseMapping[clothe.inventory.t_vestiario]" [value]="item.value">
-                                    <div *ngIf="clothe.open">
-                                        {{item.viewValue}}
-                                    </div>
-                                    <div *ngIf="!clothe.open">
-                                        {{clothe.inventory.taglia}}
-                                    </div>
+                            <mat-select [(value)]='clothe.inventory.taglia'>
+                                <mat-option *ngFor="let item of tvestiarioUseCaseMapping[clothe.inventory.t_vestiario]" value="{{item.value}}">
+                                    {{item.viewValue}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field appearance="fill" class="w-full">
+                        <mat-form-field appearance="fill" class="w-full" >
                             <mat-label>Quantità</mat-label>
                             <input type="number" matInput
                                 placeholder="Quantità">{{clothe.quantita}}
