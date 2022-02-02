@@ -3,14 +3,8 @@
     <div *ngIf="ruolo === 'esterno'">
         <h1>INTERNO</h1>
         <mat-dialog-actions align="end">
-            <!-- <button mat-button cdkFocusInitial mat-dialog-close>
-                <span class="p-2">ANNULLA</span>
-            </button>
-            <button mat-button (click)="goToHomeInterno()" mat-dialog-close class="bg-bt-orange">
-                <span class="p-2 text-white">CONFERMA</span>
-            </button> -->
             <div class="flex">
-                <button mat-button class="backButton text-lg w-1/2">
+                <button mat-button class="backButton text-lg w-1/2" mat-dialog-close>
                     <span class="p-2">ANNULLA</span>
                 </button>
                 <button mat-button (click)="goToHomeInterno()" mat-dialog-close class="bg-bt-orange w-1/2">
@@ -21,12 +15,9 @@
     </div>
     <div *ngIf="ruolo === 'interno'">
         <h1>ESTERNO</h1>
-        <mat-dialog-actions align="end" class="">
-            <!-- <button mat-button cdkFocusInitial mat-dialog-close>
-                <span class="p-2">ANNULLA</span>
-            </button> -->
+        <mat-dialog-actions align="end">
             <div class="flex">
-                <button mat-button class="backButton text-lg w-1/2">
+                <button mat-button class="backButton text-lg w-1/2" mat-dialog-close>
                     <span class="p-2">ANNULLA</span>
                 </button>
                 <button mat-button (click)="goToHomeEsterno()" mat-dialog-close class="bg-bt-orange w-1/2">
