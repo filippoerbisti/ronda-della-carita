@@ -4,7 +4,7 @@
             di <span class="font-bold">{{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</span>
         </h2>
         <mat-dialog-content>
-            <form class="w-full mt-3">
+            <form class="w-full">
                 <div class="w-full flex">
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Punto di ritiro</mat-label>
@@ -12,15 +12,13 @@
                             placeholder="Punto di ritiro">
                     </mat-form-field>
                 </div>
-                <div *ngFor="let clothe of order.clothes; let i =index" class="w-full flex-col mb-4">
+                <div *ngFor="let clothe of order.clothes; let i = index" class="w-full flex-col mb-4">
                     <mat-expansion-panel (click)="save(clothe)" (opened)="panelOpenState = true"
                             (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
                             <mat-panel-title class="w-1/3 my-auto">
                                 <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
                             </mat-panel-title>
-                            <!-- <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                            </mat-panel-description> -->
                         </mat-expansion-panel-header>
                         <mat-form-field appearance="fill" class="w-full mt-4">
                             <mat-label>Tipo vestiario:</mat-label>
