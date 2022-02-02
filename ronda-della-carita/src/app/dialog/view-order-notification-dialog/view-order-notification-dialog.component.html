@@ -1,20 +1,71 @@
 <div>
     <div *ngIf="view_notification === inAttesa">
         <h2>Ordini in attesa</h2>
-        <div *ngFor="let order of inAttesaOrders">
-            <p>quantità:{{order.quantita}}</p>
+        <div class="grid grid-cols-4 border-b-2 border-nav pb-1 text-nav font-medium gap-5 mb-3">
+            <div class="flex flex-col">
+                N° Ordine
+            </div>
+            <div class="flex flex-col">
+                Utente
+            </div>
+            <div class="flex flex-col">
+                Ritiro
+            </div>
+            <div class="flex flex-col">
+                Stato
+            </div>
+        </div>
+        <div *ngFor="let order of daConfOrders" class="grid grid-cols-4 gap-5">
+            <p>{{ order.order.n_ordine }}</p>
+            <p>{{ order.order.client.nome }} {{ order.order.client.cognome }}</p>
+            <p>{{ order.order.p_ritiro }}</p>
+            <p>{{ order.param.name }}</p>
         </div>
     </div>
     <div *ngIf="view_notification === nonDisp">
         <h2>Ordini non disponibili</h2>
-        <div *ngFor="let order of nonDispOrders">
-            <p>quantità:{{order.quantita}}</p>
+        <div class="grid grid-cols-4 border-b-2 border-nav pb-1 text-nav font-medium gap-5 mb-3">
+            <div class="flex flex-col">
+                N° Ordine
+            </div>
+            <div class="flex flex-col">
+                Utente
+            </div>
+            <div class="flex flex-col">
+                Ritiro
+            </div>
+            <div class="flex flex-col">
+                Stato
+            </div>
+        </div>
+        <div *ngFor="let order of daConfOrders" class="grid grid-cols-4 gap-5">
+            <p>{{ order.order.n_ordine }}</p>
+            <p>{{ order.order.client.nome }} {{ order.order.client.cognome }}</p>
+            <p>{{ order.order.p_ritiro }}</p>
+            <p>{{ order.param.name }}</p>
         </div>
     </div>
     <div *ngIf="view_notification === daConf">
         <h2>Ordini da confermare</h2>
-        <div *ngFor="let order of daConfOrders">
-            <p>quantità:{{order.quantita}}</p>
+        <div class="grid grid-cols-4 border-b-2 border-nav pb-1 text-nav font-medium gap-5 mb-3">
+            <div class="flex flex-col">
+                N° Ordine
+            </div>
+            <div class="flex flex-col">
+                Utente
+            </div>
+            <div class="flex flex-col">
+                Ritiro
+            </div>
+            <div class="flex flex-col">
+                Stato
+            </div>
+        </div>
+        <div *ngFor="let order of daConfOrders" class="grid grid-cols-4 gap-5">
+            <p>{{ order.order.n_ordine }}</p>
+            <p>{{ order.order.client.nome }} {{ order.order.client.cognome }}</p>
+            <p>{{ order.order.p_ritiro }}</p>
+            <p>{{ order.param.name }}</p>
         </div>
     </div>
 </div>

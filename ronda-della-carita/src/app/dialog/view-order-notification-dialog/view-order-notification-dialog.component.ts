@@ -10,9 +10,9 @@ import axios from "axios";
 export class ViewOrderNotificationDialogComponent implements OnInit {
 
   view_notification!: string;
-  inAttesaOrders: IOrder[] = [];
-  nonDispOrders: IOrder[] = [];
-  daConfOrders: IOrder[] = [];
+  inAttesaOrders: any[] = [];
+  nonDispOrders: any[] = [];
+  daConfOrders: any[] = [];
 
   daConf = 'Da confermare';
   inAttesa = 'In attesa';
