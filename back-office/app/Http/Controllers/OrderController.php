@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\PendingClosureDispatch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 
 class OrderController extends Controller
 {
@@ -81,7 +82,21 @@ class OrderController extends Controller
     }
 
     public function filter($status) {
+        $priorita=['consegnato','attesa','da_conf','no_disp'];
         $search = "";
+        $orders= Order::with('client') 
+                    ->with('user')
+                    ->get();
+        /*return count($orders[1]->clothes);
+        for($i=0;$i<count($orders);$i++){
+            for($x=0;$x<count($orders[$i]->clothes);$x++){
+                for($y=0;$y<count($priorita);$y++){
+                    if($orders[$x]->clothes[$y]->param->value==$priorita[$y]){
+                        return $priorita[$y];
+                    }
+               }
+            }
+        }*/
         return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
