@@ -33,7 +33,7 @@ import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
 
 const routes: Routes = [
-  { path: 'commons', component: CommonComponentsComponent },
+  { path: 'commons', component: CommonComponentsComponent},
   { path: 'login', component: LoginComponent },
   { path: 'home-admin', component: HomeAdminComponent },
   { path: 'accessi-admin', component: StoricoAccessiAdminComponent },
@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'registrazione-admin', component: RegistrazioneAdminComponent },
   { path: 'home-esterno', component: HomeEsternoComponent },
   { path: 'ordine-esterno', component: OrdineEsternoComponent },
-  { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent },
+  { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent, data: {state: 'fanculo'} },
   { path: 'scanner-qr', component: ScannerQrComponent },
   { path: 'view-ordine-esterno', component: ViewOrdineEsternoComponent },
   { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },

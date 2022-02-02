@@ -9,3 +9,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.removePadding {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}

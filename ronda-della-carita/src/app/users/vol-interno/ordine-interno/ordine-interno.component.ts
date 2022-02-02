@@ -23,6 +23,8 @@ export interface IClothes {
 export class OrdineInternoComponent implements OnInit {
 
   isLoading = false;  
+  invalidInput = false;
+  invalidClothe = false;
   nm = "";
   gen = "";
   search: IClient[] = [];
@@ -40,10 +42,6 @@ export class OrdineInternoComponent implements OnInit {
     {value: 'scarpe', viewValue: 'Scarpe'},
   ];
 
-  // newClothe !: IClothes;
-
-  // clothes: IClothes[] = [];
-
   public newClothe = {
     type: String,
     size: String,
@@ -51,6 +49,15 @@ export class OrdineInternoComponent implements OnInit {
   }
 
   public clothes : any[] = []
+
+  public newOrder = {
+    user: {
+      name: ""
+    },
+    note: "",
+    retire: "",
+    clothes: this.clothes
+  }
 
   public tvestiarioUseCaseMapping: any = {
     "maglietta": [
@@ -194,9 +201,55 @@ export class OrdineInternoComponent implements OnInit {
     })
   }
 
-  
-
   addClothe(){
-    this.clothes.push(this.newClothe); 
+    if (this.checkNewClotheForm()) {
+      this.invalidClothe = false;
+      let clothe = this.newClothe;
+      this.clothes.push(clothe); 
+      this.newClothe = {
+        type: String,
+        size: String,
+        number: Number
+      }
+    }
   }
-}
+
+  removeClothe(index: any) {
+    this.clothes.splice(index, 1)
+  }
+
+  editClothe(index: any) {
+    this.newClothe = this.clothes[index];
+    this.clothes.splice(index, 1);
+  }
+
+  checkNewClotheForm(){
+    if (this.newClothe.type != String &&
+        this.newClothe.number != Number && 
+        this.newClothe.size != String
+      ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  create(){
+    if (this.checkFields()) {
+      console.log(this.newOrder);
+    } else {
+      console.log('NO NON PUOI');
+    }
+    
+  }
+
+  checkFields(){
+    // check forms
+    this.newOrder.user.name != "" && this.newOrder.retire != "" ? this.invalidInput = false : this.invalidInput = true
+    // check if there's at least a clothe
+    this.newOrder.clothes.length > 0 ? this.invalidClothe = false : this.invalidClothe = true
+
+    return (!this.invalidInput && !this.invalidClothe ? true : false)
+  }
+    
+} 
