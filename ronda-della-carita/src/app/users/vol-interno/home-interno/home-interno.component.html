@@ -2,8 +2,8 @@
     <app-sidebar-menu class="md:flex hidden"></app-sidebar-menu>
     <app-navigation-menu class="flex md:hidden"></app-navigation-menu>
     <div *ngIf="!isLoading" class="w-full flex items-stretch">
-        <div class="w-full h-full md:pt-12">
-            <div class="flex items-center justify-around text-center py-3 md:py-7">
+        <div class="w-full h-full">
+            <div class="flex items-center justify-center text-center ">
                 <!-- TODO: VEDERE COME E DOVE METTERE IL LOGO -->   
                 <img class="hidden md:inline" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
              
@@ -47,17 +47,17 @@
                 <mat-tab label="ORDINI">
                     <mat-card class="h-full">
                         <mat-card-content>
-                            <div class="md:flex mb-4 pt-2 md:space-x-6">
+                            <div class="sm:flex mb-4 pt-2 sm:space-x-6">
 
                                 <!-- NEW ORDER -->
-                                <div class="md:flex flex-col justify-center hidden">
+                                <div class="sm:flex flex-col justify-center hidden">
                                     <button mat-raised-button class="bg-bt-orange" (click)="goToOrdineInterno()">
                                         <span class="p-2 text-white">NUOVO ORDINE</span>
                                     </button>
                                 </div>
 
                                 <div class="w-full">
-                                    <div class="flex items-center md:space-x-6 space-x-3">
+                                    <div class="flex items-center sm:space-x-6 space-x-3">
 
                                         <!-- SEARCHBAR -->
                                         <input 
@@ -89,7 +89,7 @@
                                         </div>
 
                                         <!-- SEARCH BUTTON -->
-                                        <div class="flex md:flex-col">
+                                        <div class="flex sm:flex-col">
                                             <button mat-raised-button (click)="filterOrder()" class="bg-bt-orange">
                                                 <span class="p-2 text-white">CERCA</span>
                                             </button>

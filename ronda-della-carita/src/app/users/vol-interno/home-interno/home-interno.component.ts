@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import axios from "axios";
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/dialog/order/delete-order-dialog/delete-order-dialog.component';
@@ -10,7 +11,6 @@ import { IUser } from 'src/app/shared/interface/iuser';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
-import { Router } from '@angular/router';
 import { IClothe } from 'src/app/shared/interface/iclothe';
 import { IParam } from 'src/app/shared/interface/iparam';
 
@@ -25,7 +25,6 @@ export class HomeInternoComponent implements OnInit {
   panelOpenState = false;
 
   orders_status: IParam[] = [];
-
   user: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
@@ -42,14 +41,10 @@ export class HomeInternoComponent implements OnInit {
   state!: string;
   searchOrder!: string;
   searchClient!: string;
-  // orderNonDisp!: number;
-  // orderInAttesa!: number;
 
   clientId!: number;
   orderId!: number;
 
-  // countNotifiche!: number;
-  
   constructor(
     public dialog: MatDialog,
     private router: Router
@@ -57,6 +52,14 @@ export class HomeInternoComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
+    // var url = this.router.url;
+    // var ruolo1 = "interno";
+    // var ruolo2 = "esterno";
+    // var ruolo3 = "admin";
+    // if (url.includes(ruolo1)) {
+    //   return 
+    // }
+    // console.log(this.router.url)
     try {
       let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
       this.orders_status = response_order_status.data;

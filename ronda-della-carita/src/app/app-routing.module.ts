@@ -29,8 +29,8 @@ import { DeleteUserDialogComponent } from './dialog/user/delete-user-dialog/dele
 import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
 import { EditClientDialogComponent } from './dialog/client/edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-user-dialog.component';
-import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
+import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
 const routes: Routes = [
   { path: 'commons', component: CommonComponentsComponent },

@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   isLoading = false;
+
+  ruolo!: string;
   
   constructor(
     public dialog: MatDialog,
@@ -42,7 +44,9 @@ export class LoginComponent implements OnInit {
     const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
   }
 
-  registration() {
+  registration(ruolo: string) {
+    this.ruolo = ruolo;
+    localStorage["ruolo"] = this.ruolo;
     this.router.navigateByUrl('/home-admin');
   }
 

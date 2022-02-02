@@ -3,23 +3,17 @@
         <button mat-icon-button (click)="sidebarRef.toggle()">
             <mat-icon class="text-white">menu</mat-icon>
         </button>
-
         <div class="flex items-center space-x-3">
             <div class="ml-auto mr-1 text-white text-lg h-full">
                 {{ user.nome | uppercase }} {{ user.cognome | uppercase}}
             </div>
-
             <button mat-icon-button aria-label="Menu" [matMenuTriggerFor]="menu">
-                <!-- <div class="" [matBadge]="countNotifiche">
-                    <mat-icon class="text-white">notifications_active</mat-icon>
-                </div> -->
                 <div class="relative flex justify-center items-center">
                     <mat-icon class="text-white relative">notifications_active</mat-icon>
                     <span class="absolute left-6 bottom-1/2 rounded-full text-white bg-red-400 h-5 flex items-center justify-center">
                         <span class="px-1">{{ countNotifiche }}</span>
                     </span>        
                 </div>
-                
             </button>
             <mat-menu #menu="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">
                 <button *ngIf="orderInAttesa >= 1" class="cursor-pointer" (click)="viewOrderInAttesa()">
@@ -45,21 +39,55 @@
     <mat-sidenav #sidebarRef opened mode="side" class="flex inset-y-0 left-0 z-50 pb-3 mt-10 bg-nav" [(opened)]="isSidebarOpen">
         <mat-list class="h-full w-60 flex flex-col justify-between">
             <div class="mt-8">
-                <mat-list-item><button mat-button (click)="goToHome()" class="w-full left text-lg text-white">HOME</button></mat-list-item>
-                <mat-list-item><button mat-button (click)="openMansionDialog()" class="w-full left text-lg text-white">CAMBIA MANSIONI</button></mat-list-item>
-                <mat-list-item><button mat-button (click)="goToOrdine()" class="w-full left text-lg text-white">
-                    <span *ngIf="this.ruolo === 'interno'">NUOVO ORDINE</span> <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
-                </button></mat-list-item>
-                <mat-list-item><button mat-button (click)="goToRegistrazione()" class="w-full left text-lg text-white">
-                    <span *ngIf="this.ruolo === 'interno'">NUOVO ASSISTITO</span> <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
-                </button></mat-list-item>
+                <mat-list-item>
+                    <button mat-button (click)="goToHome()" class="w-full left text-lg text-white">
+                        <span>HOME</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item *ngIf="this.ruolo != 'admin'">
+                    <button mat-button (click)="openMansionDialog()" class="w-full left text-lg text-white">
+                        <span>CAMBIA MANSIONE</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item *ngIf="this.ruolo === 'admin'">
+                    <button mat-button (click)="goToRichieste()" class="w-full left text-lg text-white">
+                        <span>RICHIESTE CONFERMA</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item *ngIf="this.ruolo === 'admin'">
+                    <button mat-button (click)="goToStorico()" class="w-full left text-lg text-white">
+                        <span>STORICO ACCESSI</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item *ngIf="this.ruolo === 'admin'">
+                    <button mat-button (click)="goToUser()" class="w-full left text-lg text-white">
+                        <span>NUOVO VOLONTARIO</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button (click)="goToOrdine()" class="w-full left text-lg text-white">
+                        <span *ngIf="this.ruolo != 'esterno'">NUOVO ORDINE</span> 
+                        <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button (click)="goToRegistrazione()" class="w-full left text-lg text-white">
+                    <span *ngIf="this.ruolo != 'esterno'">NUOVO ASSISTITO</span> 
+                    <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
+                    </button>
+                </mat-list-item>
             </div>
             <div class="mb-8">
-                <div class="my-2">
-                    <mat-divider></mat-divider>
-                </div>
-                <mat-list-item><button mat-button (click)="openPasswordDialog()" class="w-full left text-lg text-white">CAMBIA PASSWORD</button></mat-list-item>
-                <mat-list-item><button mat-button (click)="goToLogin()" class="w-full left text-lg text-white">ESCI</button></mat-list-item>
+                <mat-list-item>
+                    <button mat-button (click)="openPasswordDialog()" class="w-full left text-lg text-white">
+                        <span>CAMBIA PASSWORD</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button (click)="goToLogin()" class="w-full left text-lg text-white">
+                        <span>ESCI</span>
+                    </button>
+                </mat-list-item>
             </div>
         </mat-list>
     </mat-sidenav>

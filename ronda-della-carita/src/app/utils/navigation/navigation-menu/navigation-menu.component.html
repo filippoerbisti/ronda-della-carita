@@ -8,14 +8,25 @@
         <button mat-menu-item (click)="goToHome()">
             <span>HOME</span>
         </button>
-        <button mat-menu-item (click)="openMansionDialog()">
+        <button *ngIf="this.ruolo != 'admin'" mat-menu-item (click)="openMansionDialog()">
             <span>CAMBIA MANSIONE</span>
         </button>
+        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToRichieste()">
+            <span>RICHIESTE CONFERMA</span>
+        </button>
+        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToStorico()">
+            <span>STORICO ACCESSI</span>
+        </button>
+        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToUser()">
+            <span>NUOVO VOLONTARIO</span>
+        </button>
         <button mat-menu-item (click)="goToOrdine()">
-            <span *ngIf="this.ruolo === 'interno'">NUOVO ORDINE</span> <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
+            <span *ngIf="this.ruolo != 'esterno'">NUOVO ORDINE</span> 
+            <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
         </button>
         <button mat-menu-item (click)="goToRegistrazione()">
-            <span *ngIf="this.ruolo === 'interno'">NUOVO ASSISTITO</span> <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
+            <span *ngIf="this.ruolo != 'esterno'">NUOVO ASSISTITO</span> 
+            <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
         </button>
         <button mat-menu-item (click)="openPasswordDialog()">
             <span>CAMBIA PASSWORD</span>
