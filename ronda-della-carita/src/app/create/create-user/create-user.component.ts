@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import axios from 'axios';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IUser } from '../shared/interface/iuser';
+import { IUser } from '../../shared/interface/iuser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {

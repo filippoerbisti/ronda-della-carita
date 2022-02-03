@@ -103,7 +103,7 @@
 
                             <div class="sm:flex hidden justify-end -mr-4 -mb-4">
                                 <mat-paginator 
-                                    [length]="this.clients.length"
+                                    [length]="this.users.length"
                                     [pageSize]="10"
                                     [pageSizeOptions]="pageSizeOptions"
                                     (page)="OnPageChange($event)">
@@ -112,7 +112,7 @@
                             <div class="flex sm:hidden justify-center ml-3 mt-2">
                                 <mat-paginator 
                                     class="mb-16"
-                                    [length]="this.clients.length" 
+                                    [length]="this.users.length" 
                                     [pageSize]="10"
                                     (page)="OnPageChange($event)">
                                 </mat-paginator>
@@ -271,7 +271,7 @@
 
                             <div class="sm:flex hidden justify-end -mr-4 -mb-4">
                                 <mat-paginator 
-                                    [length]="this.clients.length"
+                                    [length]="this.orders.length"
                                     [pageSize]="10"
                                     [pageSizeOptions]="pageSizeOptions"
                                     (page)="OnPageChange($event)">
@@ -280,7 +280,7 @@
                             <div class="flex sm:hidden justify-center ml-3 mt-2">
                                 <mat-paginator 
                                     class="mb-16"
-                                    [length]="this.clients.length" 
+                                    [length]="this.orders.length" 
                                     [pageSize]="10"
                                     (page)="OnPageChange($event)">
                                 </mat-paginator>

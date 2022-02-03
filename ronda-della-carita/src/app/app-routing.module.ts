@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
-
 import { HomeAdminComponent } from './users/admin/home-admin/home-admin.component';
 import { OrdineAdminComponent } from './users/admin/ordine-admin/ordine-admin.component';
 import { RegistrazioneAdminComponent } from './users/admin/registrazione-admin/registrazione-admin.component';
@@ -19,14 +16,17 @@ import { HomeInternoComponent } from './users/vol-interno/home-interno/home-inte
 import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
 
+import { LoginComponent } from './login/login.component';
+import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
+
 import { HomeComponent } from './home/home.component';
 
-import { CreateUserComponent } from './create-user/create-user.component';
-import { CreateClientComponent } from './create-client/create-client.component';
-import { CreateOrderComponent } from './create-order/create-order.component';
+import { CreateUserComponent } from './create/create-user/create-user.component';
+import { CreateClientComponent } from './create/create-client/create-client.component';
+import { CreateOrderComponent } from './create/create-order/create-order.component';
 
-import { ConfirmUserComponent } from './confirm-user/confirm-user.component';
-import { StoricoAccessiComponent } from './storico-accessi/storico-accessi.component';
+import { ConfirmUserComponent } from './utils/confirm-user/confirm-user.component';
+import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi.component';
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
@@ -37,10 +37,11 @@ const routes: Routes = [
   { path: 'create/client', component: CreateClientComponent },
   { path: 'create/order', component: CreateOrderComponent },
   { path: 'confirm/user', component: ConfirmUserComponent },
-
+  { path: 'history', component: StoricoAccessiComponent },
+  // { path: '',   redirectTo: '/login', pathMatch: 'full' },
+  // { path: '**', component: PageNotFoundComponent }
 
   { path: 'home-admin', component: HomeAdminComponent },
-  { path: 'history', component: StoricoAccessiComponent },
   { path: 'home-interno', component: HomeInternoComponent },
   { path: 'user-admin', component: UserAdminComponent },
   { path: 'ordine-admin', component: OrdineAdminComponent },

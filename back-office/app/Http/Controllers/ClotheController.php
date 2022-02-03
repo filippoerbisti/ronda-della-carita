@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clothe;
-use Illuminate\Http\Request;
 
 class ClotheController extends Controller
 {

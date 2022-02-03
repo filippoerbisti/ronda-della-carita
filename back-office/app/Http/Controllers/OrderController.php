@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\Order;
-use Illuminate\Foundation\Bus\PendingClosureDispatch;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use stdClass;
 
 class OrderController extends Controller
 {
@@ -87,21 +82,32 @@ class OrderController extends Controller
 
     public function filter($status) 
     {
-        $priorita = ['consegnato','attesa','da_conf','no_disp'];
+        $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
         $search = "";
-        $orders = Order::with('client') 
+        $orders= Order::with('client') 
                         ->with('user')
                         ->get();
-        /*return count($orders[1]->clothes);
-        for($i=0;$i<count($orders);$i++){
-            for($x=0;$x<count($orders[$i]->clothes);$x++){
-                for($y=0;$y<count($priorita);$y++){
-                    if($orders[$x]->clothes[$y]->param->value==$priorita[$y]){
-                        return $priorita[$y];
-                    }
-               }
+        if($status == "all"){
+            return $orders;
+        }
+        for($i = 0; $i < count($orders); $i++){
+            for($y = 0; $y < count($orders[$i]->clothes); $y++){
+                $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
             }
-        }*/
+            foreach($priorita as $key=> $item){
+                if($item > 0){
+                    $orders[$i]->setAttribute("status", $key);
+                    break;
+                }
+            }
+        }
+        $temp = [];
+        for($i = 0; $i < count($orders); $i++){
+            if($orders[$i]->status == $status){
+                $temp[count($temp)] = $orders[$i];
+            }
+        }
+        return $temp;
         return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
