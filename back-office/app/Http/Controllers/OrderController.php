@@ -13,80 +13,85 @@ use stdClass;
 
 class OrderController extends Controller
 {
-    public function list() {
+    public function list() 
+    {
         $order= Order::with('client')
                     ->with('user')
                     ->get();
-        for($i=0;$i<count($order);$i++){
-            $id=$order[$i]->id;
+        for($i = 0; $i < count($order); $i++){
+            $id = $order[$i]->id;
             $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
             $order[$i]->setAttribute("n_clothes",$n_clothes);
         }
         return $order;
     }
 
-    public function id($id) {
+    public function id($id) 
+    {
         return Order::with('client')
                     ->with('user')
                     ->where('id', $id)
                     ->first();
     }
 
-    public function countOrderInAttesa() {
-        return Clothe::with('order')
-                        ->with('inventory')
-                        ->with('param')
-                        ->where('param_id', 9)
+    public function countOrderInAttesa() 
+    {
+        return Clothe::join('params', 'clothes.param_id', '=', 'params.id')
+                        ->where('params.value', 'attesa')
                         ->count();
     }
 
-    public function orderInAttesa() {
+    public function orderInAttesa() 
+    {
         return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
-                        ->where('param_id', 9)
+                        ->join('params', 'clothes.param_id', '=', 'params.id')
+                        ->where('params.value', 'attesa')
                         ->get();
     }
 
-    public function countOrderNonDisp() {
-        return Clothe::with('order')
-                        ->with('inventory')
-                        ->with('param')
-                        ->where('param_id', 8)
+    public function countOrderNonDisp() 
+    {
+        return Clothe::join('params', 'clothes.param_id', '=', 'params.id')
+                        ->where('params.value', 'no_disp')
                         ->count();
     }
 
-    public function orderNonDisp() {
+    public function orderNonDisp() 
+    {
         return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
-                        ->where('param_id', 8)
+                        ->join('params', 'clothes.param_id', '=', 'params.id')
+                        ->where('params.value', 'no_disp')
                         ->get();
     }
 
-    public function countOrderDaConf() {
-        return Clothe::with('order')
-                        ->with('order')
-                        ->with('inventory')
-                        ->with('param')
-                        ->where('param_id', 10)
+    public function countOrderDaConf() 
+    {
+        return Clothe::join('params', 'clothes.param_id', '=', 'params.id')
+                        ->where('params.value', 'da_conf')
                         ->count();
     }
 
-    public function orderDaConf() {
+    public function orderDaConf() 
+    {
         return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
-                        ->where('param_id', 10)
+                        ->join('params', 'clothes.param_id', '=', 'params.id')
+                        ->where('params.value', 'da_conf')
                         ->get();
     }
 
-    public function filter($status) {
-        $priorita=['consegnato','attesa','da_conf','no_disp'];
+    public function filter($status) 
+    {
+        $priorita = ['consegnato','attesa','da_conf','no_disp'];
         $search = "";
-        $orders= Order::with('client') 
-                    ->with('user')
-                    ->get();
+        $orders = Order::with('client') 
+                        ->with('user')
+                        ->get();
         /*return count($orders[1]->clothes);
         for($i=0;$i<count($orders);$i++){
             for($x=0;$x<count($orders[$i]->clothes);$x++){
@@ -101,7 +106,7 @@ class OrderController extends Controller
                         ->with('inventory')
                         ->with('param')
                         ->join('params','clothes.param_id','=','params.id')
-                        ->where('value',$status)
+                        ->where('value', $status)
                         ->get();
         
         if ($status != "all" ) {
@@ -133,7 +138,8 @@ class OrderController extends Controller
         return $order;
     }
 
-    private function pairing($newOrder, $newOrderData) {
+    private function pairing($newOrder, $newOrderData) 
+    {
         $newOrder->n_ordine = $newOrderData->n_ordine;
         $newOrder->p_ritiro = $newOrderData->p_ritiro;
         $newOrder->genere = $newOrderData->genere;
@@ -151,7 +157,8 @@ class OrderController extends Controller
         return $newOrder;
     }
 
-    public function create(Request $request) {
+    public function create(Request $request) 
+    {
         $newOrderData = json_decode($request->getContent());
         $newOrder = new Order();   
 
@@ -159,7 +166,8 @@ class OrderController extends Controller
         return $newOrder;
     }
 
-    public function edit(Request $request, $id) {
+    public function edit(Request $request, $id) 
+    {
         $order = Order::find($id);
         $newOrderData = json_decode($request->getContent());   
 
@@ -167,7 +175,8 @@ class OrderController extends Controller
         return $order;
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
         $order = Order::where("id", $id)
                         ->foreign('user_id')
                         ->references('id')->on('users')

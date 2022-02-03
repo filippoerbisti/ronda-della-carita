@@ -9,14 +9,16 @@ use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
-    public function list() {
+    public function list() 
+    {
         $history = History::with('user')
                             ->orderBy('ultimo_accesso', 'desc')
                             ->get();
         return $history;
     }
 
-    public function filter($search) {
+    public function filter($search) 
+    {
         $history = History::with('user')
                         //->where('users', 'nome', '=', $search)
                         //->where('interno', '=', $search)
@@ -26,14 +28,16 @@ class HistoryController extends Controller
         return $history;
     }
 
-    public function countAccessi() {
+    public function countAccessi() 
+    {
         $history = History::with('user')
                             ->where('ultimo_accesso', '>=', Carbon::today())
                             ->count();
         return $history; 
     }
 
-    public function todayAccessi() {
+    public function todayAccessi() 
+    {
         $history = History::with('user')
                             ->where('ultimo_accesso', '>=', Carbon::today())
                             ->get();
