@@ -82,21 +82,18 @@ class OrderController extends Controller
     }
 
     public function filter($status) {
-        $priorita=['consegnato','attesa','da_conf','no_disp'];
+        $priorita=['consegnato'=>0,'attesa'=>0,'da_conf'=>0,'no_disp'=>0];
         $search = "";
         $orders= Order::with('client') 
                     ->with('user')
                     ->get();
-        /*return count($orders[1]->clothes);
+        return count($orders->clothes);
         for($i=0;$i<count($orders);$i++){
-            for($x=0;$x<count($orders[$i]->clothes);$x++){
-                for($y=0;$y<count($priorita);$y++){
-                    if($orders[$x]->clothes[$y]->param->value==$priorita[$y]){
-                        return $priorita[$y];
-                    }
-               }
+            for($y=0; $y<count($orders[$i]->clothes);$y++){
+                $priorita[$orders->clothes[$y]->param->value]=$priorita[$orders->clothes[$y]->param->value]+1;
             }
-        }*/
+        }
+        return $priorita;
         return Clothe::with('order')
                         ->with('inventory')
                         ->with('param')
