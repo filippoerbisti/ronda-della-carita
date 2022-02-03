@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CommonComponentsComponent } from './common-components/common-components.component';
-
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 
 import { HomeAdminComponent } from './users/admin/home-admin/home-admin.component';
-import { StoricoAccessiAdminComponent } from './users/admin/storico-accessi-admin/storico-accessi-admin.component';
 import { OrdineAdminComponent } from './users/admin/ordine-admin/ordine-admin.component';
 import { RegistrazioneAdminComponent } from './users/admin/registrazione-admin/registrazione-admin.component';
 import { UserAdminComponent } from './users/admin/user-admin/user-admin.component';
@@ -22,21 +19,29 @@ import { HomeInternoComponent } from './users/vol-interno/home-interno/home-inte
 import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordine-interno.component';
 import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
 
-import { DeleteOrderDialogComponent } from './dialog/order/delete-order-dialog/delete-order-dialog.component';
-import { DeleteClientDialogComponent } from './dialog/client/delete-client-dialog/delete-client-dialog.component';
-import { DeleteUserDialogComponent } from './dialog/user/delete-user-dialog/delete-user-dialog.component';
+import { HomeComponent } from './home/home.component';
 
-import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
-import { EditClientDialogComponent } from './dialog/client/edit-client-dialog/edit-client-dialog.component';
-import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-user-dialog.component';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { CreateClientComponent } from './create-client/create-client.component';
+import { CreateOrderComponent } from './create-order/create-order.component';
+
+import { ConfirmUserComponent } from './confirm-user/confirm-user.component';
+import { StoricoAccessiComponent } from './storico-accessi/storico-accessi.component';
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
 const routes: Routes = [
-  { path: 'commons', component: CommonComponentsComponent},
   { path: 'login', component: LoginComponent },
+  { path: 'home/:rule', component: HomeComponent },
+  { path: 'create/user', component: CreateUserComponent },
+  { path: 'create/client', component: CreateClientComponent },
+  { path: 'create/order', component: CreateOrderComponent },
+  { path: 'confirm/user', component: ConfirmUserComponent },
+
+
   { path: 'home-admin', component: HomeAdminComponent },
-  { path: 'accessi-admin', component: StoricoAccessiAdminComponent },
+  { path: 'history', component: StoricoAccessiComponent },
+  { path: 'home-interno', component: HomeInternoComponent },
   { path: 'user-admin', component: UserAdminComponent },
   { path: 'ordine-admin', component: OrdineAdminComponent },
   { path: 'registrazione-admin', component: RegistrazioneAdminComponent },
@@ -48,9 +53,8 @@ const routes: Routes = [
   { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },
   { path: 'home-interno', component: HomeInternoComponent },
   { path: 'ordine-interno', component: OrdineInternoComponent },
-  { path: 'registrazione-interno', component: RegistrazioneInternoComponent },
-  { path: '',   redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
+  { path: 'registrazione-interno', component: RegistrazioneInternoComponent }
+  
 ];
 
 @NgModule({

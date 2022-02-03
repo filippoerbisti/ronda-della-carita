@@ -26,6 +26,13 @@ export class HomeAdminComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
+  order_cons = 'cons';
+  order_no_disp = 'no_disp';
+  order_attesa = 'attesa';
+  order_da_conf = 'da_conf';
+
+  ruolo!: string;
+
   orders_status: IParam[] = [];
 
   users: IUser[] = [];
@@ -66,6 +73,7 @@ export class HomeAdminComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
+    this.ruolo = localStorage["ruolo"]
     try {
       let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
       this.orders_status = response_order_status.data;
@@ -104,15 +112,15 @@ export class HomeAdminComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10);
   }  
 
-  goToUserAdmin() {
+  goToCreateUser() {
     this.router.navigateByUrl('/user-admin');
   }
 
-  goToOrdineAdmin() {
-    this.router.navigateByUrl('/ordine-admin');
+  goToCreateOrder() {
+    this.router.navigateByUrl('/user-admin');
   }
 
-  goToRegistrazioneAdmin() {
+  goToCreateClient() {
     this.router.navigateByUrl('/registrazione-admin');
   }
 

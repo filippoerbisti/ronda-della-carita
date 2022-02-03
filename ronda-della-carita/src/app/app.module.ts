@@ -44,7 +44,6 @@ import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordin
 import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
 import { LoginComponent } from './login/login.component';
 import { SidebarMenuComponent } from './utils/navigation/sidebar-menu/sidebar-menu.component';
-import { SidebarAdminMenuComponent } from './utils/navigation/sidebar-admin-menu/sidebar-admin-menu.component';
 import { StoricoAccessiAdminComponent } from './users/admin/storico-accessi-admin/storico-accessi-admin.component';
 import { RegistrazioneAdminComponent } from './users/admin/registrazione-admin/registrazione-admin.component';
 import { OrdineAdminComponent } from './users/admin/ordine-admin/ordine-admin.component';
@@ -62,8 +61,13 @@ import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { CommonComponentsComponent } from './common-components/common-components.component';
-import { NavigationAdminMenuComponent } from './utils/navigation/navigation-admin-menu/navigation-admin-menu.component';
 import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notification-dialog/view-order-notification-dialog.component';
+import { HomeComponent } from './home/home.component';
+import { StoricoAccessiComponent } from './storico-accessi/storico-accessi.component';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { CreateClientComponent } from './create-client/create-client.component';
+import { CreateOrderComponent } from './create-order/create-order.component';
+import { ConfirmUserComponent } from './confirm-user/confirm-user.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +88,6 @@ import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notifi
     RegistrazioneInternoComponent,
     LoginComponent,
     SidebarMenuComponent,
-    SidebarAdminMenuComponent,
     StoricoAccessiAdminComponent,
     RegistrazioneAdminComponent,
     OrdineAdminComponent,
@@ -97,8 +100,13 @@ import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notifi
     ChangePasswordDialogComponent,
     ScannerQrComponent,
     CommonComponentsComponent,
-    NavigationAdminMenuComponent,
-    ViewOrderNotificationDialogComponent
+    ViewOrderNotificationDialogComponent,
+    HomeComponent,
+    StoricoAccessiComponent,
+    CreateUserComponent,
+    CreateClientComponent,
+    CreateOrderComponent,
+    ConfirmUserComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/shared/interface/iuser';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -15,20 +16,19 @@ export class SidebarMenuComponent implements OnInit {
 
   isSidebarOpen= false;
 
-  user = {
-    nome: '',
-    cognome: '',
-    ruolo: 'string',
-    email: 'string',
-    password: 'string'
-  };
+  urlAdmin = "/home/admin";
+  urlInterno = "/home/interno";
+  urlEsterno = "/home/esterno";
+
+  user!: IUser;
 
   countNotifiche!: number;
   orderNonDisp!: number;
   orderInAttesa!: number;
   orderDaConf!: number;
 
-  ruolo!: string;
+  currentRoute!: string;
+
   typeNotification!: string;
 
   constructor(
@@ -37,7 +37,7 @@ export class SidebarMenuComponent implements OnInit {
     ) { }
 
   async ngOnInit() {
-    this.ruolo = localStorage["ruolo"];
+    this.currentRoute = this.router.url;
     try {
       let response_user = await axios.get("http://127.0.0.1:8000/api/user");
       this.user = response_user.data;
@@ -57,59 +57,43 @@ export class SidebarMenuComponent implements OnInit {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
-    localStorage.removeItem("ruolo");
+    this.isSidebarOpen = false;
   }
 
   goToHome() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/home-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/home-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/home-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
+    if(this.currentRoute === this.urlAdmin) {
+      this.router.navigateByUrl('/home/admin');
+    } else if(this.currentRoute === this.urlInterno) {
+      this.router.navigateByUrl('/home/interno');
+    } else if (this.currentRoute === this.urlEsterno) {
+      this.router.navigateByUrl('/home/esterno');
     }
+    this.isSidebarOpen = false;
   }
 
-  goToRichieste() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/home-admin');
-    }
+  goToConfirm() {
+    this.router.navigateByUrl('/confirm/user');
+    this.isSidebarOpen = false;
   }
 
-  goToStorico() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/accessi-admin');
-    }
+  goToHistory() {
+    this.router.navigateByUrl('/history');
+    this.isSidebarOpen = false;
   }
 
-  goToUser() {
-    this.router.navigateByUrl('/user-admin');
+  goToCreateUser() {
+    this.router.navigateByUrl('/create/user');
+    this.isSidebarOpen = false;
   }
 
-  goToRegistrazione() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/registrazione-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/view-registrazione-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/registrazione-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
-    }
+  goToCreateClient() {
+    this.router.navigateByUrl('/create/client');
+    this.isSidebarOpen = false;
   }
 
-  goToOrdine() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/ordine-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/view-ordine-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/ordine-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
-    }
+  goToCreateOrder() {
+    this.router.navigateByUrl('/create/order');
+    this.isSidebarOpen = false;
   }
 
   openMansionDialog() {

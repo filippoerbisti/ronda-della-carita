@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
-import axios from 'axios';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -13,6 +12,9 @@ import axios from 'axios';
 export class NavigationMenuComponent implements OnInit {
 
   ruolo!: string;
+
+  ruolo1 = 'volontario';
+  ruolo11 = 'admin';
 
   constructor(
     public dialog: MatDialog,
@@ -30,55 +32,27 @@ export class NavigationMenuComponent implements OnInit {
   }
 
   goToHome() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/home-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/home-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/home-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
-    }
+    this.router.navigateByUrl('/home');
   }
 
-  goToRichieste() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/home-admin');
-    }
+  goToConfirm() {
+    this.router.navigateByUrl('/home');
   }
 
-  goToStorico() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/accessi-admin');
-    }
+  goToHistory() {
+    this.router.navigateByUrl('/accessi');
   }
 
-  goToUser() {
-    this.router.navigateByUrl('/user-admin');
+  goToCreateUser() {
+    this.router.navigateByUrl('/create-user');
   }
 
-  goToRegistrazione() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/registrazione-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/view-registrazione-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/registrazione-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
-    }
+  goToCreateClient() {
+    this.router.navigateByUrl('/create-client');
   }
 
-  goToOrdine() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/ordine-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/view-ordine-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/ordine-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
-    }
+  goToCreateOrder() {
+    this.router.navigateByUrl('/create-order');
   }
 
   openMansionDialog() {

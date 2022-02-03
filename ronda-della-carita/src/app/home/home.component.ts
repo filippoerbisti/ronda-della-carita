@@ -1,104 +1,116 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/dialog/order/delete-order-dialog/delete-order-dialog.component';
+import { DeleteUserDialogComponent } from 'src/app/dialog/user/delete-user-dialog/delete-user-dialog.component';
 import { EditClientDialogComponent } from 'src/app/dialog/client/edit-client-dialog/edit-client-dialog.component';
+import { EditUserDialogComponent } from 'src/app/dialog/user/edit-user-dialog/edit-user-dialog.component';
 import { EditOrderDialogComponent } from 'src/app/dialog/order/edit-order-dialog/edit-order-dialog.component';
 import { IUser } from 'src/app/shared/interface/iuser';
-import { IClient } from 'src/app/shared/interface/iclient';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
-import { IClothe } from 'src/app/shared/interface/iclothe';
+import { IClient } from 'src/app/shared/interface/iclient';
 import { IParam } from 'src/app/shared/interface/iparam';
+// import { IClothe } from 'src/app/shared/interface/iclothe';
 
 @Component({
-  selector: 'app-home-interno',
-  templateUrl: './home-interno.component.html',
-  styleUrls: ['./home-interno.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class HomeInternoComponent implements OnInit {
+export class HomeComponent implements OnInit {
 
   isLoading = false;
   panelOpenState = false;
 
+  urlAdmin = '/home/admin';
+  currentRoute!: string;
+
+  order_cons = 'cons';
+  order_no_disp = 'no_disp';
+  order_attesa = 'attesa';
+  order_da_conf = 'da_conf';
+
   orders_status: IParam[] = [];
-  user: IUser[] = [];
+
+  users: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
   cards: ICard[] = [];
-  clothes: IClothe[] = [];
+  // clothes: IClothe[] = [];
 
+  userId!: number;
+  orderId!: number;
+  clientId!: number;
+  
+  searchUsers: IUser[] = [];
+  searchClients: IClient[] = [];
+  searchOrders: IOrder[] = [];
+
+  pageUserSlice = this.users.slice(0, 10);
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
 
-  searchClients: IClient[] = [];
-  searchOrders: IOrder[] = [];
-
+  searchUser!: string;
   state!: string;
   searchOrder!: string;
   searchClient!: string;
-
-  clientId!: number;
-  orderId!: number;
-
+  
   constructor(
     public dialog: MatDialog,
     private router: Router
-    ) {}
+    ) { }
 
   async ngOnInit() {
     this.isLoading = true;
-    // var url = this.router.url;
-    // var ruolo1 = "interno";
-    // var ruolo2 = "esterno";
-    // var ruolo3 = "admin";
-    // if (url.includes(ruolo1)) {
-    //   return 
-    // }
-    // console.log(this.router.url)
+    this.currentRoute = this.router.url;
+    console.log(this.currentRoute);
     try {
       let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
       this.orders_status = response_order_status.data;
 
-      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
-      this.user = response_user.data;
+      let response_user = await axios.get("http://127.0.0.1:8000/api/users");
+      this.users = response_user.data;
 
       let response_client = await axios.get("http://127.0.0.1:8000/api/clients");
       this.clients = response_client.data;
 
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
       this.orders = response_order.data;
-
-      // let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
-      // this.orderNonDisp = response_order_nondisp.data;
-
-      // let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
-      // this.orderInAttesa = response_order_inattesa.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
-    // this.countNotifiche = this.orderInAttesa + this.orderNonDisp;
+    this.pageUserSlice = this.users.slice(0, 10); 
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
   }  
 
-  goToCreateClientInterno() {
-    this.router.navigateByUrl('/registrazione-interno');
+  goToCreateUser() {
+    this.router.navigateByUrl('/create-user');
   }
 
-  goToCreateOrderInterno() {
-    this.router.navigateByUrl('/ordine-interno');
+  goToCreateOrder() {
+    this.router.navigateByUrl('/create-order');
+  }
+
+  goToCreateClient() {
+    this.router.navigateByUrl('/create-client');
   }
 
   OnPageChange(event: PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.users.length) {
+      endIndex = this.users.length;
+    }
+    this.pageUserSlice = this.users.slice(startIndex, endIndex);
+
     if (endIndex > this.orders.length) {
       endIndex = this.orders.length;
     }
@@ -112,6 +124,20 @@ export class HomeInternoComponent implements OnInit {
 
   public filter(type: string) {
     switch(type){
+      case 'user':
+        for (let index in this.users) {
+          if(this.users[index].nome.toLowerCase() == this.searchUser.toLowerCase()) {
+            let put = true;
+            for (let anotherIndex in this.searchUsers) {
+              if (this.searchUsers[index] === this.users[anotherIndex]) {
+                put = false;
+              }
+            }
+            if (put)
+              this.searchUsers.push(this.users[index]);
+          }
+        }
+        break;
       case 'ordine':
         for (let index in this.orders) {
           if (this.orders[index].n_ordine.toString() == this.searchOrder) {
@@ -159,30 +185,50 @@ export class HomeInternoComponent implements OnInit {
         }
         this.filter('ordine');
         break;
+      case 'volontario':
+        if (this.searchUser == "" || this.searchUser == " ") {
+          this.searchUsers.splice(0, this.searchUsers.length);
+          this.searchUser="";
+        }
+        this.filter('user');
+        break;
     }
   }
-  
+
+  async filterUser() {
+    let search = this.searchUser;
+    try {
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/users/" + search);
+      console.log(response_filter.status);
+      console.log(response_filter.data);
+      this.users = response_filter.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+    this.pageUserSlice = this.users.slice(0, 10); 
+  }
+
   async filterOrder() {
+    if (this.searchOrder != "") {
+      this.searchOrder = "";
+    }
     let search = this.searchOrder;
     let status = this.state;
-    if(status == ""){
-      status = "all";
-    }
-    status = JSON.stringify(status);
-    console.log(status);
-    console.log(search);
     try {
       let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" + status);
       console.log(response_filter.status);
-      console.log(response_filter.data);
-      this.orders = response_filter.data;
+      console.log("data", response_filter.data);
+      console.log(status);
+      console.log(search);
+      this.orders = response_filter.data.order;
     }
     catch (err) {
       console.log(err);
     }
     this.pageOrderSlice = this.orders.slice(0, 10); 
   }
-  
+
   async filterClient() {
     let search = this.searchClient;
     try {
@@ -197,8 +243,13 @@ export class HomeInternoComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10); 
   }
 
+  openDeleteUserDialog(userId: number) {
+    this.userId = userId;
+    localStorage["id"] = this.userId;
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent);
+  }
+
   openDeleteClientDialog(clientId: number) {
-    this.panelOpenState == true;
     this.clientId = clientId;
     localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
@@ -208,6 +259,12 @@ export class HomeInternoComponent implements OnInit {
     this.orderId = orderId;
     localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  }
+
+  openEditUserDialog(userId: number) {
+    this.userId = userId;
+    localStorage["id"] = this.userId;
+    const dialogRef = this.dialog.open(EditUserDialogComponent);
   }
 
   openEditOrderDialog(orderId: number) {

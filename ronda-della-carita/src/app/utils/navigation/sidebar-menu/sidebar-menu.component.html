@@ -17,16 +17,34 @@
             </button>
             <mat-menu #menu="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">
                 <button *ngIf="orderInAttesa >= 1" class="cursor-pointer" (click)="viewOrderInAttesa()">
-                    <p *ngIf="orderInAttesa !== 1"><span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> ordini in attesa</p>
-                    <p *ngIf="orderInAttesa === 1"><span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> ordine in attesa</p>
+                    <p *ngIf="orderInAttesa !== 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> 
+                        ordini in attesa
+                    </p>
+                    <p *ngIf="orderInAttesa === 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> 
+                        ordine in attesa
+                    </p>
                 </button>
                 <button *ngIf="orderNonDisp >= 1" class="cursor-pointer" (click)="viewOrderNonDisp()">
-                    <p *ngIf="orderNonDisp !== 1"><span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> ordini non disponibili</p>
-                    <p *ngIf="orderNonDisp === 1"><span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> ordine non disponibile</p>
+                    <p *ngIf="orderNonDisp !== 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> 
+                        ordini non disponibili
+                    </p>
+                    <p *ngIf="orderNonDisp === 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> 
+                        ordine non disponibile
+                    </p>
                 </button>
                 <button *ngIf="orderDaConf >= 1" class="cursor-pointer" (click)="viewOrderDaConf()">
-                    <p *ngIf="orderDaConf !== 1"><span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> ordini non disponibili</p>
-                    <p *ngIf="orderDaConf === 1"><span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> ordine non disponibile</p>
+                    <p *ngIf="orderDaConf !== 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
+                        ordini non disponibili
+                    </p>
+                    <p *ngIf="orderDaConf === 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
+                        ordine non disponibile
+                    </p>
                 </button>
             </mat-menu>
             <button mat-icon-button (click)="goToLogin()">
@@ -44,36 +62,36 @@
                         <span>HOME</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="this.ruolo != 'admin'">
+                <mat-list-item *ngIf="currentRoute != urlAdmin">
                     <button mat-button (click)="openMansionDialog()" class="w-full left text-lg text-white">
                         <span>CAMBIA MANSIONE</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="this.ruolo === 'admin'">
-                    <button mat-button (click)="goToRichieste()" class="w-full left text-lg text-white">
+                <mat-list-item *ngIf="currentRoute === urlAdmin">
+                    <button mat-button (click)="goToConfirm()" class="w-full left text-lg text-white">
                         <span>RICHIESTE CONFERMA</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="this.ruolo === 'admin'">
-                    <button mat-button (click)="goToStorico()" class="w-full left text-lg text-white">
-                        <span>STORICO ACCESSI</span>
-                    </button>
-                </mat-list-item>
-                <mat-list-item *ngIf="this.ruolo === 'admin'">
-                    <button mat-button (click)="goToUser()" class="w-full left text-lg text-white">
+                <mat-list-item *ngIf="currentRoute === urlAdmin">
+                    <button mat-button (click)="goToCreateUser()" class="w-full left text-lg text-white">
                         <span>NUOVO VOLONTARIO</span>
                     </button>
                 </mat-list-item>
                 <mat-list-item>
-                    <button mat-button (click)="goToOrdine()" class="w-full left text-lg text-white">
-                        <span *ngIf="this.ruolo != 'esterno'">NUOVO ORDINE</span> 
-                        <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
+                    <button mat-button (click)="goToCreateOrder()" class="w-full left text-lg text-white">
+                        <span *ngIf="currentRoute != urlEsterno">NUOVO ORDINE</span> 
+                        <span *ngIf="currentRoute === urlEsterno">ORDINI</span>
                     </button>
                 </mat-list-item>
                 <mat-list-item>
-                    <button mat-button (click)="goToRegistrazione()" class="w-full left text-lg text-white">
-                    <span *ngIf="this.ruolo != 'esterno'">NUOVO ASSISTITO</span> 
-                    <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
+                    <button mat-button (click)="goToCreateClient()" class="w-full left text-lg text-white">
+                        <span *ngIf="currentRoute != urlEsterno">NUOVO ASSISTITO</span> 
+                        <span *ngIf="currentRoute === urlEsterno">ASSISTITI</span>
+                    </button>
+                </mat-list-item>
+                <mat-list-item *ngIf="currentRoute === urlAdmin">
+                    <button mat-button (click)="goToHistory()" class="w-full left text-lg text-white">
+                        <span>STORICO ACCESSI</span>
                     </button>
                 </mat-list-item>
             </div>

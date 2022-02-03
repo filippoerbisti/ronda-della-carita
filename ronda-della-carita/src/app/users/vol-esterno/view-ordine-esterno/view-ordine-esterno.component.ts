@@ -64,7 +64,7 @@ export class ViewOrdineEsternoComponent implements OnInit {
     this.pageOrderSlice = this.orders.slice(0, 10);
   }
 
-  goToOrdineEsterno() {
+  goToCreateOrderEsterno() {
     this.router.navigateByUrl('/ordine-esterno');
   }
 

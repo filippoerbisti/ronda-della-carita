@@ -11,22 +11,22 @@
         <button *ngIf="this.ruolo != 'admin'" mat-menu-item (click)="openMansionDialog()">
             <span>CAMBIA MANSIONE</span>
         </button>
-        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToRichieste()">
+        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToConfirm()">
             <span>RICHIESTE CONFERMA</span>
         </button>
-        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToStorico()">
-            <span>STORICO ACCESSI</span>
-        </button>
-        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToUser()">
+        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToCreateUser()">
             <span>NUOVO VOLONTARIO</span>
         </button>
-        <button mat-menu-item (click)="goToOrdine()">
+        <button mat-menu-item (click)="goToCreateOrder()">
             <span *ngIf="this.ruolo != 'esterno'">NUOVO ORDINE</span> 
             <span *ngIf="this.ruolo === 'esterno'">ORDINI</span>
         </button>
-        <button mat-menu-item (click)="goToRegistrazione()">
+        <button mat-menu-item (click)="goToCreateClient()">
             <span *ngIf="this.ruolo != 'esterno'">NUOVO ASSISTITO</span> 
             <span *ngIf="this.ruolo === 'esterno'">ASSISTITI</span>
+        </button>
+        <button *ngIf="this.ruolo === 'admin'" mat-menu-item (click)="goToHistory()">
+            <span>STORICO ACCESSI</span>
         </button>
         <button mat-menu-item (click)="openPasswordDialog()">
             <span>CAMBIA PASSWORD</span>

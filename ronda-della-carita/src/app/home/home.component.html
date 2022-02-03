@@ -8,7 +8,7 @@
             <mat-tab-group mat-align-tabs="center" class="w-full flex">
 
                 <!-- USERS -->
-                <mat-tab label="VOLONTARI">
+                <mat-tab label="VOLONTARI" *ngIf="currentRoute === urlAdmin">
                     <mat-card class="h-full">
                         <mat-card-content>
                             <div class="sm:flex mb-4 pt-2 sm:space-x-6">
@@ -211,7 +211,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description class="w-1/3 flex justify-center my-auto">
                                             <span class="leading-loose text-black mr-auto">
-                                                Tot. pezzi: {{ totPezzi}} 
+                                                Tot. pezzi: {{ order.n_clothes}} 
                                             </span>
                                             <!-- <span class="leading-loose text-black mr-auto hidden sm:inline">Stato: siummico</span> -->
                                             <!-- <div *ngIf="order.param?.value === 'attesa'">

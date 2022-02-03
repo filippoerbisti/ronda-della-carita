@@ -36,11 +36,11 @@ export class HomeEsternoComponent implements OnInit {
     this.isLoading = false;
   }
 
-  goToRegistrazioneEsterno() {
+  goToCreateClientEsterno() {
     this.router.navigateByUrl('/registrazione-esterno');
   }
 
-  goToOrdineEsterno() {
+  goToCreateOrderEsterno() {
     this.router.navigateByUrl('/ordine-esterno');
   }
 

@@ -48,7 +48,7 @@ export class ViewRegistrazioneEsternoComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10);
   }
 
-  goToRegistrazioneEsterno() {
+  goToCreateClientEsterno() {
     this.router.navigateByUrl('/registrazione-esterno');
   }
 
