@@ -10,9 +10,9 @@
             <button mat-icon-button aria-label="Menu" [matMenuTriggerFor]="menu">
                 <div class="relative flex justify-center items-center">
                     <mat-icon class="text-white relative">notifications_active</mat-icon>
-                    <span class="absolute left-6 bottom-1/2 rounded-full text-white bg-red-400 h-5 flex items-center justify-center">
+                    <span *ngIf="countNotifiche" class="absolute left-6 bottom-1/2 rounded-full text-white bg-red-400 h-5 flex items-center justify-center">
                         <span class="px-1">{{ countNotifiche }}</span>
-                    </span>        
+                    </span>
                 </div>
             </button>
             <mat-menu #menu="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">

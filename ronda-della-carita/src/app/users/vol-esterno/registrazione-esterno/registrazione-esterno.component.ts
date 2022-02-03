@@ -69,8 +69,12 @@ export class RegistrazioneEsternoComponent implements OnInit {
   ];
 
   constructor(private router: Router) { }
+  // constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    // getRouteData() {
+    //   let route = this.route.data.subscribe(v => console.log(v))
+    // }
   }
 
   goToHomeEsterno() {

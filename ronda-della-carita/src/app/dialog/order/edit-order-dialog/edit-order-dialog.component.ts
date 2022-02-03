@@ -24,7 +24,6 @@ export class EditOrderDialogComponent implements OnInit {
   order!: IOrder;
   orderId!: number;
   clothes: IClothe[] = [];
-  open:boolean=false;
   clotheId!: number;
   filteredClients: Observable<IClient[]> | undefined;
 
@@ -68,19 +67,19 @@ export class EditOrderDialogComponent implements OnInit {
       {value: "58", viewValue: 58},
     ],
     "Scarpe": [
-      {value: "36", viewValue: 36},
-      {value: "37", viewValue: 37},
-      {value: "38", viewValue: 38},
-      {value: "39", viewValue: 39},
-      {value: "40", viewValue: 40},
-      {value: "41", viewValue: 41},
-      {value: "42", viewValue: 42},
-      {value: "43", viewValue: 43},
-      {value: "44", viewValue: 44},
-      {value: "45", viewValue: 45},
-      {value: "46", viewValue: 46},
-      {value: "47", viewValue: 47},
-      {value: "48", viewValue: 48},
+      {value: 36, viewValue: 36},
+      {value: 37, viewValue: 37},
+      {value: 38, viewValue: 38},
+      {value: 39, viewValue: 39},
+      {value: 40, viewValue: 40},
+      {value: 41, viewValue: 41},
+      {value: 42, viewValue: 42},
+      {value: 43, viewValue: 43},
+      {value: 44, viewValue: 44},
+      {value: 45, viewValue: 45},
+      {value: 46, viewValue: 46},
+      {value: 47, viewValue: 47},
+      {value: 48, viewValue: 48},
     ]
   };
 
@@ -105,7 +104,7 @@ export class EditOrderDialogComponent implements OnInit {
         console.log(response_order.data.clothes[i]);
       }*/
       for(let i =0; i<this.orders.length;i++){
-        this.orders[i].open="true";
+        this.orders[i].open="false";
       }
       console.log("oreds",this.orders);
       let clotheId = this.order.id;
@@ -121,7 +120,7 @@ export class EditOrderDialogComponent implements OnInit {
   }
   press(clothe:any){
     console.log("clothe",clothe)
-    clothe.open=false;
+    clothe.open=true;
     console.log("open or not"+clothe.open)
   }
   save(prova:any){
