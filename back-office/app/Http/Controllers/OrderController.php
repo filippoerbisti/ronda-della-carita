@@ -88,6 +88,11 @@ class OrderController extends Controller
                         ->with('user')
                         ->get();
         if($status == "all"){
+            for($i = 0; $i < count($orders); $i++){
+                $id = $orders[$i]->id;
+                $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
+                $orders[$i]->setAttribute("n_clothes",$n_clothes);
+            }
             return $orders;
         }
         for($i = 0; $i < count($orders); $i++){
