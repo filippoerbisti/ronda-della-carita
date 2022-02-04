@@ -101,6 +101,11 @@ class OrderController extends Controller
                 }
             }
         }
+        for($i = 0; $i < count($orders); $i++){
+            $id = $orders[$i]->id;
+            $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
+            $orders[$i]->setAttribute("n_clothes",$n_clothes);
+        }
         $temp = [];
         for($i = 0; $i < count($orders); $i++){
             if($orders[$i]->status == $status){
