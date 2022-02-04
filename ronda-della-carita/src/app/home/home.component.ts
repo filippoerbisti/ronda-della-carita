@@ -221,7 +221,7 @@ export class HomeComponent implements OnInit {
       console.log("data", response_filter.data);
       console.log(status);
       console.log(search);
-      this.orders = response_filter.data.order;
+      this.orders = response_filter.data;
     }
     catch (err) {
       console.log(err);
