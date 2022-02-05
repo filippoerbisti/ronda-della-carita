@@ -7,6 +7,7 @@ import axios from "axios";
 import { IClient } from 'src/app/shared/interface/iclient';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { sizes } from 'src/app/shared/store/size-clothe-data-store';
 
 export interface IClothes {
   type: string,
@@ -36,9 +37,9 @@ export class CreateOrderComponent implements OnInit {
   quantita = 1;
 
   public tvestiario = [
-    {value: 'maglietta', viewValue: "Maglietta"},
-    {value: 'pantaloni', viewValue: 'Pantaloni'},
-    {value: 'scarpe', viewValue: 'Scarpe'},
+    {value: "Maglietta"},
+    {value: 'Pantaloni'},
+    {value: 'Scarpe'},
   ];
 
   public newClothe = {
@@ -58,52 +59,55 @@ export class CreateOrderComponent implements OnInit {
     clothes: this.clothes
   };
 
-  public tvestiarioUseCaseMapping: any = {
-    "maglietta": [
-      {value: 'xs', viewValue: 'XS'},
-      {value: 's', viewValue: 'S'},
-      {value: 'm', viewValue: 'M'},
-      {value: 'l', viewValue: 'L'},
-      {value: 'xl', viewValue: 'XL'},
-      {value: 'xxl', viewValue: 'XXL'},
-    ], 
-    "pantaloni": [
-      {value: 42, viewValue: 42},
-      {value: 43, viewValue: 43},
-      {value: 44, viewValue: 44},
-      {value: 45, viewValue: 45},
-      {value: 46, viewValue: 46},
-      {value: 47, viewValue: 47},
-      {value: 48, viewValue: 48},
-      {value: 49, viewValue: 49},
-      {value: 50, viewValue: 50},
-      {value: 51, viewValue: 51},
-      {value: 52, viewValue: 52},
-      {value: 53, viewValue: 53},
-      {value: 54, viewValue: 54},
-      {value: 55, viewValue: 55},
-      {value: 56, viewValue: 56},
-      {value: 57, viewValue: 57},
-      {value: 58, viewValue: 58},
-    ],
-    "scarpe": [
-      {value: 36, viewValue: 36},
-      {value: 37, viewValue: 37},
-      {value: 38, viewValue: 38},
-      {value: 39, viewValue: 39},
-      {value: 40, viewValue: 40},
-      {value: 41, viewValue: 41},
-      {value: 42, viewValue: 42},
-      {value: 43, viewValue: 43},
-      {value: 44, viewValue: 44},
-      {value: 45, viewValue: 45},
-      {value: 46, viewValue: 46},
-      {value: 47, viewValue: 47},
-      {value: 48, viewValue: 48},
-    ]
-  };
+  public tvestiarioUseCaseMapping:any = sizes;
 
-  tvestiarioValue: any = 'maglietta';
+  // public tvestiarioUseCaseMapping: any = izes[] = [] {
+  //   "maglietta": [
+  //     {value: 'xs', viewValue: 'XS'},
+  //     {value: 's', viewValue: 'S'},
+  //     {value: 'm', viewValue: 'M'},
+  //     {value: 'l', viewValue: 'L'},
+  //     {value: 'xl', viewValue: 'XL'},
+  //     {value: 'xxl', viewValue: 'XXL'},
+  //   ], 
+  //   "pantaloni": [
+  //     {value: 42, viewValue: 42},
+  //     {value: 43, viewValue: 43},
+  //     {value: 44, viewValue: 44},
+  //     {value: 45, viewValue: 45},
+  //     {value: 46, viewValue: 46},
+  //     {value: 47, viewValue: 47},
+  //     {value: 48, viewValue: 48},
+  //     {value: 49, viewValue: 49},
+  //     {value: 50, viewValue: 50},
+  //     {value: 51, viewValue: 51},
+  //     {value: 52, viewValue: 52},
+  //     {value: 53, viewValue: 53},
+  //     {value: 54, viewValue: 54},
+  //     {value: 55, viewValue: 55},
+  //     {value: 56, viewValue: 56},
+  //     {value: 57, viewValue: 57},
+  //     {value: 58, viewValue: 58},
+  //   ],
+  //   "scarpe": [
+  //     {value: 36, viewValue: 36},
+  //     {value: 37, viewValue: 37},
+  //     {value: 38, viewValue: 38},
+  //     {value: 39, viewValue: 39},
+  //     {value: 40, viewValue: 40},
+  //     {value: 41, viewValue: 41},
+  //     {value: 42, viewValue: 42},
+  //     {value: 43, viewValue: 43},
+  //     {value: 44, viewValue: 44},
+  //     {value: 45, viewValue: 45},
+  //     {value: 46, viewValue: 46},
+  //     {value: 47, viewValue: 47},
+  //     {value: 48, viewValue: 48},
+  //   ]
+  // };
+
+
+  tvestiarioValue: any = 'Maglia';
   clientValue: any = 'Uomo';
   tagliaValue: any = '';
 
@@ -161,9 +165,9 @@ export class CreateOrderComponent implements OnInit {
         this.choseGender = "Uomo";
       else
         this.choseGender = "Donna"
-      if(this.tvestiarioValue == 'maglietta')
+      if(this.tvestiarioValue == 'Maglia')
         this.tagliaValue = this.search[0].t_maglietta;
-      else if(this.tvestiarioValue == 'scarpe')
+      else if(this.tvestiarioValue == 'Scarpe')
         this.tagliaValue = this.search[0].t_scarpe;
       else
         this.tagliaValue = parseInt(this.search[0].t_pantaloni);

@@ -45,6 +45,11 @@ export class HomeComponent implements OnInit {
   userId!: number;
   orderId!: number;
   clientId!: number;
+
+  state!: string;
+  searchUser!: string;
+  searchOrder!: string;
+  searchClient!: string;
   
   searchUsers: IUser[] = [];
   searchClients: IClient[] = [];
@@ -54,11 +59,6 @@ export class HomeComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
-
-  searchUser!: string;
-  state!: string;
-  searchOrder!: string;
-  searchClient!: string;
   
   constructor(
     public dialog: MatDialog,

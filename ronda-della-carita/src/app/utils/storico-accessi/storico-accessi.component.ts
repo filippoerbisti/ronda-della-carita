@@ -57,7 +57,7 @@ export class StoricoAccessiComponent implements OnInit {
   async filterHistory() {
     let search = this.searchAccess;
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/history/" + search);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/history/filt/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.histories = response_filter.data;

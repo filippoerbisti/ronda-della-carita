@@ -30,7 +30,9 @@ Route::put('/user/edit/{id}', [UserController::class, 'edit']);
 // History
 Route::get('/history', [HistoryController::class, 'list']);
 
-Route::get('/history/{filter}', [HistoryController::class, 'filter']);
+Route::get('/history/{id}', [HistoryController::class, 'id']);
+
+Route::get('/history/filt/{filter}', [HistoryController::class, 'filter']);
 
 Route::get('/history/accessi/count', [HistoryController::class, 'countAccessi']);
 

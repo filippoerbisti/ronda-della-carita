@@ -15,11 +15,16 @@
                 Stato
             </div>
         </div>
-        <div *ngFor="let order of daConfOrders" class="grid grid-cols-4 gap-5">
+        <div *ngFor="let order of inAttesaOrders" class="grid grid-cols-4 gap-5">
             <p>{{ order.order.n_ordine }}</p>
             <p>{{ order.order.client.nome }} {{ order.order.client.cognome }}</p>
             <p>{{ order.order.p_ritiro }}</p>
-            <p>{{ order.param.name }}</p>
+            <div class="flex">
+                <span class="hidden sm:inline sm:pr-4">{{ order.param.name }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
         </div>
     </div>
     <div *ngIf="view_notification === nonDisp">
@@ -38,11 +43,16 @@
                 Stato
             </div>
         </div>
-        <div *ngFor="let order of daConfOrders" class="grid grid-cols-4 gap-5">
+        <div *ngFor="let order of nonDispOrders" class="grid grid-cols-4 gap-5">
             <p>{{ order.order.n_ordine }}</p>
             <p>{{ order.order.client.nome }} {{ order.order.client.cognome }}</p>
             <p>{{ order.order.p_ritiro }}</p>
-            <p>{{ order.param.name }}</p>
+            <div class="flex">
+                <span class="hidden sm:inline sm:pr-4">{{ order.param.name }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
         </div>
     </div>
     <div *ngIf="view_notification === daConf">
@@ -65,7 +75,12 @@
             <p>{{ order.order.n_ordine }}</p>
             <p>{{ order.order.client.nome }} {{ order.order.client.cognome }}</p>
             <p>{{ order.order.p_ritiro }}</p>
-            <p>{{ order.param.name }}</p>
+            <div class="flex items-center">
+                <span class="hidden sm:inline sm:pr-4">{{ order.param.name }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
         </div>
     </div>
 </div>

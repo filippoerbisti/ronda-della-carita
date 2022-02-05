@@ -33,28 +33,28 @@ import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home/:rule', component: HomeComponent },
-  { path: 'create/user', component: CreateUserComponent },
-  { path: 'create/client', component: CreateClientComponent },
-  { path: 'create/order', component: CreateOrderComponent },
+  { path: 'create/user/:rule', component: CreateUserComponent },
+  { path: 'create/client/:rule', component: CreateClientComponent },
+  { path: 'create/order/:rule', component: CreateOrderComponent },
   { path: 'confirm/user', component: ConfirmUserComponent },
   { path: 'history', component: StoricoAccessiComponent },
-  // { path: '',   redirectTo: '/login', pathMatch: 'full' },
-  // { path: '**', component: PageNotFoundComponent }
+  { path: '',   redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 
-  { path: 'home-admin', component: HomeAdminComponent },
-  { path: 'home-interno', component: HomeInternoComponent },
-  { path: 'user-admin', component: UserAdminComponent },
-  { path: 'ordine-admin', component: OrdineAdminComponent },
-  { path: 'registrazione-admin', component: RegistrazioneAdminComponent },
-  { path: 'home-esterno', component: HomeEsternoComponent },
-  { path: 'ordine-esterno', component: OrdineEsternoComponent },
-  { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent, data: {state: 'fanculo'} },
-  { path: 'scanner-qr', component: ScannerQrComponent },
-  { path: 'view-ordine-esterno', component: ViewOrdineEsternoComponent },
-  { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },
-  { path: 'home-interno', component: HomeInternoComponent },
-  { path: 'ordine-interno', component: OrdineInternoComponent },
-  { path: 'registrazione-interno', component: RegistrazioneInternoComponent }
+  // { path: 'home-admin', component: HomeAdminComponent },
+  // { path: 'home-interno', component: HomeInternoComponent },
+  // { path: 'user-admin', component: UserAdminComponent },
+  // { path: 'ordine-admin', component: OrdineAdminComponent },
+  // { path: 'registrazione-admin', component: RegistrazioneAdminComponent },
+  // { path: 'home-esterno', component: HomeEsternoComponent },
+  // { path: 'ordine-esterno', component: OrdineEsternoComponent },
+  // { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent, data: {state: 'fanculo'} },
+  // { path: 'scanner-qr', component: ScannerQrComponent },
+  // { path: 'view-ordine-esterno', component: ViewOrdineEsternoComponent },
+  // { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },
+  // { path: 'home-interno', component: HomeInternoComponent },
+  // { path: 'ordine-interno', component: OrdineInternoComponent },
+  // { path: 'registrazione-interno', component: RegistrazioneInternoComponent }
   
 ];
 

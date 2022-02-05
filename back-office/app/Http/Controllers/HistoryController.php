@@ -15,6 +15,13 @@ class HistoryController extends Controller
         return $history;
     }
 
+    public function id($id)
+    {
+        return History::with('user')
+                        ->where('user_id', $id)
+                        ->first();
+    }
+
     public function filter($search) 
     {
         $history = History::with('user')

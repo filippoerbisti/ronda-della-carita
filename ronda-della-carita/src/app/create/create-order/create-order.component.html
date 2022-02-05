@@ -42,15 +42,15 @@
                                 <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Tipo</mat-label>
                                 <mat-select (selectionChange)="change()" name="tvestiario" [(ngModel)]="newClothe.type">
                                     <mat-option *ngFor="let item of tvestiario" [value]="item.value">
-                                        {{item.viewValue}}
+                                        {{item.value}}
                                     </mat-option>   
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field appearance="fill" class="w-1/3">
                                 <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Taglia</mat-label>
                                 <mat-select (selectionChange)="change()" name="tagliaValue" [(ngModel)]="newClothe.size">
-                                    <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.viewValue">
-                                        {{item.viewValue}}
+                                    <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.value">
+                                        {{item.value}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>

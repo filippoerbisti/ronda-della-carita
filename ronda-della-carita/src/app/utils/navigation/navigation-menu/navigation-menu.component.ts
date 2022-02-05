@@ -3,6 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
+import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
+import { IUser } from 'src/app/shared/interface/iuser';
+import axios from 'axios';
+import { IHistory } from 'src/app/shared/interface/ihistory';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -11,48 +15,93 @@ import { ChangePasswordDialogComponent } from '../../../dialog/change-password-d
 })
 export class NavigationMenuComponent implements OnInit {
 
-  ruolo!: string;
+  isAdmin = window.location.href.includes('admin');
 
-  ruolo1 = 'volontario';
-  ruolo11 = 'admin';
+  user!: IUser;
+  history!: IHistory;
+  rule!: any;
+
+  countNotifiche!: number;
+  orderNonDisp!: number;
+  orderInAttesa!: number;
+  orderDaConf!: number;
+
+  currentRoute!: string;
+
+  typeNotification!: string;
 
   constructor(
     public dialog: MatDialog,
     private router: Router
     ) { }
 
-  ngOnInit() {
-    this.ruolo = localStorage["ruolo"];
+  async ngOnInit() {
+    try {
+      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
+      this.user = response_user.data;
+      let historyId = this.user.id;
+      let response_history = await axios.get("http://127.0.0.1:8000/api/history/" + historyId);
+      this.history = response_history.data;
+      let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
+      this.orderNonDisp = response_order_nondisp.data;
+      let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
+      this.orderInAttesa = response_order_inattesa.data;
+      let response_order_daconf= await axios.get("http://127.0.0.1:8000/api/orders/daconf");
+      this.orderDaConf = response_order_daconf.data;
+    } 
+    catch (err) {
+      console.log(err);
+    }
+    this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
   }
-
   
   goToLogin() {
     this.router.navigateByUrl('/login');
-    localStorage.removeItem("ruolo");
   }
 
   goToHome() {
-    this.router.navigateByUrl('/home');
+    if(window.location.href.includes('admin')) {
+      this.router.navigateByUrl('/home/admin');
+    } else if(window.location.href.includes('vol1')) {
+      this.router.navigateByUrl('/home/interno');
+    } else if (window.location.href.includes('vol0')) {
+      this.router.navigateByUrl('/home/esterno');
+    }
   }
 
   goToConfirm() {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/confirm/user');
   }
 
   goToHistory() {
-    this.router.navigateByUrl('/accessi');
+    this.router.navigateByUrl('/history');
   }
 
   goToCreateUser() {
-    this.router.navigateByUrl('/create-user');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    }
+    this.router.navigateByUrl('create/user/' + this.rule);
   }
 
   goToCreateClient() {
-    this.router.navigateByUrl('/create-client');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    }
+    this.router.navigateByUrl('reate/client');
   }
 
   goToCreateOrder() {
-    this.router.navigateByUrl('/create-order');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    }
+    this.router.navigateByUrl('/create/order');
   }
 
   openMansionDialog() {
@@ -61,6 +110,27 @@ export class NavigationMenuComponent implements OnInit {
 
   openPasswordDialog() {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
+  }
+
+  viewOrderInAttesa() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "In attesa";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderNonDisp() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Non disponibile";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderDaConf() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Da confermare";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
 
 }

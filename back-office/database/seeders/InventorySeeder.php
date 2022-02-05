@@ -226,6 +226,12 @@ class InventorySeeder extends Seeder
             [
                 'param_id' => 2,
                 't_vestiario' => 'Scarpe',
+                'taglia' => 38,
+                'created_at' => now()
+            ],
+            [
+                'param_id' => 2,
+                't_vestiario' => 'Scarpe',
                 'taglia' => 39,
                 'created_at' => now()
             ],

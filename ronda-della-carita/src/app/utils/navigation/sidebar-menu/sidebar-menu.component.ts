@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
-import axios from 'axios';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
-import { Router } from '@angular/router';
 import { IUser } from 'src/app/shared/interface/iuser';
+import axios from 'axios';
+import { IHistory } from 'src/app/shared/interface/ihistory';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -16,11 +18,11 @@ export class SidebarMenuComponent implements OnInit {
 
   isSidebarOpen= false;
 
-  urlAdmin = "/home/admin";
-  urlInterno = "/home/interno";
-  urlEsterno = "/home/esterno";
+  isAdmin = window.location.href.includes('admin');
 
   user!: IUser;
+  history!: IHistory;
+  rule!: any;
 
   countNotifiche!: number;
   orderNonDisp!: number;
@@ -33,14 +35,16 @@ export class SidebarMenuComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private router: Router
+    public router: Router
     ) { }
 
   async ngOnInit() {
-    this.currentRoute = this.router.url;
     try {
       let response_user = await axios.get("http://127.0.0.1:8000/api/user");
       this.user = response_user.data;
+      let historyId = this.user.id;
+      let response_history = await axios.get("http://127.0.0.1:8000/api/history/" + historyId);
+      this.history = response_history.data;
       let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
       let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
@@ -52,7 +56,6 @@ export class SidebarMenuComponent implements OnInit {
       console.log(err);
     }
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
-
   }
 
   goToLogin() {
@@ -61,11 +64,11 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   goToHome() {
-    if(this.currentRoute === this.urlAdmin) {
+    if(window.location.href.includes('admin')) {
       this.router.navigateByUrl('/home/admin');
-    } else if(this.currentRoute === this.urlInterno) {
+    } else if(window.location.href.includes('vol1')) {
       this.router.navigateByUrl('/home/interno');
-    } else if (this.currentRoute === this.urlEsterno) {
+    } else if (window.location.href.includes('vol0')) {
       this.router.navigateByUrl('/home/esterno');
     }
     this.isSidebarOpen = false;
@@ -82,17 +85,32 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   goToCreateUser() {
-    this.router.navigateByUrl('/create/user');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    }
+    this.router.navigateByUrl('/create/user/' + this.rule);
     this.isSidebarOpen = false;
   }
 
   goToCreateClient() {
-    this.router.navigateByUrl('/create/client');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    }
+    this.router.navigateByUrl('/create/client/' + this.rule);
     this.isSidebarOpen = false;
   }
 
   goToCreateOrder() {
-    this.router.navigateByUrl('/create/order');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    }
+    this.router.navigateByUrl('/create/order/' + this.rule);
     this.isSidebarOpen = false;
   }
 
