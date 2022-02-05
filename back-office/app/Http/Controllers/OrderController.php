@@ -108,6 +108,9 @@ class OrderController extends Controller
                         break;
                     }
                 }
+                $id = $orders[$i]->id;
+                $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
+                $orders[$i]->setAttribute("n_clothes",$n_clothes);
             }
             return $orders;
         }
