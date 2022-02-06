@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
 
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
       this.orders = response_order.data;
+      console.log(this.orders);
     } 
     catch (err) {
       console.log(err);
