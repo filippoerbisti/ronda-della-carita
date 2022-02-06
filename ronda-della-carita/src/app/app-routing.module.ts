@@ -32,10 +32,10 @@ import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home/:rule', component: HomeComponent },
-  { path: 'create/user/:rule', component: CreateUserComponent },
-  { path: 'create/client/:rule', component: CreateClientComponent },
-  { path: 'create/order/:rule', component: CreateOrderComponent },
+  { path: ':rule/home', component: HomeComponent },
+  { path: ':rule/create/user', component: CreateUserComponent },
+  { path: ':rule/create/client', component: CreateClientComponent },
+  { path: ':rule/create/order', component: CreateOrderComponent },
   { path: 'confirm/user', component: ConfirmUserComponent },
   { path: 'history', component: StoricoAccessiComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },

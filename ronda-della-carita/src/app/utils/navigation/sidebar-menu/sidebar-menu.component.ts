@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import axios from 'axios';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { IUser } from 'src/app/shared/interface/iuser';
-import axios from 'axios';
 import { IHistory } from 'src/app/shared/interface/ihistory';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -18,7 +17,8 @@ export class SidebarMenuComponent implements OnInit {
 
   isSidebarOpen= false;
 
-  isAdmin = window.location.href.includes('admin');
+  isAdmin!: boolean;
+  urlEsterno!: boolean;
 
   user!: IUser;
   history!: IHistory;
@@ -39,6 +39,8 @@ export class SidebarMenuComponent implements OnInit {
     ) { }
 
   async ngOnInit() {
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     try {
       let response_user = await axios.get("http://127.0.0.1:8000/api/user");
       this.user = response_user.data;
@@ -64,13 +66,14 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   goToHome() {
-    if(window.location.href.includes('admin')) {
-      this.router.navigateByUrl('/home/admin');
-    } else if(window.location.href.includes('vol1')) {
-      this.router.navigateByUrl('/home/interno');
-    } else if (window.location.href.includes('vol0')) {
-      this.router.navigateByUrl('/home/esterno');
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
     }
+    this.router.navigateByUrl(`/${this.rule}` + '/home');
     this.isSidebarOpen = false;
   }
 
@@ -87,11 +90,9 @@ export class SidebarMenuComponent implements OnInit {
   goToCreateUser() {
     if (this.user.param?.value === 'admin') {
       this.rule =  `${this.user.param?.value}`;
-    } else if (this.user.param?.value === 'vol') {
-      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+      this.router.navigateByUrl(`/${this.rule}` +  '/create/user');
+      this.isSidebarOpen = false;
     }
-    this.router.navigateByUrl('/create/user/' + this.rule);
-    this.isSidebarOpen = false;
   }
 
   goToCreateClient() {
@@ -100,7 +101,7 @@ export class SidebarMenuComponent implements OnInit {
     } else if (this.user.param?.value === 'vol') {
       this.rule =  `${this.user.param?.value}${this.history.interno}`;
     }
-    this.router.navigateByUrl('/create/client/' + this.rule);
+    this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     this.isSidebarOpen = false;
   }
 
@@ -110,15 +111,17 @@ export class SidebarMenuComponent implements OnInit {
     } else if (this.user.param?.value === 'vol') {
       this.rule =  `${this.user.param?.value}${this.history.interno}`;
     }
-    this.router.navigateByUrl('/create/order/' + this.rule);
+    this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     this.isSidebarOpen = false;
   }
 
   openMansionDialog() {
+    this.isSidebarOpen = false;
     const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 
   openPasswordDialog() {
+    this.isSidebarOpen = false;
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
   }
 

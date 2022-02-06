@@ -35,14 +35,6 @@
                         <span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> 
                         ordine non disponibile
                     </p>
-<!-- 
-
-
-CURRENTROUTE SEE! ISADMIN?!
-
-
-
- -->
                 </button>
                 <button *ngIf="orderInAttesa >= 1" class="cursor-pointer" (click)="viewOrderInAttesa()">
                     <p *ngIf="orderInAttesa !== 1">
@@ -87,14 +79,14 @@ CURRENTROUTE SEE! ISADMIN?!
                 </mat-list-item>
                 <mat-list-item>
                     <button mat-button (click)="goToCreateOrder()" class="w-full left text-lg text-white">
-                        <span *ngIf="isAdmin">NUOVO ORDINE</span> 
-                        <span *ngIf="!isAdmin">ORDINI</span>
+                        <span *ngIf="urlEsterno">NUOVO ORDINE</span> 
+                        <span *ngIf="!urlEsterno">ORDINI</span>
                     </button>
                 </mat-list-item>
                 <mat-list-item>
                     <button mat-button (click)="goToCreateClient()" class="w-full left text-lg text-white">
-                        <span *ngIf="isAdmin">NUOVO ASSISTITO</span> 
-                        <span *ngIf="!isAdmin">ASSISTITI</span>
+                        <span *ngIf="urlEsterno">NUOVO ASSISTITO</span> 
+                        <span *ngIf="!urlEsterno">ASSISTITI</span>
                     </button>
                 </mat-list-item>
                 <mat-list-item *ngIf="isAdmin">

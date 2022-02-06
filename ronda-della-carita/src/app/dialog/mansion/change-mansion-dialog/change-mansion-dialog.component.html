@@ -1,8 +1,8 @@
 <div *ngIf="!isLoading">
     <h2 mat-dialog-title>Sei sicuro di voler passare a</h2>
     <h1>
-        <span *ngIf="currentRoute != urlInterno">INTERNO</span>
-        <span *ngIf="currentRoute === urlInterno">ESTERNO</span>
+        <span *ngIf="!urlInterno">INTERNO</span>
+        <span *ngIf="urlInterno">ESTERNO</span>
     </h1>
     <mat-dialog-actions align="end">
         <div class="flex">
