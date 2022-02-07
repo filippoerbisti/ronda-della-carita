@@ -1,17 +1,20 @@
 :host ::ng-deep .mat-tab-group{
-
+    height: 100%;
 }
-
 :host ::ng-deep .mat-button-base{
     position: absolute !important;
-    bottom: 0 !important;
+    bottom: 10px !important;
 }
 
 :host ::ng-deep .mat-tab-body-wrapper{
-    position: relative !important;
-    height: 100% !important;
-    display: flex !important;
-    flex-grow: 1;
-    flex-direction: row !important; 
-    align-items: stretch;
+    height: 100%;
 }
+
+:host ::ng-deep .mat-card-content{
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   flex-grow: 1;
+   justify-content: center;
+}
+

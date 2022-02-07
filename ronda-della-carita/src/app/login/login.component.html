@@ -1,46 +1,15 @@
 <div class="h-screen flex justify-center items-center bg-nav px-5">
-    <div class="h-4/6 sm:h-3/4 w-full md:w-1/3 flex flex-col py-7 bg-white rounded-xl shadow-2xl space-y-24 sm:space-y-44">
+    <div class="h-5/6 sm:h-4/6 w-full md:w-1/3 flex flex-col py-7 bg-white rounded-xl shadow-2xl">
         <div class="flex w-full">
             <img class="w-44 md:w-2/4 mx-auto" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
         </div>
-        <mat-tab-group mat-align-tabs="center" class="flex flex-grow h-full items-center justify-center">
-            <mat-tab label="LOGIN" class="flex flex-col flex-grow mt-auto">
-                <mat-card-content>  
-                    <form>
-                        <div>
-                            <mat-form-field class="w-full" appearance="fill">
-                            <mat-label>Email</mat-label>
-                            <input type="email" 
-                                matInput 
-                                [formControl]="emailFormControl" 
-                                [errorStateMatcher]="matcher"
-                                placeholder="Email">
-                            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                                Per favore inserisci un indirizzo email valido
-                            </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
-                                Email <strong>obbligatoria</strong>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="w-full" appearance="fill">
-                            <mat-label>Password</mat-label>
-                            <input type="password" matInput placeholder="Password">
-                        </mat-form-field>
-                        </div>
-                        <a (click)="goToChangePassword()" class="text-bt-orange hover:underline">Password dimenticata?</a>
-                    </form>
-                </mat-card-content>
-                <button class="w-min h-10" mat-raised-button color="accent" (click)="login()">
-                    <span class="p-2 text-white">ACCEDI</span>
-                </button>
-                
-            </mat-tab>
-
-            <mat-tab label="REGISTRATI" class="flex flex-col flex-grow mt-auto">
-                <mat-card-content>  
-                    <form class="flex flex-grow">
-                        <div class="flex flex-grow">
-                            <mat-form-field class="w-full" appearance="fill">
+        <div class="flex flex-grow items-center px-10 py-10">
+            <mat-tab-group mat-align-tabs="center" class="w-full">
+                <mat-tab label="LOGIN" class="">
+                    <mat-card-content>  
+                        <form>
+                            <div>
+                                <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Email</mat-label>
                                 <input type="email" 
                                     matInput 
@@ -58,16 +27,64 @@
                                 <mat-label>Password</mat-label>
                                 <input type="password" matInput placeholder="Password">
                             </mat-form-field>
-                        </div>
-                    </form>
-                </mat-card-content>
-                <button class="w-min h-10" mat-raised-button color="accent" (click)="login()">
-                    <span class="p-2 text-white">ACCEDI</span>
-                </button>
+                            </div>
+                            <p class="text-right">
+                                <a (click)="goToChangePassword()" class="text-bt-orange hover:underline ">Password dimenticata?</a>
+                            </p>
+                        </form>
+                    </mat-card-content>
+                    <button class="w-min h-10 right-0" mat-raised-button color="accent" (click)="login()">
+                        <span class="p-2 text-white">ACCEDI</span>
+                    </button>
+                </mat-tab>
+                <mat-tab label="REGISTRATI" class="">
+                    <mat-card-content class="">  
+                        <form class="">
+                            <div class="flex sm:flex-row flex-col sm:space-x-2">
+                                <mat-form-field class="w-full" appearance="fill">
+                                    <mat-label>Nome</mat-label>
+                                    <input type="text" matInput placeholder="Nome">
+                                </mat-form-field>
+                                <mat-form-field class="w-full" appearance="fill">
+                                    <mat-label>Cognome</mat-label>
+                                    <input type="text" matInput placeholder="Cognome">
+                                </mat-form-field>
+                            </div>
+                            <div class="flex">
+                                <mat-form-field class="w-full" appearance="fill">
+                                    <mat-label>Email</mat-label>
+                                    <input type="email" 
+                                        matInput 
+                                        [formControl]="emailFormControl" 
+                                        [errorStateMatcher]="matcher"
+                                        placeholder="Email">
+                                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                        Per favore inserisci un indirizzo email valido
+                                    </mat-error>
+                                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                                        Email <strong>obbligatoria</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex sm:flex-row flex-col sm:space-x-2">
+                                <mat-form-field class="w-full" appearance="fill">
+                                    <mat-label>Password</mat-label>
+                                    <input type="password" matInput placeholder="Password">
+                                </mat-form-field>
+                                <mat-form-field class="w-full" appearance="fill">
+                                    <mat-label>Conferma Password</mat-label>
+                                    <input type="password" matInput placeholder="Conferma Password">
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                    <button class="h-10 right-0" mat-raised-button color="accent" (click)="registration()">
+                        <span class="p-2 text-white">REGISTRATI</span>
+                    </button>
+                </mat-tab>
                 
-            </mat-tab>
-
-        </mat-tab-group>
+            </mat-tab-group>
+        </div>
         
     </div>
     <div *ngIf="isLoading" class="h-full grid grid-center">
