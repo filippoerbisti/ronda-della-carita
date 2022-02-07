@@ -114,6 +114,8 @@ export class CreateOrderComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 3;
 
+  rule!: string;
+
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -139,8 +141,17 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  goToHomeInterno() {
-    this.router.navigateByUrl('/home/interno');
+  goToHome() {
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    }
   }
   
   public sea() {

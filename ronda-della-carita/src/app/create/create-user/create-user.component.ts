@@ -46,7 +46,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   goToHome() {
-    this.router.navigateByUrl('/home/admin');
+    this.router.navigateByUrl('/admin/home');
   }
 
   async createUser() {

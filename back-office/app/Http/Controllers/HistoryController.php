@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\History;
 use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
@@ -47,5 +48,21 @@ class HistoryController extends Controller
                             ->where('ultimo_accesso', '>=', Carbon::today())
                             ->get();
         return $history; 
+    }
+
+    public function create(Request $request) 
+    {
+        $newHistoryData = json_decode($request->getContent());
+
+        $newHistory = new History();
+        // $ultimo_accesso = Carbon::now();
+
+        $newHistory->interno = $newHistoryData->interno;
+        $newHistory->ultimo_accesso = $newHistoryData->ultimo_accesso;
+        $newHistory->user_id = $newHistoryData->user_id;
+
+        $newHistory->save();
+
+        return $newHistory;
     }
 }

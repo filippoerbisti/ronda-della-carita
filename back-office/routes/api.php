@@ -10,6 +10,16 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ParamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+
+// Login and Registration
+Route::post("/register",[AuthController::class,'register']);
+Route::post("/login",[AuthController::class,'login']);
+
+// Logout
+Route::group(['middleware'=>['auth:sanctum']],function(){
+    Route::post("/logout",[AuthController::class,'logout']);
+});
 
 // User
 Route::get('/user', [UserController::class, 'anagrafica']);
@@ -37,6 +47,8 @@ Route::get('/history/filt/{filter}', [HistoryController::class, 'filter']);
 Route::get('/history/accessi/count', [HistoryController::class, 'countAccessi']);
 
 Route::get('/history/accessi/today', [HistoryController::class, 'todayAccessi']);
+
+Route::post('/history/create', [HistoryController::class, 'create']);
 
 
 // Param

@@ -79,14 +79,14 @@
                 </mat-list-item>
                 <mat-list-item>
                     <button mat-button (click)="goToCreateOrder()" class="w-full left text-lg text-white">
-                        <span *ngIf="urlEsterno">NUOVO ORDINE</span> 
-                        <span *ngIf="!urlEsterno">ORDINI</span>
+                        <span *ngIf="!urlEsterno">NUOVO ORDINE</span> 
+                        <span *ngIf="urlEsterno">ORDINI</span>
                     </button>
                 </mat-list-item>
                 <mat-list-item>
                     <button mat-button (click)="goToCreateClient()" class="w-full left text-lg text-white">
-                        <span *ngIf="urlEsterno">NUOVO ASSISTITO</span> 
-                        <span *ngIf="!urlEsterno">ASSISTITI</span>
+                        <span *ngIf="!urlEsterno">NUOVO ASSISTITO</span> 
+                        <span *ngIf="urlEsterno">ASSISTITI</span>
                     </button>
                 </mat-list-item>
                 <mat-list-item *ngIf="isAdmin">

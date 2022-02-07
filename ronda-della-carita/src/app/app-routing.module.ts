@@ -1,25 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeAdminComponent } from './users/admin/home-admin/home-admin.component';
-import { OrdineAdminComponent } from './users/admin/ordine-admin/ordine-admin.component';
-import { RegistrazioneAdminComponent } from './users/admin/registrazione-admin/registrazione-admin.component';
-import { UserAdminComponent } from './users/admin/user-admin/user-admin.component';
-
-import { HomeEsternoComponent } from './users/vol-esterno/home-esterno/home-esterno.component';
-import { OrdineEsternoComponent } from './users/vol-esterno/ordine-esterno/ordine-esterno.component';
-import { RegistrazioneEsternoComponent } from './users/vol-esterno/registrazione-esterno/registrazione-esterno.component';
-import { ViewOrdineEsternoComponent } from './users/vol-esterno/view-ordine-esterno/view-ordine-esterno.component';
-import { ViewRegistrazioneEsternoComponent } from './users/vol-esterno/view-registrazione-esterno/view-registrazione-esterno.component';
-
-import { HomeInternoComponent } from './users/vol-interno/home-interno/home-interno.component';
-import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordine-interno.component';
-import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
-
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 
 import { HomeComponent } from './home/home.component';
+import { HomeEsternoComponent } from './home-esterno/home-esterno.component';
 
 import { CreateUserComponent } from './create/create-user/create-user.component';
 import { CreateClientComponent } from './create/create-client/create-client.component';
@@ -30,36 +16,28 @@ import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
+import { AuthGuardService } from './auth-guard.service';
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: ':rule/home', component: HomeComponent },
-  { path: ':rule/create/user', component: CreateUserComponent },
+  { path: 'admin/home', component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: 'vol1/home', component: HomeComponent },
+  { path: 'vol0/home', component: HomeEsternoComponent },
+  { path: 'vol0/mob/home', component: HomeComponent },
+
+  { path: ':rule/create/user', component: CreateUserComponent, canActivate: [AuthGuardService] },
   { path: ':rule/create/client', component: CreateClientComponent },
   { path: ':rule/create/order', component: CreateOrderComponent },
-  { path: 'confirm/user', component: ConfirmUserComponent },
-  { path: 'history', component: StoricoAccessiComponent },
+  { path: 'confirm/user', component: ConfirmUserComponent, canActivate: [AuthGuardService] },
+  { path: 'history', component: StoricoAccessiComponent, canActivate: [AuthGuardService] },
+  { path: 'vol0/scanner-qr', component: ScannerQrComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
-
-  // { path: 'home-admin', component: HomeAdminComponent },
-  // { path: 'home-interno', component: HomeInternoComponent },
-  // { path: 'user-admin', component: UserAdminComponent },
-  // { path: 'ordine-admin', component: OrdineAdminComponent },
-  // { path: 'registrazione-admin', component: RegistrazioneAdminComponent },
-  // { path: 'home-esterno', component: HomeEsternoComponent },
-  // { path: 'ordine-esterno', component: OrdineEsternoComponent },
-  // { path: 'registrazione-esterno', component: RegistrazioneEsternoComponent, data: {state: 'fanculo'} },
-  // { path: 'scanner-qr', component: ScannerQrComponent },
-  // { path: 'view-ordine-esterno', component: ViewOrdineEsternoComponent },
-  // { path: 'view-registrazione-esterno', component: ViewRegistrazioneEsternoComponent },
-  // { path: 'home-interno', component: HomeInternoComponent },
-  // { path: 'ordine-interno', component: OrdineInternoComponent },
-  // { path: 'registrazione-interno', component: RegistrazioneInternoComponent }
-  
+  { path: '**', component: PageNotFoundComponent }  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuardService]
 })
 export class AppRoutingModule { }

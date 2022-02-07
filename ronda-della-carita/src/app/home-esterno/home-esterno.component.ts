@@ -36,16 +36,16 @@ export class HomeEsternoComponent implements OnInit {
     this.isLoading = false;
   }
 
-  goToCreateClientEsterno() {
-    this.router.navigateByUrl('/registrazione-esterno');
+  goToCreateClient() {
+    this.router.navigateByUrl('/vol0/create/client');
   }
 
-  goToCreateOrderEsterno() {
-    this.router.navigateByUrl('/ordine-esterno');
+  goToCreateOrder() {
+    this.router.navigateByUrl('/vol0/create/order');
   }
 
   goToScannerQr() {
-    this.router.navigateByUrl('/scanner-qr');
+    this.router.navigateByUrl('/vol0/scanner-qr');
   }
 
 }

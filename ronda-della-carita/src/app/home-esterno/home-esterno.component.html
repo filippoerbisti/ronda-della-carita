@@ -1,7 +1,5 @@
 <div class="h-screen">
     <div *ngIf="!isLoading" class="flex flex-col h-full">
-        <app-sidebar-menu class="md:flex hidden mb-10"></app-sidebar-menu>
-        <app-navigation-menu class="flex md:hidden"></app-navigation-menu>
         <div class="text-center mb-4">
             <img class="w-44 md:w-1/4 mx-auto pt-8" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
             <div class="mt-2 font-bold text-lg">
@@ -13,12 +11,12 @@
         </div>
         <!-- MD DEVICE -->
         <div class="md:flex hidden md:flex-row flex-grow w-full justify-center pt-15 space-y-3 md:space-y-0 mb-10">
-            <a (click)="goToCreateOrderEsterno()" class="flex flex-col px-5 h-2/4 w-2/4">
+            <a (click)="goToCreateOrder()" class="flex flex-col px-5 h-2/4 w-2/4">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
                     <span class="text-white">NUOVO ORDINE</span>
                 </button>
             </a>
-            <a (click)="goToCreateClientEsterno()" class="h-2/4 w-2/4 flex flex-col px-5">
+            <a (click)="goToCreateClient()" class="h-2/4 w-2/4 flex flex-col px-5">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
                     <span class="p-2 text-white">NUOVO ASSISTITO</span>
                 </button>
@@ -27,12 +25,12 @@
 
         <!-- SM DEVICE -->
         <div class="flex md:hidden flex-col flex-grow w-full justify-center md:pt-15 space-y-3 md:space-y-0 md:pt-6 mb-10">
-            <a (click)="goToCreateOrderEsterno()" class="flex flex-col px-5 h-1/4 md:w-1/4">
+            <a (click)="goToCreateOrder()" class="flex flex-col px-5 h-1/4 md:w-1/4">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
                     <span class="text-white">NUOVO ORDINE</span>
                 </button>
             </a>
-            <a (click)="goToCreateClientEsterno()" class="h-1/4 md:w-1/4 flex flex-col px-5">
+            <a (click)="goToCreateClient()" class="h-1/4 md:w-1/4 flex flex-col px-5">
                 <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
                     <span class="p-2 text-white">NUOVO ASSISTITO</span>
                 </button>

@@ -66,12 +66,12 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   goToHome() {
-    this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
-    if (this.user.param?.value === 'admin') {
-      this.rule =  `${this.user.param?.value}`;
-    } else if (this.user.param?.value === 'vol') {
-      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
     }
     this.router.navigateByUrl(`/${this.rule}` + '/home');
     this.isSidebarOpen = false;
@@ -88,30 +88,35 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   goToCreateUser() {
-    if (this.user.param?.value === 'admin') {
-      this.rule =  `${this.user.param?.value}`;
-      this.router.navigateByUrl(`/${this.rule}` +  '/create/user');
-      this.isSidebarOpen = false;
-    }
+    this.router.navigateByUrl('/admin/create/user');
+    this.isSidebarOpen = false;
   }
 
   goToCreateClient() {
-    if (this.user.param?.value === 'admin') {
-      this.rule =  `${this.user.param?.value}`;
-    } else if (this.user.param?.value === 'vol') {
-      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     }
-    this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     this.isSidebarOpen = false;
   }
 
   goToCreateOrder() {
-    if (this.user.param?.value === 'admin') {
-      this.rule =  `${this.user.param?.value}`;
-    } else if (this.user.param?.value === 'vol') {
-      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     }
-    this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     this.isSidebarOpen = false;
   }
 
