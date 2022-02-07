@@ -15,7 +15,8 @@ import { IHistory } from 'src/app/shared/interface/ihistory';
 })
 export class NavigationMenuComponent implements OnInit {
 
-  isAdmin = window.location.href.includes('admin');
+  isAdmin!: boolean;
+  urlEsterno!: boolean;
 
   user!: IUser;
   history!: IHistory;
@@ -26,8 +27,6 @@ export class NavigationMenuComponent implements OnInit {
   orderInAttesa!: number;
   orderDaConf!: number;
 
-  currentRoute!: string;
-
   typeNotification!: string;
 
   constructor(
@@ -36,6 +35,8 @@ export class NavigationMenuComponent implements OnInit {
     ) { }
 
   async ngOnInit() {
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     try {
       let response_user = await axios.get("http://127.0.0.1:8000/api/user");
       this.user = response_user.data;
@@ -60,13 +61,14 @@ export class NavigationMenuComponent implements OnInit {
   }
 
   goToHome() {
-    if(window.location.href.includes('admin')) {
-      this.router.navigateByUrl('/home/admin');
-    } else if(window.location.href.includes('vol1')) {
-      this.router.navigateByUrl('/home/interno');
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
     } else if (window.location.href.includes('vol0')) {
-      this.router.navigateByUrl('/home/esterno');
+      this.rule =  'vol0';
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
     }
+    this.router.navigateByUrl(`/${this.rule}` + '/home');
   }
 
   goToConfirm() {
@@ -87,19 +89,28 @@ export class NavigationMenuComponent implements OnInit {
   }
 
   goToCreateClient() {
-    if (this.user.param?.value === 'admin') {
-      this.rule =  `${this.user.param?.value}`;
-    } else if (this.user.param?.value === 'vol') {
-      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     }
-    this.router.navigateByUrl('reate/client');
   }
 
   goToCreateOrder() {
-    if (this.user.param?.value === 'admin') {
-      this.rule =  `${this.user.param?.value}`;
-    } else if (this.user.param?.value === 'vol') {
-      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     }
     this.router.navigateByUrl('/create/order');
   }

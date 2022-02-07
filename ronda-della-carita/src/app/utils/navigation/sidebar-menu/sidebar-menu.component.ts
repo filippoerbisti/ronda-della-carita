@@ -29,8 +29,6 @@ export class SidebarMenuComponent implements OnInit {
   orderInAttesa!: number;
   orderDaConf!: number;
 
-  currentRoute!: string;
-
   typeNotification!: string;
 
   constructor(
@@ -62,32 +60,46 @@ export class SidebarMenuComponent implements OnInit {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     this.isSidebarOpen = false;
   }
 
   goToHome() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
+      this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
+      this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
+      this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     }
     this.router.navigateByUrl(`/${this.rule}` + '/home');
     this.isSidebarOpen = false;
   }
 
   goToConfirm() {
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     this.router.navigateByUrl('/confirm/user');
     this.isSidebarOpen = false;
   }
 
   goToHistory() {
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     this.router.navigateByUrl('/history');
     this.isSidebarOpen = false;
   }
 
   goToCreateUser() {
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     this.router.navigateByUrl('/admin/create/user');
     this.isSidebarOpen = false;
   }
@@ -95,12 +107,18 @@ export class SidebarMenuComponent implements OnInit {
   goToCreateClient() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
+      this.isAdmin = window.location.href.includes('admin');
+      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
+      this.isAdmin = window.location.href.includes('admin');
+      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
+      this.isAdmin = window.location.href.includes('admin');
+      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     }
     this.isSidebarOpen = false;
@@ -109,12 +127,18 @@ export class SidebarMenuComponent implements OnInit {
   goToCreateOrder() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
+      this.isAdmin = window.location.href.includes('admin');
+      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
+      this.isAdmin = window.location.href.includes('admin');
+      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
+      this.isAdmin = window.location.href.includes('admin');
+      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     }
     this.isSidebarOpen = false;
@@ -122,6 +146,8 @@ export class SidebarMenuComponent implements OnInit {
 
   openMansionDialog() {
     this.isSidebarOpen = false;
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 

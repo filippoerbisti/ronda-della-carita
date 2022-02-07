@@ -59,12 +59,12 @@
             <span>NUOVO VOLONTARIO</span>
         </button>
         <button mat-menu-item (click)="goToCreateOrder()">
-            <span *ngIf="isAdmin">NUOVO ORDINE</span> 
-            <span *ngIf="!isAdmin">ORDINI</span>
+            <span *ngIf="!urlEsterno">NUOVO ORDINE</span> 
+            <span *ngIf="urlEsterno">ORDINI</span>
         </button>
         <button mat-menu-item (click)="goToCreateClient()">
-            <span *ngIf="isAdmin">NUOVO ASSISTITO</span> 
-            <span *ngIf="!isAdmin">ASSISTITI</span>
+            <span *ngIf="!urlEsterno">NUOVO ASSISTITO</span> 
+            <span *ngIf="urlEsterno">ASSISTITI</span>
         </button>
         <button *ngIf="isAdmin" mat-menu-item (click)="goToHistory()">
             <span>STORICO ACCESSI</span>
