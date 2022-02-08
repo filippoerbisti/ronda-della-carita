@@ -115,6 +115,8 @@ export class SidebarMenuComponent implements OnInit {
       this.isAdmin = window.location.href.includes('admin');
       this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+    this.router.navigate(['vol0/mob/home'], {queryParams: {section: "order"}})
+
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.isAdmin = window.location.href.includes('admin');
@@ -127,18 +129,12 @@ export class SidebarMenuComponent implements OnInit {
   goToCreateOrder() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
-      this.isAdmin = window.location.href.includes('admin');
-      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.isAdmin = window.location.href.includes('admin');
-      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
-      this.isAdmin = window.location.href.includes('admin');
-      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     }
     this.isSidebarOpen = false;
