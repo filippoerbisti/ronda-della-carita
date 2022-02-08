@@ -237,13 +237,16 @@ export class HomeComponent implements OnInit {
   }
 
   async filterOrder() {
-    if (this.searchOrder != "") {
-      this.searchOrder = "";
-    }
     let search = this.searchOrder;
     let status = this.state;
+    console.log("status"+status);
+    if(search==undefined || search=="")
+      search="nu";
+    if(status==undefined)
+      status="all";
+    console.log("search"+search)
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" + status);
+      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" + status+"/search/"+search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -255,6 +258,7 @@ export class HomeComponent implements OnInit {
     }
     this.pageOrderSlice = this.orders.slice(0, 10); 
   }
+  
 
   async filterClient() {
     let search = this.searchClient;
