@@ -78,7 +78,7 @@ Route::get('/orders', [OrderController::class, 'list']);
 
 Route::get('/order/{id}', [OrderController::class, 'id']);
 
-Route::get('/orders/filt/{status}', [OrderController::class, 'filter']);
+Route::get('/orders/filt/{status}/search/{search}', [OrderController::class, 'filter']);
 
 Route::post('/order/create', [OrderController::class, 'create']);
 
