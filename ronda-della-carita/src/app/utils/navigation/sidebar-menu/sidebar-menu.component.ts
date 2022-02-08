@@ -115,6 +115,8 @@ export class SidebarMenuComponent implements OnInit {
       this.isAdmin = window.location.href.includes('admin');
       this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+    this.router.navigate(['vol0/mob/home'], {queryParams: {section: "order"}})
+
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.isAdmin = window.location.href.includes('admin');
