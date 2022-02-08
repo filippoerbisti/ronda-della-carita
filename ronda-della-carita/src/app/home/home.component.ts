@@ -299,4 +299,5 @@ export class HomeComponent implements OnInit {
     localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
+
 }
