@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import axios from 'axios';
@@ -15,10 +15,12 @@ import { IHistory } from 'src/app/shared/interface/ihistory';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  isSidebarOpen= false;
+  isSidebarOpen = false;
 
   isAdmin!: boolean;
   urlEsterno!: boolean;
+
+  indexTab!: number;
 
   user!: IUser;
   history!: IHistory;
@@ -60,46 +62,32 @@ export class SidebarMenuComponent implements OnInit {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
-    this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     this.isSidebarOpen = false;
   }
 
   goToHome() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
-      this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
-      this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     }
     this.router.navigateByUrl(`/${this.rule}` + '/home');
     this.isSidebarOpen = false;
   }
 
   goToConfirm() {
-    this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     this.router.navigateByUrl('/confirm/user');
     this.isSidebarOpen = false;
   }
 
   goToHistory() {
-    this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     this.router.navigateByUrl('/history');
     this.isSidebarOpen = false;
   }
 
   goToCreateUser() {
-    this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     this.router.navigateByUrl('/admin/create/user');
     this.isSidebarOpen = false;
   }
@@ -112,15 +100,9 @@ export class SidebarMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.isAdmin = window.location.href.includes('admin');
-      this.urlEsterno = window.location.href.includes('vol0');
-      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
-    this.router.navigate(['vol0/mob/home'], {queryParams: {section: "order"}})
-
+      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "client"}})
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
-      this.isAdmin = window.location.href.includes('admin');
-      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     }
     this.isSidebarOpen = false;
@@ -132,7 +114,7 @@ export class SidebarMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "order"}})
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');

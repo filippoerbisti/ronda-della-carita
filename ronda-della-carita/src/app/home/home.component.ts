@@ -26,8 +26,9 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
-  urlAdmin = '/home/admin';
-  currentRoute!: string;
+  indexTab!: number;
+
+  isAdmin!: boolean;
 
   order_cons = 'cons';
   order_no_disp = 'no_disp';
@@ -69,8 +70,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.currentRoute = this.router.url;
-    console.log(this.currentRoute);
+    this.isAdmin = window.location.href.includes('admin');
     try {
       let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
       this.orders_status = response_order_status.data;
@@ -83,7 +83,13 @@ export class HomeComponent implements OnInit {
 
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
       this.orders = response_order.data;
-      console.log(this.orders);
+
+      if(window.location.href.includes('order')) {
+        this.indexTab = 0;
+      } else if (window.location.href.includes('client')) {
+        this.indexTab = 1;
+      }
+      
     } 
     catch (err) {
       console.log(err);
@@ -298,6 +304,17 @@ export class HomeComponent implements OnInit {
     this.clientId = clientId;
     localStorage["id"] = this.clientId;
     const dialogRef = this.dialog.open(EditClientDialogComponent);
+  }
+
+  getSelectedIndex() {
+    if(window.location.href.includes('order')) {
+      this.indexTab = 0;
+    } else if (window.location.href.includes('client')) {
+      this.indexTab = 1;
+    }
+    return this.indexTab
+
+    // return (window.location.href.includes('order') ? number(0) : 1)
   }
 
 }
