@@ -17,6 +17,7 @@ class CreateHistoriesTable extends Migration
             $table->id();
             $table->boolean('interno')->nullable();
             $table->timestamp('ultimo_accesso')->nullable();
+            $table->timestamps();
         });
     }
 

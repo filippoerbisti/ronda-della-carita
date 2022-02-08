@@ -11,11 +11,15 @@
                             <div>
                                 <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Email</mat-label>
-                                <input type="email" 
+                                <input 
+                                    type="email" 
                                     matInput 
+                                    
                                     [formControl]="emailFormControl" 
                                     [errorStateMatcher]="matcher"
-                                    placeholder="Email">
+                                    placeholder="Email"
+                                >
+                                <!-- [(ngModel)]="email" -->
                                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                                     Per favore inserisci un indirizzo email valido
                                 </mat-error>
@@ -25,7 +29,13 @@
                             </mat-form-field>
                             <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Password</mat-label>
-                                <input type="password" matInput placeholder="Password">
+                                <input 
+                                    type="password" 
+                                    
+                                    matInput 
+                                    placeholder="Password"
+                                >
+                                <!-- [(ngModel)]="password" -->
                             </mat-form-field>
                             </div>
                             <p class="text-right">
@@ -43,21 +53,37 @@
                             <div class="flex sm:flex-row flex-col sm:space-x-2">
                                 <mat-form-field class="w-full" appearance="fill">
                                     <mat-label>Nome</mat-label>
-                                    <input type="text" matInput placeholder="Nome">
+                                    <input 
+                                        type="text" 
+                                        
+                                        matInput 
+                                        placeholder="Nome"
+                                    >
+                                    <!-- [(ngModel)]="nome" -->
                                 </mat-form-field>
                                 <mat-form-field class="w-full" appearance="fill">
                                     <mat-label>Cognome</mat-label>
-                                    <input type="text" matInput placeholder="Cognome">
+                                    <input 
+                                        type="text" 
+                                        
+                                        matInput 
+                                        placeholder="Cognome"
+                                    >
+                                    <!-- [(ngModel)]="cognome" -->
                                 </mat-form-field>
                             </div>
                             <div class="flex">
                                 <mat-form-field class="w-full" appearance="fill">
                                     <mat-label>Email</mat-label>
-                                    <input type="email" 
+                                    <input 
+                                        type="email" 
+                                        
                                         matInput 
                                         [formControl]="emailFormControl" 
                                         [errorStateMatcher]="matcher"
-                                        placeholder="Email">
+                                        placeholder="Email"
+                                    >
+                                    <!-- [(ngModel)]="email" -->
                                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                                         Per favore inserisci un indirizzo email valido
                                     </mat-error>
@@ -69,11 +95,23 @@
                             <div class="flex sm:flex-row flex-col sm:space-x-2">
                                 <mat-form-field class="w-full" appearance="fill">
                                     <mat-label>Password</mat-label>
-                                    <input type="password" matInput placeholder="Password">
+                                    <input 
+                                        type="password" 
+                                        
+                                        matInput 
+                                        placeholder="Password"
+                                    >
+                                    <!-- [(ngModel)]="password" -->
                                 </mat-form-field>
                                 <mat-form-field class="w-full" appearance="fill">
                                     <mat-label>Conferma Password</mat-label>
-                                    <input type="password" matInput placeholder="Conferma Password">
+                                    <input 
+                                        type="password"
+                                       
+                                        matInput 
+                                        placeholder="Conferma Password"
+                                    >
+                                    <!-- [(ngModel)]="email" -->
                                 </mat-form-field>
                             </div>
                         </form>

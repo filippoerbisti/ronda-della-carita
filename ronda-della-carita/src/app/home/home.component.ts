@@ -46,6 +46,8 @@ export class HomeComponent implements OnInit {
   orderId!: number;
   clientId!: number;
 
+  rule!: string;
+
   state!: string;
   searchUser!: string;
   searchOrder!: string;
@@ -93,15 +95,33 @@ export class HomeComponent implements OnInit {
   }  
 
   goToCreateUser() {
-    this.router.navigateByUrl('/create-user');
+    this.router.navigateByUrl('/admin/create/user');
   }
 
   goToCreateOrder() {
-    this.router.navigateByUrl('/create-order');
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    }
   }
 
   goToCreateClient() {
-    this.router.navigateByUrl('/create-client');
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    }
   }
 
   OnPageChange(event: PageEvent) {
