@@ -15,12 +15,12 @@ import { IHistory } from 'src/app/shared/interface/ihistory';
 })
 export class SidebarMenuComponent implements OnInit {
 
+  getIndexTab!: number;
+
   isSidebarOpen = false;
 
   isAdmin!: boolean;
   urlEsterno!: boolean;
-
-  indexTab!: number;
 
   user!: IUser;
   history!: IHistory;
@@ -100,7 +100,9 @@ export class SidebarMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "client"}})
+      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "client"}});
+      this.getIndexTab = 1;
+      console.log(this.getIndexTab);
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
@@ -114,7 +116,9 @@ export class SidebarMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "order"}})
+      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "order"}});
+      this.getIndexTab = 0;
+      console.log(this.getIndexTab);
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
