@@ -3,13 +3,8 @@
         <div class="w-full h-full">
             <!-- <div class="flex items-center justify-center py-3 sm:py-7 text-center px-12">
                 <img class="" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
-<<<<<<< HEAD
             </div> -->
             <mat-tab-group mat-align-tabs="center" class="w-full flex pt-8 bg-nav">
-=======
-            </div>
-            <mat-tab-group mat-align-tabs="center" class="w-full flex">
->>>>>>> cb6f5b21c867daa542a1ecbf4840a5b1dbc5aeee
 
                 <!-- USERS -->
                 <mat-tab label="VOLONTARI" *ngIf="currentRoute === urlAdmin">
@@ -31,7 +26,7 @@
                                         <input 
                                             type="text"
                                             [(ngModel)]="searchUser"
-                                            (change)="filterUser()"
+                                            (input)="filterUser()"
                                             class="w-full flex-grow pl-3 py-2 rounded border
                                             focus:border-nav"
                                             placeholder="Cerca Volontario..."
@@ -151,7 +146,7 @@
                                         <input 
                                             type="text"
                                             [(ngModel)]="searchOrder"
-                                            (change)="filterOrder()"
+                                            (input)="filterOrder()"
                                             class="w-full h-auto flex-grow pl-3 py-2 rounded border
                                             focus:border-nav"
                                             placeholder="Cerca Ordine..."
@@ -322,7 +317,7 @@
                                         <input 
                                             type="text"
                                             [(ngModel)]="searchClient"
-                                            (change)="filterClient()"
+                                            (input)="filterClient()"
                                             class="w-full flex-grow pl-3 py-2 rounded border
                                             focus:border-nav"
                                             placeholder="Cerca Cliente..."
