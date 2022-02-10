@@ -51,3 +51,11 @@ Nella cartella ```/ronda-della-carita``` eseguire nel terminale:
 ng serve / ng s
 ```
 Naviga in ```https://localhost:4200/```. L'applicazione automaticamente si ricarica ad ogni modifica dei file
+
+
+# Hosting
+Host Front-End: ```Netlify App```
+
+Host Back-End: ```Heroku App```
+
+Host Database: ```Heroku App``` (PostgreSQL)
