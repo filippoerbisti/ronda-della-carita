@@ -75,16 +75,16 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
-      let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
+      let response_order_status = await axios.get("https://backoffice-ronda.herokuapp.com/api/param/order_status");
       this.orders_status = response_order_status.data;
 
-      let response_user = await axios.get("http://127.0.0.1:8000/api/users");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("http://127.0.0.1:8000/api/clients");
+      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
       this.orders = response_order.data;
       
     } 
@@ -243,7 +243,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/users/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -264,7 +264,7 @@ export class HomeComponent implements OnInit {
       status="all";
     console.log("search"+search)
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/orders/filt/" + status+"/search/"+search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status+"/search/"+search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -281,7 +281,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("http://127.0.0.1:8000/api/clients/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;

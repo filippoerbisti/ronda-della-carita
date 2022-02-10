@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3ec6431f930702e4a93429c1bd465f6",
+    "content-hash": "853b394d1a9dfffbf86be0d507abdeaf",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -558,6 +558,73 @@
                 }
             ],
             "time": "2020-12-29T14:50:06+00:00"
+        },
+        {
+            "name": "fakerphp/faker",
+            "version": "v1.19.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/d7f08a622b3346766325488aa32ddc93ccdecc75",
+                "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "doctrine/persistence": "^1.3 || ^2.0",
+                "ext-intl": "*",
+                "symfony/phpunit-bridge": "^4.4 || ^5.2"
+            },
+            "suggest": {
+                "doctrine/orm": "Required to use Faker\\ORM\\Doctrine",
+                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
+                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
+                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
+                "ext-mbstring": "Required for multibyte Unicode string functionality."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "v1.19-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.19.0"
+            },
+            "time": "2022-02-02T17:38:57+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -3859,6 +3926,7 @@
         },
         {
             "name": "symfony/css-selector",
+<<<<<<< HEAD
             "version": "v6.0.3",
             "source": {
                 "type": "git",
@@ -3869,6 +3937,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/css-selector/zipball/1955d595c12c111629cc814d3f2a2ff13580508a",
                 "reference": "1955d595c12c111629cc814d3f2a2ff13580508a",
+=======
+            "version": "v5.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "b0a190285cd95cb019237851205b8140ef6e368e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/b0a190285cd95cb019237851205b8140ef6e368e",
+                "reference": "b0a190285cd95cb019237851205b8140ef6e368e",
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
                 "shasum": ""
             },
             "require": {
@@ -3904,7 +3984,11 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/css-selector/tree/v6.0.3"
+=======
+                "source": "https://github.com/symfony/css-selector/tree/v5.4.3"
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
             },
             "funding": [
                 {
@@ -3920,7 +4004,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2022-01-02T09:55:41+00:00"
+=======
+            "time": "2022-01-02T09:53:40+00:00"
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4062,6 +4150,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
+<<<<<<< HEAD
             "version": "v6.0.3",
             "source": {
                 "type": "git",
@@ -4072,6 +4161,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/6472ea2dd415e925b90ca82be64b8bc6157f3934",
                 "reference": "6472ea2dd415e925b90ca82be64b8bc6157f3934",
+=======
+            "version": "v5.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "dec8a9f58d20df252b9cd89f1c6c1530f747685d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/dec8a9f58d20df252b9cd89f1c6c1530f747685d",
+                "reference": "dec8a9f58d20df252b9cd89f1c6c1530f747685d",
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
                 "shasum": ""
             },
             "require": {
@@ -4125,7 +4226,11 @@
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/event-dispatcher/tree/v6.0.3"
+=======
+                "source": "https://github.com/symfony/event-dispatcher/tree/v5.4.3"
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
             },
             "funding": [
                 {
@@ -4141,7 +4246,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2022-01-02T09:55:41+00:00"
+=======
+            "time": "2022-01-02T09:53:40+00:00"
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -5694,6 +5803,7 @@
         },
         {
             "name": "symfony/string",
+<<<<<<< HEAD
             "version": "v6.0.3",
             "source": {
                 "type": "git",
@@ -5704,6 +5814,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/string/zipball/522144f0c4c004c80d56fa47e40e17028e2eefc2",
                 "reference": "522144f0c4c004c80d56fa47e40e17028e2eefc2",
+=======
+            "version": "v5.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/string.git",
+                "reference": "92043b7d8383e48104e411bc9434b260dbeb5a10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/string/zipball/92043b7d8383e48104e411bc9434b260dbeb5a10",
+                "reference": "92043b7d8383e48104e411bc9434b260dbeb5a10",
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
                 "shasum": ""
             },
             "require": {
@@ -5759,7 +5881,11 @@
                 "utf8"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/string/tree/v6.0.3"
+=======
+                "source": "https://github.com/symfony/string/tree/v5.4.3"
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
             },
             "funding": [
                 {
@@ -5775,6 +5901,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2022-01-02T09:55:41+00:00"
         },
         {
@@ -5789,6 +5916,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/translation/zipball/71bb15335798f8c4da110911bcf2d2fead7a430d",
                 "reference": "71bb15335798f8c4da110911bcf2d2fead7a430d",
+=======
+            "time": "2022-01-02T09:53:40+00:00"
+        },
+        {
+            "name": "symfony/translation",
+            "version": "v5.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "a9dd7403232c61e87e27fb306bbcd1627f245d70"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/a9dd7403232c61e87e27fb306bbcd1627f245d70",
+                "reference": "a9dd7403232c61e87e27fb306bbcd1627f245d70",
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
                 "shasum": ""
             },
             "require": {
@@ -5854,7 +5997,11 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/translation/tree/v6.0.3"
+=======
+                "source": "https://github.com/symfony/translation/tree/v5.4.3"
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
             },
             "funding": [
                 {
@@ -5870,7 +6017,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2022-01-07T00:29:03+00:00"
+=======
+            "time": "2022-01-07T00:28:17+00:00"
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
         },
         {
             "name": "symfony/translation-contracts",
@@ -6572,6 +6723,7 @@
             "time": "2020-10-16T08:27:54+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "fakerphp/faker",
             "version": "v1.19.0",
             "source": {
@@ -6639,6 +6791,8 @@
             "time": "2022-02-02T17:38:57+00:00"
         },
         {
+=======
+>>>>>>> e9374e7754d910f3dd117dac7470ecc540a863e1
             "name": "filp/whoops",
             "version": "2.14.5",
             "source": {
