@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IParam } from 'src/app/shared/interface/iparam';
+import { SidebarMenuComponent } from '../utils/navigation/sidebar-menu/sidebar-menu.component';
 // import { IClothe } from 'src/app/shared/interface/iclothe';
 
 @Component({
@@ -23,11 +24,14 @@ import { IParam } from 'src/app/shared/interface/iparam';
 })
 export class HomeComponent implements OnInit {
 
+  @ViewChild(SidebarMenuComponent) getIndexTab!: number;
+
   isLoading = false;
   panelOpenState = false;
 
-  urlAdmin = '/home/admin';
-  currentRoute!: string;
+  indexTab!: number;
+
+  isAdmin!: boolean;
 
   order_cons = 'cons';
   order_no_disp = 'no_disp';
@@ -69,8 +73,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.currentRoute = this.router.url;
-    console.log(this.currentRoute);
+    this.isAdmin = window.location.href.includes('admin');
     try {
       let response_order_status = await axios.get("http://127.0.0.1:8000/api/param/order_status");
       this.orders_status = response_order_status.data;
@@ -83,16 +86,37 @@ export class HomeComponent implements OnInit {
 
       let response_order = await axios.get("http://127.0.0.1:8000/api/orders");
       this.orders = response_order.data;
-      console.log(this.orders);
+      
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
+    
+    if(window.location.href.includes('order')) {
+      this.indexTab = 0;
+    } else if (window.location.href.includes('client')) {
+      this.indexTab = 1;
+    };
+
     this.pageUserSlice = this.users.slice(0, 10); 
     this.pageOrderSlice = this.orders.slice(0, 10); 
     this.pageClientSlice = this.clients.slice(0, 10);
   }  
+
+  ngAfterViewInit() {
+    this.indexTab = this.getIndexTab;
+  };
+
+
+  // getIndex() {
+  //   if(window.location.href.includes('order')) {
+  //     this.indexTab = 0;
+  //   } else if (window.location.href.includes('client')) {
+  //     this.indexTab = 1;
+  //   };
+  //   return this.indexTab;
+  // }
 
   goToCreateUser() {
     this.router.navigateByUrl('/admin/create/user');
@@ -304,4 +328,19 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 
+  getSelectedIndex() {
+    if(window.location.href.includes('order')) {
+      this.indexTab = 0;
+    } else if (window.location.href.includes('client')) {
+      this.indexTab = 1;
+    }
+    return this.indexTab
+
+    // return (window.location.href.includes('order') ? number(0) : 1)
+  }
+
 }
+function ngOnInit() {
+  throw new Error('Function not implemented.');
+}
+
