@@ -89,7 +89,7 @@ export class EditClientDialogComponent implements OnInit {
     this.clientId = localStorage["id"];
     let clientId = this.clientId;
     try {
-      let response_order = await axios.get("http://127.0.0.1:8000/api/client/" + clientId);
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + clientId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.client = response_order.data;

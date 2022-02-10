@@ -25,7 +25,7 @@ export class HomeEsternoComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/user");
+      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
       console.log(response.status);
       console.log(response.data);
       this.user = response.data;
