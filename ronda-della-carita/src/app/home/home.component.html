@@ -32,7 +32,7 @@
                                         <input 
                                             type="text"
                                             [(ngModel)]="searchUser"
-                                            (input)="filterUser()"
+                                            (change)="filterUser()"
                                             class="w-full flex-grow pl-3 py-2 rounded border
                                             focus:border-nav"
                                             placeholder="Cerca Volontario..."
@@ -152,7 +152,7 @@
                                         <input 
                                             type="text"
                                             [(ngModel)]="searchOrder"
-                                            (input)="filterOrder()"
+                                            (change)="filterOrder()"
                                             class="w-full h-auto flex-grow pl-3 py-2 rounded border
                                             focus:border-nav"
                                             placeholder="Cerca Ordine..."
@@ -323,7 +323,7 @@
                                         <input 
                                             type="text"
                                             [(ngModel)]="searchClient"
-                                            (input)="filterClient()"
+                                            (change)="filterClient()"
                                             class="w-full flex-grow pl-3 py-2 rounded border
                                             focus:border-nav"
                                             placeholder="Cerca Cliente..."

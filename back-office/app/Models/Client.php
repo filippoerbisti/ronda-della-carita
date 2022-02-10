@@ -9,26 +9,36 @@ class Client extends Model
 {
     use HasFactory;
 
-    public $with = [
-    ];
+    public $with = [];
+    protected $appends = ['full_name'];
 
-    public function card() {
+    public function card()
+    {
         return $this->belongsTo(Card::class);
     }
 
-    public function orders() {
+    public function orders()
+    {
         return $this->hasMany(Order::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function param() {
+    public function param()
+    {
         return $this->belongsTo(Param::class);
     }
 
-    public function document() {
+    public function document()
+    {
         return $this->belongsTo(Document::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->nome . ' ' . $this->cognome;
     }
 }
