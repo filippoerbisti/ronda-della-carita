@@ -148,7 +148,6 @@ class OrderController extends Controller
                             ->where('n_ordine','LIKE',"%$search%")
                             ->orWhere('p_ritiro','LIKE',"%$search%")
                             ->orWhere('note','LIKE',"%$search%")
-                            ->orWhere('quantita','LIKE',"%$search%")
                             ->get();
             if($status == "all"){
                 for($i = 0; $i < count($orders); $i++){
