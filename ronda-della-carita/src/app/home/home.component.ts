@@ -14,7 +14,10 @@ import { IOrder } from 'src/app/shared/interface/iorder';
 import { ICard } from 'src/app/shared/interface/icard';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IParam } from 'src/app/shared/interface/iparam';
-import { SidebarMenuComponent } from '../utils/navigation/sidebar-menu/sidebar-menu.component';
+import { IHistory } from '../shared/interface/ihistory';
+import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
+import { ChangeMansionDialogComponent } from '../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
+import { ChangePasswordDialogComponent } from '../dialog/change-password-dialog/change-password-dialog.component';
 // import { IClothe } from 'src/app/shared/interface/iclothe';
 
 @Component({
@@ -23,8 +26,6 @@ import { SidebarMenuComponent } from '../utils/navigation/sidebar-menu/sidebar-m
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  @ViewChild(SidebarMenuComponent) getIndexTab!: number;
 
   isLoading = false;
   panelOpenState = false;
@@ -50,7 +51,18 @@ export class HomeComponent implements OnInit {
   orderId!: number;
   clientId!: number;
 
-  rule!: string;
+  urlEsterno!: boolean;
+
+  user!: IUser;
+  history!: IHistory;
+  rule!: any;
+
+  countNotifiche!: number;
+  orderNonDisp!: number;
+  orderInAttesa!: number;
+  orderDaConf!: number;
+
+  typeNotification!: string;
 
   state!: string;
   searchUser!: string;
@@ -86,12 +98,29 @@ export class HomeComponent implements OnInit {
 
       let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
       this.orders = response_order.data;
+
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
+      this.user = response_account.data;
+
+      let historyId = this.user.id;
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
+      this.history = response_history.data;
+
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
+      this.orderNonDisp = response_order_nondisp.data;
+
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
+      this.orderInAttesa = response_order_inattesa.data;
+
+      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
+      this.orderDaConf = response_order_daconf.data;
       
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
+    this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
     
     if(window.location.href.includes('order')) {
       this.indexTab = 0;
@@ -104,22 +133,36 @@ export class HomeComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10);
   }  
 
-  ngAfterViewInit() {
-    this.indexTab = this.getIndexTab;
-  };
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+  }
 
+  goToHome() {
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+    }
+    this.router.navigateByUrl(`/${this.rule}` + '/home');
+  }
 
-  // getIndex() {
-  //   if(window.location.href.includes('order')) {
-  //     this.indexTab = 0;
-  //   } else if (window.location.href.includes('client')) {
-  //     this.indexTab = 1;
-  //   };
-  //   return this.indexTab;
-  // }
+  goToConfirm() {
+    this.router.navigateByUrl('/confirm/user');
+  }
+
+  goToHistory() {
+    this.router.navigateByUrl('/history');
+  }
 
   goToCreateUser() {
-    this.router.navigateByUrl('/admin/create/user');
+    if (this.user.param?.value === 'admin') {
+      this.rule =  `${this.user.param?.value}`;
+    } else if (this.user.param?.value === 'vol') {
+      this.rule =  `${this.user.param?.value}${this.history.interno}`;
+    }
+    this.router.navigateByUrl('create/user/' + this.rule);
   }
 
   goToCreateOrder() {
@@ -135,6 +178,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  goToViewOrder() {
+    if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.indexTab = 0;
+      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+    }
+  }
+
   goToCreateClient() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
@@ -145,6 +196,14 @@ export class HomeComponent implements OnInit {
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    }
+  }
+
+  goToViewClient() {
+    if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.indexTab = 1;
+      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
     }
   }
 
@@ -328,19 +387,34 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 
-  getSelectedIndex() {
-    if(window.location.href.includes('order')) {
-      this.indexTab = 0;
-    } else if (window.location.href.includes('client')) {
-      this.indexTab = 1;
-    }
-    return this.indexTab
-
-    // return (window.location.href.includes('order') ? number(0) : 1)
+  openMansionDialog() {
+    const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 
-}
-function ngOnInit() {
-  throw new Error('Function not implemented.');
+  openPasswordDialog() {
+    const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
+  }
+
+  viewOrderInAttesa() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "In attesa";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderNonDisp() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Non disponibile";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+  viewOrderDaConf() {
+    localStorage.removeItem("view_notification");
+    this.typeNotification = "Da confermare";
+    localStorage["view_notification"] = this.typeNotification;
+    const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
 }
 

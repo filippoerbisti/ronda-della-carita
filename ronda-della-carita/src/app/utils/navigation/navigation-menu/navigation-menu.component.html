@@ -1,79 +1,118 @@
-<div class="w-full h-12 flex justify-between items-center mt-0 bg-nav fixed inset-0 z-50">
-    <button mat-icon-button aria-label="Menu" [matMenuTriggerFor]="notification">
-        <div class="relative flex justify-center items-center">
-            <mat-icon class="text-white relative">notifications_active</mat-icon>
-            <span *ngIf="countNotifiche" class="absolute left-6 bottom-1/2 rounded-full text-white bg-red-400 h-5 flex items-center justify-center">
-                <span class="px-1">{{ countNotifiche }}</span>
-            </span>
-        </div>
-    </button>
-    <mat-menu #notification="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">
-        <button *ngIf="orderDaConf >= 1" class="cursor-pointer" (click)="viewOrderDaConf()">
-            <p *ngIf="orderDaConf !== 1">
-                <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
-                ordini da confermare
-            </p>
-            <p *ngIf="orderDaConf === 1">
-                <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
-                ordine da confermare
-            </p>
+<div class="w-full h-15 flex justify-between items-center mt-0 bg-nav z-50 top-nav">
+    
+        <button mat-icon-button aria-label="Menu" [matMenuTriggerFor]="notification">
+            <div class="relative flex justify-center items-center">
+                <!-- <mat-icon class="text-white relative">notifications_active</mat-icon> -->
+                <img src="https://img.icons8.com/material-sharp/24/000000/bell.png"/>
+                <span *ngIf="countNotifiche" class="absolute left-6 bottom-1/2 rounded-full text-white bg-red-400 h-5 flex items-center justify-center">
+                    <span class="px-1">{{ countNotifiche }}</span>
+                </span>
+            </div>
         </button>
-        <button *ngIf="orderNonDisp >= 1" class="cursor-pointer" (click)="viewOrderNonDisp()">
-            <p *ngIf="orderNonDisp !== 1">
-                <span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> 
-                ordini non disponibili
-            </p>
-            <p *ngIf="orderNonDisp === 1">
-                <span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> 
-                ordine non disponibile
-            </p>
-        </button>
-        <button *ngIf="orderInAttesa >= 1" class="cursor-pointer" (click)="viewOrderInAttesa()">
-            <p *ngIf="orderInAttesa !== 1">
-                <span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> 
-                ordini in attesa
-            </p>
-            <p *ngIf="orderInAttesa === 1">
-                <span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> 
-                ordine in attesa
-            </p>
-        </button>
-    </mat-menu>
+        <mat-menu #notification="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">
+            <button *ngIf="orderDaConf >= 1" class="cursor-pointer" (click)="viewOrderDaConf()">
+                <p *ngIf="orderDaConf !== 1">
+                    <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
+                    ordini da confermare
+                </p>
+                <p *ngIf="orderDaConf === 1">
+                    <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
+                    ordine da confermare
+                </p>
+            </button>
+            <button *ngIf="orderNonDisp >= 1" class="cursor-pointer" (click)="viewOrderNonDisp()">
+                <p *ngIf="orderNonDisp !== 1">
+                    <span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> 
+                    ordini non disponibili
+                </p>
+                <p *ngIf="orderNonDisp === 1">
+                    <span class="font-semibold text-lg mr-1">{{ orderNonDisp }}</span> 
+                    ordine non disponibile
+                </p>
+            </button>
+            <button *ngIf="orderInAttesa >= 1" class="cursor-pointer" (click)="viewOrderInAttesa()">
+                <p *ngIf="orderInAttesa !== 1">
+                    <span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> 
+                    ordini in attesa
+                </p>
+                <p *ngIf="orderInAttesa === 1">
+                    <span class="font-semibold text-lg mr-1">{{ orderInAttesa }}</span> 
+                    ordine in attesa
+                </p>
+            </button>
+        </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="goToHome()">
-            <span>HOME</span>
-        </button>
-        <button *ngIf="!isAdmin" mat-menu-item (click)="openMansionDialog()">
-            <span>CAMBIA MANSIONE</span>
-        </button>
-        <button *ngIf="isAdmin" mat-menu-item (click)="goToConfirm()">
-            <span>RICHIESTE CONFERMA</span>
-        </button>
-        <button *ngIf="isAdmin" mat-menu-item (click)="goToCreateUser()">
-            <span>NUOVO VOLONTARIO</span>
-        </button>
-        <button mat-menu-item (click)="goToCreateOrder()">
-            <span *ngIf="!urlEsterno">NUOVO ORDINE</span> 
-            <span *ngIf="urlEsterno">ORDINI</span>
-        </button>
-        <button mat-menu-item (click)="goToCreateClient()">
-            <span *ngIf="!urlEsterno">NUOVO ASSISTITO</span> 
-            <span *ngIf="urlEsterno">ASSISTITI</span>
-        </button>
-        <button *ngIf="isAdmin" mat-menu-item (click)="goToHistory()">
-            <span>STORICO ACCESSI</span>
-        </button>
-        <button mat-menu-item (click)="openPasswordDialog()">
-            <span>CAMBIA PASSWORD</span>
-        </button>
-        <button mat-menu-item (click)="goToLogin()">
-            <span>ESCI</span>
-        </button>
-    </mat-menu>
+    <div class="wrapper">
+        <nav>
+            <input type="checkbox" id="menu" name="menu" class="m-menu__checkbox">
+            <label class="m-menu__toggle bg-bt-orange rounded-full" for="menu">
+                <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="butt" stroke-linejoin="arcs">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </label>
+            <label class="m-menu__overlay" for="menu"></label>
+            
+            <div class="m-menu">
+                <div class="m-menu__header">
+                    <label class="m-menu__toggle bg-bt-orange rounded-full" for="menu">
+                        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="butt" stroke-linejoin="arcs">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </label>
+                </div>
+                <ul class="flex flex-col items-center text-xl text-white">
+                    <li class="py-4">
+                        <button (click)="goToHome()">
+                            <span>HOME</span>
+                        </button>
+                    </li>
+                    <li class="py-4" *ngIf="!isAdmin">
+                        <button (click)="openMansionDialog()">
+                            <span>CAMBIA MANSIONE</span>
+                        </button>
+                    </li>
+                    <li class="py-4" *ngIf="isAdmin">
+                        <button (click)="goToConfirm()">
+                            <span>RICHIESTE CONFERMA</span>
+                        </button>
+                    </li>
+                    <li class="py-4" *ngIf="isAdmin">
+                        <button (click)="goToCreateUser()">
+                            <span>NUOVO VOLONTARIO</span>
+                        </button>
+                    </li>
+                    <li class="py-4">
+                        <button (click)="goToCreateOrder()">
+                            <span *ngIf="!urlEsterno">NUOVO ORDINE</span> 
+                            <span *ngIf="urlEsterno">ORDINI</span>
+                        </button>
+                    </li>
+                    <li class="py-4">
+                        <button (click)="goToCreateClient()">
+                            <span *ngIf="!urlEsterno">NUOVO ASSISTITO</span> 
+                            <span *ngIf="urlEsterno">ASSISTITI</span>
+                        </button>
+                    </li>
+                    <li class="py-4" *ngIf="isAdmin">
+                        <button (click)="goToHistory()">
+                            <span>STORICO ACCESSI</span>
+                        </button>
+                    </li>
+                    <li class="py-4">
+                        <button (click)="openPasswordDialog()">
+                            <span>CAMBIA PASSWORD</span>
+                        </button>
+                    </li>
+                    <li class="py-4">
+                        <button (click)="goToLogin()">
+                            <span>ESCI</span>
+                        </button>
+                    </li>
+                </ul>  
+            </div>
+        </nav>
+    </div>
 </div>

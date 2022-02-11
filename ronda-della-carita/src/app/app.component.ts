@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,13 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'ronda-della-carita';
+
+  openedSubject = new Subject<boolean>();
+
+  collapse = true;
+
+  dismissSidebar() {
+    this.openedSubject.next(false);
+    console.log('sidenav chiudi dio');
+  }
 }

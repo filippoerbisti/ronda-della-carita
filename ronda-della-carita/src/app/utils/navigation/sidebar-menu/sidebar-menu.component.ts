@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import axios from 'axios';
@@ -7,6 +7,10 @@ import { ChangePasswordDialogComponent } from '../../../dialog/change-password-d
 import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { IUser } from 'src/app/shared/interface/iuser';
 import { IHistory } from 'src/app/shared/interface/ihistory';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -15,6 +19,12 @@ import { IHistory } from 'src/app/shared/interface/ihistory';
 })
 export class SidebarMenuComponent implements OnInit {
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
+
+  @Input() openedSubject!: Subject<boolean>;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  
   getIndexTab!: number;
 
   isSidebarOpen = false;
@@ -35,7 +45,8 @@ export class SidebarMenuComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private breakpointObserver: BreakpointObserver
     ) { }
 
   async ngOnInit() {
@@ -58,6 +69,16 @@ export class SidebarMenuComponent implements OnInit {
       console.log(err);
     }
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
+  }
+
+  ngAfterContentInit() {
+    this.openedSubject.subscribe(
+      keepOpen => this.sidenav[keepOpen ? 'open' : 'close']()
+    );
+  }
+
+  toggle() {
+    this.openedSubject.next(!this.sidenav.opened);
   }
 
   goToLogin() {

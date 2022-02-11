@@ -4,6 +4,8 @@ import { ChooseMansionDialogComponent } from '../dialog/mansion/choose-mansion-d
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import axios from 'axios';
+import { IUser } from '../shared/interface/iuser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -19,11 +21,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   matcher = new MyErrorStateMatcher();
+
+  user!: IUser;
 
   isLoading = false;
 
@@ -39,8 +42,10 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/change-password');
   }
 
-  login() {
+  async login() {
+    let response = await axios.post("https://backoffice-ronda.herokuapp.com/api/login", this.user);
     const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
+
   }
 
   registration() {

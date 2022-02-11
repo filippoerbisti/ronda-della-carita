@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive, HostBinding, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
@@ -80,21 +80,18 @@ export class NavigationMenuComponent implements OnInit {
   }
 
   goToCreateUser() {
-    if (this.user.param?.value === 'admin') {
-      this.rule =  `${this.user.param?.value}`;
-    } else if (this.user.param?.value === 'vol') {
-      this.rule =  `${this.user.param?.value}${this.history.interno}`;
-    }
-    this.router.navigateByUrl('create/user/' + this.rule);
+    this.router.navigateByUrl('/admin/create/user');
   }
 
   goToCreateClient() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
+      this.isAdmin = window.location.href.includes('admin');
+      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "client"}});
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
@@ -107,7 +104,7 @@ export class NavigationMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
+      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "order"}});
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
@@ -116,6 +113,8 @@ export class NavigationMenuComponent implements OnInit {
   }
 
   openMansionDialog() {
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 

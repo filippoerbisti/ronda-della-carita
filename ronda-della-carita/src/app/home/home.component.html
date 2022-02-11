@@ -1,5 +1,6 @@
-<div class="h-full w-full">
+<div class="h-full w-full" >
     <div *ngIf="!isLoading" class="w-full flex items-stretch">
+
         <div class="w-full h-full">
             <!-- <div class="flex items-center justify-center py-3 sm:py-7 text-center px-12">
                 <img class="" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
@@ -10,7 +11,7 @@
             <mat-tab-group 
                 mat-align-tabs="center" 
                 [(selectedIndex)]="indexTab"
-                class="w-full flex pt-8 bg-nav" 
+                class="w-full flex bg-nav" 
             >
                 <!-- USERS -->
                 <mat-tab label="VOLONTARI" *ngIf="isAdmin">

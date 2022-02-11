@@ -1,5 +1,7 @@
 <div class="h-screen">
-  <app-sidebar-menu class="sm:flex hidden sm:pb-12"></app-sidebar-menu>
+  <app-sidebar-menu [openedSubject]="openedSubject" class="sm:flex hidden sm:pb-12"></app-sidebar-menu>
   <app-navigation-menu class="flex sm:hidden"></app-navigation-menu>
-  <router-outlet></router-outlet>
+  <div (click)="dismissSidebar()" class="w-full h-full" [@collapse]="collapse">
+    <router-outlet></router-outlet>
+  </div>
 </div>

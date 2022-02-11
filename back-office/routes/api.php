@@ -11,17 +11,13 @@ use App\Http\Controllers\ParamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\LoginController;
 
-// Login and Registration
-Route::post("/register",[AuthController::class,'register']);
-Route::post("/login",[AuthController::class,'login']);
+Route::group(["middleware" => "auth:sanctum"], function () {
+    Route::post("logout", [LoginController::class, "logout"]);
+    Route::get("me", [LoginController::class, "me"]);
 
-// Logout
-Route::group(['middleware'=>['auth:sanctum']],function(){
-    Route::post("/logout",[AuthController::class,'logout']);
-});
-
-// User
+    // User
 Route::get('/user', [UserController::class, 'anagrafica']);
 
 Route::get('/user/{id}', [UserController::class, 'id']);
@@ -114,3 +110,7 @@ Route::post('/card/create', [CardController::class, 'create']);
 Route::delete('/card/delete/{id}', [CardController::class, 'delete']);
 
 Route::put('/card/edit/{id}', [CardController::class, 'edit']);
+});
+
+Route::post("/login", [LoginController::class, "login"]);
+
