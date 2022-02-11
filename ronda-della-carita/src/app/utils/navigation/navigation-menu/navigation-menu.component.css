@@ -30,12 +30,12 @@ nav .m-menu {
   -o-transition: transform 0.35s;
   -webkit-transition: transform 0.35s;
   transition: transform 0.35s;
-  z-index: 1;
+  z-index: 6;
   overflow: hidden;
   background-color: #1D5D84;
 }
 nav .m-menu__overlay {
-  background-color: rgba(103, 103, 103, 0.5);
+  background-color: #1D5D84;
   position: absolute;
   top: 0;
   width: 100%;
@@ -71,6 +71,7 @@ nav .m-menu .m-menu {
   -ms-transform: translate3d(480px, 0, 0);
   -webkit-transform: translate3d(480px, 0, 0);
   transform: translate3d(480px, 0, 0);
+  height: 100%;
 }
 nav .m-menu ul {
   height: 100%;
