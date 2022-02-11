@@ -91,7 +91,7 @@ class OrderController extends Controller
                         ->get();
     }
 
-    public function filter($status,$search) 
+    public function filter($status, $search) 
     {
         if($search=="nu"){
             $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];

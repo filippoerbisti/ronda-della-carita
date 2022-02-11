@@ -7,6 +7,9 @@ import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order
 import { IUser } from 'src/app/shared/interface/iuser';
 import axios from 'axios';
 import { IHistory } from 'src/app/shared/interface/ihistory';
+import { AuthService } from './../../../shared/auth.service';
+import { TokenService } from './../../../shared/token.service';
+import { AuthStateService } from './../../../shared/auth-state.service';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -20,6 +23,7 @@ export class NavigationMenuComponent implements OnInit {
 
   isOpened: boolean = false;
 
+  isSignedIn!: boolean;
   user!: IUser;
   history!: IHistory;
   rule!: any;
@@ -33,10 +37,20 @@ export class NavigationMenuComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private router: Router
-    ) { }
+    private router: Router,
+    public authService: AuthService,
+    private auth: AuthStateService,
+    public token: TokenService,
+    ) {
+      this.authService.profileUser().subscribe((data:any) => {
+        this.user = data;
+      })
+    }
 
   async ngOnInit() {
+    this.auth.userAuthState.subscribe(val => {
+      this.isSignedIn = val;
+  });
     this.isAdmin = window.location.href.includes('admin');
     this.urlEsterno = window.location.href.includes('vol0');
     try {
@@ -58,8 +72,10 @@ export class NavigationMenuComponent implements OnInit {
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
   }
   
-  goToLogin() {
-    this.router.navigateByUrl('/login');
+  goToLogOut() {
+    this.auth.setAuthState(false);
+    this.token.removeToken();
+    this.router.navigate(['login']);
   }
 
   goToHome() {

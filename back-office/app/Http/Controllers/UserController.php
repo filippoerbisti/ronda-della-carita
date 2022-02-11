@@ -19,9 +19,11 @@ class UserController extends Controller
                     ->first();
     }
 
-    public function anagrafica() 
+    public function anagrafica($email, $password) 
     {
         return User::with('param')
+                    ->where('email', $email)
+                    ->where('password', $password)
                     ->first();
     }
 
