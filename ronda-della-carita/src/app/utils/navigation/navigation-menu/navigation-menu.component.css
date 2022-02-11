@@ -102,9 +102,7 @@ nav .m-menu ul li label.a-label__chevron::after {
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  top: 50%;
-  margin-top: -5px;
-  right: 16px;
+
 }
 nav .m-menu ul li .-invisible {
   border-bottom: 0;

@@ -18,6 +18,8 @@ export class NavigationMenuComponent implements OnInit {
   isAdmin!: boolean;
   urlEsterno!: boolean;
 
+  isOpened: boolean = false;
+
   user!: IUser;
   history!: IHistory;
   rule!: any;
@@ -61,6 +63,9 @@ export class NavigationMenuComponent implements OnInit {
   }
 
   goToHome() {
+    this.isOpened = false;
+    this.isAdmin = window.location.href.includes('admin');
+    this.urlEsterno = window.location.href.includes('vol0');
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
     } else if (window.location.href.includes('vol0')) {
@@ -86,12 +91,10 @@ export class NavigationMenuComponent implements OnInit {
   goToCreateClient() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
-      this.isAdmin = window.location.href.includes('admin');
-      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "client"}});
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
@@ -104,12 +107,18 @@ export class NavigationMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "order"}});
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     }
-    this.router.navigateByUrl('/create/order');
+  }
+
+  goToViewAll() {
+    if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigate([`/${this.rule}` + '/mob/home']);
+    }
   }
 
   openMansionDialog() {

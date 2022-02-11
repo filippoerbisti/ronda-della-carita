@@ -1,9 +1,8 @@
-<div class="w-full h-15 flex justify-between items-center mt-0 bg-nav z-50 top-nav">
+<div class="w-full h-15 flex justify-between items-center mt-0 bg-nav z-100 top-nav">
     
         <button mat-icon-button aria-label="Menu" [matMenuTriggerFor]="notification">
             <div class="relative flex justify-center items-center">
-                <!-- <mat-icon class="text-white relative">notifications_active</mat-icon> -->
-                <img src="https://img.icons8.com/material-sharp/24/000000/bell.png"/>
+                <mat-icon class="text-white relative">notifications_active</mat-icon>
                 <span *ngIf="countNotifiche" class="absolute left-6 bottom-1/2 rounded-full text-white bg-red-400 h-5 flex items-center justify-center">
                     <span class="px-1">{{ countNotifiche }}</span>
                 </span>
@@ -86,14 +85,12 @@
                     </li>
                     <li class="py-4">
                         <button (click)="goToCreateOrder()">
-                            <span *ngIf="!urlEsterno">NUOVO ORDINE</span> 
-                            <span *ngIf="urlEsterno">ORDINI</span>
+                            <span>NUOVO ORDINE</span> 
                         </button>
                     </li>
                     <li class="py-4">
                         <button (click)="goToCreateClient()">
-                            <span *ngIf="!urlEsterno">NUOVO ASSISTITO</span> 
-                            <span *ngIf="urlEsterno">ASSISTITI</span>
+                            <span>NUOVO ASSISTITO</span> 
                         </button>
                     </li>
                     <li class="py-4" *ngIf="isAdmin">
@@ -101,16 +98,23 @@
                             <span>STORICO ACCESSI</span>
                         </button>
                     </li>
-                    <li class="py-4">
-                        <button (click)="openPasswordDialog()">
-                            <span>CAMBIA PASSWORD</span>
+                    <li class="py-4" *ngIf="urlEsterno">
+                        <button (click)="goToViewAll()">
+                            <span>VEDI TUTTO</span>
                         </button>
                     </li>
-                    <li class="py-4">
-                        <button (click)="goToLogin()">
-                            <span>ESCI</span>
-                        </button>
-                    </li>
+                    <div class="mt-auto">
+                        <li class="py-4">
+                            <button (click)="openPasswordDialog()">
+                                <span>CAMBIA PASSWORD</span>
+                            </button>
+                        </li>
+                        <li class="py-4">
+                            <button (click)="goToLogin()">
+                                <span>ESCI</span>
+                            </button>
+                        </li>
+                    </div>
                 </ul>  
             </div>
         </nav>

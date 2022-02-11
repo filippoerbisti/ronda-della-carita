@@ -24,7 +24,7 @@ export class SidebarMenuComponent implements OnInit {
 
   @Input() openedSubject!: Subject<boolean>;
   @ViewChild('sidenav') sidenav!: MatSidenav;
-  
+
   getIndexTab!: number;
 
   isSidebarOpen = false;
@@ -116,14 +116,10 @@ export class SidebarMenuComponent implements OnInit {
   goToCreateClient() {
     if (window.location.href.includes('vol1')) {
       this.rule =  'vol1';
-      this.isAdmin = window.location.href.includes('admin');
-      this.urlEsterno = window.location.href.includes('vol0');
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "client"}});
-      this.getIndexTab = 1;
-      console.log(this.getIndexTab);
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
@@ -137,12 +133,18 @@ export class SidebarMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
       this.rule =  'vol0';
-      this.router.navigate([`/${this.rule}` + '/mob/home'], {queryParams: {section: "order"}});
-      this.getIndexTab = 0;
-      console.log(this.getIndexTab);
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    }
+    this.isSidebarOpen = false;
+  }
+
+  goToViewAll() {
+    if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigate([`/${this.rule}` + '/mob/home']);
     }
     this.isSidebarOpen = false;
   }

@@ -18,6 +18,5 @@ export class AppComponent {
 
   dismissSidebar() {
     this.openedSubject.next(false);
-    console.log('sidenav chiudi dio');
   }
 }
