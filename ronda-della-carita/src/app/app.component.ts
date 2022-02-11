@@ -14,6 +14,8 @@ export class AppComponent {
 
   collapse = true;
 
+  isNotLogged = window.location.href.includes('login');
+
   dismissSidebar() {
     this.openedSubject.next(false);
     console.log('sidenav chiudi dio');
