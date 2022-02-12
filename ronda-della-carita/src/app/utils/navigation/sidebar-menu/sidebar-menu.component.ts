@@ -81,7 +81,7 @@ export class SidebarMenuComponent implements OnInit {
     this.openedSubject.next(!this.sidenav.opened);
   }
 
-  goToLogin() {
+  goToLogOut() {
     this.router.navigateByUrl('/login');
     this.isSidebarOpen = false;
   }

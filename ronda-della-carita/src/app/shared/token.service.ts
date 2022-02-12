@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  private issuer = {
-    login: 'http://127.0.0.1:8000/api/auth/login',
-    register: 'http://127.0.0.1:8000/api/auth/register'
+  private isUser = {
+    login: 'https://backoffice-ronda.herokuapp.com/api/auth/login',
+    register: 'https://backoffice-ronda.herokuapp.com/api/auth/register'
   }
 
   constructor() { }
@@ -26,7 +26,7 @@ export class TokenService {
     if(token){
       const payload = this.payload(token);
       if(payload){
-        return Object.values(this.issuer).indexOf(payload.iss) > -1 ? true : false;
+        return Object.values(this.isUser).indexOf(payload.iss) > -1 ? true : false;
       }
     } else {
       return false;

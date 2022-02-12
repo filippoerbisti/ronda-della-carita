@@ -77,12 +77,9 @@ export class LoginComponent implements OnInit {
       },() => {
         this.authState.setAuthState(true);
         this.loginForm.reset()
-        this.router.navigate(['profile']);
+        const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
       }
     );
-    // let response = await axios.post("https://backoffice-ronda.herokuapp.com/api/login", this.user);
-    const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
-
   }
 
   // Handle response
@@ -100,7 +97,7 @@ export class LoginComponent implements OnInit {
       },
       () => {
         this.registerForm.reset()
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
     )
   }
