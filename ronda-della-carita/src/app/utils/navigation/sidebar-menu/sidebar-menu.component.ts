@@ -29,9 +29,6 @@ export class SidebarMenuComponent implements OnInit {
 
   isSidebarOpen = false;
 
-  isAdmin!: boolean;
-  urlEsterno!: boolean;
-
   user!: IUser;
   history!: IHistory;
   rule!: any;
@@ -50,8 +47,6 @@ export class SidebarMenuComponent implements OnInit {
     ) { }
 
   async ngOnInit() {
-    this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     try {
       let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user");
       this.user = response_user.data;
@@ -151,8 +146,6 @@ export class SidebarMenuComponent implements OnInit {
 
   openMansionDialog() {
     this.isSidebarOpen = false;
-    this.isAdmin = window.location.href.includes('admin');
-    this.urlEsterno = window.location.href.includes('vol0');
     const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 

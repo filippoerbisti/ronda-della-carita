@@ -74,37 +74,42 @@
                         <span>HOME</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="!isAdmin">
+                <mat-list-item *ngIf="!router.url.includes('admin')">
                     <button mat-button (click)="openMansionDialog()" class="w-full left text-lg text-white">
                         <span>CAMBIA MANSIONE</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="isAdmin">
+                <mat-list-item *ngIf="router.url.includes('admin')">
                     <button mat-button (click)="goToConfirm()" class="w-full left text-lg text-white">
                         <span>RCHIESTE CONFERMA</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="isAdmin">
+                <mat-list-item *ngIf="router.url.includes('admin')">
                     <button mat-button (click)="goToCreateUser()" class="w-full left text-lg text-white">
                         <span>NUOVO VOLONTARIO</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item>
+                <mat-list-item *ngIf="router.url.includes('vol1')">
                     <button mat-button (click)="goToCreateOrder()" class="w-full left text-lg text-white">
                         <span>NUOVO ORDINE</span> 
                     </button>
                 </mat-list-item>
-                <mat-list-item>
+                <mat-list-item *ngIf="router.url.includes('vol0')">
+                    <button mat-button (click)="goToViewAll()" class="w-full left text-lg text-white">
+                        <span>ORDINI</span> 
+                    </button>
+                </mat-list-item>
+                <mat-list-item *ngIf="router.url.includes('vol1')">
                     <button mat-button (click)="goToCreateClient()" class="w-full left text-lg text-white">
                         <span>NUOVO ASSISTITO</span> 
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="urlEsterno">
+                <mat-list-item *ngIf="router.url.includes('vol0')">
                     <button mat-button (click)="goToViewAll()" class="w-full left text-lg text-white">
-                        <span>VEDI TUTTO</span>
+                        <span>ASSISTITI</span> 
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="isAdmin">
+                <mat-list-item *ngIf="router.url.includes('admin')">
                     <button mat-button (click)="goToHistory()" class="w-full left text-lg text-white">
                         <span>STORICO ACCESSI</span>
                     </button>
