@@ -7,9 +7,9 @@ import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order
 import { IUser } from 'src/app/shared/interface/iuser';
 import axios from 'axios';
 import { IHistory } from 'src/app/shared/interface/ihistory';
-import { AuthService } from './../../../shared/auth.service';
-import { TokenService } from './../../../shared/token.service';
-import { AuthStateService } from './../../../shared/auth-state.service';
+import { AuthService } from '../../../shared/service/auth.service';
+import { TokenService } from '../../../shared/service/token.service';
+import { AuthStateService } from '../../../shared/service/auth-state.service';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -42,28 +42,28 @@ export class NavigationMenuComponent implements OnInit {
     private auth: AuthStateService,
     public token: TokenService,
     ) {
-      this.authService.profileUser().subscribe((data:any) => {
-        this.user = data;
-      })
+      // this.authService.profileUser().subscribe((data:any) => {
+      //   this.user = data;
+      // })
     }
 
   async ngOnInit() {
-    this.auth.userAuthState.subscribe(val => {
-      this.isSignedIn = val;
-  });
+  //   this.auth.userAuthState.subscribe(val => {
+  //     this.isSignedIn = val;
+  // });
     this.isAdmin = window.location.href.includes('admin');
     this.urlEsterno = window.location.href.includes('vol0');
     try {
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user");
       this.user = response_user.data;
       let historyId = this.user.id;
-      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/history/" + historyId);
       this.history = response_history.data;
-      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
-      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
-      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
+      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
     } 
     catch (err) {

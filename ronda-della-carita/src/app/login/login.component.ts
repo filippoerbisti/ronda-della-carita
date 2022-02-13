@@ -2,19 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChooseMansionDialogComponent } from '../dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from './../shared/auth.service';
-import { TokenService } from './../shared/token.service';
-import { AuthStateService } from './../shared/auth-state.service';
+import { AuthService } from '../shared/service/auth.service';
+import { TokenService } from '../shared/service/token.service';
+import { AuthStateService } from '../shared/service/auth-state.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { IUser } from '../shared/interface/iuser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
+export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+export class MyErrorStateMatcherPsw implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = !!(control && control.invalid && control.dirty);
+    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+    return (invalidCtrl || invalidParent);
   }
 }
 
@@ -25,14 +34,15 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-
-  matcher = new MyErrorStateMatcher();
-
   registerForm!: FormGroup;
   loginForm!: FormGroup;
 
   errors: any = null;
+
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  matcherEmail = new MyErrorStateMatcherEmail();
+  matcherpsw = new MyErrorStateMatcherPsw();
 
   user!: IUser;
 
@@ -50,17 +60,27 @@ export class LoginComponent implements OnInit {
         nome: [''],
         cognome: [''],
         email: [''],
-        password: [''],
+        password: ['', [Validators.required]],
         password_confirmation: ['']
-      })
+      },
+      { validator: this.checkPasswords }
+      )
 
       this.loginForm = this.fb.group({
-        email: [],
+        email: [''],
         password: []
       })
     }
 
   ngOnInit(): void {
+  }
+
+  checkPasswords(group: FormGroup) {
+    // here we have the 'passwords' group
+    let password = group.controls['password'].value;
+    let password_confirmation = group.controls['password_confirmation'].value;
+
+    return password === password_confirmation ? null : { notSame: true };
   }
 
   goToChangePassword() {

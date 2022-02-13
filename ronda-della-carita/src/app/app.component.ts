@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +12,14 @@ export class AppComponent {
   title = 'ronda-della-carita';
 
   openedSubject = new Subject<boolean>();
-  isLogged!: boolean;
 
   collapse = true;
 
+  constructor (
+    public router: Router
+  ) {}
+
   ngOnInit() {
-    if(window.location.href.includes('login')) {
-      this.isLogged = false;
-    }
-    console.log(this.isLogged);
   }
 
   dismissSidebar() {

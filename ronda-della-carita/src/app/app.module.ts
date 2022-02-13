@@ -29,7 +29,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBadgeModule } from '@angular/material/badge'; 
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './shared/auth.interceptor';
+import { AuthInterceptor } from './shared/service/auth.interceptor';
 
 import { LoginComponent } from './login/login.component';
 

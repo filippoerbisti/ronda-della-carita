@@ -8,6 +8,16 @@
                 <mat-tab label="LOGIN" class="">
                     <mat-card-content>  
                         <form [formGroup]="loginForm">
+                            <!-- Errors -->
+                            <div *ngIf="errors?.email" class="alert alert-danger mt-3">
+                                {{ errors?.email }}
+                            </div>
+                            <div *ngIf="errors?.password" class="alert alert-danger mt-3">
+                                {{ errors?.password }}
+                            </div>
+                            <div *ngIf="errors?.error" class="alert alert-danger mt-3">
+                                {{ errors?.error }}
+                            </div>
                             <div>
                                 <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Email</mat-label>
@@ -16,8 +26,9 @@
                                     matInput 
                                     formControlName="email"
                                     [formControl]="emailFormControl" 
-                                    [errorStateMatcher]="matcher"
+                                    [errorStateMatcher]="matcherEmail"
                                     placeholder="Email"
+                                    required
                                 >
                                 <!-- [(ngModel)]="email" -->
                                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -34,6 +45,7 @@
                                     formControlName="password"
                                     matInput 
                                     placeholder="Password"
+                                    required
                                 >
                                 <!-- [(ngModel)]="password" -->
                             </mat-form-field>
@@ -50,6 +62,22 @@
                 <mat-tab label="REGISTRATI" class="">
                     <mat-card-content class="">  
                         <form class="" [formGroup]="registerForm">
+                            <!-- Errors -->
+                            <div *ngIf="errors?.name" class="alert alert-danger mt-3">
+                                {{ errors?.nome }}
+                            </div>
+                            <div *ngIf="errors?.name" class="alert alert-danger mt-3">
+                                {{ errors?.cognome }}
+                            </div>
+                            <div *ngIf="errors?.email" class="alert alert-danger mt-3">
+                                {{ errors?.email }}
+                            </div>
+                            <div *ngIf="errors?.password" class="alert alert-danger mt-3">
+                                {{ errors?.password }}
+                            </div>
+                            <div *ngIf="errors?.password_confirmation" class="alert alert-danger mt-3">
+                                {{ errors?.password_confirmation }}
+                            </div>
                             <div class="flex sm:flex-row flex-col sm:space-x-2">
                                 <mat-form-field class="w-full" appearance="fill">
                                     <mat-label>Nome</mat-label>
@@ -58,6 +86,7 @@
                                         formControlName="nome"
                                         matInput 
                                         placeholder="Nome"
+                                        required
                                     >
                                     <!-- [(ngModel)]="nome" -->
                                 </mat-form-field>
@@ -68,6 +97,7 @@
                                         formControlName="cognome"
                                         matInput 
                                         placeholder="Cognome"
+                                        required
                                     >
                                     <!-- [(ngModel)]="cognome" -->
                                 </mat-form-field>
@@ -80,8 +110,9 @@
                                         formControlName="email"
                                         matInput 
                                         [formControl]="emailFormControl" 
-                                        [errorStateMatcher]="matcher"
+                                        [errorStateMatcher]="matcherEmail"
                                         placeholder="Email"
+                                        required
                                     >
                                     <!-- [(ngModel)]="email" -->
                                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -100,7 +131,11 @@
                                         formControlName="password"
                                         matInput 
                                         placeholder="Password"
+                                        required
                                     >
+                                    <mat-error *ngIf="registerForm.hasError('required', 'password')">
+                                        Per piacere inserisca la password
+                                    </mat-error>
                                     <!-- [(ngModel)]="password" -->
                                 </mat-form-field>
                                 <mat-form-field class="w-full" appearance="fill">
@@ -110,7 +145,11 @@
                                         formControlName="password_confirmation"
                                         matInput 
                                         placeholder="Conferma Password"
+                                        required
                                     >
+                                    <mat-error *ngIf="registerForm.hasError('notSame')">
+                                        Password non coincidono
+                                    </mat-error>  
                                     <!-- [(ngModel)]="email" -->
                                 </mat-form-field>
                             </div>

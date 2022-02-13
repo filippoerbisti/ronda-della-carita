@@ -87,32 +87,32 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
-      let response_order_status = await axios.get("https://backoffice-ronda.herokuapp.com/api/param/order_status");
+      let response_order_status = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/param/order_status");
       this.orders_status = response_order_status.data;
 
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
+      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders");
       this.orders = response_order.data;
 
-      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user");
       this.user = response_account.data;
 
       let historyId = this.user.id;
-      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/history/" + historyId);
       this.history = response_history.data;
 
-      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
 
-      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
 
-      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
+      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
       
     } 
@@ -302,7 +302,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -323,7 +323,7 @@ export class HomeComponent implements OnInit {
       status="all";
     console.log("search"+search)
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status+"/search/"+search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/filt/" + status+"/search/"+search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -340,7 +340,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/clients/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;

@@ -20,13 +20,13 @@ export class ChooseMansionDialogComponent implements OnInit {
   }
 
   goToHomeInterno() {
-    this.dialogRef.close();
     this.router.navigateByUrl('/vol1/home');
+    this.dialogRef.close();
   }
 
   goToHomeEsterno() {
-    this.dialogRef.close();
     this.router.navigateByUrl('/vol0/home');
+    this.dialogRef.close();
   }
 
 }

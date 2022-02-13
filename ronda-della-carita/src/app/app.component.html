@@ -1,11 +1,7 @@
 <div class="h-screen">
-  <app-sidebar-menu [openedSubject]="openedSubject" class="sm:flex hidden sm:pb-12"></app-sidebar-menu>
-  <app-navigation-menu class="flex sm:hidden"></app-navigation-menu>
+  <app-sidebar-menu *ngIf="!router.url.includes('login')" [openedSubject]="openedSubject" class="sm:flex hidden sm:pb-12"></app-sidebar-menu>
+  <app-navigation-menu *ngIf="!router.url.includes('login')" class="flex sm:hidden"></app-navigation-menu>
   <div (click)="dismissSidebar()" class="w-full h-full">
     <router-outlet></router-outlet>
   </div>
-</div>
-
-<div class="h-screen" *ngIf="!isLogged">
-  <app-login></app-login>
 </div>
