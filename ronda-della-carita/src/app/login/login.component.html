@@ -55,11 +55,12 @@
                             <p class="text-right">
                                 <a (click)="goToChangePassword()" class="text-bt-orange hover:underline ">Password dimenticata?</a>
                             </p>
+                            <button class="w-min h-10 right-0" mat-raised-button color="accent" (click)="login()">
+                                <span class="p-2 text-white">ACCEDI</span>
+                            </button>
                         </form>
                     </mat-card-content>
-                    <button class="w-min h-10 right-0" mat-raised-button color="accent" (click)="login()">
-                        <span class="p-2 text-white">ACCEDI</span>
-                    </button>
+                    
                 </mat-tab>
                 <mat-tab label="REGISTRATI" class="">
                     <mat-card-content class="">  
@@ -155,11 +156,12 @@
                                     <!-- [(ngModel)]="email" -->
                                 </mat-form-field>
                             </div>
+                            <button class="h-10 right-0" mat-raised-button color="accent" (click)="registration()">
+                                <span class="p-2 text-white">REGISTRATI</span>
+                            </button>
                         </form>
                     </mat-card-content>
-                    <button class="h-10 right-0" mat-raised-button color="accent" (click)="registration()">
-                        <span class="p-2 text-white">REGISTRATI</span>
-                    </button>
+                    
                 </mat-tab>
                 
             </mat-tab-group>
