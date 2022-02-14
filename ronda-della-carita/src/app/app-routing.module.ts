@@ -16,7 +16,7 @@ import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuardService } from './shared/service/auth-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
