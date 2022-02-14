@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('cognome')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('admin_confirm');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
