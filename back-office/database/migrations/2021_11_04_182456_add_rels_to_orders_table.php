@@ -15,9 +15,9 @@ class AddRelsToOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->bigInteger("user_id")->unsigned()->nullable();
-            $table->foreign("user_id")->references("id")->on("users");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->bigInteger("client_id")->unsigned()->nullable();
-            $table->foreign("client_id")->references("id")->on("clients");
+            $table->foreign("client_id")->references("id")->on("clients")->onDelete('cascade');
         });
     }
 

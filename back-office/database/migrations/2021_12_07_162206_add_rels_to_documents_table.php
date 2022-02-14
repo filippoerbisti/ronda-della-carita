@@ -15,7 +15,7 @@ class AddRelsToDocumentsTable extends Migration
     {
         Schema::table('documents', function (Blueprint $table) {
             $table->bigInteger("param_id")->unsigned()->nullable();
-            $table->foreign("param_id")->references("id")->on("params");
+            $table->foreign("param_id")->references("id")->on("params")->onDelete('cascade');
         });
     }
 
