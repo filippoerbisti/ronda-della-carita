@@ -26,6 +26,7 @@
     "@zxing/ngx-scanner": "^3.5.0",
     "axios": "^0.24.0",
     "http-server": "^14.1.0",
+    "node-forge": "^1.2.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
