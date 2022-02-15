@@ -1,0 +1,142 @@
+<div class="h-full w-full">
+    <div *ngIf="!isLoading" class="h-screen">
+        <mat-card class="h-full flex flex-col">
+            <div class="md:w-1/2 mx-auto flex flex-col justify-center h-full">
+                <p class="font-bold text-2xl">NUOVO ORDINE</p>
+                <form class="w-full mt-3">
+                    
+                    <mat-form-field class="w-full md:w-full" appearance="fill">
+                        <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Assistito:</mat-label>
+                        <input type="text"
+                            placeholder="Seleziona assistito"
+                            matInput
+                            [(ngModel)]="newOrder.user.name"
+                            [formControl]="myControl"   
+                            [matAutocomplete]="auto"
+                            required
+                        >
+                        <button *ngIf="nm" matSuffix mat-icon-button aria-label="Clear" (click)="nm = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete (optionSelected)="sea()" #auto="matAutocomplete">
+                            <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
+                            {{client.nome}} {{client.cognome}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="fill" class="w-full">
+                        <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.retire}">Punto di ritiro</mat-label>
+                        <input type="text" matInput 
+                            [(ngModel)]="newOrder.retire"
+                            [formControl]="myControl"
+                            placeholder="Punto di ritiro"
+                            required
+                        >
+                    </mat-form-field>
+
+
+                    <div class="w-full flex">
+                        <div class="flex w-5/6 sm:w-11/12">
+                            <mat-form-field appearance="fill" class="w-1/3">
+                                <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Tipo</mat-label>
+                                <mat-select (selectionChange)="change()" name="tvestiario" [(ngModel)]="newClothe.type">
+                                    <mat-option *ngFor="let item of tvestiario" [value]="item.value">
+                                        {{item.value}}
+                                    </mat-option>   
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-1/3">
+                                <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Taglia</mat-label>
+                                <mat-select (selectionChange)="change()" name="tagliaValue" [(ngModel)]="newClothe.size">
+                                    <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.value">
+                                        {{item.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-1/3">
+                                <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Quantità</mat-label>
+                                <input type="number" matInput 
+                                    placeholder="Quantità" [(ngModel)]="newClothe.number" name="quantita">
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="flex flex-col w-1/6 sm:w-1/12 items-center mt-2">
+                            <button mat-mini-fab color="nav" class="bg-nav" (click)="addClothe()">
+                                <mat-icon class="text-white">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <div class="w-full border-b-2 border-nav text-nav font-medium space-y-1">
+                            <span class="text-md">Ordine</span>
+                            <div class="grid grid-cols-7 w-full pb-1">
+                                <div class="col-span-2">
+                                    Tipo
+                                </div>
+                                <div class="col-span-2">
+                                    Taglia
+                                </div>
+                                <div class="col-span-2">
+                                    Quantità
+                                </div>
+                                <div class="text-center">
+                                    Azioni
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center" *ngIf="invalidClothe">
+                            <p class="text-red-500 text-base" >Inserire almeno un capo</p>
+                        </div>
+
+                        <div class="flex flex-col py-3">
+                            <div *ngFor="let clothe of clothes; let i = index" class="w-full">
+                                <div class="grid grid-cols-7 w-full">
+                                    <div class="col-span-2">
+                                        {{ clothe.type }}
+                                    </div>
+                                    <div class="col-span-2">
+                                        {{ clothe.size }}
+                                    </div>
+                                    <div class="col-span-2">
+                                        {{ clothe.number }}
+                                    </div>
+                                    <div class="text-center">
+                                        <mat-icon class="cursor-pointer" (click)="editClothe(i)">edit_outline</mat-icon>
+                                        <mat-icon class="cursor-pointer" (click)="removeClothe(i)">delete_outline</mat-icon>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:flex border-2">
+                        <textarea name="" id="" rows="5" class="w-full p-2 resize-none" placeholder="Note"
+                            [(ngModel)]="newOrder.note"
+                            [formControl]="myControl"></textarea>
+                    </div>
+
+                    <div class="flex space-x-2 justify-between py-8">
+                        <button mat-button class="backButton text-lg" (click)="goToHome()">
+                            <mat-icon class="text-bt-orange">
+                                keyboard_arrow_left
+                            </mat-icon>
+                            <span class="p-2">INDIETRO</span>
+                        </button>
+                        <button mat-button class="confirmButton text-lg">
+                            <span class="p-2" (click)="create()">CONFERMA</span>
+                            <mat-icon class="">
+                                keyboard_arrow_right
+                            </mat-icon>
+                        </button>
+                    </div>
+                </form>   
+            </div>
+        </mat-card>                    
+    </div>
+    <div *ngIf="isLoading" class="h-full grid grid-center">
+        <mat-spinner class="m-auto"></mat-spinner>
+    </div>
+</div>

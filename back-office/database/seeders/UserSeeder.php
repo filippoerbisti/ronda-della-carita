@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 'param_id' => 1,
                 'email' => $faker -> unique()-> freeEmail,
                 'email_verified_at' => now(),
+                'admin_confirm' => 1,
                 'password' => Hash::make('password'),
                 'remember_token' => Str::random(10),
                 'created_at' => now()

@@ -12,15 +12,25 @@ class UserController extends Controller
         return User::with('param')->get();
     }
 
-    public function id($id) {
+    public function id($id) 
+    {
         return User::where('id', $id)
                     ->with('param')
                     ->first();
     }
 
-    public function anagrafica()
+    // public function anagrafica($email, $password) 
+    // {
+    //     return User::with('param')
+    //                 ->where('email', $email)
+    //                 ->where('password', $password)
+    //                 ->first();
+    // }
+
+    public function anagrafica() 
     {
-        return User::with('param')->first();
+        return User::with('param')
+                    ->first();
     }
 
     public function filter($search)
@@ -35,7 +45,7 @@ class UserController extends Controller
         return $user;
     }
 
-    private function pairing($newUser, $newUserData)
+    private function pairing($newUser, $newUserData) 
     {
         $newUser->nome = $newUserData->nome;
         $newUser->cognome = $newUserData->cognome;

@@ -15,7 +15,7 @@ class AddRelsToHistoriesTable extends Migration
     {
         Schema::table('histories', function (Blueprint $table) {
             $table->bigInteger("user_id")->unsigned()->nullable();
-            $table->foreign("user_id")->references("id")->on("users");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
         });
     }
 

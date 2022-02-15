@@ -14,13 +14,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: var(--bt-orange);
 }
 
-/* .backButton:hover{
-    background-color: var(--bt-orange)!important;
-    color: white;
-
-} */
-
-
 .confirmButton {
     border: 2px solid var(--bt-orange)!important;
     color: white;

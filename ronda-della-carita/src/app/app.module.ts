@@ -28,67 +28,53 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import { MatBadgeModule } from '@angular/material/badge'; 
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/service/auth.interceptor';
+
+import { LoginComponent } from './login/login.component';
+
+import { HomeComponent } from './home/home.component';
+import { HomeEsternoComponent } from './home-esterno/home-esterno.component';
 import { NavigationMenuComponent } from './utils/navigation/navigation-menu/navigation-menu.component';
-import { HomeAdminComponent } from './users/admin/home-admin/home-admin.component';
-import { HomeInternoComponent } from './users/vol-interno/home-interno/home-interno.component';
-import { HomeEsternoComponent } from './users/vol-esterno/home-esterno/home-esterno.component';
-import { OrdineEsternoComponent } from './users/vol-esterno/ordine-esterno/ordine-esterno.component';
-import { RegistrazioneEsternoComponent } from './users/vol-esterno/registrazione-esterno/registrazione-esterno.component';
+import { SidebarMenuComponent } from './utils/navigation/sidebar-menu/sidebar-menu.component';
+
+import { CreateUserComponent } from './create/create-user/create-user.component';
+import { CreateClientComponent } from './create/create-client/create-client.component';
+import { CreateOrderComponent } from './create/create-order/create-order.component';
+
+import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi.component';
+import { ConfirmUserComponent } from './utils/confirm-user/confirm-user.component';
+
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
+
+import { ChooseMansionDialogComponent } from './dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
 import { ChangeMansionDialogComponent } from './dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
-import { ViewOrdineEsternoComponent } from './users/vol-esterno/view-ordine-esterno/view-ordine-esterno.component';
-import { ViewRegistrazioneEsternoComponent } from './users/vol-esterno/view-registrazione-esterno/view-registrazione-esterno.component';
+import { ChangePasswordDialogComponent } from './dialog/change-password-dialog/change-password-dialog.component';
 import { DeleteClientDialogComponent } from './dialog/client/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from './dialog/order/delete-order-dialog/delete-order-dialog.component';
-import { OrdineInternoComponent } from './users/vol-interno/ordine-interno/ordine-interno.component';
-import { RegistrazioneInternoComponent } from './users/vol-interno/registrazione-interno/registrazione-interno.component';
-import { LoginComponent } from './login/login.component';
-import { SidebarMenuComponent } from './utils/navigation/sidebar-menu/sidebar-menu.component';
-import { SidebarAdminMenuComponent } from './utils/navigation/sidebar-admin-menu/sidebar-admin-menu.component';
-import { StoricoAccessiAdminComponent } from './users/admin/storico-accessi-admin/storico-accessi-admin.component';
-import { RegistrazioneAdminComponent } from './users/admin/registrazione-admin/registrazione-admin.component';
-import { OrdineAdminComponent } from './users/admin/ordine-admin/ordine-admin.component';
-import { UserAdminComponent } from './users/admin/user-admin/user-admin.component';
 import { DeleteUserDialogComponent } from './dialog/user/delete-user-dialog/delete-user-dialog.component';
 import { EditClientDialogComponent } from './dialog/client/edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-user-dialog.component';
 import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { ChooseMansionDialogComponent } from './dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
-import { ChangePasswordDialogComponent } from './dialog/change-password-dialog/change-password-dialog.component';
+import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
-import { CommonComponentsComponent } from './common-components/common-components.component';
-import { NavigationAdminMenuComponent } from './utils/navigation/navigation-admin-menu/navigation-admin-menu.component';
-import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notification-dialog/view-order-notification-dialog.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationMenuComponent,
-    HomeAdminComponent,
-    HomeInternoComponent,
     HomeEsternoComponent,
-    OrdineEsternoComponent,
-    RegistrazioneEsternoComponent,
     PageNotFoundComponent,
     ChangeMansionDialogComponent,
-    ViewOrdineEsternoComponent,
-    ViewRegistrazioneEsternoComponent,
     DeleteClientDialogComponent,
     DeleteOrderDialogComponent,
-    OrdineInternoComponent,
-    RegistrazioneInternoComponent,
     LoginComponent,
     SidebarMenuComponent,
-    SidebarAdminMenuComponent,
-    StoricoAccessiAdminComponent,
-    RegistrazioneAdminComponent,
-    OrdineAdminComponent,
-    UserAdminComponent,
     DeleteUserDialogComponent,
     EditClientDialogComponent,
     EditUserDialogComponent,
@@ -96,14 +82,19 @@ import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notifi
     ChooseMansionDialogComponent,
     ChangePasswordDialogComponent,
     ScannerQrComponent,
-    CommonComponentsComponent,
-    NavigationAdminMenuComponent,
-    ViewOrderNotificationDialogComponent
+    ViewOrderNotificationDialogComponent,
+    HomeComponent,
+    StoricoAccessiComponent,
+    CreateUserComponent,
+    CreateClientComponent,
+    CreateOrderComponent,
+    ConfirmUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
@@ -135,7 +126,13 @@ import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notifi
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

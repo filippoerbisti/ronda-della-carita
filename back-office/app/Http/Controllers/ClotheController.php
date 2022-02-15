@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clothe;
-use Illuminate\Http\Request;
 
 class ClotheController extends Controller
 {
-    public function list() {
+    public function list() 
+    {
         $clothe = Clothe::with('param')
                         ->with('order')
                         ->with('inventory')
@@ -15,7 +15,8 @@ class ClotheController extends Controller
         return $clothe;
     }
 
-    public function id($id) {
+    public function id($id) 
+    {
         $clothe = Clothe::where('id', $id)
                         ->with('param')
                         ->with('order')

@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
+import { Router } from '@angular/router';
 import axios from 'axios';
+import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
-import { Router } from '@angular/router';
+import { IUser } from 'src/app/shared/interface/iuser';
+import { IHistory } from 'src/app/shared/interface/ihistory';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -13,110 +19,138 @@ import { Router } from '@angular/router';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  isSidebarOpen= false;
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 
-  user = {
-    nome: '',
-    cognome: '',
-    ruolo: 'string',
-    email: 'string',
-    password: 'string'
-  };
+  @Input() openedSubject!: Subject<boolean>;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  getIndexTab!: number;
+
+  isSidebarOpen = false;
+
+  user!: IUser;
+  history!: IHistory;
+  rule!: any;
 
   countNotifiche!: number;
   orderNonDisp!: number;
   orderInAttesa!: number;
   orderDaConf!: number;
 
-  ruolo!: string;
   typeNotification!: string;
 
   constructor(
     public dialog: MatDialog,
-    private router: Router
+    public router: Router,
+    private breakpointObserver: BreakpointObserver
     ) { }
 
   async ngOnInit() {
-    this.ruolo = localStorage["ruolo"];
     try {
-      let response_user = await axios.get("http://127.0.0.1:8000/api/user");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user");
       this.user = response_user.data;
-      let response_order_nondisp = await axios.get("http://127.0.0.1:8000/api/orders/nondisp");
+      let historyId = this.user.id;
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/history/" + historyId);
+      this.history = response_history.data;
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
-      let response_order_inattesa = await axios.get("http://127.0.0.1:8000/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
-      let response_order_daconf= await axios.get("http://127.0.0.1:8000/api/orders/daconf");
+      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
     } 
     catch (err) {
       console.log(err);
     }
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
-
   }
 
-  goToLogin() {
+  ngAfterContentInit() {
+    this.openedSubject.subscribe(
+      keepOpen => this.sidenav[keepOpen ? 'open' : 'close']()
+    );
+  }
+
+  toggle() {
+    this.openedSubject.next(!this.sidenav.opened);
+  }
+
+  goToLogOut() {
     this.router.navigateByUrl('/login');
-    localStorage.removeItem("ruolo");
+    this.isSidebarOpen = false;
   }
 
   goToHome() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/home-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/home-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/home-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
     }
+    this.router.navigateByUrl(`/${this.rule}` + '/home');
+    this.isSidebarOpen = false;
   }
 
-  goToRichieste() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/home-admin');
-    }
+  goToConfirm() {
+    this.router.navigateByUrl('/confirm/user');
+    this.isSidebarOpen = false;
   }
 
-  goToStorico() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/accessi-admin');
-    }
+  goToHistory() {
+    this.router.navigateByUrl('/history');
+    this.isSidebarOpen = false;
   }
 
-  goToUser() {
-    this.router.navigateByUrl('/user-admin');
+  goToCreateUser() {
+    this.router.navigateByUrl('/admin/create/user');
+    this.isSidebarOpen = false;
   }
 
-  goToRegistrazione() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/registrazione-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/view-registrazione-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/registrazione-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
+  goToCreateClient() {
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     }
+    this.isSidebarOpen = false;
   }
 
-  goToOrdine() {
-    if (this.ruolo === "admin") {
-      this.router.navigateByUrl('/ordine-admin');
-    } else if (this.ruolo === "esterno") {
-      this.router.navigateByUrl('/view-ordine-esterno');
-    } else if (this.ruolo === "interno") {
-      this.router.navigateByUrl('/ordine-interno');
-    } else {
-      this.router.navigateByUrl('/page-not-found')
+  goToCreateOrder() {
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     }
+    this.isSidebarOpen = false;
+  }
+
+  goToViewAll() {
+    if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigate([`/${this.rule}` + '/mob/home']);
+    }
+    this.isSidebarOpen = false;
   }
 
   openMansionDialog() {
+    this.isSidebarOpen = false;
     const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 
   openPasswordDialog() {
+    this.isSidebarOpen = false;
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
   }
 

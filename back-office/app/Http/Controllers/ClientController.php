@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function list() {
+    public function list() 
+    {
         return Client::with('user')
                     ->with('document')
                     ->with('param')
                     ->get();
     }
 
-    public function id($id) {
+    public function id($id) 
+    {
         return Client::where('id', $id)
                     ->with('user')
                     ->with('document')
@@ -22,7 +24,8 @@ class ClientController extends Controller
                     ->first();
     }
 
-    public function filter($search) {
+    public function filter($search) 
+    {
         $client = Client::with('user')
                         ->with('document')
                         ->with('param')
@@ -37,7 +40,8 @@ class ClientController extends Controller
         return $client;
     }
 
-    private function pairing($newClient, $newClientData) {
+    private function pairing($newClient, $newClientData) 
+    {
         $newClient->nome = $newClientData->nome;
         $newClient->cognome = $newClientData->cognome;
         $newClient->genere = $newClientData->genere;
@@ -56,7 +60,8 @@ class ClientController extends Controller
         return $newClient;
     }
 
-    public function create(Request $request) {
+    public function create(Request $request) 
+    {
         $newClientData = json_decode($request->getContent());
         $newClient = new Client();   
 
@@ -64,7 +69,8 @@ class ClientController extends Controller
         return $newClient;
     }
 
-    public function edit(Request $request, $id) {
+    public function edit(Request $request, $id) 
+    {
         $client = Client::find($id);
         $newClientData = json_decode($request->getContent());   
 
@@ -72,7 +78,8 @@ class ClientController extends Controller
         return $client;
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
         $client = Client::where("id", $id)->delete();
 
         return $client;

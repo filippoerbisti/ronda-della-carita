@@ -1,0 +1,53 @@
+<div class="h-screen">
+    <div *ngIf="!isLoading" class="flex flex-col h-full">
+        <div class="text-center mb-4">
+            <img class="w-44 md:w-1/4 mx-auto pt-8" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
+            <div class="mt-2 font-bold text-lg">
+                <div class="py-6 md:py-6">
+                    <p class="text-nav">VOLONTARIO ESTERNO</p>
+                    <p class="text-nav font-medium">Bentornato, {{ user.nome | uppercase}} {{ user.cognome |uppercase }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- MD DEVICE -->
+        <div class="md:flex hidden md:flex-row flex-grow w-full justify-center pt-15 space-y-3 md:space-y-0 mb-10">
+            <a (click)="goToCreateOrder()" class="flex flex-col px-5 h-2/4 w-2/4">
+                <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                    <span class="text-white">NUOVO ORDINE</span>
+                </button>
+            </a>
+            <a (click)="goToCreateClient()" class="h-2/4 w-2/4 flex flex-col px-5">
+                <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                    <span class="p-2 text-white">NUOVO ASSISTITO</span>
+                </button>
+            </a>
+        </div>
+
+        <!-- SM DEVICE -->
+        <div class="flex md:hidden flex-col flex-grow w-full justify-center md:pt-15 space-y-3 md:space-y-0 md:pt-6 mb-10">
+            <a (click)="goToCreateOrder()" class="flex flex-col px-5 h-1/4 md:w-1/4">
+                <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                    <span class="text-white">NUOVO ORDINE</span>
+                </button>
+            </a>
+            <a (click)="goToCreateClient()" class="h-1/4 md:w-1/4 flex flex-col px-5">
+                <button mat-raised-button class="flex-grow text-2xl bg-bt-orange">
+                    <span class="p-2 text-white">NUOVO ASSISTITO</span>
+                </button>
+            </a>
+        </div>
+        <div class="flex w-screen fixed bottom-0">
+            <div class="bg-nav h-12 w-screen rounded-t">
+                <div class="mx-auto -mt-8 pt-2 rounded-full bg-nav h-20 w-20" (click)="goToScannerQr()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 m-auto text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="h-full grid grid-center">
+        <mat-spinner class="m-auto"></mat-spinner>
+    </div>
+</div>

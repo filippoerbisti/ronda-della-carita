@@ -15,7 +15,7 @@ class AddRelsToCardsTable extends Migration
     {
         Schema::table('cards', function (Blueprint $table) {
             $table->bigInteger("client_id")->unsigned()->nullable();
-            $table->foreign("client_id")->references("id")->on("clients");
+            $table->foreign("client_id")->references("id")->on("clients")->onDelete('cascade');
         });
     }
 
