@@ -2,29 +2,29 @@
     <div class="flex flex-col justify-center flex-grow">
         <div class="flex flex-col sm:flex-row sm:space-x-3">
             <mat-form-field class="w-full" appearance="fill">
-                <mat-label>Nome e Cognome</mat-label>
+                <mat-label>Nome</mat-label>
                 <input 
                     type="text" 
-                    formControlName="nominativo"
+                    formControlName="nome"
                     matInput 
-                    placeholder="Nome e Cognome"
+                    placeholder="Nome"
                     required
                 >
-                <mat-error *ngIf="registerForm.hasError('required')">
-                    Per piacere inserisca il nome e cognome
+                <mat-error *ngIf="registerForm.hasError('required', 'nome')">
+                    Inserisci il <strong>nome</strong>
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="w-full" appearance="fill">
-                <mat-label>Nome e Cognome</mat-label>
+                <mat-label>Cognome</mat-label>
                 <input 
                     type="text" 
-                    formControlName="nominativo"
+                    formControlName="cognome"
                     matInput 
-                    placeholder="Nome e Cognome"
+                    placeholder="Cognome"
                     required
                 >
-                <mat-error *ngIf="registerForm.hasError('required')">
-                    Per piacere inserisca il nome e cognome
+                <mat-error *ngIf="registerForm.hasError('required', 'cognome')">
+                    Inserisci il <strong>cognome</strong>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -40,7 +40,7 @@
                 required
             >
             <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Per favore inserisci un indirizzo email valido
+                Inserisci un indirizzo <strong>email valido</strong>
             </mat-error>
             <mat-error *ngIf="emailFormControl.hasError('required')">
                 Email <strong>obbligatoria</strong>
@@ -57,7 +57,7 @@
                     required
                 >
                 <mat-error *ngIf="registerForm.hasError('required', 'password')">
-                    Per piacere inserisca la password
+                    Inserisci la <strong>password</strong>
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="w-full" appearance="fill">
@@ -70,7 +70,7 @@
                     required
                 >
                 <mat-error *ngIf="registerForm.hasError('notSame')">
-                    Password non coincidono
+                    Password <strong>non coincidono</strong>
                 </mat-error>  
             </mat-form-field>
         </div>

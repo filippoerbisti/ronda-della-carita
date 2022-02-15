@@ -49,8 +49,8 @@ export class RegistrationComponent implements OnInit {
     public authService: AuthService
   ) {
     this.registerForm = this.fb.group({
-      nome: [''],
-      cognome: [''],
+      nome: ['', [Validators.required]],
+      cognome: ['', [Validators.required]],
       email: [''],
       password: ['', [Validators.required]],
       password_confirmation: ['']
