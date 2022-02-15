@@ -9,12 +9,15 @@ nav {
   align-items: center;
   /* fade in checked menu */
 }
+
 nav .m-menu__checkbox {
   display: none;
 }
+
 nav label.m-menu__toggle {
   cursor: pointer;
 }
+
 nav .m-menu {
   position: absolute;
   top: 0;
@@ -34,6 +37,7 @@ nav .m-menu {
   overflow: hidden;
   background-color: #1D5D84;
 }
+
 nav .m-menu__overlay {
   background-color: #1D5D84;
   position: absolute;
@@ -45,26 +49,29 @@ nav .m-menu__overlay {
   z-index: 1;
   display: none;
 }
+
 nav .m-menu__header {
   padding: 0 16px;
   height: 50px;
   display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: end;
-  justify-content: end;
+  display: flex-end;
+  /* -webkit-justify-content: end;
+  justify-content: end; */
   -ms-flex-pack: end;
   -webkit-align-items: center;
   align-items: center;
   border-bottom: 1px solid #e8e8e8;
 }
+
 nav .m-menu__header span {
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
   width: 100%;
 }
+
 nav .m-menu .m-menu {
   -moz-transform: translate3d(480px, 0, 0);
   -o-transform: translate3d(480px, 0, 0);
@@ -73,10 +80,12 @@ nav .m-menu .m-menu {
   transform: translate3d(480px, 0, 0);
   height: 100%;
 }
+
 nav .m-menu ul {
   height: 100%;
   overflow-y: auto;
 }
+
 nav .m-menu ul li a, nav .m-menu ul li label {
   display: block;
   text-align: left;
@@ -89,6 +98,7 @@ nav .m-menu ul li a, nav .m-menu ul li label {
   border-bottom: 1px solid #6c5fe7;
   position: relative;
 }
+
 nav .m-menu ul li label.a-label__chevron::after {
   content: "";
   position: absolute;
@@ -103,11 +113,12 @@ nav .m-menu ul li label.a-label__chevron::after {
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-
 }
+
 nav .m-menu ul li .-invisible {
   border-bottom: 0;
 }
+
 nav .m-menu .m-menu label.m-menu__toggle {
   display: -ms-flexbox;
   display: -webkit-box;
@@ -119,9 +130,11 @@ nav .m-menu .m-menu label.m-menu__toggle {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
+
 nav .m-menu__checkbox:checked ~ .m-menu__overlay {
   display: block;
 }
+
 nav .m-menu__checkbox:checked ~ .m-menu {
   -moz-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
