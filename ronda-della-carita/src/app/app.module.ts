@@ -32,6 +32,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/service/auth.interceptor';
 
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './login/registration/registration.component';
 
 import { HomeComponent } from './home/home.component';
 import { HomeEsternoComponent } from './home-esterno/home-esterno.component';
@@ -88,7 +89,8 @@ import { environment } from '../environments/environment';
     CreateUserComponent,
     CreateClientComponent,
     CreateOrderComponent,
-    ConfirmUserComponent
+    ConfirmUserComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

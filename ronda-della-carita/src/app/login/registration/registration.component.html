@@ -1,0 +1,83 @@
+<form [formGroup]="registerForm" class="flex flex-col flex-grow h-full pt-5">
+    <div class="flex flex-col justify-center flex-grow">
+        <div class="flex flex-col sm:flex-row sm:space-x-3">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Nome e Cognome</mat-label>
+                <input 
+                    type="text" 
+                    formControlName="nominativo"
+                    matInput 
+                    placeholder="Nome e Cognome"
+                    required
+                >
+                <mat-error *ngIf="registerForm.hasError('required')">
+                    Per piacere inserisca il nome e cognome
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Nome e Cognome</mat-label>
+                <input 
+                    type="text" 
+                    formControlName="nominativo"
+                    matInput 
+                    placeholder="Nome e Cognome"
+                    required
+                >
+                <mat-error *ngIf="registerForm.hasError('required')">
+                    Per piacere inserisca il nome e cognome
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field class="w-full" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input 
+                type="email" 
+                formControlName="email"
+                matInput 
+                [formControl]="emailFormControl" 
+                [errorStateMatcher]="matcherEmail"
+                placeholder="Email"
+                required
+            >
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Per favore inserisci un indirizzo email valido
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email <strong>obbligatoria</strong>
+            </mat-error>
+        </mat-form-field>
+        <div class="flex flex-col sm:flex-row sm:space-x-3">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input 
+                    type="password" 
+                    formControlName="password"
+                    matInput 
+                    placeholder="Password"
+                    required
+                >
+                <mat-error *ngIf="registerForm.hasError('required', 'password')">
+                    Per piacere inserisca la password
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Conferma Password</mat-label>
+                <input 
+                    type="password"
+                    formControlName="password_confirmation"
+                    matInput 
+                    placeholder="Conferma Password"
+                    required
+                >
+                <mat-error *ngIf="registerForm.hasError('notSame')">
+                    Password non coincidono
+                </mat-error>  
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="flex justify-end">
+        <button (click)="registration()" class="confirmButton text-lg px-2 py-1 rounded-md">
+            REGISTRATI
+        </button>
+    </div>
+</form>

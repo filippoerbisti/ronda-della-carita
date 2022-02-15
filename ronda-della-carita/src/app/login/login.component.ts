@@ -18,15 +18,6 @@ export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
   }
 }
 
-export class MyErrorStateMatcherPsw implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const invalidCtrl = !!(control && control.invalid && control.dirty);
-    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
-    return (invalidCtrl || invalidParent);
-  }
-}
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,7 +25,6 @@ export class MyErrorStateMatcherPsw implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
 
-  registerForm!: FormGroup;
   loginForm!: FormGroup;
 
   errors: any = null;
@@ -42,7 +32,6 @@ export class LoginComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   matcherEmail = new MyErrorStateMatcherEmail();
-  matcherpsw = new MyErrorStateMatcherPsw();
 
   user!: IUser;
 
@@ -60,25 +49,9 @@ export class LoginComponent implements OnInit {
         email: [''],
         password: []
       })
-
-      this.registerForm = this.fb.group({
-        nome: [''],
-        cognome: [''],
-        email: [''],
-        password: ['', [Validators.required]],
-        password_confirmation: ['']
-      })
     }
 
   ngOnInit(): void {
-  }
-
-  checkPasswords(group: FormGroup) {
-    // here we have the 'passwords' group
-    let password = group.controls['password'].value;
-    let password_confirmation = group.controls['password_confirmation'].value;
-
-    return password === password_confirmation ? null : { notSame: true };
   }
 
   goToChangePassword() {
@@ -104,20 +77,4 @@ export class LoginComponent implements OnInit {
   responseHandler(data: { access_token: string; }){
     this.token.handleData(data.access_token);
   }
-
-  registration() {
-    this.authService.register(this.registerForm.value).subscribe(
-      result => {
-        console.log(result)
-      },
-      error => {
-        this.errors = error.error;
-      },
-      () => {
-        this.registerForm.reset();
-        this.router.navigate(['/login']);
-      }
-    )
-  }
-
 }

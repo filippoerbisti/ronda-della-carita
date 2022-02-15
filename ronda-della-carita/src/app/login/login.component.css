@@ -1,6 +1,7 @@
 :host ::ng-deep .mat-tab-group{
     height: 100%;
 }
+
 :host ::ng-deep .mat-button-base{
     position: absolute !important;
     bottom: 10px !important;
@@ -18,6 +19,9 @@
    justify-content: center;
 }
 
-.containerTab {
-    height: 550px;
+
+#wrapper {
+    min-height: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }

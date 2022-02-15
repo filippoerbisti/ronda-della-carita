@@ -1,15 +1,15 @@
-<div class="flex flex-col h-screen bg-nav items-center justify-center px-5 space-y-5 py-10">
+<div class="flex flex-col h-full bg-nav items-center justify-center px-5 space-y-5 py-10" id="wrapper">
     <div class="flex justify-center">
         <div class="rounded-full bg-bt-orange">
             <img class="h-28" src="../../assets/icon-ronda.png" alt="logo-ronda-della-carita">
         </div>
     </div>
 
-    <div class="flex flex-col w-full sm:w-1/3 bg-white shadow-2xl rounded-md containerTab items-center justify-center py-5 px-10">
+    <div class="flex w-full sm:w-2/5 bg-white shadow-2xl rounded-md items-center justify-center py-5 px-10">
         <mat-tab-group class="w-full" mat-align-tabs="center">
             <mat-tab label="LOGIN">
-                <form [formGroup]="loginForm" class="flex flex-col flex-grow h-full">
-                    <div class="flex flex-col justify-center flex-grow">
+                <form [formGroup]="loginForm" class="flex flex-col flex-grow h-full pt-5">
+                    <div class="flex flex-col justify-center">
                         <mat-form-field class="w-full" appearance="fill">
                             <mat-label>Email</mat-label>
                             <input 
@@ -50,91 +50,7 @@
                 </form>
             </mat-tab>
             <mat-tab label="REGISTRATI">
-                <form [formGroup]="registerForm" class="flex flex-col flex-grow h-full">
-                    <div class="flex flex-col justify-center flex-grow">
-                        <div class="flex sm:flex-row flex-col sm:space-x-2">
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Nome</mat-label>
-                                <input 
-                                    type="text" 
-                                    formControlName="nome"
-                                    matInput 
-                                    placeholder="Nome"
-                                    required
-                                >
-                                <mat-error *ngIf="registerForm.hasError('required')">
-                                    Per piacere inserisca il nome
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Cognome</mat-label>
-                                <input 
-                                    type="text" 
-                                    formControlName="cognome"
-                                    matInput 
-                                    placeholder="Cognome"
-                                    required
-                                >
-                                <mat-error *ngIf="registerForm.hasError('required')">
-                                    Per piacere inserisca il cognome
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="flex">
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Email</mat-label>
-                                <input 
-                                    type="email" 
-                                    formControlName="email"
-                                    matInput 
-                                    [formControl]="emailFormControl" 
-                                    [errorStateMatcher]="matcherEmail"
-                                    placeholder="Email"
-                                    required
-                                >
-                                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                                    Per favore inserisci un indirizzo email valido
-                                </mat-error>
-                                <mat-error *ngIf="emailFormControl.hasError('required')">
-                                    Email <strong>obbligatoria</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="flex sm:flex-row flex-col sm:space-x-2">
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Password</mat-label>
-                                <input 
-                                    type="password" 
-                                    formControlName="password"
-                                    matInput 
-                                    placeholder="Password"
-                                    required
-                                >
-                                <mat-error *ngIf="registerForm.hasError('required', 'password')">
-                                    Per piacere inserisca la password
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Conferma Password</mat-label>
-                                <input 
-                                    type="password"
-                                    formControlName="password_confirmation"
-                                    matInput 
-                                    placeholder="Conferma Password"
-                                    required
-                                >
-                                <mat-error *ngIf="registerForm.hasError('notSame')">
-                                    Password non coincidono
-                                </mat-error>  
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="flex justify-end">
-                        <button (click)="registration()" class="confirmButton text-lg px-2 py-1 rounded-md">
-                            REGISTRATI
-                        </button>
-                    </div>
-                </form>
+                <app-registration></app-registration>
             </mat-tab>
         </mat-tab-group>
     </div>
