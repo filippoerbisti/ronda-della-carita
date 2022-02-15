@@ -56,19 +56,17 @@ export class LoginComponent implements OnInit {
     private token: TokenService,
     private authState: AuthStateService
     ) {
+      this.loginForm = this.fb.group({
+        email: [''],
+        password: []
+      })
+
       this.registerForm = this.fb.group({
         nome: [''],
         cognome: [''],
         email: [''],
         password: ['', [Validators.required]],
         password_confirmation: ['']
-      },
-      { validator: this.checkPasswords }
-      )
-
-      this.loginForm = this.fb.group({
-        email: [''],
-        password: []
       })
     }
 
@@ -96,7 +94,7 @@ export class LoginComponent implements OnInit {
         this.errors = error.error;
       },() => {
         this.authState.setAuthState(true);
-        this.loginForm.reset()
+        this.loginForm.reset();
         const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
       }
     );
@@ -116,7 +114,7 @@ export class LoginComponent implements OnInit {
         this.errors = error.error;
       },
       () => {
-        this.registerForm.reset()
+        this.registerForm.reset();
         this.router.navigate(['/login']);
       }
     )
