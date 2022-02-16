@@ -60,13 +60,13 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkPasswords(group: FormGroup) {
-    // here we have the 'passwords' group
-    let password = group.controls['password'].value;
-    let password_confirmation = group.controls['password_confirmation'].value;
+  // checkPasswords(group: FormGroup) {
+  //   // here we have the 'passwords' group
+  //   let password = group.controls['password'].value;
+  //   let password_confirmation = group.controls['password_confirmation'].value;
 
-    return password === password_confirmation ? null : { notSame: true };
-  }
+  //   return password === password_confirmation ? null : { notSame: true };
+  // }
 
   registration() {
     this.authService.register(this.registerForm.value).subscribe(
