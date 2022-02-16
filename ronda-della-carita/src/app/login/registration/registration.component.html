@@ -34,17 +34,15 @@
                 type="email" 
                 formControlName="email"
                 matInput 
-                [formControl]="emailFormControl" 
-                
                 placeholder="Email"
                 required
             >
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                 Inserisci un indirizzo <strong>email valido</strong>
             </mat-error>
             <mat-error *ngIf="emailFormControl.hasError('required')">
                 Email <strong>obbligatoria</strong>
-            </mat-error>
+            </mat-error>-->
         </mat-form-field>
         <div class="flex flex-col sm:flex-row sm:space-x-3">
             <mat-form-field class="w-full" appearance="fill">
