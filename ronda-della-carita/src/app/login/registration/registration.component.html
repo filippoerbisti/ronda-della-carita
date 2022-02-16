@@ -43,7 +43,7 @@
             </mat-error>
             <mat-error *ngIf="registerForm.hasError('required', 'email')">
                 Email <strong>obbligatoria</strong>
-            </mat-error>-->
+            </mat-error>
         </mat-form-field>
         <div class="flex flex-col sm:flex-row sm:space-x-3">
             <mat-form-field class="w-full" appearance="fill">
@@ -70,7 +70,7 @@
                     required
                 >
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                <mat-error *ngIf="registerForm.hasError('notSame', 'password')">
+                <mat-error *ngIf="registerForm.hasError('notSame', 'passwords')">
                     Password <strong>non coincidono</strong>
                 </mat-error>  
             </mat-form-field>
