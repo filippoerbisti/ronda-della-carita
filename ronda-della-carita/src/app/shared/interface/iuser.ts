@@ -8,6 +8,7 @@ export interface IUser {
     param?: IParam,
     email: string,
     email_verified_at: Date,
+    admin_confirm: boolean,
     password: string,
     remember_token: string,
     created_at: Date,

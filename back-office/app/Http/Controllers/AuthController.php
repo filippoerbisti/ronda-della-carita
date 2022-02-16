@@ -27,8 +27,8 @@ class AuthController extends Controller {
      */
     public function login(Request $request){
     	$validator = FacadesValidator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'email' => 'required | email',
+            'password' => 'required | string | min:8',
         ]);
 
         if ($validator->fails()) {
@@ -49,10 +49,11 @@ class AuthController extends Controller {
      */
     public function register(Request $request) {
         $validator = FacadesValidator::make($request->all(), [
-            'nome' => 'required|string|between:2,100',
-            'cognome' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
+            'nome' => 'required | string | between:2,100',
+            'cognome' => 'required | string | between:2,100',
+            'email' => 'required | string | email | max:100',
+            'password' => 'required | string | min:8',
+            'admin_confirm' => 'boolean'
         ]);
 
         if($validator->fails()){

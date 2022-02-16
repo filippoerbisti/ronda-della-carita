@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   errors: any = null;
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  hide = true;
 
   matcherEmail = new MyErrorStateMatcherEmail();
 
@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
     private authState: AuthStateService
     ) {
       this.loginForm = this.fb.group({
-        email: [''],
-        password: []
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]]
       })
     }
 

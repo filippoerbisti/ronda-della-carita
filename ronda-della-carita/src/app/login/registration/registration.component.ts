@@ -34,9 +34,10 @@ export class RegistrationComponent implements OnInit {
 
   errors: any = null;
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  hide = true;
 
   matcherEmail = new MyErrorStateMatcherEmail();
+  matcherPsw = new MyErrorStateMatcherPsw();
 
   user!: IUser;
 
@@ -51,22 +52,25 @@ export class RegistrationComponent implements OnInit {
     this.registerForm = this.fb.group({
       nome: ['', [Validators.required]],
       cognome: ['', [Validators.required]],
-      email: [''],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      password_confirmation: ['']
-    })
+      password_confirmation: [''],
+      admin_confirm: false
+    }),
+    { validator: this.checkPasswords }
   }
 
   ngOnInit(): void {
   }
 
-  // checkPasswords(group: FormGroup) {
-  //   // here we have the 'passwords' group
-  //   let password = group.controls['password'].value;
-  //   let password_confirmation = group.controls['password_confirmation'].value;
+  checkPasswords(group: FormGroup) {
+    // here we have the 'passwords' group
+    let password = this.registerForm.value.password;
+    let password_confirmation = this.registerForm.value.password_confirmation;
+    // let password_confirmation = group.controls['password_confirmation'].value;
 
-  //   return password === password_confirmation ? null : { notSame: true };
-  // }
+    return password === password_confirmation ? null : { notSame: true };
+  }
 
   registration() {
     this.authService.register(this.registerForm.value).subscribe(

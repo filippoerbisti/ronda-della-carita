@@ -16,27 +16,27 @@
                                 type="email" 
                                 matInput 
                                 formControlName="email"
-                                [formControl]="emailFormControl" 
-                                [errorStateMatcher]="matcherEmail"
                                 placeholder="Email"
+                                [errorStateMatcher]="matcherEmail"
                                 required
                             >
-                            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                                Per favore inserisci un indirizzo email valido
+                            <mat-error *ngIf="loginForm.hasError('email', 'email') && !loginForm.hasError('required','email')">
+                                Inserisci un indirizzo <strong>email valido</strong>
                             </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                            <mat-error *ngIf="loginForm.hasError('required', 'email')">
                                 Email <strong>obbligatoria</strong>
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field class="w-full" appearance="fill">
                             <mat-label>Password</mat-label>
                             <input 
-                                type="password" 
+                                [type]="hide ? 'password' : 'text'"
                                 formControlName="password"
                                 matInput 
                                 placeholder="Password"
                                 required
                             >
+                            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                             <mat-error *ngIf="loginForm.hasError('required', 'password')">
                                 Inserisci la <strong>password</strong>
                             </mat-error>
