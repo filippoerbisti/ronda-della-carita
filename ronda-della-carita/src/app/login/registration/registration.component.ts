@@ -17,7 +17,7 @@ export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
 
 export class MyErrorStateMatcherPsw implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const invalidCtrl = !!(control && control.invalid && control.dirty);
+    const invalidCtrl = !!(control && control.invalid && control.parent?.dirty);
     const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
 
     return (invalidCtrl || invalidParent);
@@ -35,7 +35,7 @@ export class RegistrationComponent implements OnInit {
 
   errors: any = null;
 
-  hide = true;
+  hide = false;
 
   matcherEmail = new MyErrorStateMatcherEmail();
   matcherPsw = new MyErrorStateMatcherPsw();
@@ -58,18 +58,20 @@ export class RegistrationComponent implements OnInit {
       nome: ['', [Validators.required]],
       cognome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, this.checkPasswords]],
-      password_confirmation: ['', [this.checkPasswords]],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')]],
+      password_confirmation: [''],
       admin_confirm: false
-    })
+    },
+    { validators: this.checkPasswords }
+    )
   }
 
   ngOnInit(): void {
   }
 
-  checkPasswords: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-    let password = group.get('password')?.value;
-    let password_confirmation = group.get('password_confirmation')?.value;
+  checkPasswords(group: FormGroup) {
+    let password = group.controls['password']?.value;
+    let password_confirmation = group.controls['password_confirmation'].value;
 
     return password === password_confirmation ? null : { notSame: true };
   }
@@ -80,7 +82,7 @@ export class RegistrationComponent implements OnInit {
         console.log(result)
       },
       error => {
-        this.errors = error.error;
+        console.log(error.error);
       },
       () => {
         this.registerForm.reset();
