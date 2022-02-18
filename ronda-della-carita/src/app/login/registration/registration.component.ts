@@ -87,10 +87,11 @@ export class RegistrationComponent implements OnInit {
       () => {
         this.registerForm.reset();
         this.router.navigate(['/login']);
-        this.snackBar.open("Registrazione avvenuta on successo! `</br>` In attesa dell'amministratore, la contatteremo via mail quando tutto sarà pronto.", 'OK', {
+        this.snackBar.open("Registrazione avvenuta con successo! In attesa dell'amministratore, la contatteremo via mail quando tutto sarà pronto.", 'OK', {
           horizontalPosition: this.horizontalPosition,
           duration: this.durationInSeconds * 1000
         })
+        
       }
     )
   }

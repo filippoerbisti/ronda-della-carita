@@ -9,6 +9,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { IUser } from '../shared/interface/iuser';
+import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -35,6 +36,9 @@ export class LoginComponent implements OnInit {
 
   user!: IUser;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  durationInSeconds = 5;
+
   isLoading = false;
 
   constructor(
@@ -43,7 +47,8 @@ export class LoginComponent implements OnInit {
     public fb: FormBuilder,
     public authService: AuthService,
     private token: TokenService,
-    private authState: AuthStateService
+    private authState: AuthStateService,
+    private snackBar: MatSnackBar
     ) {
       this.loginForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -65,6 +70,10 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.errors = error.error;
+        this.snackBar.open("Email o password errate", 'OK', {
+          horizontalPosition: this.horizontalPosition,
+          duration: this.durationInSeconds * 1000
+        })
       },() => {
         this.authState.setAuthState(true);
         this.loginForm.reset();
