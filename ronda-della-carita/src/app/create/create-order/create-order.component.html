@@ -20,7 +20,8 @@
                         </button>
                         <mat-autocomplete (optionSelected)="sea()" #auto="matAutocomplete">
                             <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
-                            {{client.nome}} {{client.cognome}}
+                            <!-- {{client.nome}} {{client.cognome}} -->
+                            
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>

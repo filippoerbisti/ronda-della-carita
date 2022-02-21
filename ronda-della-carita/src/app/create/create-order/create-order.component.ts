@@ -139,6 +139,8 @@ export class CreateOrderComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.nome)),
       map(nome => (nome ? this._filter(nome) : this.clients.slice())),
     );
+    console.log(this.filteredClients);
+    
   }
 
   goToHome() {

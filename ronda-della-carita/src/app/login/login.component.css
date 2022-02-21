@@ -25,3 +25,8 @@
     height: 100%;
     box-sizing: border-box;
 }
+
+.stretch-animation {
+    clear:both;
+    -webkit-transition: height .5s;
+}

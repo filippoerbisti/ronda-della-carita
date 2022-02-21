@@ -29,6 +29,7 @@ class ClientController extends Controller
         $client = Client::with('user')
                         ->with('document')
                         ->with('param')
+                        ->with('card')
                         ->where('nome', 'LIKE', "%$search%")
                         ->orWhere('cognome', 'LIKE', "%$search%")
                         ->orWhere('nazionalita', 'LIKE', "%$search%")
