@@ -12,6 +12,7 @@ class ClientController extends Controller
         return Client::with('user')
                     ->with('document')
                     ->with('param')
+                    ->with('card')               
                     ->get();
     }
 
