@@ -1,3 +1,4 @@
+import { ICard } from "./icard";
 import { IDocument } from "./idocument";
 import { IParam } from "./iparam";
 import { IUser } from "./iuser";
@@ -19,4 +20,5 @@ export interface IClient {
     update_at: Date,
     user_id: number,
     user?: IUser,
+    card?: ICard
 }

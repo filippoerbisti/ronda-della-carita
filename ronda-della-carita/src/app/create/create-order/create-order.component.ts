@@ -139,7 +139,6 @@ export class CreateOrderComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.nome)),
       map(nome => (nome ? this._filter(nome) : this.clients.slice())),
     );
-    console.log(this.filteredClients);
     
   }
 
@@ -160,7 +159,7 @@ export class CreateOrderComponent implements OnInit {
     if(this.nm != ""){
       let nmo = this.nm.split(' ');
       for(var i = 0; i < this.clients.length; i++){
-        if(this.clients[i].nome == nmo[0] && this.clients[i].cognome == nmo[1]){
+        if(this.clients[i].card?.n_tessera == nmo[0]){
           if(this.search.length == 0){
             this.search.push(this.clients[i]);
           }else{
@@ -187,10 +186,10 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  private _filter(nome: string): IClient[] {
-    const filterValue = nome.toLowerCase();
+  private _filter(n_tessera: string): IClient[] {
+    const filterValue = n_tessera.toLowerCase();
 
-    return this.clients.filter(client => client.nome.toLowerCase().includes(filterValue));
+    return this.clients.filter(client => client.card?.n_tessera.toLowerCase().includes(filterValue));
   }
 
   createOrder() {
