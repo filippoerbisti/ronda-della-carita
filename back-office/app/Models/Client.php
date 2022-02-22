@@ -14,7 +14,7 @@ class Client extends Model
 
     public function card()
     {
-        return $this->belongsTo(Card::class);
+        return $this->hasOne(Card::class);
     }
 
     public function orders()

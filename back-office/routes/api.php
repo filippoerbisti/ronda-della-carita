@@ -11,7 +11,6 @@ use App\Http\Controllers\ParamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LoginController;
 
 Route::group([
     'middleware' => 'api',

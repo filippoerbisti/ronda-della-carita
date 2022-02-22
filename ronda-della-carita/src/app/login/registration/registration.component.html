@@ -10,7 +10,7 @@
                     placeholder="Nome"
                     required
                 >
-                <mat-error *ngIf="registerForm.hasError('required', 'nome')">
+                <mat-error *ngIf="registerForm.hasError('required', 'nome') && !isSubmitted">
                     Inserisci il <strong>nome</strong>
                 </mat-error>
             </mat-form-field>
@@ -23,7 +23,7 @@
                     placeholder="Cognome"
                     required
                 >
-                <mat-error *ngIf="registerForm.hasError('required', 'cognome')">
+                <mat-error *ngIf="registerForm.hasError('required', 'cognome') && !isSubmitted">
                     Inserisci il <strong>cognome</strong>
                 </mat-error>
             </mat-form-field>
@@ -38,10 +38,10 @@
                 [errorStateMatcher]="matcherEmail"
                 required
             >
-            <mat-error *ngIf="registerForm.hasError('email', 'email') && !registerForm.hasError('required','email')">
+            <mat-error *ngIf="registerForm.hasError('email', 'email') && !registerForm.hasError('required','email') && !isSubmitted">
                 Inserisci un indirizzo <strong>email valido</strong>
             </mat-error>
-            <mat-error *ngIf="registerForm.hasError('required', 'email')">
+            <mat-error *ngIf="registerForm.hasError('required', 'email') && !isSubmitted">
                 Email <strong>obbligatoria</strong>
             </mat-error>
         </mat-form-field>
@@ -56,10 +56,10 @@
                     required
                 >
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <mat-error *ngIf="registerForm.hasError('required', 'password')">
+                <mat-error *ngIf="registerForm.hasError('required', 'password') && !isSubmitted">
                     Inserisci la <strong>password</strong>
                 </mat-error>
-                <mat-error *ngIf="registerForm.hasError('pattern', 'password')">
+                <mat-error *ngIf="registerForm.hasError('pattern', 'password') && !isSubmitted">
                     <strong>Password</strong> deve contenere 8 caratteri: maiuscola, minuscola, numero e carattere speciale
                 </mat-error>
             </mat-form-field>
@@ -74,7 +74,7 @@
                     required
                 >
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <mat-error *ngIf="registerForm.hasError('notSame')">
+                <mat-error *ngIf="registerForm.hasError('notSame') && !isSubmitted">
                     Password <strong>non coincidono</strong>
                 </mat-error>  
             </mat-form-field>

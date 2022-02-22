@@ -35,6 +35,8 @@ export class RegistrationComponent implements OnInit {
 
   errors: any = null;
 
+  isSubmitted: boolean = false;
+
   hide = false;
 
   matcherEmail = new MyErrorStateMatcherEmail();
@@ -85,6 +87,7 @@ export class RegistrationComponent implements OnInit {
         console.log(error.error);
       },
       () => {
+        this.isSubmitted = true;
         this.registerForm.reset();
         this.router.navigate(['/login']);
         this.snackBar.open("Registrazione avvenuta con successo! In attesa dell'amministratore, la contatteremo via mail quando tutto sarà pronto.", 'OK', {

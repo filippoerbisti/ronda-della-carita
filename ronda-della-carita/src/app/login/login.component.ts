@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
 
   errors: any = null;
 
+  isSubmitted: boolean = false;
+
   hide = true;
 
   matcherEmail = new MyErrorStateMatcherEmail();
@@ -76,6 +78,7 @@ export class LoginComponent implements OnInit {
         })
       },() => {
         this.authState.setAuthState(true);
+        this.isSubmitted = true;
         this.loginForm.reset();
         const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
       }
@@ -83,7 +86,9 @@ export class LoginComponent implements OnInit {
   }
 
   // Handle response
-  responseHandler(data: { access_token: string; }){
-    this.token.handleData(data.access_token);
+  responseHandler(data: { access_token: string; user: string }){
+    this.token.handleData(data.access_token, data.user);
+    // this.user = data.user;
+    console.log(data.user);
   }
 }

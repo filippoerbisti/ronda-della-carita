@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import { MatBadgeModule } from '@angular/material/badge'; 
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/service/auth.interceptor';
@@ -90,7 +91,7 @@ import { environment } from '../environments/environment';
     CreateClientComponent,
     CreateOrderComponent,
     ConfirmUserComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -120,6 +121,7 @@ import { environment } from '../environments/environment';
     MatCheckboxModule,
     MatSnackBarModule,
     MatBadgeModule,
+    MatBottomSheetModule,
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

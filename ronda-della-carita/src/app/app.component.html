@@ -2,6 +2,10 @@
   <app-sidebar-menu *ngIf="!router.url.includes('login')" [openedSubject]="openedSubject" class="sm:flex hidden sm:pb-12"></app-sidebar-menu>
   <app-navigation-menu *ngIf="!router.url.includes('login')" class="flex sm:hidden"></app-navigation-menu>
   <div (click)="dismissSidebar()" class="w-full h-full">
+    <!-- <div>
+      <button (click)="liked()">LIKE</button>
+      <h1> {{likes}} likius</h1>
+    </div> -->
     <router-outlet></router-outlet>
   </div>
 </div>
