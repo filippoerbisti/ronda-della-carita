@@ -23,7 +23,7 @@
                             <mat-error *ngIf="loginForm.hasError('email', 'email') && !loginForm.hasError('required','email') && !isSubmitted">
                                 Inserisci un indirizzo <strong>email valido</strong>
                             </mat-error>
-                            <mat-error *ngIf="loginForm.hasError('required', 'email')">
+                            <mat-error *ngIf="loginForm.hasError('required', 'email') && !isSubmitted">
                                 Email <strong>obbligatoria</strong>
                             </mat-error>
                         </mat-form-field>
