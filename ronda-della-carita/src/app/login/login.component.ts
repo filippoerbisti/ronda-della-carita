@@ -87,8 +87,9 @@ export class LoginComponent implements OnInit {
 
   // Handle response
   responseHandler(data: { access_token: string; user: string }){
-    this.token.handleData(data.access_token, data.user);
+    // this.token.handleData(data.access_token, data.user);
+    this.token.handleData(data.access_token);
     // this.user = data.user;
-    console.log(data.user);
+    // console.log(data.user);
   }
 }
