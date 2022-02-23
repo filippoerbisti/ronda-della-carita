@@ -44,8 +44,6 @@ export class CreateOrderComponent implements OnInit {
 
   public newClothe = {
     type: String,
-    size: String,
-    number: Number
   };
 
   public clothes : any[] = [];
@@ -184,6 +182,8 @@ export class CreateOrderComponent implements OnInit {
       else
         this.tagliaValue = parseInt(this.search[0].t_pantaloni);
     }
+    console.log(this.tagliaValue);
+    
   }
 
   private _filter(n_tessera: string): IClient[] {
@@ -220,8 +220,6 @@ export class CreateOrderComponent implements OnInit {
       this.clothes.push(clothe); 
       this.newClothe = {
         type: String,
-        size: String,
-        number: Number
       }
     }
   }
@@ -230,16 +228,8 @@ export class CreateOrderComponent implements OnInit {
     this.clothes.splice(index, 1)
   }
 
-  editClothe(index: any) {
-    this.newClothe = this.clothes[index];
-    this.clothes.splice(index, 1);
-  }
-
   checkNewClotheForm(){
-    if (this.newClothe.type != String &&
-        this.newClothe.number != Number && 
-        this.newClothe.size != String
-      ) {
+    if (this.newClothe.type != String) {
       return true
     } else {
       return false
@@ -256,6 +246,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   checkFields(){
+    console.log('checkFields');
+    
     // check forms
     this.newOrder.user.name != "" && this.newOrder.retire != "" ? this.invalidInput = false : this.invalidInput = true
     // check if there's at least a clothe
