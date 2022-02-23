@@ -35,6 +35,8 @@ export class RegistrationComponent implements OnInit {
 
   errors: any = null;
 
+  isSubmitted: boolean = false;
+
   hide = false;
 
   matcherEmail = new MyErrorStateMatcherEmail();
@@ -59,7 +61,7 @@ export class RegistrationComponent implements OnInit {
       cognome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')]],
-      password_confirmation: [''],
+      password_confirmation: ['', [Validators.required]],
       admin_confirm: false
     },
     { validators: this.checkPasswords }
@@ -85,6 +87,7 @@ export class RegistrationComponent implements OnInit {
         console.log(error.error);
       },
       () => {
+        this.isSubmitted = true;
         this.registerForm.reset();
         this.router.navigate(['/login']);
         this.snackBar.open("Registrazione avvenuta con successo! In attesa dell'amministratore, la contatteremo via mail quando tutto sarà pronto.", 'OK', {

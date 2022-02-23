@@ -99,8 +99,9 @@ export class HomeComponent implements OnInit {
       let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders");
       this.orders = response_order.data;
 
-      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user");
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user-profile");
       this.user = response_account.data;
+      console.log(this.user);
 
       let historyId = this.user.id;
       let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/history/" + historyId);

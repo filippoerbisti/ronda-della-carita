@@ -20,10 +20,10 @@
                                 [errorStateMatcher]="matcherEmail"
                                 required
                             >
-                            <mat-error *ngIf="loginForm.hasError('email', 'email') && !loginForm.hasError('required','email')">
+                            <mat-error *ngIf="loginForm.hasError('email', 'email') && !loginForm.hasError('required','email') && !isSubmitted">
                                 Inserisci un indirizzo <strong>email valido</strong>
                             </mat-error>
-                            <mat-error *ngIf="loginForm.hasError('required', 'email')">
+                            <mat-error *ngIf="loginForm.hasError('required', 'email') && !isSubmitted">
                                 Email <strong>obbligatoria</strong>
                             </mat-error>
                         </mat-form-field>
@@ -37,7 +37,7 @@
                                 required
                             >
                             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            <mat-error *ngIf="loginForm.hasError('required', 'password')">
+                            <mat-error *ngIf="loginForm.hasError('required', 'password') && !isSubmitted">
                                 Inserisci la <strong>password</strong>
                             </mat-error>
                         </mat-form-field>
