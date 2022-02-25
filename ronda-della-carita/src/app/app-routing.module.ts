@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'confirm/user', component: ConfirmUserComponent, canActivate: [AuthGuardService] },
   { path: 'history', component: StoricoAccessiComponent, canActivate: [AuthGuardService] },
   { path: 'vol0/scanner-qr', component: ScannerQrComponent },
-  { path: '',   redirectTo: '/login', pathMatch: 'full' },
+  { path: '',   redirectTo: '/login', pathMatch: 'full' },  
   { path: '**', component: PageNotFoundComponent }  
 ];
 

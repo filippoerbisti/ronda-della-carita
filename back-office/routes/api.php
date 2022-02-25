@@ -116,4 +116,6 @@ Route::group([
     Route::delete('/card/delete/{id}', [CardController::class, 'delete']);
 
     Route::put('/card/edit/{id}', [CardController::class, 'edit']);
+
+    Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
 });

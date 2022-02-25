@@ -241,4 +241,9 @@ class OrderController extends Controller
                         ->onDelete('cascade');
         return $order;
     }
+
+    public function showLabel($id) {
+        $order = Order::find($id);
+        
+    }
 }
