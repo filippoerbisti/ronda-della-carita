@@ -22,7 +22,7 @@ export class DeleteClientDialogComponent implements OnInit {
     let clientId = this.clientId;
     console.log(this.clientId);
     try {
-      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/client/" + clientId);
+      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + clientId);
       console.log(response.status);
       console.log(response.data);
       this.client = response.data;
@@ -42,7 +42,7 @@ export class DeleteClientDialogComponent implements OnInit {
     this.clientId = localStorage["id"];
     let clientId = this.clientId; 
     console.log(clientId);
-      await axios.delete("https://backoffice-ronda.herokuapp.com/api/auth/client/delete/" + clientId)
+      await axios.delete("https://backoffice-ronda.herokuapp.com/api/client/delete/" + clientId)
         .then(response => {
           console.log(response);
         });

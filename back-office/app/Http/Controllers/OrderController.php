@@ -233,12 +233,16 @@ class OrderController extends Controller
 
     public function delete($id) 
     {
-        $order = Order::where("id", $id)
-                        ->foreign('user_id')
-                        ->references('id')->on('users')
-                        ->foreign('client_id')
-                        ->references('id')->on('clients')
-                        ->onDelete('cascade');
-        return $order;
+        $order = Order::where("id", $id)->first();
+
+        Clothe::where("order_id", $id)->delete();
+
+        // $ids = explode(",", $clothe);
+        // Clothe::destroy($ids);
+
+        // $ids = explode(",", $id);
+        // $org->clothes()->whereIn('id', $ids)->delete();
+
+        $order->delete();
     }
 }

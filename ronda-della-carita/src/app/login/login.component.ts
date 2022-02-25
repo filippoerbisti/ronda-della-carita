@@ -3,13 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChooseMansionDialogComponent } from '../dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../shared/service/auth.service';
-import { TokenService } from '../shared/service/token.service';
-import { AuthStateService } from '../shared/service/auth-state.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { IUser } from '../shared/interface/iuser';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -36,20 +35,19 @@ export class LoginComponent implements OnInit {
 
   matcherEmail = new MyErrorStateMatcherEmail();
 
-  user!: IUser;
+  user!: any;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 5;
 
   isLoading = false;
+  get: any;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     public fb: FormBuilder,
     public authService: AuthService,
-    private token: TokenService,
-    private authState: AuthStateService,
     private snackBar: MatSnackBar
     ) {
       this.loginForm = this.fb.group({
@@ -65,31 +63,39 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/change-password');
   }
 
-  login() {
-    this.authService.signin(this.loginForm.value).subscribe(
-      result => {
-        this.responseHandler(result);
-      },
-      error => {
-        this.errors = error.error;
-        this.snackBar.open("Email o password errate", 'OK', {
-          horizontalPosition: this.horizontalPosition,
-          duration: this.durationInSeconds * 1000
-        })
-      },() => {
-        this.authState.setAuthState(true);
-        this.isSubmitted = true;
-        this.loginForm.reset();
-        const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
-      }
-    );
+  private getCookie(): Observable<any> {
+    return this.get('/sanctum/csrf-cookie');
   }
 
-  // Handle response
-  responseHandler(data: { access_token: string; user: string }){
-    // this.token.handleData(data.access_token, data.user);
-    this.token.handleData(data.access_token);
-    // this.user = data.user;
-    // console.log(data.user);
+  login() {
+    axios.get("http://localhost:8000/sanctum/csrf-cookie").then(response => {
+      console.log(response); //This is one success but it did set cookie in application cookie
+      this.authService.signin(this.loginForm.value).subscribe(
+        result => {
+          console.log('okkkkkkk');
+        },
+        error => {
+          this.errors = error.error;
+          this.snackBar.open("Email o password errate", 'OK', {
+            horizontalPosition: this.horizontalPosition,
+            duration: this.durationInSeconds * 1000
+          })
+        },() => {
+          // this.authState.setAuthState(true);
+          this.isSubmitted = true;
+          this.loginForm.reset();
+          const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
+        }
+      );
+    })
   }
+
+  // // Handle response
+  // responseHandler(data: { access_token: string }){
+  //   // this.token.handleData(data.access_token, data.user);
+  //   this.token.handleData(data.access_token);
+  //   // this.user = data.user;
+  //   // console.log(data.user);
+  //   // alert(this.user.nome);
+  // }
 }

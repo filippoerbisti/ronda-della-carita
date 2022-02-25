@@ -30,7 +30,7 @@ export class ChangeMansionDialogComponent implements OnInit {
   async ngOnInit() {
     this.urlInterno = window.location.href.includes('vol1');
     try {
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
       this.user = response_user.data;
       console.log(response_user.data);
     }
@@ -45,7 +45,7 @@ export class ChangeMansionDialogComponent implements OnInit {
       // this.newHistory.user_id = this.user.id;
       // this.newHistory.ultimo_accesso = new Date(Date.now());
       // this.newHistory.interno = false;
-      let response = await axios.post("https://backoffice-ronda.herokuapp.com/api/auth/history/create", this.newHistory);
+      let response = await axios.post("https://backoffice-ronda.herokuapp.com/api/history/create", this.newHistory);
       console.log(response.data);
       console.log(this.newHistory);
     }
@@ -60,7 +60,7 @@ export class ChangeMansionDialogComponent implements OnInit {
       //   this.newHistory.user_id = this.user.id;
       //   this.newHistory.ultimo_accesso = new Date(Date.now());
       //   this.newHistory.interno = true;
-      //   let response = await axios.put("https://backoffice-ronda.herokuapp.com/api/auth/history/create", this.newHistory);
+      //   let response = await axios.put("https://backoffice-ronda.herokuapp.com/api/history/create", this.newHistory);
       //   console.log(response.data);
       //   console.log(this.newHistory);
 

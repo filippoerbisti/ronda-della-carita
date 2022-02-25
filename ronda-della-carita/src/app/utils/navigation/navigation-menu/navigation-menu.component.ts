@@ -8,8 +8,6 @@ import { IUser } from 'src/app/shared/interface/iuser';
 import axios from 'axios';
 import { IHistory } from 'src/app/shared/interface/ihistory';
 import { AuthService } from '../../../shared/service/auth.service';
-import { TokenService } from '../../../shared/service/token.service';
-import { AuthStateService } from '../../../shared/service/auth-state.service';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -39,8 +37,6 @@ export class NavigationMenuComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     public authService: AuthService,
-    private auth: AuthStateService,
-    public token: TokenService,
     ) {
       // this.authService.profileUser().subscribe((data:any) => {
       //   this.user = data;
@@ -54,16 +50,16 @@ export class NavigationMenuComponent implements OnInit {
     this.isAdmin = window.location.href.includes('admin');
     this.urlEsterno = window.location.href.includes('vol0');
     try {
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/user");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
       this.user = response_user.data;
       let historyId = this.user.id;
-      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/history/" + historyId);
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       this.history = response_history.data;
-      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/nondisp");
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
-      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
-      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/auth/orders/daconf");
+      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
     } 
     catch (err) {
@@ -73,8 +69,6 @@ export class NavigationMenuComponent implements OnInit {
   }
   
   goToLogOut() {
-    this.auth.setAuthState(false);
-    this.token.removeToken();
     this.router.navigate(['login']);
   }
 

@@ -61,8 +61,7 @@ export class RegistrationComponent implements OnInit {
       cognome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')]],
-      password_confirmation: ['', [Validators.required]],
-      admin_confirm: false
+      password_confirmation: ['', [Validators.required]]
     },
     { validators: this.checkPasswords }
     )

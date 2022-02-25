@@ -29,7 +29,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBadgeModule } from '@angular/material/badge'; 
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/service/auth.interceptor';
 
 import { LoginComponent } from './login/login.component';
@@ -98,6 +98,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    HttpClientXsrfModule,
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
@@ -134,8 +135,12 @@ import { environment } from '../environments/environment';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
+    // { 
+    //   provide: BASE_API_URL, 
+    //   useValue: "http://localhost:8000/api" 
+    // }
   ],
   bootstrap: [AppComponent]
 })
