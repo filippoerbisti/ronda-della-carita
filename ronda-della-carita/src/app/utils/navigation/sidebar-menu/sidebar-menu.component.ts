@@ -182,5 +182,9 @@ export class SidebarMenuComponent implements OnInit {
   closeSidebar() {
     this.isSidebarOpen = false;
   }
+  
+  isMobile() {
+    return window.innerWidth < 500
+  }
 
 }

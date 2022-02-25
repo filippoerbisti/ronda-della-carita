@@ -113,11 +113,7 @@ Route::group(["middleware" => "auth:sanctum"], function () {
 
     Route::delete('/card/delete/{id}', [CardController::class, 'delete']);
 
-    Route::put('/card/edit/{id}', [CardController::class, 'edit']);
-});
+    Route::put('/card/edit/{id}', [CardController::class, 'edit']);    
 
-Route::group([
-    'middleware' => 'api',
-], function ($router) {
-    
+    Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
 });

@@ -245,4 +245,9 @@ class OrderController extends Controller
 
         $order->delete();
     }
+
+    public function showLabel($id) {
+        $order = Order::find($id);
+        
+    }
 }

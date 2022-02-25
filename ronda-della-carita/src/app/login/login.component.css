@@ -29,4 +29,5 @@
 .stretch-animation {
     clear:both;
     -webkit-transition: height .5s;
+    -webkit-transition: width .5s;
 }
