@@ -6,9 +6,10 @@ import { AuthService } from '../shared/service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
-import { IUser } from '../shared/interface/iuser';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { IUser } from '../shared/interface/iuser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -35,13 +36,12 @@ export class LoginComponent implements OnInit {
 
   matcherEmail = new MyErrorStateMatcherEmail();
 
-  user!: any;
+  user!: IUser;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 5;
 
   isLoading = false;
-  get: any;
 
   constructor(
     public dialog: MatDialog,
@@ -63,16 +63,14 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/change-password');
   }
 
-  private getCookie(): Observable<any> {
-    return this.get('/sanctum/csrf-cookie');
-  }
-
   login() {
-    axios.get("http://localhost:8000/sanctum/csrf-cookie").then(response => {
+    const url = `http://localhost:8000/sanctum/csrf-cookie`;
+    axios.get(url).then(response => {
       console.log(response); //This is one success but it did set cookie in application cookie
       this.authService.signin(this.loginForm.value).subscribe(
         result => {
-          console.log('okkkkkkk');
+          this.user = result.user;
+          console.log(this.user);
         },
         error => {
           this.errors = error.error;
@@ -81,7 +79,6 @@ export class LoginComponent implements OnInit {
             duration: this.durationInSeconds * 1000
           })
         },() => {
-          // this.authState.setAuthState(true);
           this.isSubmitted = true;
           this.loginForm.reset();
           const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
@@ -90,12 +87,4 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  // // Handle response
-  // responseHandler(data: { access_token: string }){
-  //   // this.token.handleData(data.access_token, data.user);
-  //   this.token.handleData(data.access_token);
-  //   // this.user = data.user;
-  //   // console.log(data.user);
-  //   // alert(this.user.nome);
-  // }
 }

@@ -13,20 +13,21 @@ export class AuthService {
   constructor(
     private http: HttpClient
     ) { }
+    
 
   // User registration
   register(user: IUser): Observable<any> {
-    return this.http.post('http://localhost:8000/register', user);
+    return this.http.post('http://localhost:8000/api/register', user);
   }
 
   // Login
   signin(user: IUser): Observable<any> {
-    return this.http.post<any>('https://backoffice-ronda.herokuapp/login', user);
+    return this.http.post('http://localhost:8000/api/login', user);
   }
   
   // Access user profile
   profileUser(): Observable<any> {
-    return this.http.get('http://localhost:8000/user-profile');
+    return this.http.get('http://localhost:8000/api/user-profile');
   }
 
 
@@ -39,21 +40,21 @@ export class AuthService {
       return dispatch('me')
     }
 
-    async signOut ({ dispatch }: any) {
-      await axios.post('/logout')
+    // async signOut ({ dispatch }: any) {
+    //   await axios.post('/logout')
 
-      return dispatch('me')
-    }
+    //   return dispatch('me')
+    // }
 
-    me ({ commit }: any) {
-      return axios.get('/api/user-profile').then((response: { data: any; }) => {
-        commit('SET_AUTHENTICATED', true)
-        commit('SET_USER', response.data)
-      }).catch(() => {
-        commit('SET_AUTHENTICATED', false)
-        commit('SET_USER', null)
-      })
-    }
+    // me ({ commit }: any) {
+    //   return axios.get('/api/user-profile').then((response: { data: any; }) => {
+    //     commit('SET_AUTHENTICATED', true)
+    //     commit('SET_USER', response.data)
+    //   }).catch(() => {
+    //     commit('SET_AUTHENTICATED', false)
+    //     commit('SET_USER', null)
+    //   })
+    // }
 
 
 

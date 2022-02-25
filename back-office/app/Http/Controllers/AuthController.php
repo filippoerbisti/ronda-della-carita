@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
             "email" => 'required | email',
             "password" => 'required | min:8',
@@ -29,7 +32,8 @@ class AuthController extends Controller {
         return response()->json("Wrong credentials", 401);
     }
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $validator = FacadesValidator::make($request->all(), [
             'nome' => 'required | string | between:2,100',
             'cognome' => 'required | string | between:2,100',
@@ -37,34 +41,35 @@ class AuthController extends Controller {
             'password' => 'required | string | min:8'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
-       }
+        }
 
-       $vol = 1;
+        $vol = 1;
 
-       $user = User::create(array_merge(
-                            $validator->validated(),
-                            ['admin_confirm' => false],
-                            ['param_id' => $vol],
-                            ['password' => bcrypt($request->password)]
-                        ));
+        $user = User::create(array_merge(
+            $validator->validated(),
+            ['admin_confirm' => false],
+            ['param_id' => $vol],
+            ['password' => bcrypt($request->password)]
+        ));
 
-       return response()->json([
-           'message' => 'User successfully registered',
-           'user' => $user
-       ], 201);
+        return response()->json([
+            'message' => 'User successfully registered',
+            'user' => $user
+        ], 201);
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return "Logged out";
     }
 
-    public function me() {
+    public function me()
+    {
         return Auth::user();
     }
-
 }

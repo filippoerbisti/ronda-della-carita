@@ -1,10 +1,6 @@
 <div class="h-screen">
-  <app-sidebar-menu *ngIf="!router.url.includes('login')" [openedSubject]="openedSubject" class="sm:pb-12"></app-sidebar-menu>
+  <!-- <app-sidebar-menu *ngIf="!router.url.includes('login')" [openedSubject]="openedSubject" class="sm:pb-12"></app-sidebar-menu> -->
   <div (click)="dismissSidebar()" class="w-full h-full">
-    <!-- <div>
-      <button (click)="liked()">LIKE</button>
-      <h1> {{likes}} likius</h1>
-    </div> -->
     <router-outlet></router-outlet>
   </div>
 </div>

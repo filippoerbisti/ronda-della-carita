@@ -17,8 +17,12 @@ return [
 
     'paths' => [
         'api/*', 
+        'login',
+        'register',
         'sanctum/csrf-cookie'
     ],
+
+    // 'access_control_allow_origin' => ['*'],
 
     'allowed_methods' => ['*'],
 

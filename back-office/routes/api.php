@@ -14,11 +14,14 @@ use App\Http\Controllers\AuthController;
 
 
 Route::post('/login', [AuthController::class, 'login']);
+
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::group(["middleware" => "auth:sanctum"], function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user-profile', [AuthController::class, 'me']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
 
     // User
     // Route::get('/user/email/{email}/psw/{password}', [UserController::class, 'anagrafica']);

@@ -87,6 +87,10 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
+      let response_account = await axios.get("http://localhost:8000/api/user-profile");
+      this.user = response_account.data;
+      console.log(this.user);
+
       let response_order_status = await axios.get("https://backoffice-ronda.herokuapp.com/api/param/order_status");
       this.orders_status = response_order_status.data;
 
@@ -99,9 +103,7 @@ export class HomeComponent implements OnInit {
       let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
       this.orders = response_order.data;
 
-      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user-profile");
-      this.user = response_account.data;
-      console.log(this.user);
+      
 
       let historyId = this.user.id;
       let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
