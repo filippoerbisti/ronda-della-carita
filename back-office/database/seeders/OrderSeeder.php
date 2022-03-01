@@ -22,6 +22,7 @@ class OrderSeeder extends Seeder
             DB::table('orders')->insert([
                 'n_ordine' => $faker -> unique() -> numberBetween(1, 100000),
                 'p_ritiro' => $faker -> streetName,
+                'livello' => rand(1, 2),
                 'created_at' => now(),
                 'user_id' => $faker->randomElement($userId),
                 'client_id' => $faker->randomElement($clientId)

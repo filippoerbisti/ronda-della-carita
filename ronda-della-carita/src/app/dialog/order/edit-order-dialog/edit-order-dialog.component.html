@@ -22,7 +22,7 @@
                         </mat-expansion-panel-header>
                         <mat-form-field appearance="fill" class="w-full mt-4">
                             <mat-label>Tipo vestiario:</mat-label>
-                            <mat-select [(value)]='clothe.inventory.t_vestiario'>
+                            <mat-select [(value)]='clothe.t_vestiario'>
                                 <mat-option *ngFor="let item of tvestiario" value="{{item.value}}" >
                                     {{item.viewValue}}
                                 </mat-option>
@@ -30,8 +30,8 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Taglia:</mat-label>
-                            <mat-select [(value)]='clothe.inventory.taglia'>
-                                <mat-option *ngFor="let item of tvestiarioUseCaseMapping[clothe.inventory.t_vestiario]" value="{{item.value}}">
+                            <mat-select [(value)]='clothe.taglia'>
+                                <mat-option *ngFor="let item of tvestiarioUseCaseMapping[clothe.t_vestiario]" value="{{item.value}}">
                                     {{item.viewValue}}
                                 </mat-option>
                             </mat-select>

@@ -16,8 +16,6 @@ class AddRelsToClientsTable extends Migration
         Schema::table('clients', function (Blueprint $table) {
             $table->bigInteger("user_id")->unsigned()->nullable();
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
-            $table->bigInteger("param_id")->unsigned()->nullable();
-            $table->foreign("param_id")->references("id")->on("params")->onDelete('cascade');
             $table->bigInteger("document_id")->unsigned()->nullable();
             $table->foreign("document_id")->references("id")->on("documents")->onDelete('cascade');
         });
@@ -33,8 +31,6 @@ class AddRelsToClientsTable extends Migration
         Schema::table('clients', function (Blueprint $table) {
             $table->dropForeign(["user_id"]);
             $table->dropColumn(["user_id"]);
-            $table->dropForeign(["param_id"]);
-            $table->dropColumn(["param_id"]);
             $table->dropForeign(["document_id"]);
             $table->dropColumn(["document_id"]);
         });

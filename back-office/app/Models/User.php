@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nome', 'cognome', 'email', 'password', 'admin_confirm'
+        'nome', 'cognome', 'email', 'password', 'ruolo', 'n_tessera'
     ];
 
     /**
@@ -39,23 +39,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
-    public function getJWTIdentifier() {
-        return $this->getKey();
-    }
-
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
-    public function getJWTCustomClaims() {
-        return [];
-    }
 
     public $with = [
         'orders',
@@ -73,9 +56,5 @@ class User extends Authenticatable
 
     public function histories() {
         return $this->hasMany(History::class);
-    }
-
-    public function param() {
-        return $this->belongsTo(Param::class);
     }
 }

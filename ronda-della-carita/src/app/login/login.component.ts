@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChooseMansionDialogComponent } from '../dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../shared/service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -66,11 +65,12 @@ export class LoginComponent implements OnInit {
   login() {
     const url = `http://localhost:8000/sanctum/csrf-cookie`;
     axios.get(url).then(response => {
-      console.log(response); //This is one success but it did set cookie in application cookie
+      // console.log(response); //This is one success but it did set cookie in application cookie
       this.authService.signin(this.loginForm.value).subscribe(
         result => {
-          this.user = result.user;
-          console.log(this.user);
+          // this.user = result.user;
+          console.log(result.user);
+          localStorage.setItem('user', JSON.stringify(result.user));
         },
         error => {
           this.errors = error.error;
@@ -80,8 +80,8 @@ export class LoginComponent implements OnInit {
           })
         },() => {
           this.isSubmitted = true;
+          this.router.navigate(['vol0/home']);
           this.loginForm.reset();
-          const dialogRef = this.dialog.open(ChooseMansionDialogComponent);
         }
       );
     })

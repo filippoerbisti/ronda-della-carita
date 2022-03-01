@@ -15,7 +15,6 @@ class CreateHistoriesTable extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->boolean('interno')->nullable();
             $table->timestamp('ultimo_accesso')->nullable();
             $table->timestamps();
         });

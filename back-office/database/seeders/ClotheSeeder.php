@@ -18,16 +18,15 @@ class ClotheSeeder extends Seeder
     public function run(Faker $faker)
     {
         $orderId = DB::table('orders')->pluck('id');
-        $inventoryId = DB::table('inventories')->pluck('id');
-        $paramId = DB::table('params')->pluck('id');
         
         for ($i = 0; $i < 20; $i++) {
             DB::table('clothes')->insert([
-                'quantita' => rand(1, 5),
+                't_vestiario' => 'Maglietta',
+                'taglia' => 'M',
+                'status' => $faker->randomElement(['Attesa', 'Non disponibile', 'Da confermare', 'Consegnato']),
+                'quantita' => 1,
                 'created_at' => now(),
                 'order_id' => $faker->randomElement($orderId),
-                'inventory_id' => $faker->randomElement($inventoryId),
-                'param_id' => rand(7, 10)
             ]);
         }
     }

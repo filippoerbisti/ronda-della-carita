@@ -1,14 +1,10 @@
-import { IParam } from "./iparam";
-
 export interface IUser {
     id: number,
     nome: string,
     cognome: string,
-    param_id: number,
-    param?: IParam,
+    ruolo: string,
+    n_tessera: number,
     email: string,
-    email_verified_at: Date,
-    admin_confirm: boolean,
     password: string,
     remember_token: string,
     created_at: Date,

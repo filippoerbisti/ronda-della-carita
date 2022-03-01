@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class AuthController extends Controller
@@ -38,19 +37,21 @@ class AuthController extends Controller
             'nome' => 'required | string | between:2,100',
             'cognome' => 'required | string | between:2,100',
             'email' => 'required | string | email | max:100',
-            'password' => 'required | string | min:8'
+            'password' => 'required | string | min:8',
+            // 'ruolo' => 'required | string',
+            // 'n_tessera' => 'required | number'
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
-        $vol = 1;
+        $n_tessera = count(User::get());
 
         $user = User::create(array_merge(
             $validator->validated(),
-            ['admin_confirm' => false],
-            ['param_id' => $vol],
+            ['ruolo' => 'Interno'],
+            ['n_tessera' => $n_tessera++],
             ['password' => bcrypt($request->password)]
         ));
 
@@ -68,8 +69,15 @@ class AuthController extends Controller
         return "Logged out";
     }
 
-    public function me()
+    public function me(Request $request)
     {
-        return Auth::user();
+        return $request->user();
+        // $request->session()->regenerate();
+        // $user = Auth::user();
+
+        //     return response()->json([
+        //         "user" => $user,
+        //         "status" => "logged_in"
+        //     ], 200);
     }
 }

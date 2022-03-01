@@ -2,9 +2,8 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import axios from 'axios';
-import { ChangeMansionDialogComponent } from '../../../dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
-import { ChangePasswordDialogComponent } from '../../../dialog/change-password-dialog/change-password-dialog.component';
-import { ViewOrderNotificationDialogComponent } from '../../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
+import { ChangePasswordDialogComponent } from '../../dialog/change-password-dialog/change-password-dialog.component';
+import { ViewOrderNotificationDialogComponent } from '../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { IUser } from 'src/app/shared/interface/iuser';
 import { IHistory } from 'src/app/shared/interface/ihistory';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -48,16 +47,16 @@ export class SidebarMenuComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
+      let response_user = await axios.get("http://localhost:8000/api/user");
       this.user = response_user.data;
       let historyId = this.user.id;
-      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
+      let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
       this.history = response_history.data;
-      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
-      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
-      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
+      let response_order_daconf= await axios.get("http://localhost:8000/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
     } 
     catch (err) {
@@ -142,11 +141,6 @@ export class SidebarMenuComponent implements OnInit {
       this.router.navigate([`/${this.rule}` + '/mob/home']);
     }
     this.isSidebarOpen = false;
-  }
-
-  openMansionDialog() {
-    this.isSidebarOpen = false;
-    const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 
   openPasswordDialog() {

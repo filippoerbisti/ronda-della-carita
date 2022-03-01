@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\CardController;
 use App\Http\Controllers\ClotheController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ParamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -17,14 +15,13 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::group(["middleware" => "auth:sanctum"], function () {
-    Route::get('/user-profile', [AuthController::class, 'me']);
+Route::get('/user-profile', [AuthController::class, 'me']);
+
+// Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-
     // User
-    // Route::get('/user/email/{email}/psw/{password}', [UserController::class, 'anagrafica']);
     Route::get('/user', [UserController::class, 'anagrafica']);
 
     Route::get('/user/{id}', [UserController::class, 'id']);
@@ -54,14 +51,6 @@ Route::group(["middleware" => "auth:sanctum"], function () {
     Route::post('/history/create', [HistoryController::class, 'create']);
 
 
-    // Param
-    Route::get('/param/gender', [ParamController::class, 'gender']);
-
-    Route::get('/param/type_doc', [ParamController::class, 'type_doc']);
-
-    Route::get('/param/order_status', [ParamController::class, 'order_status']);
-
-
     // Client
     Route::get('/clients', [ClientController::class, 'list']);
 
@@ -89,6 +78,8 @@ Route::group(["middleware" => "auth:sanctum"], function () {
 
     Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
 
+    Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
+
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);
 
@@ -108,15 +99,4 @@ Route::group(["middleware" => "auth:sanctum"], function () {
 
     Route::get('/clothe/edit/{id}', [ClotheController::class, 'id']);
 
-
-    // Card
-    Route::get('/cards', [CardController::class, 'list']);
-
-    Route::post('/card/create', [CardController::class, 'create']);
-
-    Route::delete('/card/delete/{id}', [CardController::class, 'delete']);
-
-    Route::put('/card/edit/{id}', [CardController::class, 'edit']);    
-
-    Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
-});
+// });

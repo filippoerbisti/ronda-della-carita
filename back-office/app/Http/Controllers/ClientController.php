@@ -11,8 +11,6 @@ class ClientController extends Controller
     {
         return Client::with('user')
                     ->with('document')
-                    ->with('param')
-                    ->with('card')               
                     ->get();
     }
 
@@ -21,7 +19,6 @@ class ClientController extends Controller
         return Client::where('id', $id)
                     ->with('user')
                     ->with('document')
-                    ->with('param')
                     ->first();
     }
 
@@ -29,15 +26,13 @@ class ClientController extends Controller
     {
         $client = Client::with('user')
                         ->with('document')
-                        ->with('param')
-                        ->with('card')
                         ->where('nome', 'LIKE', "%$search%")
                         ->orWhere('cognome', 'LIKE', "%$search%")
                         ->orWhere('nazionalita', 'LIKE', "%$search%")
+                        ->orWhere('genere', 'LIKE', "%$search%")
+                        ->orWhere('n_tessera', 'LIKE', "%$search%")
                         ->join('documents', 'clients.document_id', '=', 'documents.id')
                         ->orWhere('n_documento', 'LIKE', "%$search%")
-                        ->join('params', 'documents.param_id', '=', 'params.id')
-                        ->orWhere('name', 'LIKE', "%$search%")
                         ->get();
         return $client;
     }
@@ -46,9 +41,9 @@ class ClientController extends Controller
     {
         $newClient->nome = $newClientData->nome;
         $newClient->cognome = $newClientData->cognome;
+        $newClient->n_tessera = $newClientData->n_tessera;
         $newClient->genere = $newClientData->genere;
-        $newClient->n_documento = $newClientData->n_documento;
-        $newClient->t_documento = $newClientData->t_documento;
+        $newClient->altezza = $newClientData->altezza;
         $newClient->nazionalita = $newClientData->nazionalita;
         $newClient->t_maglietta = $newClientData->t_maglietta;
         $newClient->t_pantaloni = $newClientData->t_pantaloni;

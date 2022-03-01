@@ -57,7 +57,6 @@ class HistoryController extends Controller
         $newHistory = new History();
         // $ultimo_accesso = Carbon::now();
 
-        $newHistory->interno = $newHistoryData->interno;
         $newHistory->ultimo_accesso = $newHistoryData->ultimo_accesso;
         $newHistory->user_id = $newHistoryData->user_id;
 

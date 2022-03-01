@@ -123,7 +123,7 @@ export class CreateOrderComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
+      let response = await axios.get("http://localhost:8000/api/clients");
       console.log(response.status);
       console.log(response.data);
       this.clients = response.data;
@@ -132,11 +132,11 @@ export class CreateOrderComponent implements OnInit {
       console.log(err);
     }
     this.isLoading = false;
-    this.filteredClients = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => (typeof value === 'string' ? value : value.nome)),
-      map(nome => (nome ? this._filter(nome) : this.clients.slice())),
-    );
+    // this.filteredClients = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => (typeof value === 'string' ? value : value.nome)),
+    //   map(nome => (nome ? this._filter(nome) : this.clients.slice())),
+    // );
     
   }
 
@@ -153,44 +153,44 @@ export class CreateOrderComponent implements OnInit {
     }
   }
   
-  public sea() {
-    if(this.nm != ""){
-      let nmo = this.nm.split(' ');
-      for(var i = 0; i < this.clients.length; i++){
-        if(this.clients[i].card?.n_tessera == nmo[0]){
-          if(this.search.length == 0){
-            this.search.push(this.clients[i]);
-          }else{
-            this.search.splice(0,this.search.length)
-            this.search.push(this.clients[i]);
-          }
-        }
-      } 
-    }
-    this.change();
-  }
-  public change() {
-    if(this.search.length != 0){
-      if(this.search[0].param?.value== 'M')
-        this.choseGender = "Uomo";
-      else
-        this.choseGender = "Donna"
-      if(this.tvestiarioValue == 'Maglia')
-        this.tagliaValue = this.search[0].t_maglietta;
-      else if(this.tvestiarioValue == 'Scarpe')
-        this.tagliaValue = this.search[0].t_scarpe;
-      else
-        this.tagliaValue = parseInt(this.search[0].t_pantaloni);
-    }
-    console.log(this.tagliaValue);
+  // public sea() {
+  //   if(this.nm != ""){
+  //     let nmo = this.nm.split(' ');
+  //     for(var i = 0; i < this.clients.length; i++){
+  //       if(this.clients[i].card?.n_tessera == nmo[0]){
+  //         if(this.search.length == 0){
+  //           this.search.push(this.clients[i]);
+  //         }else{
+  //           this.search.splice(0,this.search.length)
+  //           this.search.push(this.clients[i]);
+  //         }
+  //       }
+  //     } 
+  //   }
+  //   this.change();
+  // }
+  // public change() {
+  //   if(this.search.length != 0){
+  //     if(this.search[0].param?.value== 'M')
+  //       this.choseGender = "Uomo";
+  //     else
+  //       this.choseGender = "Donna"
+  //     if(this.tvestiarioValue == 'Maglia')
+  //       this.tagliaValue = this.search[0].t_maglietta;
+  //     else if(this.tvestiarioValue == 'Scarpe')
+  //       this.tagliaValue = this.search[0].t_scarpe;
+  //     else
+  //       this.tagliaValue = parseInt(this.search[0].t_pantaloni);
+  //   }
+  //   console.log(this.tagliaValue);
     
-  }
+  // }
 
-  private _filter(n_tessera: string): IClient[] {
-    const filterValue = n_tessera.toLowerCase();
+  // private _filter(n_tessera: string): IClient[] {
+  //   const filterValue = n_tessera.toLowerCase();
 
-    return this.clients.filter(client => client.card?.n_tessera.toLowerCase().includes(filterValue));
-  }
+  //   return this.clients.filter(client => client.card?.n_tessera.toLowerCase().includes(filterValue));
+  // }
 
   createOrder() {
     // if(tuttto bene con i dati e salva nel db) {

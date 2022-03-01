@@ -11,26 +11,29 @@ class OrderController extends Controller
 {
     public function list() 
     {
-        $orders = Order::with('client')
-                    ->with('user')
-                    ->get();
-        for($i = 0; $i < count($orders); $i++){
-            $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
-            for($y = 0; $y < count($orders[$i]->clothes); $y++){
-                $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
-            }
-            foreach($priorita as $key=> $item){
-                if($item > 0){
-                    $orders[$i]->setAttribute("status", $key);
-                    break;
-                }
-            }
-            $id = $orders[$i]->id;
-            $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
-            $orders[$i]->setAttribute("n_clothes",$n_clothes);
-        }
-        return $orders;
+        return Order::get();
     }
+    // {
+    //     $orders = Order::with('client')
+    //                 ->with('user')
+    //                 ->get();
+    //     for($i = 0; $i < count($orders); $i++){
+    //         $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
+    //         for($y = 0; $y < count($orders[$i]->clothes); $y++){
+    //             $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
+    //         }
+    //         foreach($priorita as $key=> $item){
+    //             if($item > 0){
+    //                 $orders[$i]->setAttribute("status", $key);
+    //                 break;
+    //             }
+    //         }
+    //         $id = $orders[$i]->id;
+    //         $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
+    //         $orders[$i]->setAttribute("n_clothes",$n_clothes);
+    //     }
+    //     return $orders;
+    // }
 
     public function id($id) 
     {
@@ -42,52 +45,52 @@ class OrderController extends Controller
 
     public function countOrderInAttesa() 
     {
-        return Clothe::join('params', 'clothes.param_id', '=', 'params.id')
-                        ->where('params.value', 'attesa')
+        $status = 'Attesa';
+
+        return Clothe::where('status', $status)
                         ->count();
     }
 
     public function orderInAttesa() 
     {
+        $status = 'Attesa';
+
         return Clothe::with('order')
-                        ->with('inventory')
-                        ->with('param')
-                        ->join('params', 'clothes.param_id', '=', 'params.id')
-                        ->where('params.value', 'attesa')
+                        ->where('status', $status)
                         ->get();
     }
 
     public function countOrderNonDisp() 
     {
-        return Clothe::join('params', 'clothes.param_id', '=', 'params.id')
-                        ->where('params.value', 'no_disp')
+        $status = 'Non disponibile';
+
+        return Clothe::where('status', $status)
                         ->count();
     }
 
     public function orderNonDisp() 
     {
+        $status = 'Non disponibile';
+
         return Clothe::with('order')
-                        ->with('inventory')
-                        ->with('param')
-                        ->join('params', 'clothes.param_id', '=', 'params.id')
-                        ->where('params.value', 'no_disp')
+                        ->where('status', $status)
                         ->get();
     }
 
     public function countOrderDaConf() 
     {
-        return Clothe::join('params', 'clothes.param_id', '=', 'params.id')
-                        ->where('params.value', 'da_conf')
+        $status = 'Da confermare';
+
+        return Clothe::where('status', $status)
                         ->count();
     }
 
     public function orderDaConf() 
     {
+        $status = 'Da confermare';
+
         return Clothe::with('order')
-                        ->with('inventory')
-                        ->with('param')
-                        ->join('params', 'clothes.param_id', '=', 'params.id')
-                        ->where('params.value', 'da_conf')
+                        ->where('status', $status)
                         ->get();
     }
 
@@ -198,11 +201,7 @@ class OrderController extends Controller
     {
         $newOrder->n_ordine = $newOrderData->n_ordine;
         $newOrder->p_ritiro = $newOrderData->p_ritiro;
-        $newOrder->genere = $newOrderData->genere;
-        $newOrder->t_vestiario = $newOrderData->t_vestiario;
-        $newOrder->taglia = $newOrderData->taglia;
-        $newOrder->quantita = $newOrderData->quantita;
-        $newOrder->status = $newOrderData->status;
+        $newOrder->livello = $newOrderData->livello;
         $newOrder->note = $newOrderData->note;
         $newOrder->created_at = $newOrderData->created_at;
         $newOrder->update_at = $newOrderData->update_at;
@@ -236,12 +235,6 @@ class OrderController extends Controller
         $order = Order::where("id", $id)->first();
 
         Clothe::where("order_id", $id)->delete();
-
-        // $ids = explode(",", $clothe);
-        // Clothe::destroy($ids);
-
-        // $ids = explode(",", $id);
-        // $org->clothes()->whereIn('id', $ids)->delete();
 
         $order->delete();
     }

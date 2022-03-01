@@ -11,22 +11,23 @@ class Order extends Model
 
     public $with = [
         'clothes',
-        'clothes.inventory',
-        'clothes.param',
-        'clothes.inventory.param',
+        //'clothes.param',
         'client'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
 
-    public function client() {
+    public function client()
+    {
         return $this->belongsTo(Client::class);
     }
 
-    public function clothes() {
+    public function clothes()
+    {
         return $this->hasMany(Clothe::class);
     }
 }

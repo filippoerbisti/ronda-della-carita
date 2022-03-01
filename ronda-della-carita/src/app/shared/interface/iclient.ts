@@ -1,14 +1,13 @@
-import { ICard } from "./icard";
 import { IDocument } from "./idocument";
-import { IParam } from "./iparam";
 import { IUser } from "./iuser";
 
 export interface IClient {
     id: number,
     nome: string,
     cognome: string,
-    param_id: number,
-    param?: IParam,
+    n_tessera: number,
+    genere: string,
+    altezza: number,
     document_id: number,
     document?: IDocument,
     nazionalita: string,
@@ -20,5 +19,4 @@ export interface IClient {
     update_at: Date,
     user_id: number,
     user?: IUser,
-    card?: ICard
 }

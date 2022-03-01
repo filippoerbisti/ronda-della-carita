@@ -18,8 +18,8 @@ class DocumentSeeder extends Seeder
     {
         for ($i = 0; $i < 20; $i++) {
             DB::table('documents')->insert([
-                'n_documento' => Str::random(10),
-                'param_id' => rand(4, 6),
+                'n_doc' => Str::random(10),
+                't_doc' =>  $faker->randomElement(['Patente', 'Passaporto', "Carta d'identità"]),
                 'created_at' => now()
             ]);
         }

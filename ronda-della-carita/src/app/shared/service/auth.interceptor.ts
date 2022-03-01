@@ -19,7 +19,6 @@ export class AuthInterceptor implements HttpInterceptor {
         console.log(req);
 
         req.headers.set('withCredentials', 'true');
-        
 
         let csrfToken = this.tokenService.getToken() as string;
 

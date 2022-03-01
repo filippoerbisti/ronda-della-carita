@@ -10,12 +10,8 @@ class Client extends Model
     use HasFactory;
 
     public $with = [];
-    protected $appends = ['full_name'];
 
-    public function card()
-    {
-        return $this->hasOne(Card::class);
-    }
+    protected $appends = ['full_name'];
 
     public function orders()
     {
@@ -25,11 +21,6 @@ class Client extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function param()
-    {
-        return $this->belongsTo(Param::class);
     }
 
     public function document()

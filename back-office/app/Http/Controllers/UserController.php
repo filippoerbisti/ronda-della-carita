@@ -9,28 +9,18 @@ class UserController extends Controller
 {
     public function list()
     {
-        return User::with('param')->get();
+        return User::get();
     }
 
     public function id($id) 
     {
         return User::where('id', $id)
-                    ->with('param')
                     ->first();
     }
 
-    // public function anagrafica($email, $password) 
-    // {
-    //     return User::with('param')
-    //                 ->where('email', $email)
-    //                 ->where('password', $password)
-    //                 ->first();
-    // }
-
     public function anagrafica() 
     {
-        return User::with('param')
-                    ->first();
+        return User::first();
     }
 
     public function filter($search)
@@ -38,9 +28,8 @@ class UserController extends Controller
         $user = User::where('nome', 'LIKE', "%$search%")
                     ->orWhere('cognome', 'LIKE', "%$search%")
                     ->orWhere('email', 'LIKE', "%$search%")
-                    ->with('param')
-                    ->join('params', 'users.param_id', '=', 'params.id')
-                    ->orWhere('name', $search)
+                    ->orWhere('ruolo', 'LIKE', "%$search%")
+                    ->orWhere('n_tessera', 'LIKE', "%$search%")
                     ->get();
         return $user;
     }
@@ -50,6 +39,7 @@ class UserController extends Controller
         $newUser->nome = $newUserData->nome;
         $newUser->cognome = $newUserData->cognome;
         $newUser->ruolo = $newUserData->ruolo;
+        $newUser->n_tessera = $newUserData->n_tessera;
         $newUser->email = $newUserData->email;
         $newUser->email_verified_at = $newUserData->email_verified_at;
         $newUser->password = $newUserData->password;

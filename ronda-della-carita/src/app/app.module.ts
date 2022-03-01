@@ -37,8 +37,7 @@ import { RegistrationComponent } from './login/registration/registration.compone
 
 import { HomeComponent } from './home/home.component';
 import { HomeEsternoComponent } from './home-esterno/home-esterno.component';
-import { NavigationMenuComponent } from './utils/navigation/navigation-menu/navigation-menu.component';
-import { SidebarMenuComponent } from './utils/navigation/sidebar-menu/sidebar-menu.component';
+import { SidebarMenuComponent } from './utils/sidebar-menu/sidebar-menu.component';
 
 import { CreateUserComponent } from './create/create-user/create-user.component';
 import { CreateClientComponent } from './create/create-client/create-client.component';
@@ -49,8 +48,6 @@ import { ConfirmUserComponent } from './utils/confirm-user/confirm-user.componen
 
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 
-import { ChooseMansionDialogComponent } from './dialog/mansion/choose-mansion-dialog/choose-mansion-dialog.component';
-import { ChangeMansionDialogComponent } from './dialog/mansion/change-mansion-dialog/change-mansion-dialog.component';
 import { ChangePasswordDialogComponent } from './dialog/change-password-dialog/change-password-dialog.component';
 import { DeleteClientDialogComponent } from './dialog/client/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from './dialog/order/delete-order-dialog/delete-order-dialog.component';
@@ -69,10 +66,8 @@ import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationMenuComponent,
     HomeEsternoComponent,
     PageNotFoundComponent,
-    ChangeMansionDialogComponent,
     DeleteClientDialogComponent,
     DeleteOrderDialogComponent,
     LoginComponent,
@@ -81,7 +76,6 @@ import { environment } from '../environments/environment';
     EditClientDialogComponent,
     EditUserDialogComponent,
     EditOrderDialogComponent,
-    ChooseMansionDialogComponent,
     ChangePasswordDialogComponent,
     ScannerQrComponent,
     ViewOrderNotificationDialogComponent,

@@ -6,7 +6,7 @@ export interface IOrder {
     id: number,
     n_ordine: number,
     p_ritiro: string,
-    quantita: number,
+    livello: number,
     note: string,
     created_at: Date,
     update_at: Date,

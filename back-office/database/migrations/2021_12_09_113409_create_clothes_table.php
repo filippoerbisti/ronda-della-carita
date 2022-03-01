@@ -15,7 +15,10 @@ class CreateClothesTable extends Migration
     {
         Schema::create('clothes', function (Blueprint $table) {
             $table->id();
+            $table->string('t_vestiario');  
+            $table->string('taglia');  
             $table->integer('quantita');  
+            $table->string('status');  
             $table->timestamps();
         });
     }

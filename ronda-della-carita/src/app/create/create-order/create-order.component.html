@@ -18,9 +18,10 @@
                         <button *ngIf="nm" matSuffix mat-icon-button aria-label="Clear" (click)="nm = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-autocomplete (optionSelected)="sea()" #auto="matAutocomplete">
+                        <mat-autocomplete #auto="matAutocomplete"> 
+                            <!--  (optionSelected)="sea()" -->
                             <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
-                                {{ client.card?.n_tessera ?? 'null'}} - {{ client.nome + ' ' + client.cognome }}
+                                {{ client.n_tessera ?? 'null'}} - {{ client.nome + ' ' + client.cognome }}
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
@@ -40,7 +41,8 @@
                         <div class="flex w-5/6 sm:w-11/12">
                             <mat-form-field appearance="fill" class="w-full">
                                 <mat-label>Tipo</mat-label>
-                                <mat-select (selectionChange)="change()" name="tvestiario" [(ngModel)]="newClothe.type">
+                                <!-- (selectionChange)="change()" -->
+                                <mat-select  name="tvestiario" [(ngModel)]="newClothe.type">
                                     <mat-option *ngFor="let item of tvestiario" [value]="item.value">
                                         {{item.value}}
                                     </mat-option>

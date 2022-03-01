@@ -21,7 +21,6 @@ class HistorySeeder extends Seeder
             DB::table('histories')->insert([
                 'ultimo_accesso' => $faker -> dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null),
                 'user_id' => $faker->randomElement($userId),
-                'interno' => rand(0, 1)
             ]);
         }
     }

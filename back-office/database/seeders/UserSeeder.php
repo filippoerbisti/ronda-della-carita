@@ -17,16 +17,16 @@ class UserSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+        $n = 1;
+
         for ($i = 0; $i < 20; $i++) {
             DB::table('users')->insert([
                 'nome' => $faker -> firstName,
                 'cognome' => $faker -> lastName,
-                'param_id' => 1,
+                'n_tessera' => $n++,
+                'ruolo' => $faker -> randomElement(['Admin', 'Interno', 'Esterno']),
                 'email' => $faker -> unique()-> freeEmail,
-                'email_verified_at' => now(),
-                'admin_confirm' => 1,
                 'password' => Hash::make('password'),
-                'remember_token' => Str::random(10),
                 'created_at' => now()
             ]);
         }

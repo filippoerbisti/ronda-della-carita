@@ -17,7 +17,10 @@ class CreateClientsTable extends Migration
             $table->id();
             $table->string('nome')->nullable();
             $table->string('cognome')->nullable();
+            $table->integer('n_tessera');
+            $table->char('genere');
             $table->string('nazionalita')->nullable();
+            $table->float('altezza')->nullable();
             $table->char('t_maglietta')->nullable();
             $table->char('t_pantaloni')->nullable();
             $table->integer('t_scarpe')->nullable();

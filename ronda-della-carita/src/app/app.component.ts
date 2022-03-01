@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-  title = 'ronda-della-carita';
+  title = 'Ronda della Carità';
 
   openedSubject = new Subject<boolean>();
   

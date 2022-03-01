@@ -8,9 +8,7 @@ class ClotheController extends Controller
 {
     public function list() 
     {
-        $clothe = Clothe::with('param')
-                        ->with('order')
-                        ->with('inventory')
+        $clothe = Clothe::with('order')
                         ->get();
         return $clothe;
     }
@@ -18,9 +16,7 @@ class ClotheController extends Controller
     public function id($id) 
     {
         $clothe = Clothe::where('id', $id)
-                        ->with('param')
                         ->with('order')
-                        ->with('inventory')
                         ->first();
         return $clothe;
     }

@@ -9,14 +9,6 @@ class Document extends Model
 {
     use HasFactory;
 
-    public $with = [
-        'param'
-    ];
-
-    public function param() {
-        return $this->belongsTo(Param::class);
-    }
-
     public function client() {
         return $this->belongsTo(Client::class);
     }

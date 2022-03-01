@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('n_ordine')->nullable();
             $table->string('p_ritiro')->nullable();
+            $table->integer('livello')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
         });
