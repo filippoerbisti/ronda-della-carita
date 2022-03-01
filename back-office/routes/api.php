@@ -17,7 +17,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/user-profile', [AuthController::class, 'me']); 
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+// Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
@@ -99,4 +99,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/clothe/edit/{id}', [ClotheController::class, 'id']);
 
-});
+// });
