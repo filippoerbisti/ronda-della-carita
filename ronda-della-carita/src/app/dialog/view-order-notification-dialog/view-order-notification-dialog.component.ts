@@ -23,11 +23,11 @@ export class ViewOrderNotificationDialogComponent implements OnInit {
   async ngOnInit() {
     this.view_notification = localStorage["view_notification"];
     try {
-      let response_inattesa_orders = await axios.get("http://localhost:8000/api/orders/notif/inattesa");
+      let response_inattesa_orders = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/notif/inattesa");
       this.inAttesaOrders = response_inattesa_orders.data;
-      let response_nondisp_orders = await axios.get("http://localhost:8000/api/orders/notif/nondisp");
+      let response_nondisp_orders = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/notif/nondisp");
       this.nonDispOrders = response_nondisp_orders.data;
-      let response_daconf_orders = await axios.get("http://localhost:8000/api/orders/notif/daconf");
+      let response_daconf_orders = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/notif/daconf");
       this.daConfOrders = response_daconf_orders.data;
     } 
     catch (err) {
