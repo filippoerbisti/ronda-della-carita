@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
           })
         },() => {
           this.isSubmitted = true;
-          this.router.navigate(['vol0/home']);
+          this.router.navigate(['vol1/home']);
           this.loginForm.reset();
         }
       );
