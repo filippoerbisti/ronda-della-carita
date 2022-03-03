@@ -97,16 +97,16 @@ class OrderController extends Controller
     public function filter($status, $search) 
     {
         if($search=="nu"){
-            $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
+            $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
             $search = "";
             $orders= Order::with('client') 
                             ->with('user')
                             ->get();
             if($status == "all"){
                 for($i = 0; $i < count($orders); $i++){
-                    $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
+                    $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
                     for($y = 0; $y < count($orders[$i]->clothes); $y++){
-                        $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
+                        $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                     }
                     foreach($priorita as $key=> $item){
                         if($item > 0){
@@ -121,9 +121,9 @@ class OrderController extends Controller
                 return $orders;
             }
             for($i = 0; $i < count($orders); $i++){
-                $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
+                $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
                 for($y = 0; $y < count($orders[$i]->clothes); $y++){
-                    $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
+                    $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                 }
                 foreach($priorita as $key=> $item){
                     if($item > 0){
@@ -145,7 +145,7 @@ class OrderController extends Controller
             }
             return $temp;
         }else if($search!="nu"){
-            $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
+            $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
             $orders= Order::with('client') 
                             ->with('user')
                             ->where('n_ordine','LIKE',"%$search%")
@@ -154,9 +154,9 @@ class OrderController extends Controller
                             ->get();
             if($status == "all"){
                 for($i = 0; $i < count($orders); $i++){
-                    $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
+                    $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
                     for($y = 0; $y < count($orders[$i]->clothes); $y++){
-                        $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
+                        $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                     }
                     foreach($priorita as $key=> $item){
                         if($item > 0){
@@ -171,9 +171,9 @@ class OrderController extends Controller
                 return $orders;
             }
             for($i = 0; $i < count($orders); $i++){
-                $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
+                $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
                 for($y = 0; $y < count($orders[$i]->clothes); $y++){
-                    $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
+                    $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                 }
                 foreach($priorita as $key=> $item){
                     if($item > 0){
