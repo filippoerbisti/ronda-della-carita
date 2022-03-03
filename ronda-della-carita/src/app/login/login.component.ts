@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const url = `http://localhost:8000/sanctum/csrf-cookie`;
+    const url = `https://backoffice-ronda.herokuapp.com/sanctum/csrf-cookie`;
     axios.get(url).then(response => {
       // console.log(response); //This is one success but it did set cookie in application cookie
       this.authService.signin(this.loginForm.value).subscribe(
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
           })
         },() => {
           this.isSubmitted = true;
-          this.router.navigate(['vol0/home']);
+          this.router.navigate(['vol1/home']);
           this.loginForm.reset();
         }
       );

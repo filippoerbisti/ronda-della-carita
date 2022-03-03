@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
-      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", {withCredentials: true});
       this.user = response_account.data;
       console.log(this.user);
 
