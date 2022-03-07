@@ -126,18 +126,18 @@ export class CreateOrderComponent implements OnInit {
       let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       console.log(response.status);
       console.log(response.data);
-      this.clients = response.data;
+      this.clients=response.data;
+      console.log(this.clients);
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
-    // this.filteredClients = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => (typeof value === 'string' ? value : value.nome)),
-    //   map(nome => (nome ? this._filter(nome) : this.clients.slice())),
-    // );
-    
+    this.filteredClients = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.nome)),
+      map(nome => (nome ? this._filter(nome) : this.clients.slice())),
+    );
   }
 
   goToHome() {
@@ -186,11 +186,10 @@ export class CreateOrderComponent implements OnInit {
     
   // }
 
-  // private _filter(n_tessera: string): IClient[] {
-  //   const filterValue = n_tessera.toLowerCase();
-
-  //   return this.clients.filter(client => client.card?.n_tessera.toLowerCase().includes(filterValue));
-  // }
+   private _filter(n_tessera: string): IClient[] {
+     const filterValue = n_tessera.toLowerCase();
+    return this.clients.filter(client => client.n_tessera.toString().toLowerCase().includes(filterValue));
+  }
 
   createOrder() {
     // if(tuttto bene con i dati e salva nel db) {

@@ -163,8 +163,9 @@
                                         <div class="hidden sm:flex">
                                             <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
-                                                <mat-select>
-                                                    <mat-option>SIUUUUUU</mat-option>
+                                                <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="order_status">
+                                                    <mat-option value="all" ></mat-option>
+                                                    <mat-option *ngFor="let item of status" [value]="item" >{{item}}</mat-option>
                                                 </mat-select>
                                                 <!-- <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
                                                     <mat-option value="all"></mat-option>
@@ -271,10 +272,10 @@
                                         </tr>
                                         <tr *ngFor="let clothe of order.clothes">
                                             <td>{{ clothe.t_vestiario }}</td>
-                                            <!-- <td>{{ clothe.inventory?.param?.value }}</td> -->
+                                            <td>{{ clothe.taglia }}</td>
                                             <td>{{ clothe.taglia }}</td>
                                             <td>{{ clothe.quantita }}</td>
-                                            <!-- <td>{{ clothe.param?.name }}</td> -->
+                                            <td>{{ clothe.status }}</td>
                                         </tr>
                                     </table>
                                 </mat-expansion-panel>

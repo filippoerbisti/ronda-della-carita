@@ -11,29 +11,26 @@ class OrderController extends Controller
 {
     public function list() 
     {
-        return Order::get();
+        $orders = Order::with('client')
+            ->with('user')
+            ->get();
+        for($i = 0; $i < count($orders); $i++){
+            $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
+            for($y = 0; $y < count($orders[$i]->clothes); $y++){
+                $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
+            }
+            foreach($priorita as $key=> $item){
+                if($item > 0){
+                    $orders[$i]->setAttribute("status", $key);
+                    break;
+                }
+            }
+            $id = $orders[$i]->id;
+            $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
+            $orders[$i]->setAttribute("n_clothes",$n_clothes);
+        }
+        return $orders;
     }
-    // {
-    //     $orders = Order::with('client')
-    //                 ->with('user')
-    //                 ->get();
-    //     for($i = 0; $i < count($orders); $i++){
-    //         $priorita = ['da_conf' => 0,'attesa' => 0,'cons' => 0,'no_disp' => 0];
-    //         for($y = 0; $y < count($orders[$i]->clothes); $y++){
-    //             $priorita[$orders[$i]->clothes[$y]->param->value] = $priorita[$orders[$i]->clothes[$y]->param->value] + 1;
-    //         }
-    //         foreach($priorita as $key=> $item){
-    //             if($item > 0){
-    //                 $orders[$i]->setAttribute("status", $key);
-    //                 break;
-    //             }
-    //         }
-    //         $id = $orders[$i]->id;
-    //         $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
-    //         $orders[$i]->setAttribute("n_clothes",$n_clothes);
-    //     }
-    //     return $orders;
-    // }
 
     public function id($id) 
     {
