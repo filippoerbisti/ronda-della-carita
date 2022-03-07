@@ -14,7 +14,7 @@ export class AuthGuardService implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     try {
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/user-profile");
+      let response_user = await axios.get("http://localhost:8000/api/user-profile");
       this.user = response_user.data;
       console.log(response_user.data);
     }

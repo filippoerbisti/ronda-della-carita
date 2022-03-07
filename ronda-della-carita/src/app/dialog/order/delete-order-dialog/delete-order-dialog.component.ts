@@ -22,7 +22,7 @@ export class DeleteOrderDialogComponent implements OnInit {
     let orderId = this.orderId;
     console.log(this.orderId);
     try {
-      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
+      let response = await axios.get("http://localhost:8000/api/order/" + orderId);
       console.log(response.status);
       console.log(response.data);
       this.order = response.data;
@@ -42,7 +42,7 @@ export class DeleteOrderDialogComponent implements OnInit {
     this.orderId = localStorage["id"];
     let orderId = this.orderId; 
     console.log(orderId);
-      await axios.delete("https://backoffice-ronda.herokuapp.com/api/order/delete/" + orderId)
+      await axios.delete("http://localhost:8000/api/order/delete/" + orderId)
         .then(response => {
           console.log(response);
         });

@@ -6,6 +6,8 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { sizes } from 'src/app/shared/store/size-clothe-data-store';
+
 
 interface Document {
   value: string;
@@ -26,62 +28,73 @@ export class CreateClientComponent implements OnInit {
 
   isLoading = false;
 
-  // newClient = {
-  //   nome: '',
-  //   cognome: '',
-  //   genere: 'M',
-  //   n_documento: '',
-  //   t_documento: '',
-  //   nazionalita: '',
-  //   t_maglietta: '',
-  //   t_pantaloni: '',
-  //   t_scarpe: ''
-  // };
+  newClient = {
+    nome: String,
+    cognome: String,
+    genere: String,
+    n_documento: String,
+    t_documento: String,
+    nazionalita: String,
+    t_maglietta: Number,
+    t_pantaloni: Number,
+    t_scarpe: Number
+  };
 
   genders: string[] = ['Uomo', 'Donna'];
+  tdocuments: string[] = ["Carta d'Identità", 'Patente di Guida', 'Passaporto'];
 
-  tdocuments: Document[] = [
-    {value: 'cartaid', viewValue: "Carta d'Identità"},
-    {value: 'patente', viewValue: 'Patente di Guida'},
-    {value: 'passaport', viewValue: 'Passaporto'},
-  ];
+  // tdocuments: Document[] = [
+  //   {value: 'cartaid', viewValue: "Carta d'Identità"},
+  //   {value: 'patente', viewValue: 'Patente di Guida'},
+  //   {value: 'passaport', viewValue: 'Passaporto'},
+  // ];
 
   public countries:any = countries;
+  public tvestiarioUseCaseMapping:any = sizes;
 
-  tmagliettas: Document[] = [
-    {value: 'xs', viewValue: 'XS'},
-    {value: 's', viewValue: 'S'},
-    {value: 'm', viewValue: 'M'},
-    {value: 'l', viewValue: 'L'},
-    {value: 'xl', viewValue: 'XL'},
-    {value: 'xxl', viewValue: 'XXL'},
-  ];
+  public tMagliettas = sizes.filter(size => size.type == 'Maglia');
+  public tPantalonis = sizes.filter(size => size.type == 'Pantaloni');
+  public tScarpes = sizes.filter(size => size.type == 'Scarpa');
+  // public tmagliettas = sizes.filter(size => size.type == 'Pantaloni');
+  // public tmagliettas = sizes.filter(size => size.type == 'Scarpe');
+  
+  
 
-  tpantalonis: Value[] = [
-    {value: 42, viewValue: 42},
-    {value: 44, viewValue: 44},
-    {value: 46, viewValue: 46},
-    {value: 48, viewValue: 48},
-    {value: 50, viewValue: 50},
-    {value: 52, viewValue: 52},
-    {value: 54, viewValue: 54},
-    {value: 56, viewValue: 56},
-    {value: 58, viewValue: 58},
-  ];
+  // tmagliettas: Document[] = [
+  //   {value: 'xs', viewValue: 'XS'},
+  //   {value: 's', viewValue: 'S'},
+  //   {value: 'm', viewValue: 'M'},
+  //   {value: 'l', viewValue: 'L'},
+  //   {value: 'xl', viewValue: 'XL'},
+  //   {value: 'xxl', viewValue: 'XXL'},
+  // ];
 
-  tscarpes: Value[] = [
-    {value: 36, viewValue: 36},
-    {value: 37, viewValue: 37},
-    {value: 38, viewValue: 38},
-    {value: 39, viewValue: 39},
-    {value: 40, viewValue: 40},
-    {value: 41, viewValue: 41},
-    {value: 42, viewValue: 42},
-    {value: 43, viewValue: 43},
-    {value: 44, viewValue: 44},
-    {value: 45, viewValue: 45},
-    {value: 46, viewValue: 46},
-  ];
+  // tpantalonis: Value[] = [
+  //   {value: 42, viewValue: 42},
+  //   {value: 44, viewValue: 44},
+  //   {value: 46, viewValue: 46},
+  //   {value: 48, viewValue: 48},
+  //   {value: 50, viewValue: 50},
+  //   {value: 52, viewValue: 52},
+  //   {value: 54, viewValue: 54},
+  //   {value: 56, viewValue: 56},
+  //   {value: 58, viewValue: 58},
+  // ];
+
+  // tscarpes: Value[] = [
+  //   {value: 36, viewValue: 36},
+  //   {value: 37, viewValue: 37},
+  //   {value: 38, viewValue: 38},
+  //   {value: 39, viewValue: 39},
+  //   {value: 40, viewValue: 40},
+  //   {value: 41, viewValue: 41},
+  //   {value: 42, viewValue: 42},
+  //   {value: 43, viewValue: 43},
+  //   {value: 44, viewValue: 44},
+  //   {value: 45, viewValue: 45},
+  //   {value: 46, viewValue: 46},
+  // ];
+  
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 3;
@@ -95,6 +108,7 @@ export class CreateClientComponent implements OnInit {
    ) { }
 
   ngOnInit(): void {
+    
   }
 
   goToHome() {
@@ -111,8 +125,11 @@ export class CreateClientComponent implements OnInit {
   }
 
   createClient() {
+    console.log(this.newClient);
+
+    
           //try {
-      //     let response = await axios.put("https://backoffice-ronda.herokuapp.com/api/client/create", this.newClient);
+      //     let response = await axios.put("http://localhost:8000/api/client/create", this.newClient);
       //     console.log(response.data);
       //   }
       //   catch (err) {
@@ -131,11 +148,12 @@ export class CreateClientComponent implements OnInit {
       //   duration: this.durationInSeconds * 1000
       // })
     // }
-    this.router.navigateByUrl('/home-interno');
-    this.snackBar.open("Assistito registrato con successo!", '', {
-      horizontalPosition: this.horizontalPosition,
-      duration: this.durationInSeconds * 1000
-    })
+    // this.router.navigateByUrl('/home-interno');
+    // this.snackBar.open("Assistito registrato con successo!", '', {
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
   }
+  
 
 }
