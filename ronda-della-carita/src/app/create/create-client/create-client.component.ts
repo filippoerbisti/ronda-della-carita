@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import axios from "axios";
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
+import { IClient } from 'src/app/shared/interface/iclient';
 
 
 interface Document {
@@ -28,17 +29,14 @@ export class CreateClientComponent implements OnInit {
 
   isLoading = false;
 
-  newClient = {
-    nome: String,
-    cognome: String,
-    genere: String,
-    n_documento: String,
-    t_documento: String,
-    nazionalita: String,
-    t_maglietta: Number,
-    t_pantaloni: Number,
-    t_scarpe: Number
+  // public newClient!: IClient;
+
+  public newClient =  {
+    nome: "",
+    cognome: ""
   };
+  createClientForm!: FormGroup;
+  
 
   genders: string[] = ['Uomo', 'Donna'];
   tdocuments: string[] = ["Carta d'Identità", 'Patente di Guida', 'Passaporto'];
@@ -54,7 +52,7 @@ export class CreateClientComponent implements OnInit {
 
   public tMagliettas = sizes.filter(size => size.type == 'Maglia');
   public tPantalonis = sizes.filter(size => size.type == 'Pantaloni');
-  public tScarpes = sizes.filter(size => size.type == 'Scarpa');
+  public tScarpes = sizes.filter(size => size.type == 'Scarpe');
   // public tmagliettas = sizes.filter(size => size.type == 'Pantaloni');
   // public tmagliettas = sizes.filter(size => size.type == 'Scarpe');
   
@@ -104,8 +102,14 @@ export class CreateClientComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    public router:Router
-   ) { }
+    public router:Router,
+    public fb: FormBuilder
+   ) {
+     this.createClientForm = this.fb.group({
+      nome: ['', [Validators.required]],
+      cognome: ['', [Validators.required]],
+    })
+   }
 
   ngOnInit(): void {
     
