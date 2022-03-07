@@ -23,6 +23,7 @@ export interface IClothes {
 export class CreateOrderComponent implements OnInit {
 
   isLoading = false;  
+  history:string[]=[];
   invalidInput = false;
   invalidClothe = false;
   nm = "";
@@ -50,7 +51,9 @@ export class CreateOrderComponent implements OnInit {
 
   public newOrder = {
     user: {
-      name: ""
+      id: "",
+      name: "",
+      surname: ""
     },
     note: "",
     retire: "",
@@ -195,15 +198,15 @@ export class CreateOrderComponent implements OnInit {
     // if(tuttto bene con i dati e salva nel db) {
     //   this.router.navigateByUrl('/home-interno');
     //   this.snackBar.open("Ordine creato con successo!", '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   duration: this.durationInSeconds * 1000
-      // })
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
     // } else {
     //   errore dati sbagliati o qualcosa non va
     //   this.snackBar.open("Ordine creato con successo!", '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   duration: this.durationInSeconds * 1000
-      // })
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
     // }
     this.router.navigateByUrl('/home/interno');
     this.snackBar.open("Ordine creato con successo!", '', {
@@ -242,6 +245,19 @@ export class CreateOrderComponent implements OnInit {
       console.log('NO NON PUOI');
     }
     
+  }
+  async clientHistory($event:any){
+    console.log($event)
+    let id="";
+    for(let i=0; i<$event.length; i++){
+      if($event.charAt(i)!=" "){
+        id+=$event.charAt(i);
+      }else{
+        break;
+      }
+    }
+    let response = await axios.get("http://localhost:8000/api/order/history/"+id);
+    this.history=response.data;
   }
 
   checkFields(){

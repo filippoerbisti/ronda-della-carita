@@ -39,6 +39,11 @@ class OrderController extends Controller
                     ->where('id', $id)
                     ->first();
     }
+    public function history($id){
+        return Order::with('client')
+                    ->where('client_id',$id)
+                    ->get();
+    }
 
     public function countOrderInAttesa() 
     {

@@ -69,6 +69,8 @@ Route::get('/user-profile', [AuthController::class, 'me']);
 
     Route::get('/order/{id}', [OrderController::class, 'id']);
 
+    Route::get('/order/history/{id}', [OrderController::class, 'history']);
+
     Route::get('/orders/filt/{status}/search/{search}', [OrderController::class, 'filter']);
 
     Route::post('/order/create', [OrderController::class, 'create']);
