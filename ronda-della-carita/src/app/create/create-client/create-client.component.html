@@ -1,6 +1,6 @@
 <div class="h-full w-full">
-    <div *ngIf="!isLoading" class="w-full min-h-screen">
-        <mat-card class="h-full flex flex-col sm:mt-0 mt-20 ">
+    <div *ngIf="!isLoading" class="w-full min-h-screen flex flex-col justify-center">
+        <mat-card class="h-full flex flex-col sm:mt-0 mt-20">
             <div class="md:w-1/2 mx-auto flex flex-col justify-center h-full">
                 <p class="font-bold text-2xl">NUOVO ASSISTITO</p>
                 <form class="w-full mt-3">
@@ -11,12 +11,15 @@
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Nome</mat-label>
                             <input type="text" matInput 
-                                placeholder="Nome"><!--[(ngModel)]="newClient.nome"-->
+                                placeholder="Nome"
+                                [(ngModel)]="newClient.nome"
+                               >
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="flex flex-col flex-grow">
                             <mat-label>Cognome</mat-label>
                             <input type="text" matInput 
-                                placeholder="Cognome"><!--[(ngModel)]="newClient.cognome"-->
+                                placeholder="Cognome"
+                                [(ngModel)]="newClient.cognome">
                         </mat-form-field>
                         
                         <mat-form-field appearance="fill" class="flex flex-col flex-grow">
@@ -40,8 +43,8 @@
                             <mat-form-field appearance="fill" class="w-full">
                                 <mat-label>Tipo documento:</mat-label>
                                 <mat-select name="tdocument" ><!--[(ngModel)]="newClient.t_documento"-->
-                                    <mat-option *ngFor="let tdocument of tdocuments" [value]="tdocument.value">
-                                        {{tdocument.viewValue}}
+                                    <mat-option *ngFor="let tdocument of tdocuments; index as index" [value]="index">
+                                        {{tdocument}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -66,25 +69,25 @@
                         <div class="flex w-full">
                             <mat-form-field appearance="fill" class="w-1/3">
                                 <mat-label>Maglietta</mat-label>
-                                <mat-select name="tmaglietta" ><!--[(ngModel)]="newClient.t_maglietta"-->
-                                    <mat-option *ngFor="let tmaglietta of tmagliettas" [value]="tmaglietta.value">
-                                        {{tmaglietta.viewValue}}
+                                <mat-select name="tmaglietta" >
+                                    <mat-option *ngFor="let tmaglietta of tMagliettas" [value]="tmaglietta.value">
+                                        {{tmaglietta.value}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field appearance="fill" class="w-1/3">
                                 <mat-label>Pantaloni</mat-label>
-                                <mat-select name="tpantaloni"><!-- [(ngModel)]="newClient.t_pantaloni"-->
-                                    <mat-option *ngFor="let tpantaloni of tpantalonis" [value]="tpantaloni.value">
-                                        {{tpantaloni.viewValue}}
+                                <mat-select name="tpantaloni">
+                                    <mat-option *ngFor="let tpantaloni of tPantalonis" [value]="tpantaloni.value">
+                                        {{tpantaloni.value}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field appearance="fill" class="w-1/3">
                                 <mat-label>Scarpe</mat-label>
-                                <mat-select name="tscarpe" ><!--[(ngModel)]="newClient.t_scarpe"-->
-                                    <mat-option *ngFor="let tscarpe of tscarpes" [value]="tscarpe.value">
-                                        {{tscarpe.viewValue}}
+                                <mat-select name="tscarpe" >
+                                    <mat-option *ngFor="let tscarpe of tScarpes" [value]="tscarpe.value">
+                                        {{tscarpe.value}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -95,18 +98,19 @@
                         <textarea name="" id="" rows="5" class="w-full p-2" placeholder="Note"></textarea>
                     </div>
 
-                    <div class="flex space-x-2 justify-between py-8">
+                    <div class="flex flex-row-reverse space-x-2 justify-between py-8">
+                        
+                        <button mat-button class="confirmButton text-lg" (click)="createClient()">
+                            <span class="p-2">CONFERMA</span>
+                            <mat-icon class="">
+                                keyboard_arrow_right
+                            </mat-icon>
+                        </button>
                         <button mat-button class="backButton text-lg" (click)="goToHome()">
                             <mat-icon class="text-bt-orange">
                                 keyboard_arrow_left
                             </mat-icon>
                             <span class="p-2">INDIETRO</span>
-                        </button>
-                        <button mat-button class="confirmButton text-lg">
-                            <span class="p-2">CONFERMA</span>
-                            <mat-icon class="">
-                                keyboard_arrow_right
-                            </mat-icon>
                         </button>
                     </div>
 
