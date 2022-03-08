@@ -4,12 +4,12 @@
             <div class="md:w-1/2 mx-auto flex flex-col sm:justify-center h-full">
                 <p class="font-bold text-2xl">NUOVO ORDINE</p>
                 <form class="w-full mt-3">
-                    
                     <mat-form-field class="w-full md:w-full" appearance="fill">
                         <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Assistito:</mat-label>
                         <input type="text"
                             placeholder="Seleziona assistito"
                             matInput
+                            (ngModelChange)="clientHistory($event)"
                             [(ngModel)]="newOrder.user.name"
                             [formControl]="myControl"   
                             [matAutocomplete]="auto"
@@ -20,12 +20,11 @@
                         </button>
                         <mat-autocomplete #auto="matAutocomplete"> 
                             <!--  (optionSelected)="sea()" -->
-                            <mat-option *ngFor="let client of filteredClients | async" [value]="client.nome +' '+ client.cognome">
+                            <mat-option  *ngFor="let client of filteredClients | async" [value]="client.n_tessera +' - '+client.nome +' '+ client.cognome">
                                 {{ client.n_tessera ?? 'null'}} - {{ client.nome + ' ' + client.cognome }}
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
-                    
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.retire}">Punto di ritiro</mat-label>
                         <input type="text" matInput 
@@ -35,8 +34,6 @@
                             required
                         >
                     </mat-form-field>
-
-
                     <div class="w-full flex">
                         <div class="flex w-5/6 sm:w-11/12">
                             <mat-form-field appearance="fill" class="w-full">

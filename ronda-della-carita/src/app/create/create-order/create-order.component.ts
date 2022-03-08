@@ -23,6 +23,7 @@ export interface IClothes {
 export class CreateOrderComponent implements OnInit {
 
   isLoading = false;  
+  history:string[]=[];
   invalidInput = false;
   invalidClothe = false;
   nm = "";
@@ -50,7 +51,9 @@ export class CreateOrderComponent implements OnInit {
 
   public newOrder = {
     user: {
-      name: ""
+      id: "",
+      name: "",
+      surname: ""
     },
     note: "",
     retire: "",
@@ -124,21 +127,21 @@ export class CreateOrderComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("http://localhost:8000/api/clients");
+      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       console.log(response.status);
       console.log(response.data);
-      this.clients = response.data;
+      this.clients=response.data;
+      console.log(this.clients);
     } 
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
-    // this.filteredClients = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => (typeof value === 'string' ? value : value.nome)),
-    //   map(nome => (nome ? this._filter(nome) : this.clients.slice())),
-    // );
-    
+    this.filteredClients = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.nome)),
+      map(nome => (nome ? this._filter(nome) : this.clients.slice())),
+    );
   }
 
   goToHome() {
@@ -187,11 +190,10 @@ export class CreateOrderComponent implements OnInit {
     
   // }
 
-  // private _filter(n_tessera: string): IClient[] {
-  //   const filterValue = n_tessera.toLowerCase();
-
-  //   return this.clients.filter(client => client.card?.n_tessera.toLowerCase().includes(filterValue));
-  // }
+   private _filter(n_tessera: string): IClient[] {
+     const filterValue = n_tessera.toLowerCase();
+    return this.clients.filter(client => client.n_tessera.toString().toLowerCase().includes(filterValue));
+  }
 
   test() {
     console.log('oooo');
@@ -202,15 +204,15 @@ export class CreateOrderComponent implements OnInit {
     // if(tuttto bene con i dati e salva nel db) {
     //   this.router.navigateByUrl('/home-interno');
     //   this.snackBar.open("Ordine creato con successo!", '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   duration: this.durationInSeconds * 1000
-      // })
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
     // } else {
     //   errore dati sbagliati o qualcosa non va
     //   this.snackBar.open("Ordine creato con successo!", '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   duration: this.durationInSeconds * 1000
-      // })
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
     // }
     this.router.navigateByUrl('/home/interno');
     this.snackBar.open("Ordine creato con successo!", '', {
@@ -249,6 +251,19 @@ export class CreateOrderComponent implements OnInit {
       console.log('NO NON PUOI');
     }
     
+  }
+  async clientHistory($event:any){
+    console.log($event)
+    let id="";
+    for(let i=0; i<$event.length; i++){
+      if($event.charAt(i)!=" "){
+        id+=$event.charAt(i);
+      }else{
+        break;
+      }
+    }
+    let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/history/"+id);
+    this.history=response.data;
   }
 
   checkFields(){

@@ -33,7 +33,6 @@ Route::get('/user-profile', [AuthController::class, 'me']);
     Route::post('/user/create', [UserController::class, 'create']);
 
     Route::delete('/user/delete/{id}', [UserController::class, 'delete']);
-
     Route::put('/user/edit/{id}', [UserController::class, 'edit']);
 
 
@@ -69,6 +68,8 @@ Route::get('/user-profile', [AuthController::class, 'me']);
     Route::get('/orders', [OrderController::class, 'list']);
 
     Route::get('/order/{id}', [OrderController::class, 'id']);
+
+    Route::get('/order/history/{id}', [OrderController::class, 'history']);
 
     Route::get('/orders/filt/{status}/search/{search}', [OrderController::class, 'filter']);
 

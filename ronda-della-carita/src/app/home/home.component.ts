@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
+import jsPDF from 'jspdf';  
+import html2canvas from 'html2canvas';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
@@ -23,6 +25,8 @@ import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notif
 })
 export class HomeComponent implements OnInit {
 
+  @ViewChild('pdfTable', {static: false}) pdfTable!: ElementRef;
+
   isLoading = false;
   panelOpenState = false;
 
@@ -30,10 +34,10 @@ export class HomeComponent implements OnInit {
 
   isAdmin!: boolean;
 
-  order_cons = 'cons';
-  order_no_disp = 'no_disp';
-  order_attesa = 'attesa';
-  order_da_conf = 'da_conf';
+  order_cons = 'Consegnato';
+  order_no_disp = 'Non disponibile';
+  order_attesa = 'Attesa';
+  order_da_conf = 'Da confermare';
 
   users: IUser[] = [];
   clients: IClient[] = [];
@@ -43,6 +47,9 @@ export class HomeComponent implements OnInit {
   userId!: number;
   orderId!: number;
   clientId!: number;
+
+  status:string[]=["Consegnato","Non disponibile","Attesa","Da confermare"]
+  order_status!:string;
 
   user!: IUser;
   history!: IHistory;
@@ -68,6 +75,8 @@ export class HomeComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
+
+  orderPDF!: IOrder;
   
   constructor(
     public dialog: MatDialog,
@@ -78,30 +87,30 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
-      let response_account = await axios.get("http://localhost:8000/api/user", {withCredentials: true});
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", {withCredentials: true});
       this.user = response_account.data;
       console.log(this.user);
 
       let historyId = this.user.id;
-      let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       this.history = response_history.data;
 
-      let response_user = await axios.get("http://localhost:8000/api/users");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("http://localhost:8000/api/clients");
+      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("http://localhost:8000/api/orders");
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
       this.orders = response_order.data;
 
-      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
 
-      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
 
-      let response_order_daconf= await axios.get("http://localhost:8000/api/orders/daconf");
+      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
       
     } 
@@ -291,7 +300,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/users/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -304,7 +313,7 @@ export class HomeComponent implements OnInit {
 
   async filterOrder() {
     let search = this.searchOrder;
-    let status = this.state;
+    let status = this.order_status;
     console.log("status"+status);
     if(search==undefined || search=="")
       search="nu";
@@ -312,7 +321,7 @@ export class HomeComponent implements OnInit {
       status="all";
     console.log("search"+search)
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/orders/filt/" + status+"/search/"+search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status+"/search/"+search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -329,7 +338,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/clients/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;
@@ -396,6 +405,47 @@ export class HomeComponent implements OnInit {
     localStorage["view_notification"] = this.typeNotification;
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
+  
+  public async SavePDF(orderId: number) {  
+    try {
+      let response_order_pdf= await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
+      this.orderPDF = response_order_pdf.data;
+    } 
+    catch (err) {
+      console.log(err);
+    }
+
+    let pdf = new jsPDF('p', 'pt', 'a4'); // A4 size page of PDF
+
+    const title = `RONDA DELLA CARITA'`;
+    const ricevuta = `Ricevuta ordine N. ${this.orderPDF.n_ordine}`;
+    const destinatario = `Destinatario: ${this.orderPDF.client?.nome} ${this.orderPDF.client?.cognome}`;
+    const spedizione = `Punto di ritiro: ${this.orderPDF.p_ritiro}`;
+    const volontario = `Volontario: ${this.orderPDF.user?.nome} ${this.orderPDF.user?.cognome}`;
+    const data = `Verona, ${this.orderPDF.created_at}`;
+    var img = new Image()
+    img.src = '../../assets/ronda-della-carita.png';
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const marginX = (pageWidth - 250) / 2;
+
+    pdf.addImage(img, 'png', marginX, 20, 250, 100);
+    pdf.text(title, marginX, 170);
+    pdf.text(ricevuta, marginX, 200);
+    pdf.text(destinatario, marginX, 220);
+    pdf.text(spedizione, marginX, 240);
+    pdf.text(volontario, marginX, 260);
+    pdf.text(data, 60, 680);
+
+    pdf.save(`order_n_${this.orderPDF.n_ordine}.pdf`);
+
+    var string = pdf.output('datauristring');
+    var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+    var x:any = window.open();
+    x.document.open();
+    x.document.write(embed);
+    x.document.close();   
+  }  
 
 }
 
