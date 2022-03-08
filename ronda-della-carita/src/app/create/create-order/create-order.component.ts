@@ -57,6 +57,7 @@ export class CreateOrderComponent implements OnInit {
     clothes: this.clothes
   };
 
+
   public tvestiarioUseCaseMapping:any = sizes;
 
   // public tvestiarioUseCaseMapping: any = izes[] = [] {
@@ -191,6 +192,11 @@ export class CreateOrderComponent implements OnInit {
 
   //   return this.clients.filter(client => client.card?.n_tessera.toLowerCase().includes(filterValue));
   // }
+
+  test() {
+    console.log('oooo');
+    
+  }
 
   createOrder() {
     // if(tuttto bene con i dati e salva nel db) {

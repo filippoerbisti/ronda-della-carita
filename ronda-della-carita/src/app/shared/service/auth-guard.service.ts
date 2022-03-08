@@ -14,9 +14,10 @@ export class AuthGuardService implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     try {
-      let response_user = await axios.get("http://localhost:8000/api/user-profile");
-      this.user = response_user.data;
-      console.log(response_user.data);
+      // let response_user = await axios.get("http://localhost:8000/api/user-profile");
+      // let response_user = JSON.parse(localStorage.getItem('user'))
+      // this.user = response_user.data;
+      // console.log(response_user.data);
     }
     catch (err) {
       console.log(err);

@@ -1,6 +1,6 @@
 <div class="h-screen">
-  <app-sidebar-menu *ngIf="!router.url.includes('login')" [openedSubject]="openedSubject" class=""></app-sidebar-menu>
-  <div (click)="dismissSidebar()" class="w-full h-full mt-12">
+  <app-sidebar-menu *ngIf="!router.url.includes('login')" [openedSubject]="openedSubject" class="mb-12"></app-sidebar-menu>
+  <div (click)="dismissSidebar()" class="w-full h-full">
     <router-outlet></router-outlet>
   </div>
 </div>
