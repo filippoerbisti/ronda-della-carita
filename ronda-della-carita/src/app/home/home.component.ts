@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit {
 
   isAdmin!: boolean;
 
-  order_cons = 'cons';
-  order_no_disp = 'no_disp';
-  order_attesa = 'attesa';
-  order_da_conf = 'da_conf';
+  order_cons = 'Consegnato';
+  order_no_disp = 'Non disponibile';
+  order_attesa = 'Attesa';
+  order_da_conf = 'Da confermare';
 
   users: IUser[] = [];
   clients: IClient[] = [];
@@ -47,6 +47,9 @@ export class HomeComponent implements OnInit {
   userId!: number;
   orderId!: number;
   clientId!: number;
+
+  status:string[]=["Consegnato","Non disponibile","Attesa","Da confermare"]
+  order_status!:string;
 
   user!: IUser;
   history!: IHistory;
@@ -84,30 +87,30 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
-      let response_account = await axios.get("http://localhost:8000/api/user", {withCredentials: true});
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", {withCredentials: true});
       this.user = response_account.data;
       console.log(this.user);
 
       let historyId = this.user.id;
-      let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       this.history = response_history.data;
 
-      let response_user = await axios.get("http://localhost:8000/api/users");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("http://localhost:8000/api/clients");
+      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("http://localhost:8000/api/orders");
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
       this.orders = response_order.data;
 
-      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
 
-      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
 
-      let response_order_daconf= await axios.get("http://localhost:8000/api/orders/daconf");
+      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
       
     } 
@@ -297,7 +300,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/users/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -310,7 +313,7 @@ export class HomeComponent implements OnInit {
 
   async filterOrder() {
     let search = this.searchOrder;
-    let status = this.state;
+    let status = this.order_status;
     console.log("status"+status);
     if(search==undefined || search=="")
       search="nu";
@@ -318,7 +321,7 @@ export class HomeComponent implements OnInit {
       status="all";
     console.log("search"+search)
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/orders/filt/" + status+"/search/"+search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status+"/search/"+search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -335,7 +338,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/clients/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;
@@ -402,10 +405,10 @@ export class HomeComponent implements OnInit {
     localStorage["view_notification"] = this.typeNotification;
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
-
+  
   public async SavePDF(orderId: number) {  
     try {
-      let response_order_pdf= await axios.get("http://localhost:8000/api/order/" + orderId);
+      let response_order_pdf= await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
       this.orderPDF = response_order_pdf.data;
     } 
     catch (err) {

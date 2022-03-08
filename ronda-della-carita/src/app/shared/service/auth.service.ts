@@ -15,16 +15,16 @@ export class AuthService {
 
   // User registration
   register(user: IUser): Observable<any> {
-    return this.http.post('http://localhost:8000/api/register', user);
+    return this.http.post('https://backoffice-ronda.herokuapp.com/api/register', user);
   }
 
   // Login
   signin(user: IUser): Observable<any> {
-    return this.http.post('http://localhost:8000/api/login', user);
+    return this.http.post('https://backoffice-ronda.herokuapp.com/api/login', user);
   }
   
   // Access user profile
   profileUser(): Observable<any> {
-    return this.http.get('http://localhost:8000/api/auth/user-profile');
+    return this.http.get('https://backoffice-ronda.herokuapp.com/api/auth/user-profile');
   }
 }
