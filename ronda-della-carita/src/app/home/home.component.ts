@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
+import jsPDF from 'jspdf';  
+import html2canvas from 'html2canvas';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
@@ -22,6 +24,8 @@ import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notif
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild('pdfTable', {static: false}) pdfTable!: ElementRef;
 
   isLoading = false;
   panelOpenState = false;
@@ -68,6 +72,8 @@ export class HomeComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
+
+  orderPDF!: IOrder;
   
   constructor(
     public dialog: MatDialog,
@@ -396,6 +402,39 @@ export class HomeComponent implements OnInit {
     localStorage["view_notification"] = this.typeNotification;
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
+
+  public async SavePDF(orderId: number) {  
+    try {
+      let response_order_pdf= await axios.get("http://localhost:8000/api/order/" + orderId);
+      this.orderPDF = response_order_pdf.data;
+    } 
+    catch (err) {
+      console.log(err);
+    }
+
+    let pdf = new jsPDF('p', 'pt', 'a4'); // A4 size page of PDF
+
+    const title = `RONDA DELLA CARITA'`;
+    const ricevuta = `Ricevuta ordine N. ${this.orderPDF.n_ordine}`;
+    var img = new Image()
+    img.src = '../../assets/ronda-della-carita.png';
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const marginX = (pageWidth - 250) / 2;
+
+    pdf.addImage(img, 'png', marginX, 20, 250, 100);
+    pdf.text(title, marginX, 170);
+    await pdf.text(ricevuta, marginX, 200);
+
+    pdf.save(`order_n_${this.orderPDF.n_ordine}.pdf`);
+
+    var string = pdf.output('datauristring');
+    var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+    var x:any = window.open();
+    x.document.open();
+    x.document.write(embed);
+    x.document.close();   
+  }  
 
 }
 

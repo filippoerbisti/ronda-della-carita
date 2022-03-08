@@ -9,54 +9,98 @@ import { Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
 import { IClient } from 'src/app/shared/interface/iclient';
 
-
-interface Document {
-  value: string;
-  viewValue: string;
-}
-
-interface Value {
-  value: number;
-  viewValue: number;
-}
-
 @Component({
   selector: 'app-create-client',
   templateUrl: './create-client.component.html',
   styleUrls: ['./create-client.component.css']
 })
+
 export class CreateClientComponent implements OnInit {
 
   isLoading = false;
 
   // public newClient!: IClient;
-
-  public newClient =  {
-    nome: "",
-    cognome: ""
-  };
   createClientForm!: FormGroup;
   
 
   genders: string[] = ['Uomo', 'Donna'];
   tdocuments: string[] = ["Carta d'Identità", 'Patente di Guida', 'Passaporto'];
 
-  // tdocuments: Document[] = [
-  //   {value: 'cartaid', viewValue: "Carta d'Identità"},
-  //   {value: 'patente', viewValue: 'Patente di Guida'},
-  //   {value: 'passaport', viewValue: 'Passaporto'},
-  // ];
 
-  public countries:any = countries;
-  public tvestiarioUseCaseMapping:any = sizes;
+  public countries: any = countries;
+  public tvestiarioUseCaseMapping: any = sizes;
 
   public tMagliettas = sizes.filter(size => size.type == 'Maglia');
   public tPantalonis = sizes.filter(size => size.type == 'Pantaloni');
   public tScarpes = sizes.filter(size => size.type == 'Scarpe');
   // public tmagliettas = sizes.filter(size => size.type == 'Pantaloni');
-  // public tmagliettas = sizes.filter(size => size.type == 'Scarpe');
+  // public tmagliettas = sizes.filter(size => size.type == 'Scarpe');  
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  durationInSeconds = 3;
+
+  rule!: string;
   
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    public router:Router,
+    public fb: FormBuilder
+   ) {
+    this.createClientForm = this.fb.group({
+
+    })
+   }
+
+  ngOnInit(): void {
+    
+  }
+
+  goToHome() {
+    if (window.location.href.includes('vol1')) {
+      this.rule =  'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule =  'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    }
+  }
+
+  createClient() {
+    console.log(this.createClientForm);    
+    //try {
+      //     let response = await axios.put("http://localhost:8000/api/client/create", this.newClient);
+      //     console.log(response.data);
+      //   }
+      //   catch (err) {
+      //     console.log(err);
+      //   }
+    // if(tuttto bene con i dati e salva nel db) {
+    //   this.router.navigateByUrl('/home-interno');
+    //   this.snackBar.open("Ordine creato con successo!", '', {
+      //   horizontalPosition: this.horizontalPosition,
+      //   duration: this.durationInSeconds * 1000
+      // })
+    // } else {
+    //   errore dati sbagliati o qualcosa non va
+    //   this.snackBar.open("Ordine creato con successo!", '', {
+      //   horizontalPosition: this.horizontalPosition,
+      //   duration: this.durationInSeconds * 1000
+      // })
+    // }
+    // this.router.navigateByUrl('/home-interno');
+    // this.snackBar.open("Assistito registrato con successo!", '', {
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
+  }
   
+
+}
+
 
   // tmagliettas: Document[] = [
   //   {value: 'xs', viewValue: 'XS'},
@@ -92,72 +136,3 @@ export class CreateClientComponent implements OnInit {
   //   {value: 45, viewValue: 45},
   //   {value: 46, viewValue: 46},
   // ];
-  
-
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  durationInSeconds = 3;
-
-  rule!: string;
-  
-  constructor(
-    public dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    public router:Router,
-    public fb: FormBuilder
-   ) {
-     this.createClientForm = this.fb.group({
-      nome: ['', [Validators.required]],
-      cognome: ['', [Validators.required]],
-    })
-   }
-
-  ngOnInit(): void {
-    
-  }
-
-  goToHome() {
-    if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
-      this.router.navigateByUrl(`/${this.rule}` + '/home');
-    } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
-      this.router.navigateByUrl(`/${this.rule}` + '/home');
-    } else if (window.location.href.includes('admin')) {
-      this.rule = 'admin';
-      this.router.navigateByUrl(`/${this.rule}` + '/home');
-    }
-  }
-
-  createClient() {
-    console.log(this.newClient);
-
-    
-          //try {
-      //     let response = await axios.put("http://localhost:8000/api/client/create", this.newClient);
-      //     console.log(response.data);
-      //   }
-      //   catch (err) {
-      //     console.log(err);
-      //   }
-    // if(tuttto bene con i dati e salva nel db) {
-    //   this.router.navigateByUrl('/home-interno');
-    //   this.snackBar.open("Ordine creato con successo!", '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   duration: this.durationInSeconds * 1000
-      // })
-    // } else {
-    //   errore dati sbagliati o qualcosa non va
-    //   this.snackBar.open("Ordine creato con successo!", '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   duration: this.durationInSeconds * 1000
-      // })
-    // }
-    // this.router.navigateByUrl('/home-interno');
-    // this.snackBar.open("Assistito registrato con successo!", '', {
-    //   horizontalPosition: this.horizontalPosition,
-    //   duration: this.durationInSeconds * 1000
-    // })
-  }
-  
-
-}
