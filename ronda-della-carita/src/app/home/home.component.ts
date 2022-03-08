@@ -419,6 +419,10 @@ export class HomeComponent implements OnInit {
 
     const title = `RONDA DELLA CARITA'`;
     const ricevuta = `Ricevuta ordine N. ${this.orderPDF.n_ordine}`;
+    const destinatario = `Destinatario: ${this.orderPDF.client?.nome} ${this.orderPDF.client?.cognome}`;
+    const spedizione = `Punto di ritiro: ${this.orderPDF.p_ritiro}`;
+    const volontario = `Volontario: ${this.orderPDF.user?.nome} ${this.orderPDF.user?.cognome}`;
+    const data = `Verona, ${this.orderPDF.created_at}`;
     var img = new Image()
     img.src = '../../assets/ronda-della-carita.png';
 
@@ -427,7 +431,11 @@ export class HomeComponent implements OnInit {
 
     pdf.addImage(img, 'png', marginX, 20, 250, 100);
     pdf.text(title, marginX, 170);
-    await pdf.text(ricevuta, marginX, 200);
+    pdf.text(ricevuta, marginX, 200);
+    pdf.text(destinatario, marginX, 220);
+    pdf.text(spedizione, marginX, 240);
+    pdf.text(volontario, marginX, 260);
+    pdf.text(data, 60, 680);
 
     pdf.save(`order_n_${this.orderPDF.n_ordine}.pdf`);
 
