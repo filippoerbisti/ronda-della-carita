@@ -244,7 +244,6 @@ export class CreateOrderComponent implements OnInit {
     } else {
       console.log('NO NON PUOI');
     }
-    
   }
   async clientHistory($event:any){
     console.log($event)
