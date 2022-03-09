@@ -15,6 +15,9 @@ import { IClient } from 'src/app/shared/interface/iclient';
 import { IHistory } from '../shared/interface/ihistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 // import { IClothe } from 'src/app/shared/interface/iclothe';
+import jsPDF from 'jspdf';  
+import html2canvas from 'html2canvas';
+import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +46,13 @@ export class HomeComponent implements OnInit {
   userId!: number;
   orderId!: number;
   clientId!: number;
+
+  @ViewChild('viewPDF', {static: false}) viewPDF!: ElementRef;
+
+  orderPDF!: IOrder;
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  durationInSeconds = 3;
 
   status: string[] = ["Consegnato", "Non disponibile", "Attesa", "Da confermare"];
   order_status!: string;
@@ -75,7 +85,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
     ) { }
 
   async ngOnInit() {
@@ -344,7 +355,7 @@ export class HomeComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10); 
   }
 
-  openPreviewPDF(n_ordine: number) {
+  async openPreviewPDF(n_ordine: number) {
     if (this.router.url.includes('vol1')) {
       this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
     }

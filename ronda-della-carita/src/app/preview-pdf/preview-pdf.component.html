@@ -1,5 +1,5 @@
 <div class="h-full w-full">
-    <div *ngIf="!isLoading" class="w-full h-full bg-gray-300">
+    <div *ngIf="!isLoading" class="w-full bg-gray-300 py-4">
         <div class="w-2/3 mx-auto flex mb-4">
                 <button mat-raised-button (click)="goBack()" class="bg-bt-orange">
                     <span class="p-2 text-white">INDIETRO</span>
@@ -10,13 +10,13 @@
                         <span class="p-2 text-white">STAMPA</span>
                     </button>
                 </div>
-                    <button mat-raised-button (click)="savePDF()" class="bg-bt-orange">
-                        <span class="p-2 text-white">SALVA</span>
-                    </button>
+                <button mat-raised-button (click)="savePDF()" class="bg-bt-orange">
+                    <span class="p-2 text-white">SALVA</span>
+                </button>
             </div>
         </div>
-        <div class="w-2/3 mx-auto bg-white px-10" id="viewPDF" #viewPDF>
-            <img src="../../assets/ronda-della-carita.png" alt="" class="mx-auto w-1/2 pt-4">
+        <div class="w-2/3 mx-auto bg-white px-10 pb-auto" id="viewPDF" #viewPDF>
+            <img src="../../assets/ronda-della-carita.png" alt="" class="mx-auto w-1/2 h-70 pt-4">
             <p class="pt-8 text-center text-xl">RIEPILOGO ORDINE N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
             <div class="flex w-full">
                 <div class="flex flex-col w-full text-lg">
