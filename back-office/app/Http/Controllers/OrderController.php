@@ -32,11 +32,11 @@ class OrderController extends Controller
         return $orders;
     }
 
-    public function id($id) 
+    public function id($n_ordine) 
     {
         return Order::with('client')
                     ->with('user')
-                    ->where('id', $id)
+                    ->where('n_ordine', $n_ordine)
                     ->first();
     }
     public function history($id){

@@ -62,6 +62,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PreviewPdfComponent } from './preview-pdf/preview-pdf.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { environment } from '../environments/environment';
     CreateOrderComponent,
     ConfirmUserComponent,
     RegistrationComponent,
+    PreviewPdfComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,7 +135,7 @@ import { environment } from '../environments/environment';
     },
     // { 
     //   provide: BASE_API_URL, 
-    //   useValue: "http://localhost:8000/api" 
+    //   useValue: "https://backoffice-ronda.herokuapp.com/api" 
     // }
   ],
   bootstrap: [AppComponent]

@@ -126,7 +126,7 @@ export class CreateOrderComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      let response = await axios.get("http://localhost:8000/api/clients");
+      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       console.log(response.status);
       console.log(response.data);
       this.clients=response.data;
@@ -255,7 +255,7 @@ export class CreateOrderComponent implements OnInit {
         break;
       }
     }
-    let response = await axios.get("http://localhost:8000/api/order/history/"+id);
+    let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/history/"+id);
     this.history=response.data;
   }
 

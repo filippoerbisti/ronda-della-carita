@@ -6,7 +6,6 @@
 .env
 /env-example
 .env.backup
-# composer.lock
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json

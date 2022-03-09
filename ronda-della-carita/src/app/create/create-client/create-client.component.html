@@ -3,7 +3,7 @@
         <mat-card class="h-full flex flex-col sm:mt-0 mt-20">
             <div class="md:w-1/2 mx-auto flex flex-col justify-center h-full">
                 <p class="font-bold text-2xl">NUOVO ASSISTITO</p>
-                <form class="w-full mt-3">
+                <form [formGroup]="createClientForm" class="w-full mt-3">
                     <div class="w-full flex flex-col">
                         <div class="flex">
                             <label for="" class="font-medium text-md py-2">Dati anagrafici</label>
@@ -12,14 +12,14 @@
                             <mat-label>Nome</mat-label>
                             <input type="text" matInput 
                                 placeholder="Nome"
-                                [(ngModel)]="newClient.nome"
+                                formControlName="nome"
                                >
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="flex flex-col flex-grow">
                             <mat-label>Cognome</mat-label>
                             <input type="text" matInput 
                                 placeholder="Cognome"
-                                [(ngModel)]="newClient.cognome">
+                                >
                         </mat-form-field>
                         
                         <mat-form-field appearance="fill" class="flex flex-col flex-grow">
