@@ -49,7 +49,7 @@
                                             (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title class="w-1/3 my-auto">
-                                                <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
+                                                <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }} - N. Tessera{{ user.n_tessera }}</span>
                                             </mat-panel-title>
                                             <mat-panel-description class="w-1/3 flex justify-center my-auto">
                                                 <span class="leading-loose text-black mr-auto hidden sm:inline">Ruolo: {{ user.ruolo }}</span>
@@ -256,7 +256,7 @@
                                             </button>
                                         </div>
                                     </mat-expansion-panel-header>
-                                    <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }}</p>
+                                    <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }} - N. Tessera {{ order.client?.n_tessera }}</p>
                                     <p>Punto di ritiro: {{ order.p_ritiro }}</p>
                                     <table class="w-full">
                                         <tr>
@@ -344,10 +344,10 @@
                                         (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title class="w-1/3 my-auto">
-                                            <span class="font-bold">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
+                                            <span class="font-bold">{{ client.n_tessera }} - {{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
                                         </mat-panel-title>
                                         <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                            <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera 11</span>
+                                            <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ client.n_tessera }}</span>
                                         </mat-panel-description>
                                         <div class="w-1/3 flex justify-end">
                                             <button mat-button-basic (click)="openEditClientDialog(client.id)" class="ml-auto mr-3 sm:mr-5">
