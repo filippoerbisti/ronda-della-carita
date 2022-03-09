@@ -1,9 +1,7 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
-import jsPDF from 'jspdf';  
-import html2canvas from 'html2canvas';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/dialog/order/delete-order-dialog/delete-order-dialog.component';
@@ -24,8 +22,6 @@ import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notif
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  @ViewChild('pdfTable', {static: false}) pdfTable!: ElementRef;
 
   isLoading = false;
   panelOpenState = false;
@@ -48,8 +44,8 @@ export class HomeComponent implements OnInit {
   orderId!: number;
   clientId!: number;
 
-  status:string[]=["Consegnato","Non disponibile","Attesa","Da confermare"]
-  order_status!:string;
+  status: string[] = ["Consegnato", "Non disponibile", "Attesa", "Da confermare"];
+  order_status!: string;
 
   user!: IUser;
   history!: IHistory;
@@ -75,12 +71,11 @@ export class HomeComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
-
-  orderPDF!: IOrder;
   
   constructor(
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
     ) { }
 
   async ngOnInit() {
@@ -349,6 +344,15 @@ export class HomeComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10); 
   }
 
+  openPreviewPDF(n_ordine: number) {
+    if (this.router.url.includes('vol1')) {
+      this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
+    }
+    if (this.router.url.includes('vol0')) {
+      this.router.navigateByUrl('vol0/preview-pdf/' + n_ordine);
+    }
+  }
+
   openDeleteUserDialog(userId: number) {
     this.userId = userId;
     localStorage["id"] = this.userId;
@@ -406,46 +410,6 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
   
-  public async SavePDF(orderId: number) {  
-    try {
-      let response_order_pdf= await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
-      this.orderPDF = response_order_pdf.data;
-    } 
-    catch (err) {
-      console.log(err);
-    }
-
-    let pdf = new jsPDF('p', 'pt', 'a4'); // A4 size page of PDF
-
-    const title = `RONDA DELLA CARITA'`;
-    const ricevuta = `Ricevuta ordine N. ${this.orderPDF.n_ordine}`;
-    const destinatario = `Destinatario: ${this.orderPDF.client?.nome} ${this.orderPDF.client?.cognome}`;
-    const spedizione = `Punto di ritiro: ${this.orderPDF.p_ritiro}`;
-    const volontario = `Volontario: ${this.orderPDF.user?.nome} ${this.orderPDF.user?.cognome}`;
-    const data = `Verona, ${this.orderPDF.created_at}`;
-    var img = new Image()
-    img.src = '../../assets/ronda-della-carita.png';
-
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const marginX = (pageWidth - 250) / 2;
-
-    pdf.addImage(img, 'png', marginX, 20, 250, 100);
-    pdf.text(title, marginX, 170);
-    pdf.text(ricevuta, marginX, 200);
-    pdf.text(destinatario, marginX, 220);
-    pdf.text(spedizione, marginX, 240);
-    pdf.text(volontario, marginX, 260);
-    pdf.text(data, 60, 680);
-
-    pdf.save(`order_n_${this.orderPDF.n_ordine}.pdf`);
-
-    var string = pdf.output('datauristring');
-    var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
-    var x:any = window.open();
-    x.document.open();
-    x.document.write(embed);
-    x.document.close();   
-  }  
-
+  
 }
 
