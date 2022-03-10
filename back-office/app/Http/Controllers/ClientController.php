@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
@@ -38,20 +41,22 @@ class ClientController extends Controller
     }
 
     private function pairing($newClient, $newClientData) 
-    {
+    {        
+
         $newClient->nome = $newClientData->nome;
         $newClient->cognome = $newClientData->cognome;
         $newClient->n_tessera = $newClientData->n_tessera;
         $newClient->genere = $newClientData->genere;
-        $newClient->altezza = $newClientData->altezza;
+        // $newClient->altezza = $newClientData->altezza;
         $newClient->nazionalita = $newClientData->nazionalita;
         $newClient->t_maglietta = $newClientData->t_maglietta;
         $newClient->t_pantaloni = $newClientData->t_pantaloni;
         $newClient->t_scarpe = $newClientData->t_scarpe;
         $newClient->note = $newClientData->note;
-        $newClient->created_at = $newClientData->created_at;
-        $newClient->update_at = $newClientData->update_at;
+        // $newClient->created_at = $newClientData->created_at;
+        // $newClient->updated_at = $newClientData->updated_at;
         $newClient->user_id = $newClientData->user_id;
+
 
         $newClient->save();
         return $newClient;
@@ -60,7 +65,9 @@ class ClientController extends Controller
     public function create(Request $request) 
     {
         $newClientData = json_decode($request->getContent());
-        $newClient = new Client();   
+        // $newClientData->created_at = Carbon::now();
+        // $newClientData->updated_at = Carbon::now();
+        $newClient = new Client();
 
         $newClient = $this->pairing($newClient, $newClientData);
         return $newClient;

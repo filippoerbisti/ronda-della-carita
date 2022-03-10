@@ -15,8 +15,8 @@ export interface IClient {
     t_pantaloni: string,
     t_scarpe: number,
     note: string,
-    created_at: Date,
-    update_at: Date,
+    // created_at: Date,
+    // update_at: Date,
     user_id: number,
     user?: IUser,
 }

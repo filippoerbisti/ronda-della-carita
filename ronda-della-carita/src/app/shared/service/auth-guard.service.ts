@@ -25,6 +25,7 @@ export class AuthGuardService implements CanActivate {
     const isAdmin = 'admin';
 
     if (this.user.ruolo == isAdmin) {
+      this.router.navigate(['admin/home']);
       return true;
     } else {
       this.router.navigate(['/']);
