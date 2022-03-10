@@ -39,6 +39,23 @@ export class PreviewPdfComponent implements OnInit {
     catch (err) {
       console.log(err);
     }
+
+    let html: any = document.getElementById('viewPDF');
+    html2canvas(html).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png');
+      let pdf = new jsPDF('p', 'pt', 'a4');
+
+      var width = pdf.internal.pageSize.getWidth();
+      var height = canvas.height * width / canvas.width;
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+
+      pdf.save(`order_n_${this.orderPDF.n_ordine}.pdf`); 
+
+      this.snackBar.open("Documento salvato con successo!", 'OK', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000
+      })
+    });
   }
 
   public async savePDF() {  
@@ -48,8 +65,9 @@ export class PreviewPdfComponent implements OnInit {
       let pdf = new jsPDF('p', 'pt', 'a4');
 
       var width = pdf.internal.pageSize.getWidth();
-      var height = canvas.height * width / canvas.width;
-      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      var height = pdf.internal.pageSize.getHeight();
+      // var height = canvas.height * width / canvas.width;
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height);
 
       pdf.save(`order_n_${this.orderPDF.n_ordine}.pdf`); 
 

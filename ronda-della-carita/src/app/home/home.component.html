@@ -407,6 +407,40 @@
                 </mat-tab>
             </mat-tab-group>
         </div>
+        <!-- <div class="hidden w-2/3 mx-auto bg-white px-10" id="viewPDF" #viewPDF>
+            <img src="../../assets/ronda-della-carita.png" alt="" class="mx-auto w-1/2 pt-4">
+            <p class="pt-8 text-center text-xl">RIEPILOGO ORDINE N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
+            <div class="flex w-full">
+                <div class="flex flex-col w-full text-lg">
+                    <p>Destinatario</p>
+                    <p>{{orderPDF.client?.nome}} {{orderPDF.client?.cognome}} - N. Tessera {{orderPDF.client?.n_tessera}}</p>
+                    <p>Ritiro presso: {{orderPDF.p_ritiro}}</p>
+                    <p>Livello: {{orderPDF.livello}}</p>
+                    <p>Ordine N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
+                    <div class="border-2 p-auto">
+                        <div *ngFor="let clothe of orderPDF.clothes">
+                            <table class="w-full my-4 mx-4">
+                                <tr>
+                                    <td>Tipo vestiario</td>
+                                    <td>Genere</td>
+                                    <td>Taglia</td>
+                                    <td>Quantità skkk</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ clothe.t_vestiario }}</td>
+                                    <td>{{ clothe.taglia }}</td>
+                                    <td>{{ clothe.taglia }}</td>
+                                    <td>{{ clothe.quantita }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="text-right pt-4">Creato da {{orderPDF.user?.nome}} {{orderPDF.user?.cognome}}</p>
+                    <p class="text-right">N. Tessera {{orderPDF.user?.n_tessera}}</p>
+                    
+                </div>
+            </div>
+        </div> -->
     </div>
     <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
         <mat-spinner class="m-auto border-nav"></mat-spinner>
