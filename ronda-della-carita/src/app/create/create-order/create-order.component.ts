@@ -8,6 +8,7 @@ import { IClient } from 'src/app/shared/interface/iclient';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
+import { IOrder } from 'src/app/shared/interface/iorder';
 
 export interface IClothes {
   type: string,
@@ -22,8 +23,11 @@ export interface IClothes {
 })
 export class CreateOrderComponent implements OnInit {
 
-  isLoading = false;  
-  history:string[]=[];
+  isLoading = false;
+  historyLoading = false;
+  panelOpenState = false;
+  client!:IClient;
+  history:IOrder[]=[];
   invalidInput = false;
   invalidClothe = false;
   nm = "";
@@ -56,9 +60,11 @@ export class CreateOrderComponent implements OnInit {
       surname: ""
     },
     note: "",
-    retire: "",
-    clothes: this.clothes
+    p_ritiro: "",
+    clothes: this.clothes,
+    user_id: ""
   };
+
 
   public tvestiarioUseCaseMapping:any = sizes;
 
@@ -194,6 +200,11 @@ export class CreateOrderComponent implements OnInit {
     return this.clients.filter(client => client.n_tessera.toString().toLowerCase().includes(filterValue));
   }
 
+  test() {
+    console.log('oooo');
+    
+  }
+
   createOrder() {
     // if(tuttto bene con i dati e salva nel db) {
     //   this.router.navigateByUrl('/home-interno');
@@ -238,33 +249,78 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  create(){
+  async create(){
     if (this.checkFields()) {
-      console.log(this.newOrder);
+      console.log(this.newOrder.clothes[0]);
+      let response = await axios.post("http://localhost:8000/api/order/create",this.newOrder);
+      console.log(response.data);
+      if (window.location.href.includes('vol1')) {
+        this.rule =  'vol1';
+        this.router.navigateByUrl(`/${this.rule}` + '/home');
+      } else if (window.location.href.includes('vol0')) {
+        this.rule =  'vol0';
+        this.router.navigateByUrl(`/${this.rule}` + '/home');
+      } else if (window.location.href.includes('admin')) {
+        this.rule = 'admin';
+        this.router.navigateByUrl(`/${this.rule}` + '/home');
+      }
     } else {
       console.log('NO NON PUOI');
     }
-    
   }
+
   async clientHistory($event:any){
+    let temp:any=localStorage.getItem("user");
+    this.newOrder.user_id=JSON.parse(temp).id;
+    this.historyLoading = true;
     console.log($event)
     let id="";
+    let space=0;
     for(let i=0; i<$event.length; i++){
       if($event.charAt(i)!=" "){
         id+=$event.charAt(i);
       }else{
+        space=i;
         break;
       }
     }
-    let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/history/"+id);
-    this.history=response.data;
+    let name="";
+    for(let i=space+3; i<$event.length; i++){
+      if($event.charAt(i)!=" "){
+        name+=$event.charAt(i);
+      }else{
+        space=i;
+        break;
+      }
+    }
+    let surname="";
+    for(let i=space+1; i<$event.length; i++){
+      if($event.charAt(i)!=" "){
+        surname+=$event.charAt(i);
+      }else{
+        space=i;
+        break;
+      }
+    }
+    this.newOrder.user.id=id;
+    this.newOrder.user.name=name;
+    this.newOrder.user.surname=surname;
+    try {
+      let response = await axios.get("http://localhost:8000/api/order/history/"+id);
+      this.client = (await axios.get("http://localhost:8000/api/client/"+id)).data;
+      this.history=response.data;
+    } catch (error) {
+      console.log(error);
+      
+    }
+    this.historyLoading = false;
   }
 
   checkFields(){
     console.log('checkFields');
     
     // check forms
-    this.newOrder.user.name != "" && this.newOrder.retire != "" ? this.invalidInput = false : this.invalidInput = true
+    this.newOrder.user.name != "" && this.newOrder.p_ritiro != "" ? this.invalidInput = false : this.invalidInput = true
     // check if there's at least a clothe
     this.newOrder.clothes.length > 0 ? this.invalidClothe = false : this.invalidClothe = true
 

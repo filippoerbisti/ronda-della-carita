@@ -2,196 +2,206 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Mockery\Undefined;
 
 class OrderController extends Controller
 {
-    public function list() 
+    public function list()
     {
         $orders = Order::with('client')
             ->with('user')
             ->get();
-        for($i = 0; $i < count($orders); $i++){
-            $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
-            for($y = 0; $y < count($orders[$i]->clothes); $y++){
+        for ($i = 0; $i < count($orders); $i++) {
+            $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                 $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
             }
-            foreach($priorita as $key=> $item){
-                if($item > 0){
+            foreach ($priorita as $key => $item) {
+                if ($item > 0) {
                     $orders[$i]->setAttribute("status", $key);
                     break;
                 }
             }
             $id = $orders[$i]->id;
-            $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
-            $orders[$i]->setAttribute("n_clothes",$n_clothes);
+            $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
+            $orders[$i]->setAttribute("n_clothes", $n_clothes);
         }
         return $orders;
     }
 
-    public function id($n_ordine) 
+    public function id($id)
     {
         return Order::with('client')
-                    ->with('user')
-                    ->where('n_ordine', $n_ordine)
-                    ->first();
+            ->with('user')
+            ->where('id', $id)
+            ->first();
     }
-    public function history($id){
+    public function history($id)
+    {
+        $start = Carbon::now()->subMonth(1)->format('Y-m-d');
+        $end = Carbon::now()->format('Y-m-d');
+        Log::info("NOW: " . $start);
         return Order::with('client')
-                    ->where('client_id',$id)
-                    ->get();
+            // ->whereBetween('created_at', [$start, $end])
+            ->whereDate('created_at', '>=', $start)
+            ->whereDate('created_at', '<=', $end)
+            ->where('client_id', $id)
+            ->get();
     }
 
-    public function countOrderInAttesa() 
+    public function countOrderInAttesa()
     {
         $status = 'Attesa';
 
         return Clothe::where('status', $status)
-                        ->count();
+            ->count();
     }
 
-    public function orderInAttesa() 
+    public function orderInAttesa()
     {
         $status = 'Attesa';
 
         return Clothe::with('order')
-                        ->where('status', $status)
-                        ->get();
+            ->where('status', $status)
+            ->get();
     }
 
-    public function countOrderNonDisp() 
+    public function countOrderNonDisp()
     {
         $status = 'Non disponibile';
 
         return Clothe::where('status', $status)
-                        ->count();
+            ->count();
     }
 
-    public function orderNonDisp() 
+    public function orderNonDisp()
     {
         $status = 'Non disponibile';
 
         return Clothe::with('order')
-                        ->where('status', $status)
-                        ->get();
+            ->where('status', $status)
+            ->get();
     }
 
-    public function countOrderDaConf() 
+    public function countOrderDaConf()
     {
         $status = 'Da confermare';
 
         return Clothe::where('status', $status)
-                        ->count();
+            ->count();
     }
 
-    public function orderDaConf() 
+    public function orderDaConf()
     {
         $status = 'Da confermare';
 
         return Clothe::with('order')
-                        ->where('status', $status)
-                        ->get();
+            ->where('status', $status)
+            ->get();
     }
 
-    public function filter($status, $search) 
+    public function filter($status, $search)
     {
-        if($search=="nu"){
-            $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
+        if ($search == "nu") {
+            $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
             $search = "";
-            $orders= Order::with('client') 
-                            ->with('user')
-                            ->get();
-            if($status == "all"){
-                for($i = 0; $i < count($orders); $i++){
-                    $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
-                    for($y = 0; $y < count($orders[$i]->clothes); $y++){
+            $orders = Order::with('client')
+                ->with('user')
+                ->get();
+            if ($status == "all") {
+                for ($i = 0; $i < count($orders); $i++) {
+                    $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                    for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                         $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                     }
-                    foreach($priorita as $key=> $item){
-                        if($item > 0){
+                    foreach ($priorita as $key => $item) {
+                        if ($item > 0) {
                             $orders[$i]->setAttribute("status", $key);
                             break;
                         }
                     }
                     $id = $orders[$i]->id;
-                    $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
-                    $orders[$i]->setAttribute("n_clothes",$n_clothes);
+                    $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
+                    $orders[$i]->setAttribute("n_clothes", $n_clothes);
                 }
                 return $orders;
             }
-            for($i = 0; $i < count($orders); $i++){
-                $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
-                for($y = 0; $y < count($orders[$i]->clothes); $y++){
+            for ($i = 0; $i < count($orders); $i++) {
+                $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                     $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                 }
-                foreach($priorita as $key=> $item){
-                    if($item > 0){
+                foreach ($priorita as $key => $item) {
+                    if ($item > 0) {
                         $orders[$i]->setAttribute("status", $key);
                         break;
                     }
                 }
             }
-            for($i = 0; $i < count($orders); $i++){
+            for ($i = 0; $i < count($orders); $i++) {
                 $id = $orders[$i]->id;
-                $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
-                $orders[$i]->setAttribute("n_clothes",$n_clothes);
+                $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
+                $orders[$i]->setAttribute("n_clothes", $n_clothes);
             }
             $temp = [];
-            for($i = 0; $i < count($orders); $i++){
-                if($orders[$i]->status == $status){
+            for ($i = 0; $i < count($orders); $i++) {
+                if ($orders[$i]->status == $status) {
                     $temp[count($temp)] = $orders[$i];
                 }
             }
             return $temp;
-        }else if($search!="nu"){
-            $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
-            $orders= Order::with('client') 
-                            ->with('user')
-                            ->where('n_ordine','LIKE',"%$search%")
-                            ->orWhere('p_ritiro','LIKE',"%$search%")
-                            ->orWhere('note','LIKE',"%$search%")
-                            ->get();
-            if($status == "all"){
-                for($i = 0; $i < count($orders); $i++){
-                    $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
-                    for($y = 0; $y < count($orders[$i]->clothes); $y++){
+        } else if ($search != "nu") {
+            $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            $orders = Order::with('client')
+                ->with('user')
+                ->where('n_ordine', 'LIKE', "%$search%")
+                ->orWhere('p_ritiro', 'LIKE', "%$search%")
+                ->orWhere('note', 'LIKE', "%$search%")
+                ->get();
+            if ($status == "all") {
+                for ($i = 0; $i < count($orders); $i++) {
+                    $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                    for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                         $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                     }
-                    foreach($priorita as $key=> $item){
-                        if($item > 0){
+                    foreach ($priorita as $key => $item) {
+                        if ($item > 0) {
                             $orders[$i]->setAttribute("status", $key);
                             break;
                         }
                     }
                     $id = $orders[$i]->id;
-                    $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
-                    $orders[$i]->setAttribute("n_clothes",$n_clothes);
+                    $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
+                    $orders[$i]->setAttribute("n_clothes", $n_clothes);
                 }
                 return $orders;
             }
-            for($i = 0; $i < count($orders); $i++){
-                $priorita = ['Da confermare' => 0,'Attesa' => 0,'Consegnato' => 0,'Non disponibile' => 0];
-                for($y = 0; $y < count($orders[$i]->clothes); $y++){
+            for ($i = 0; $i < count($orders); $i++) {
+                $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                     $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                 }
-                foreach($priorita as $key=> $item){
-                    if($item > 0){
+                foreach ($priorita as $key => $item) {
+                    if ($item > 0) {
                         $orders[$i]->setAttribute("status", $key);
                         break;
                     }
                 }
             }
-            for($i = 0; $i < count($orders); $i++){
+            for ($i = 0; $i < count($orders); $i++) {
                 $id = $orders[$i]->id;
-                $n_clothes = Clothe::where('order_id',$id)->sum('quantita');
-                $orders[$i]->setAttribute("n_clothes",$n_clothes);
+                $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
+                $orders[$i]->setAttribute("n_clothes", $n_clothes);
             }
             $temp = [];
-            for($i = 0; $i < count($orders); $i++){
-                if($orders[$i]->status == $status){
+            for ($i = 0; $i < count($orders); $i++) {
+                if ($orders[$i]->status == $status) {
                     $temp[count($temp)] = $orders[$i];
                 }
             }
@@ -199,40 +209,61 @@ class OrderController extends Controller
         }
     }
 
-    private function pairing($newOrder, $newOrderData) 
+    private function pairing($newOrder, $newOrderData)
     {
-        $newOrder->n_ordine = $newOrderData->n_ordine;
+        //$newOrder->n_ordine = $newOrderData->n_ordine;
         $newOrder->p_ritiro = $newOrderData->p_ritiro;
-        $newOrder->livello = $newOrderData->livello;
+        //$newOrder->livello = $newOrderData->livello;
         $newOrder->note = $newOrderData->note;
-        $newOrder->created_at = $newOrderData->created_at;
-        $newOrder->update_at = $newOrderData->update_at;
+        //$newOrder->created_at = $newOrderData->created_at;
+        //$newOrder->update_at = $newOrderData->update_at;
         $newOrder->user_id = $newOrderData->user_id;
-        $newOrder->client_id = $newOrderData->client_id;
-
+        $newOrder->client_id = $newOrderData->user->id;
+        $client=Client::where('id',$newOrder->user_id)->first();
         $newOrder->save();
+
+        for($i=0; $i<count($newOrderData->clothes); $i++){
+            $newClothe = new Clothe();
+            $newClothe->t_vestiario=$newOrderData->clothes[$i]->type;
+            switch($newOrderData->clothes[$i]->type){
+                case "Maglietta":
+                    $newClothe->taglia=$client->t_maglietta;
+                    break;
+                case "Pantaloni":
+                    $newClothe->taglia=$client->t_pantaloni;
+                    break;
+                case "Scarpe":
+                    $newClothe->taglia=$client->t_scarpe;
+                    break;
+            }
+            $newClothe->status="Attesa";
+            $newClothe->quantita=1;
+            $newClothe->order_id=$newOrder->id;
+            $newClothe->save();
+        }
+
         return $newOrder;
     }
 
-    public function create(Request $request) 
+    public function create(Request $request)
     {
         $newOrderData = json_decode($request->getContent());
-        $newOrder = new Order();   
+        $newOrder = new Order();
 
         $newOrder = $this->pairing($newOrder, $newOrderData);
         return $newOrder;
     }
 
-    public function edit(Request $request, $id) 
+    public function edit(Request $request, $id)
     {
         $order = Order::find($id);
-        $newOrderData = json_decode($request->getContent());   
+        $newOrderData = json_decode($request->getContent());
 
         $order = $this->pairing($order, $newOrderData);
         return $order;
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $order = Order::where("id", $id)->first();
 
@@ -241,8 +272,8 @@ class OrderController extends Controller
         $order->delete();
     }
 
-    public function showLabel($id) {
+    public function showLabel($id)
+    {
         $order = Order::find($id);
-        
     }
 }

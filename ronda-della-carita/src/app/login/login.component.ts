@@ -69,7 +69,8 @@ export class LoginComponent implements OnInit {
       this.authService.signin(this.loginForm.value).subscribe(
         result => {
           // this.user = result.user;
-          console.log(result.user);
+          // console.log(result.user);
+          this.user = result.user;
           localStorage.setItem('user', JSON.stringify(result.user));
           let sium = 'admin';
           if (sium == 'interno') {
@@ -90,6 +91,23 @@ export class LoginComponent implements OnInit {
           })
         },() => {
           this.isSubmitted = true;
+
+          switch (this.user.ruolo) {
+            case 'Interno':
+              this.router.navigate(['vol1/home'])
+              break;
+            case 'Esterno':
+              this.router.navigate(['vol0/home'])
+              break;
+            case 'Admin':
+              this.router.navigate(['admin/home'])
+              break;
+            default:
+              this.router.navigate(['vol1/home'])
+              break;
+          }
+          
+          
           this.loginForm.reset();
         }
       );
