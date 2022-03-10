@@ -1,53 +1,4 @@
 <div class="h-full w-full">
-<<<<<<< HEAD
-    <div *ngIf="!isLoading" class="h-screen">
-        <mat-card class="h-full flex flex-col"> 
-            <div class="md:w-1/2 mx-auto flex flex-col sm:justify-center h-full">
-                <p class="font-bold text-2xl">NUOVO ORDINE</p>
-                <form class="w-full mt-3">
-                    <mat-form-field class="w-full md:w-full" appearance="fill">
-                        <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Assistito:</mat-label>
-                        <input type="text"
-                            placeholder="Seleziona assistito"
-                            matInput
-                            (ngModelChange)="clientHistory($event)"
-                            [(ngModel)]="newOrder.user.name"
-                            [formControl]="myControl"   
-                            [matAutocomplete]="auto"
-                            required
-                        >
-                        <button *ngIf="nm" matSuffix mat-icon-button aria-label="Clear" (click)="nm = ''">
-                            <mat-icon>close</mat-icon>
-                        </button>
-                        <mat-autocomplete #auto="matAutocomplete"> 
-                            <!--  (optionSelected)="sea()" -->
-                            <mat-option  *ngFor="let client of filteredClients | async" [value]="client.n_tessera +' - '+client.nome +' '+ client.cognome">
-                                {{ client.n_tessera ?? 'null'}} - {{ client.nome + ' ' + client.cognome }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="w-full">
-                        <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.p_ritiro}">Punto di ritiro</mat-label>
-                        <input type="text" matInput 
-                            [(ngModel)]="newOrder.p_ritiro"
-                            [formControl]="myControl"
-                            placeholder="Punto di ritiro"
-                            required
-                        >
-                    </mat-form-field>
-                    <div class="w-full flex">
-                        <div class="flex w-5/6 sm:w-11/12">
-                            <mat-form-field appearance="fill" class="w-full">
-                                <mat-label>Tipo</mat-label>
-                                <!-- (selectionChange)="change()" -->
-                                <mat-select  name="tvestiario" [(ngModel)]="newClothe.type">
-                                    <mat-option *ngFor="let item of tvestiario" [value]="item.value">
-                                        {{item.value}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <!-- <mat-form-field appearance="fill" class="w-1/3">
-=======
   <div *ngIf="!isLoading" class="h-screen">
     <mat-card class="h-full flex flex-col">
       <div class="md:w-1/2 mx-auto flex flex-col sm:justify-center h-full">
@@ -147,13 +98,13 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label
-              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.retire }"
+              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro}"
               >Punto di ritiro</mat-label
             >
             <input
               type="text"
               matInput
-              [(ngModel)]="newOrder.retire"
+              [(ngModel)]="newOrder.p_ritiro"
               [formControl]="myControl"
               placeholder="Punto di ritiro"
               required
@@ -174,7 +125,6 @@
                 </mat-select>
               </mat-form-field>
               <!-- <mat-form-field appearance="fill" class="w-1/3">
->>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
                                 <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Taglia</mat-label>
                                 <mat-select (selectionChange)="change()" name="tagliaValue" [(ngModel)]="newClothe.size">
                                     <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.value">
