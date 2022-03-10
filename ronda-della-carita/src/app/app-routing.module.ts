@@ -16,6 +16,8 @@ import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
+import { PreviewPdfComponent } from './preview-pdf/preview-pdf.component';
+
 import { AuthGuardService } from './shared/service/auth-guard.service';
 
 const routes: Routes = [
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'confirm/user', component: ConfirmUserComponent, canActivate: [AuthGuardService] },
   { path: 'history', component: StoricoAccessiComponent, canActivate: [AuthGuardService] },
   { path: 'vol0/scanner-qr', component: ScannerQrComponent },
+  { path: ':rule/preview-pdf/:n_ordine', component: PreviewPdfComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },  
   { path: '**', component: PageNotFoundComponent }  
 ];

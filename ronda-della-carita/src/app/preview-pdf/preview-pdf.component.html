@@ -1,0 +1,57 @@
+<div class="h-full w-full">
+    <div *ngIf="!isLoading" class="w-full bg-gray-300 py-4">
+        <div class="w-2/3 mx-auto flex mb-4">
+                <button mat-raised-button (click)="goBack()" class="bg-bt-orange">
+                    <span class="p-2 text-white">INDIETRO</span>
+                </button>
+            <div class="ml-auto flex">
+                <div class="mr-10">
+                    <button mat-raised-button (click)="print()" class="bg-bt-orange">
+                        <span class="p-2 text-white">STAMPA</span>
+                    </button>
+                </div>
+                <button mat-raised-button (click)="savePDF()" class="bg-bt-orange">
+                    <span class="p-2 text-white">SALVA</span>
+                </button>
+            </div>
+        </div>
+        <div class="w-2/3 mx-auto bg-white px-10 pb-auto" id="viewPDF" #viewPDF>
+            <img src="../../assets/ronda-della-carita.png" alt="" class="mx-auto w-1/2 h-70 pt-4">
+            <p class="pt-8 text-center text-xl">RIEPILOGO ORDINE N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
+            <div class="flex w-full">
+                <div class="flex flex-col w-full text-lg">
+                    <p>Destinatario</p>
+                    <p>{{orderPDF.client?.nome}} {{orderPDF.client?.cognome}} - N. Tessera {{orderPDF.client?.n_tessera}}</p>
+                    <p>Ritiro presso: {{orderPDF.p_ritiro}}</p>
+                    <p>Livello: {{orderPDF.livello}}</p>
+                    <p>Ordine N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
+                    <div class="border-2 p-auto">
+                        <div *ngFor="let clothe of orderPDF.clothes">
+                            <table class="w-full my-4 mx-4">
+                                <tr>
+                                    <td>Tipo vestiario</td>
+                                    <td>Genere</td>
+                                    <td>Taglia</td>
+                                    <td>Quantità</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ clothe.t_vestiario }}</td>
+                                    <td>{{ clothe.taglia }}</td>
+                                    <td>{{ clothe.taglia }}</td>
+                                    <td>{{ clothe.quantita }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="text-right pt-4">Creato da {{orderPDF.user?.nome}} {{orderPDF.user?.cognome}}</p>
+                    <p class="text-right">N. Tessera {{orderPDF.user?.n_tessera}}</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
+        <mat-spinner class="m-auto border-nav"></mat-spinner>
+    </div>
+</div>

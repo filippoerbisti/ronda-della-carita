@@ -2,11 +2,6 @@
     <div *ngIf="!isLoading" class="w-full flex items-stretch">
 
         <div class="w-full h-full">
-            <!-- <div class="flex items-center justify-center py-3 sm:py-7 text-center px-12">
-                <img class="" src="../../../assets/ronda-della-carita.png" alt="logo-ronda-della-carita">
-            </div> -->
-            
-            <!-- <h1>{{indexTab}}</h1> -->
 
             <mat-tab-group 
                 mat-align-tabs="center" 
@@ -54,7 +49,7 @@
                                             (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title class="w-1/3 my-auto">
-                                                <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
+                                                <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }} - N. Tessera{{ user.n_tessera }}</span>
                                             </mat-panel-title>
                                             <mat-panel-description class="w-1/3 flex justify-center my-auto">
                                                 <span class="leading-loose text-black mr-auto hidden sm:inline">Ruolo: {{ user.ruolo }}</span>
@@ -165,20 +160,16 @@
                                                 <mat-label>Stato Ordine:</mat-label>
                                                 <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="order_status">
                                                     <mat-option value="all" ></mat-option>
-                                                    <mat-option *ngFor="let item of status" [value]="item" >{{item}}</mat-option>
-                                                </mat-select>
-                                                <!-- <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                                    <mat-option value="all"></mat-option>
-                                                    <mat-option *ngFor="let order_status of orders_status" [value]="order_status.value">
+                                                    <mat-option *ngFor="let item of status" [value]="item">
                                                         <div class="flex items-center">
-                                                            <span class="mr-auto">{{ order_status.name }}</span>
-                                                            <img *ngIf="order_status.value === order_cons" src="https://img.icons8.com/material-outlined/50/000000/checkmark.png" alt="" class="h-6 w-6">
-                                                            <img *ngIf="order_status.value === order_no_disp" src="https://img.icons8.com/material-outlined/50/000000/delete-sign.png" alt="" class="h-6 w-6">
-                                                            <img *ngIf="order_status.value === order_attesa" src="https://img.icons8.com/material-outlined/50/000000/clock.png" alt="" class="h-6 w-6">
-                                                            <img *ngIf="order_status.value === order_da_conf" src="https://img.icons8.com/material-outlined/24/000000/box-important--v1.png" alt="" class="h-6 w-6">
+                                                            <span class="mr-auto">{{ item }}</span>
+                                                            <img *ngIf="item === order_cons" src="https://img.icons8.com/material-outlined/50/000000/checkmark.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="item === order_no_disp" src="https://img.icons8.com/material-outlined/50/000000/delete-sign.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="item === order_attesa" src="https://img.icons8.com/material-outlined/50/000000/clock.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="item === order_da_conf" src="https://img.icons8.com/material-outlined/24/000000/box-important--v1.png" alt="" class="h-6 w-6">
                                                         </div>
                                                     </mat-option>
-                                                </mat-select> -->
+                                                </mat-select>
                                             </mat-form-field>
                                         </div>
 
@@ -195,17 +186,17 @@
                                         <div class="w-full mt-3">
                                             <mat-form-field class="w-full">
                                                 <mat-label>Stato Ordine:</mat-label>
-                                                <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="state"> 
-                                                    <mat-option value="all"></mat-option>
-                                                    <!-- <mat-option *ngFor="let order_status of orders_status" [value]="order_status.value">
+                                                <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="order_status">
+                                                    <mat-option value="all" ></mat-option>
+                                                    <mat-option *ngFor="let item of status" [value]="item">
                                                         <div class="flex items-center">
-                                                            <span class="mr-auto">{{ order_status.name }}</span>
-                                                            <img *ngIf="order_status.value === order_cons" src="https://img.icons8.com/material-outlined/50/000000/checkmark.png" alt="" class="h-6 w-6">
-                                                            <img *ngIf="order_status.value === order_no_disp" src="https://img.icons8.com/material-outlined/50/000000/delete-sign.png" alt="" class="h-6 w-6">
-                                                            <img *ngIf="order_status.value === order_attesa" src="https://img.icons8.com/material-outlined/50/000000/clock.png" alt="" class="h-6 w-6">
-                                                            <img *ngIf="order_status.value === order_da_conf" src="https://img.icons8.com/material-outlined/24/000000/box-important--v1.png" alt="" class="h-6 w-6">
+                                                            <span class="mr-auto">{{ item }}</span>
+                                                            <img *ngIf="item === order_cons" src="https://img.icons8.com/material-outlined/50/000000/checkmark.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="item === order_no_disp" src="https://img.icons8.com/material-outlined/50/000000/delete-sign.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="item === order_attesa" src="https://img.icons8.com/material-outlined/50/000000/clock.png" alt="" class="h-6 w-6">
+                                                            <img *ngIf="item === order_da_conf" src="https://img.icons8.com/material-outlined/24/000000/box-important--v1.png" alt="" class="h-6 w-6">
                                                         </div>
-                                                    </mat-option> -->
+                                                    </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -248,7 +239,7 @@
                                             </div>
                                         </mat-panel-description>
                                         <div class="w-1/3 flex justify-end">
-                                            <button mat-button-basic (click)="SavePDF(order.id)" class="ml-auto  mr-3 sm:mr-5">
+                                            <button mat-button-basic (click)="openPreviewPDF(order.n_ordine)" class="ml-auto  mr-3 sm:mr-5">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                   </svg>
@@ -265,7 +256,7 @@
                                             </button>
                                         </div>
                                     </mat-expansion-panel-header>
-                                    <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }}</p>
+                                    <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }} - N. Tessera {{ order.client?.n_tessera }}</p>
                                     <p>Punto di ritiro: {{ order.p_ritiro }}</p>
                                     <table class="w-full">
                                         <tr>
@@ -353,10 +344,10 @@
                                         (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title class="w-1/3 my-auto">
-                                            <span class="font-bold">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
+                                            <span class="font-bold">{{ client.n_tessera }} - {{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
                                         </mat-panel-title>
                                         <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                            <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera 11</span>
+                                            <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ client.n_tessera }}</span>
                                         </mat-panel-description>
                                         <div class="w-1/3 flex justify-end">
                                             <button mat-button-basic (click)="openEditClientDialog(client.id)" class="ml-auto mr-3 sm:mr-5">
@@ -416,6 +407,40 @@
                 </mat-tab>
             </mat-tab-group>
         </div>
+        <!-- <div class="hidden w-2/3 mx-auto bg-white px-10" id="viewPDF" #viewPDF>
+            <img src="../../assets/ronda-della-carita.png" alt="" class="mx-auto w-1/2 pt-4">
+            <p class="pt-8 text-center text-xl">RIEPILOGO ORDINE N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
+            <div class="flex w-full">
+                <div class="flex flex-col w-full text-lg">
+                    <p>Destinatario</p>
+                    <p>{{orderPDF.client?.nome}} {{orderPDF.client?.cognome}} - N. Tessera {{orderPDF.client?.n_tessera}}</p>
+                    <p>Ritiro presso: {{orderPDF.p_ritiro}}</p>
+                    <p>Livello: {{orderPDF.livello}}</p>
+                    <p>Ordine N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
+                    <div class="border-2 p-auto">
+                        <div *ngFor="let clothe of orderPDF.clothes">
+                            <table class="w-full my-4 mx-4">
+                                <tr>
+                                    <td>Tipo vestiario</td>
+                                    <td>Genere</td>
+                                    <td>Taglia</td>
+                                    <td>Quantità skkk</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ clothe.t_vestiario }}</td>
+                                    <td>{{ clothe.taglia }}</td>
+                                    <td>{{ clothe.taglia }}</td>
+                                    <td>{{ clothe.quantita }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="text-right pt-4">Creato da {{orderPDF.user?.nome}} {{orderPDF.user?.cognome}}</p>
+                    <p class="text-right">N. Tessera {{orderPDF.user?.n_tessera}}</p>
+                    
+                </div>
+            </div>
+        </div> -->
     </div>
     <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
         <mat-spinner class="m-auto border-nav"></mat-spinner>
