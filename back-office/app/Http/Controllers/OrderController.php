@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\Order;
 use Carbon\Carbon;
@@ -210,16 +211,37 @@ class OrderController extends Controller
 
     private function pairing($newOrder, $newOrderData)
     {
-        $newOrder->n_ordine = $newOrderData->n_ordine;
+        //$newOrder->n_ordine = $newOrderData->n_ordine;
         $newOrder->p_ritiro = $newOrderData->p_ritiro;
-        $newOrder->livello = $newOrderData->livello;
+        //$newOrder->livello = $newOrderData->livello;
         $newOrder->note = $newOrderData->note;
-        $newOrder->created_at = $newOrderData->created_at;
-        $newOrder->update_at = $newOrderData->update_at;
+        //$newOrder->created_at = $newOrderData->created_at;
+        //$newOrder->update_at = $newOrderData->update_at;
         $newOrder->user_id = $newOrderData->user_id;
-        $newOrder->client_id = $newOrderData->client_id;
-
+        $newOrder->client_id = $newOrderData->user->id;
+        $client=Client::where('id',$newOrder->user_id)->first();
         $newOrder->save();
+
+        for($i=0; $i<count($newOrderData->clothes); $i++){
+            $newClothe = new Clothe();
+            $newClothe->t_vestiario=$newOrderData->clothes[$i]->type;
+            switch($newOrderData->clothes[$i]->type){
+                case "Maglietta":
+                    $newClothe->taglia=$client->t_maglietta;
+                    break;
+                case "Pantaloni":
+                    $newClothe->taglia=$client->t_pantaloni;
+                    break;
+                case "Scarpe":
+                    $newClothe->taglia=$client->t_scarpe;
+                    break;
+            }
+            $newClothe->status="Attesa";
+            $newClothe->quantita=1;
+            $newClothe->order_id=$newOrder->id;
+            $newClothe->save();
+        }
+
         return $newOrder;
     }
 

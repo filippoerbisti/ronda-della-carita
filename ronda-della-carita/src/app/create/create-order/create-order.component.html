@@ -98,13 +98,13 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label
-              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.retire }"
+              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro}"
               >Punto di ritiro</mat-label
             >
             <input
               type="text"
               matInput
-              [(ngModel)]="newOrder.retire"
+              [(ngModel)]="newOrder.p_ritiro"
               [formControl]="myControl"
               placeholder="Punto di ritiro"
               required

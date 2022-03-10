@@ -323,21 +323,33 @@
     "tslib" "^2.3.0"
     "yargs" "^17.2.1"
 
+<<<<<<< HEAD
+"@angular/compiler@^13.2.2", "@angular/compiler@13.2.2":
+=======
 "@angular/compiler@^13.2.2":
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
   "integrity" "sha512-XXQtB0/e7pR2LPrHmpEiTU72SX4xxHGy91vYWIj1JCjSn0fYF7vtHzSJPXDvkbnkNow/PXXzJJYaU1ctdMZPcA=="
   "resolved" "https://registry.npmjs.org/@angular/compiler/-/compiler-13.2.2.tgz"
   "version" "13.2.2"
   dependencies:
     "tslib" "^2.3.0"
 
+<<<<<<< HEAD
+"@angular/core@^11.2.11 || ^12.0.4 || ^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.2.2", "@angular/core@13.2.2":
+=======
 "@angular/core@^13.2.2":
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
   "integrity" "sha512-zpctw0BxIVOsRFnckchK15SD1L8tzhf5GzwIDaM6+VylDQj1uYkm8mvAjJTQZyUuApomoFet2Rfj7XQPV+cNSQ=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-13.2.2.tgz"
   "version" "13.2.2"
   dependencies:
     "tslib" "^2.3.0"
 
+<<<<<<< HEAD
+"@angular/forms@^11.2.11 || ^12.0.4 || ^13.0.0", "@angular/forms@^13.0.0 || ^14.0.0-0", "@angular/forms@^13.2.2":
+=======
 "@angular/forms@^13.2.2":
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
   "integrity" "sha512-T61W4Ay9X9qhxjc6lLqpNFeHrGKwg2mqdsZ3zIm/c7oKo37mgl9TB5kkrtnS+205r3N2hF4ICnGFZ4a/egUP/g=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-13.2.2.tgz"
   "version" "13.2.2"
@@ -358,7 +370,11 @@
   dependencies:
     "tslib" "^2.3.0"
 
+<<<<<<< HEAD
+"@angular/platform-browser@^13.0.0 || ^14.0.0-0", "@angular/platform-browser@^13.2.2", "@angular/platform-browser@13.2.2":
+=======
 "@angular/platform-browser@^13.2.2":
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
   "integrity" "sha512-M7gWC8fFCPc/CRcHCzqe/j7WzwAUMeKt9vwlK633XnesHBoqZdYgbb3YHHc6WPVU0YI09Nb/Hm5sezEKmjUmPg=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-13.2.2.tgz"
   "version" "13.2.2"
@@ -372,7 +388,11 @@
   dependencies:
     "tslib" "^2.3.0"
 
+<<<<<<< HEAD
+"@angular/service-worker@^12.0.0", "@angular/service-worker@^13.0.0", "@angular/service-worker@^13.2.2":
+=======
 "@angular/service-worker@^13.2.2":
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
   "integrity" "sha512-bIjzK1+AvD/z6mQesWGCejBqY7YnOZjsb979CZ8Opul5ToQUm1n1NWISre1Hqexv46Wfql7RyLt2d/YJbjVnXw=="
   "resolved" "https://registry.npmjs.org/@angular/service-worker/-/service-worker-13.2.2.tgz"
   "version" "13.2.2"
@@ -6439,6 +6459,11 @@
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-6.1.0.tgz"
   "version" "6.1.0"
   dependencies:
+<<<<<<< HEAD
+    "universalify" "^2.0.0"
+  optionalDependencies:
+=======
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
     "graceful-fs" "^4.1.6"
     "universalify" "^2.0.0"
 
@@ -6455,6 +6480,14 @@
     "@babel/runtime" "^7.14.0"
     "atob" "^2.1.2"
     "btoa" "^1.2.1"
+<<<<<<< HEAD
+    "fflate" "^0.4.8"
+  optionalDependencies:
+    "canvg" "^3.0.6"
+    "core-js" "^3.6.0"
+    "dompurify" "^2.2.0"
+    "html2canvas" "^1.0.0-rc.5"
+=======
     "canvg" "^3.0.6"
     "core-js" "^3.6.0"
     "dompurify" "^2.2.0"
@@ -6463,6 +6496,7 @@
   optionalDependencies:
     "canvg" "^3.0.6"
     "dompurify" "^2.2.0"
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
 
 "karma-chrome-launcher@~3.1.0":
   "integrity" "sha512-3dPs/n7vgz1rxxtynpzZTvb9y/GIaW8xjAwcIGttLbycqoFtI7yo1NGnQi6oFTherRE+GIhCAHZC4vEqWGhNvg=="
@@ -6600,6 +6634,12 @@
   "version" "4.1.1"
   dependencies:
     "copy-anything" "^2.0.1"
+<<<<<<< HEAD
+    "parse-node-version" "^1.0.1"
+    "tslib" "^2.3.0"
+  optionalDependencies:
+=======
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
     "errno" "^0.1.1"
     "graceful-fs" "^4.1.2"
     "image-size" "~0.5.0"
@@ -9320,6 +9360,16 @@
     "immutable" "^4.0.0"
     "source-map-js" ">=0.6.2 <2.0.0"
 
+<<<<<<< HEAD
+"sass@1.36.0":
+  "integrity" "sha512-fQzEjipfOv5kh930nu3Imzq3ie/sGDc/4KtQMJlt7RRdrkQSfe37Bwi/Rf/gfuYHsIuE1fIlDMvpyMcEwjnPvg=="
+  "resolved" "https://registry.npmjs.org/sass/-/sass-1.36.0.tgz"
+  "version" "1.36.0"
+  dependencies:
+    "chokidar" ">=3.0.0 <4.0.0"
+
+=======
+>>>>>>> 4fb03c04f459e36f51f252d0103f141d2bae42c1
 "sax@^1.2.4", "sax@~1.2.4":
   "integrity" "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw=="
   "resolved" "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz"
