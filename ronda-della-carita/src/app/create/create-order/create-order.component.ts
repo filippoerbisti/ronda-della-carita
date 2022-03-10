@@ -8,6 +8,7 @@ import { IClient } from 'src/app/shared/interface/iclient';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
+import { IOrder } from 'src/app/shared/interface/iorder';
 
 export interface IClothes {
   type: string,
@@ -22,8 +23,11 @@ export interface IClothes {
 })
 export class CreateOrderComponent implements OnInit {
 
-  isLoading = false;  
-  history:string[]=[];
+  isLoading = false;
+  historyLoading = false;
+  panelOpenState = false;
+  client!:IClient;
+  history:IOrder[]=[];
   invalidInput = false;
   invalidClothe = false;
   nm = "";
@@ -253,6 +257,7 @@ export class CreateOrderComponent implements OnInit {
     
   }
   async clientHistory($event:any){
+    this.historyLoading = true;
     console.log($event)
     let id="";
     for(let i=0; i<$event.length; i++){
@@ -262,8 +267,15 @@ export class CreateOrderComponent implements OnInit {
         break;
       }
     }
-    let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/history/"+id);
-    this.history=response.data;
+    try {
+      let response = await axios.get("http://localhost:8000/api/order/history/"+id);
+      this.client = (await axios.get("http://localhost:8000/api/client/"+id)).data;
+      this.history=response.data;
+    } catch (error) {
+      console.log(error);
+      
+    }
+    this.historyLoading = false;
   }
 
   checkFields(){
