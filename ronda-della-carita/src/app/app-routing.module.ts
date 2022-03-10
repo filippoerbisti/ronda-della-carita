@@ -22,25 +22,27 @@ import { AuthGuardService } from './shared/service/auth-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'admin/home', component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/home', component: HomeComponent },
   { path: 'vol1/home', component: HomeComponent },
   { path: 'vol0/home', component: HomeEsternoComponent },
   { path: 'vol0/mob/home', component: HomeComponent },
 
-  { path: ':rule/create/user', component: CreateUserComponent, canActivate: [AuthGuardService] },
+  { path: ':rule/create/user', component: CreateUserComponent},
   { path: ':rule/create/client', component: CreateClientComponent },
   { path: ':rule/create/order', component: CreateOrderComponent },
-  { path: 'confirm/user', component: ConfirmUserComponent, canActivate: [AuthGuardService] },
-  { path: 'history', component: StoricoAccessiComponent, canActivate: [AuthGuardService] },
+  { path: 'confirm/user', component: ConfirmUserComponent},
+  { path: 'history', component: StoricoAccessiComponent},
   { path: 'vol0/scanner-qr', component: ScannerQrComponent },
   { path: ':rule/preview-pdf/:n_ordine', component: PreviewPdfComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },  
   { path: '**', component: PageNotFoundComponent }  
+
+  // canActivate: [AuthGuardService] for admin controll
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuardService]
+  // providers: [AuthGuardService]
 })
 export class AppRoutingModule { }

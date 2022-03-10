@@ -71,6 +71,16 @@ export class LoginComponent implements OnInit {
           // this.user = result.user;
           console.log(result.user);
           localStorage.setItem('user', JSON.stringify(result.user));
+          let sium = 'admin';
+          if (sium == 'interno') {
+            this.router.navigate(['vol1/home']);
+          } 
+          if (sium == 'esterno') {
+            this.router.navigate(['vol0/home']);
+          } 
+          if (sium == 'admin') {
+            this.router.navigate(['admin/home']);
+          } 
         },
         error => {
           this.errors = error.error;
@@ -80,7 +90,6 @@ export class LoginComponent implements OnInit {
           })
         },() => {
           this.isSubmitted = true;
-          this.router.navigate(['vol1/home']);
           this.loginForm.reset();
         }
       );

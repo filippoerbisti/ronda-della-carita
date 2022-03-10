@@ -28,6 +28,7 @@
     "axios": "^0.24.0",
     "glob-parent": "^6.0.2",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.1",
     "http-server": "^14.1.0",
     "jspdf": "^2.5.1",
     "node-forge": "^1.2.1",

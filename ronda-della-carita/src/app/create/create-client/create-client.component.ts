@@ -19,7 +19,7 @@ export class CreateClientComponent implements OnInit {
 
   isLoading = false;
 
-  // public newClient!: IClient;
+  public newClient!: IClient;
   createClientForm!: FormGroup;
   
 
