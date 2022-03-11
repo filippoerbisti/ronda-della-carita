@@ -225,17 +225,17 @@ class OrderController extends Controller
         for($i=0; $i<count($newOrderData->clothes); $i++){
             $newClothe = new Clothe();
             $newClothe->t_vestiario=$newOrderData->clothes[$i]->type;
-            switch($newOrderData->clothes[$i]->type){
-                case "Maglietta":
-                    $newClothe->taglia=$client->t_maglietta;
-                    break;
-                case "Pantaloni":
-                    $newClothe->taglia=$client->t_pantaloni;
-                    break;
-                case "Scarpe":
-                    $newClothe->taglia=$client->t_scarpe;
-                    break;
-            }
+            // switch($newOrderData->clothes[$i]->type){
+            //     case "Maglietta":
+            //         $newClothe->taglia=$client->t_maglietta;
+            //         break;
+            //     case "Pantaloni":
+            //         $newClothe->taglia=$client->t_pantaloni;
+            //         break;
+            //     case "Scarpe":
+            //         $newClothe->taglia=$client->t_scarpe;
+            //         break;
+            // }
             $newClothe->status="Attesa";
             $newClothe->quantita=1;
             $newClothe->order_id=$newOrder->id;
