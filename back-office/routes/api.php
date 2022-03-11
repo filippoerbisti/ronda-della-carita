@@ -15,9 +15,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/user-profile', [AuthController::class, 'me']); 
-
 // Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::get('/user-profile', [AuthController::class, 'me']); 
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
@@ -93,6 +93,9 @@ Route::get('/user-profile', [AuthController::class, 'me']);
     Route::get('/orders/inattesa', [OrderController::class, 'countOrderInAttesa']);
 
     Route::get('/orders/notif/inattesa', [OrderController::class, 'orderInAttesa']);
+
+    // Download PDF
+    Route::get('/download/pdf', [OrderController::class, 'createPDF']);
 
 
     // Clothe

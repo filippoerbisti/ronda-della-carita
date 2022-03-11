@@ -15,7 +15,7 @@ import { IClient } from 'src/app/shared/interface/iclient';
 import { IHistory } from '../shared/interface/ihistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 // import { IClothe } from 'src/app/shared/interface/iclothe';
-import jsPDF from 'jspdf';  
+import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 
@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
 
   isAdmin!: boolean;
 
+  pdf: any;
+
   order_cons = 'Consegnato';
   order_no_disp = 'Non disponibile';
   order_attesa = 'Attesa';
@@ -47,7 +49,7 @@ export class HomeComponent implements OnInit {
   orderId!: number;
   clientId!: number;
 
-  @ViewChild('viewPDF', {static: false}) viewPDF!: ElementRef;
+  @ViewChild('viewPDF', { static: false }) viewPDF!: ElementRef;
 
   orderPDF!: IOrder;
 
@@ -72,7 +74,7 @@ export class HomeComponent implements OnInit {
   searchUser!: string;
   searchOrder!: string;
   searchClient!: string;
-  
+
   searchUsers: IUser[] = [];
   searchClients: IClient[] = [];
   searchOrders: IOrder[] = [];
@@ -81,19 +83,19 @@ export class HomeComponent implements OnInit {
   pageOrderSlice = this.orders.slice(0, 10);
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
-  
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
-    ) { }
+  ) { }
 
   async ngOnInit() {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
-      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", {withCredentials: true});
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
       this.user = response_account.data;
       console.log(this.user);
 
@@ -116,26 +118,26 @@ export class HomeComponent implements OnInit {
       let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
 
-      let response_order_daconf= await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
+      let response_order_daconf = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
-      
-    } 
+
+    }
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
-    
-    if(window.location.href.includes('order')) {
+
+    if (window.location.href.includes('order')) {
       this.indexTab = 0;
     } else if (window.location.href.includes('client')) {
       this.indexTab = 1;
     };
 
-    this.pageUserSlice = this.users.slice(0, 10); 
-    this.pageOrderSlice = this.orders.slice(0, 10); 
+    this.pageUserSlice = this.users.slice(0, 10);
+    this.pageOrderSlice = this.orders.slice(0, 10);
     this.pageClientSlice = this.clients.slice(0, 10);
-  }  
+  }
 
   goToLogin() {
     this.router.navigateByUrl('/login');
@@ -143,9 +145,9 @@ export class HomeComponent implements OnInit {
 
   goToHome() {
     if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
+      this.rule = 'vol1';
     } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
     }
@@ -162,19 +164,19 @@ export class HomeComponent implements OnInit {
 
   goToCreateUser() {
     if (this.user.ruolo === 'admin') {
-      this.rule =  `${this.user.ruolo}`;
+      this.rule = `${this.user.ruolo}`;
     } else if (this.user.ruolo === 'vol') {
-      this.rule =  `${this.user.ruolo}`;
+      this.rule = `${this.user.ruolo}`;
     }
     this.router.navigateByUrl('create/user/' + this.rule);
   }
 
   goToCreateOrder() {
     if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
+      this.rule = 'vol1';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
@@ -184,7 +186,7 @@ export class HomeComponent implements OnInit {
 
   goToViewOrder() {
     if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.indexTab = 0;
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
     }
@@ -192,10 +194,10 @@ export class HomeComponent implements OnInit {
 
   goToCreateClient() {
     if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
+      this.rule = 'vol1';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
@@ -205,7 +207,7 @@ export class HomeComponent implements OnInit {
 
   goToViewClient() {
     if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.indexTab = 1;
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
     }
@@ -222,19 +224,19 @@ export class HomeComponent implements OnInit {
     if (endIndex > this.orders.length) {
       endIndex = this.orders.length;
     }
-    this.pageOrderSlice = this.orders.slice(startIndex, endIndex); 
+    this.pageOrderSlice = this.orders.slice(startIndex, endIndex);
 
     if (endIndex > this.clients.length) {
       endIndex = this.clients.length;
     }
     this.pageClientSlice = this.clients.slice(startIndex, endIndex);
-  }  
+  }
 
   public filter(type: string) {
-    switch(type){
+    switch (type) {
       case 'user':
         for (let index in this.users) {
-          if(this.users[index].nome.toLowerCase() == this.searchUser.toLowerCase()) {
+          if (this.users[index].nome.toLowerCase() == this.searchUser.toLowerCase()) {
             let put = true;
             for (let anotherIndex in this.searchUsers) {
               if (this.searchUsers[index] === this.users[anotherIndex]) {
@@ -258,14 +260,14 @@ export class HomeComponent implements OnInit {
             if (put)
               this.searchOrders.push(this.orders[index]);
           }
-        } 
+        }
         break;
       case 'nuovoassistito':
         for (let index in this.clients) {
           if (this.clients[index].nome.toLowerCase() == this.searchClient.toLowerCase()) {
-            let put=true;
+            let put = true;
             for (let anotherIndex in this.searchClients) {
-              if (this.searchClients[index] === this.clients[anotherIndex]){
+              if (this.searchClients[index] === this.clients[anotherIndex]) {
                 put = false;
               }
             }
@@ -275,10 +277,10 @@ export class HomeComponent implements OnInit {
         }
         break;
     }
- 
+
   }
   public search(were: string) {
-    switch(were) {
+    switch (were) {
       case 'nuovoassistito':
         if (this.searchClient == "" || this.searchClient == " ") {
           this.searchClients.splice(0, this.searchClients.length);
@@ -287,8 +289,8 @@ export class HomeComponent implements OnInit {
         this.filter('nuovoassistito');
         break;
       case 'ordine':
-        if (this.searchOrder == "" || this.searchOrder == " "){
-          this.searchOrders.splice(0,this.searchOrders.length);
+        if (this.searchOrder == "" || this.searchOrder == " ") {
+          this.searchOrders.splice(0, this.searchOrders.length);
           this.searchOrder = "";
         }
         this.filter('ordine');
@@ -296,7 +298,7 @@ export class HomeComponent implements OnInit {
       case 'volontario':
         if (this.searchUser == "" || this.searchUser == " ") {
           this.searchUsers.splice(0, this.searchUsers.length);
-          this.searchUser="";
+          this.searchUser = "";
         }
         this.filter('user');
         break;
@@ -314,20 +316,20 @@ export class HomeComponent implements OnInit {
     catch (err) {
       console.log(err);
     }
-    this.pageUserSlice = this.users.slice(0, 10); 
+    this.pageUserSlice = this.users.slice(0, 10);
   }
 
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.order_status;
-    console.log("status"+status);
-    if(search==undefined || search=="")
-      search="nu";
-    if(status==undefined)
-      status="all";
-    console.log("search"+search)
+    console.log("status" + status);
+    if (search == undefined || search == "")
+      search = "nu";
+    if (status == undefined)
+      status = "all";
+    console.log("search" + search)
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status+"/search/"+search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status + "/search/" + search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -337,9 +339,9 @@ export class HomeComponent implements OnInit {
     catch (err) {
       console.log(err);
     }
-    this.pageOrderSlice = this.orders.slice(0, 10); 
+    this.pageOrderSlice = this.orders.slice(0, 10);
   }
-  
+
 
   async filterClient() {
     let search = this.searchClient;
@@ -352,20 +354,26 @@ export class HomeComponent implements OnInit {
     catch (err) {
       console.log(err);
     }
-    this.pageClientSlice = this.clients.slice(0, 10); 
+    this.pageClientSlice = this.clients.slice(0, 10);
   }
 
-  async openPreviewPDF(n_ordine: number) {
-    if (this.router.url.includes('vol1')) {
-      this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
+  async openPreviewPDF() {
+    // if (this.router.url.includes('vol1')) {
+    //   this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
+    // }
+    // if (this.router.url.includes('vol0')) {
+    //   this.router.navigateByUrl('vol0/preview-pdf/' + n_ordine);
+    // }
+    // if (this.router.url.includes('admin')) {
+    //   this.router.navigateByUrl('admin/preview-pdf/' + n_ordine);
+    // }
+
+    try {
+      await axios.get("http://localhost:8000/api/download/pdf");
     }
-    if (this.router.url.includes('vol0')) {
-      this.router.navigateByUrl('vol0/preview-pdf/' + n_ordine);
+    catch (err) {
+      console.log(err);
     }
-    if (this.router.url.includes('admin')) {
-      this.router.navigateByUrl('admin/preview-pdf/' + n_ordine);
-    }
-    // let pdf = new jsPDF();
   }
 
   openDeleteUserDialog(userId: number) {
@@ -424,7 +432,7 @@ export class HomeComponent implements OnInit {
     localStorage["view_notification"] = this.typeNotification;
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
-  
-  
+
+
 }
 

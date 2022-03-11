@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\Order;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -46,12 +47,21 @@ class OrderController extends Controller
 
     // Generate PDF
     public function createPDF() {
-        // retreive all records from db
-        $data = Clothe::all();
+        // $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
+        // $clothe = Clothe::where('order_id', $id)->get();
+        $data = [
+
+            'title' => 'Welcome to ItSolutionStuff.com',
+
+            'date' => date('m/d/Y'),
+
+
+        ];
         // share data to view
-        $pdf = PDF::loadView('pdf_view', $data);
+        $pdf = PDF::loadView('myPDF', $data);
+        Log::info('pallone');
         // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
+        return $pdf->download('myPDF.pdf');
       }
 
     public function history($id)
@@ -237,20 +247,20 @@ class OrderController extends Controller
         for($i = 0; $i < count($newOrderData->clothes); $i++){
             $newClothe = new Clothe();
             $newClothe->t_vestiario=$newOrderData->clothes[$i]->type;
-            switch($newOrderData->clothes[$i]->type){
-                case "Maglietta":
-                    $newClothe->taglia = $client->t_maglietta;
-                    break;
-                case "Pantaloni":
-                    $newClothe->taglia = $client->t_pantaloni;
-                    break;
-                case "Scarpe":
-                    $newClothe->taglia = $client->t_scarpe;
-                    break;
-            }
-            $newClothe->status = "Attesa";
-            $newClothe->quantita=  1;
-            $newClothe->order_id = $newOrder->id;
+            // switch($newOrderData->clothes[$i]->type){
+            //     case "Maglietta":
+            //         $newClothe->taglia=$client->t_maglietta;
+            //         break;
+            //     case "Pantaloni":
+            //         $newClothe->taglia=$client->t_pantaloni;
+            //         break;
+            //     case "Scarpe":
+            //         $newClothe->taglia=$client->t_scarpe;
+            //         break;
+            // }
+            $newClothe->status="Attesa";
+            $newClothe->quantita=1;
+            $newClothe->order_id=$newOrder->id;
             $newClothe->save();
         }
 
