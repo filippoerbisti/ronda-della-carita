@@ -78,16 +78,11 @@
                     </button>
                 </mat-list-item>
                 <mat-list-item *ngIf="router.url.includes('admin')">
-                    <button mat-button (click)="goToConfirm()" class="w-full left text-lg text-white">
-                        <span>RCHIESTE CONFERMA</span>
-                    </button>
-                </mat-list-item>
-                <mat-list-item *ngIf="router.url.includes('admin')">
                     <button mat-button (click)="goToCreateUser()" class="w-full left text-lg text-white">
                         <span>NUOVO VOLONTARIO</span>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="router.url.includes('vol1')">
+                <mat-list-item *ngIf="router.url.includes('vol1') || router.url.includes('admin')">
                     <button mat-button (click)="goToCreateOrder()" class="w-full left text-lg text-white">
                         <span>NUOVO ORDINE</span> 
                     </button>
@@ -97,7 +92,7 @@
                         <span>ORDINI</span> 
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="router.url.includes('vol1')">
+                <mat-list-item *ngIf="router.url.includes('vol1')|| router.url.includes('admin')">
                     <button mat-button (click)="goToCreateClient()" class="w-full left text-lg text-white">
                         <span>NUOVO ASSISTITO</span> 
                     </button>

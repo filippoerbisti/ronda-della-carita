@@ -176,6 +176,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Barryvdh\DomPDF\ServiceProvider::class
+
     ],
 
     /*
@@ -215,6 +217,7 @@ return [
         'Mail' => Illuminate\Support\Facades\Mail::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'RateLimiter' => Illuminate\Support\Facades\RateLimiter::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
@@ -231,7 +234,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // 'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         // 'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory'
-
     ],
 
 ];

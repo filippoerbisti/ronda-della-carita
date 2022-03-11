@@ -67,7 +67,7 @@ Route::get('/user-profile', [AuthController::class, 'me']);
     // Order
     Route::get('/orders', [OrderController::class, 'list']);
 
-    Route::get('/order/{n_ordine}', [OrderController::class, 'id']);
+    Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
 
     Route::get('/order/history/{id}', [OrderController::class, 'history']);
 

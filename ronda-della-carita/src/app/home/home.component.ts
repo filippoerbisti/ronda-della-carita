@@ -362,6 +362,9 @@ export class HomeComponent implements OnInit {
     if (this.router.url.includes('vol0')) {
       this.router.navigateByUrl('vol0/preview-pdf/' + n_ordine);
     }
+    if (this.router.url.includes('admin')) {
+      this.router.navigateByUrl('admin/preview-pdf/' + n_ordine);
+    }
     // let pdf = new jsPDF();
   }
 

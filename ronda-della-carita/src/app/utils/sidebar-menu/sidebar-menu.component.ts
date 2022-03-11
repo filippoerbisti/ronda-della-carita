@@ -28,7 +28,7 @@ export class SidebarMenuComponent implements OnInit {
 
   isSidebarOpen = false;
 
-  user!: IUser;
+  user!: any;
   history!: IHistory;
   rule!: any;
 

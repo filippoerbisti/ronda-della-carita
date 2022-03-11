@@ -44,7 +44,6 @@ import { CreateClientComponent } from './create/create-client/create-client.comp
 import { CreateOrderComponent } from './create/create-order/create-order.component';
 
 import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi.component';
-import { ConfirmUserComponent } from './utils/confirm-user/confirm-user.component';
 
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 
@@ -85,7 +84,6 @@ import { PreviewPdfComponent } from './preview-pdf/preview-pdf.component';
     CreateUserComponent,
     CreateClientComponent,
     CreateOrderComponent,
-    ConfirmUserComponent,
     RegistrationComponent,
     PreviewPdfComponent,
   ],
