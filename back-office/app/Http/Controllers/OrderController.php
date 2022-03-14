@@ -240,6 +240,7 @@ class OrderController extends Controller
         $newOrder->note = $newOrderData->note;
         //$newOrder->created_at = $newOrderData->created_at;
         //$newOrder->update_at = $newOrderData->update_at;
+        $newOrder->n_ordine = rand(1, 100000);
         $newOrder->user_id = $newOrderData->user_id;
         $newOrder->client_id = $newOrderData->user->id;
         $client=Client::where('id',$newOrder->user_id)->first();

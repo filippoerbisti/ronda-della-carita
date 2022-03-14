@@ -49,11 +49,12 @@
                                             (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title class="w-1/3 my-auto">
-                                                <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }} - N. Tessera {{ user.n_tessera }}</span>
+                                                <!-- <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }} - N. Tessera {{ user.n_tessera }}</span> -->
+                                                <span class="font-bold">N. {{ user.n_tessera }} - {{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
                                             </mat-panel-title>
-                                            <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                                <span class="leading-loose text-black mr-auto hidden sm:inline">Ruolo: {{ user.ruolo }}</span>
-                                            </mat-panel-description>
+                                            <!-- <mat-panel-description class="w-1/3 flex justify-center my-auto">
+                                                <p class="leading-loose text-black mr-auto hidden sm:inline">Ruolo: {{ user.ruolo }}</p>
+                                            </mat-panel-description> -->
                                             <div class="w-1/3 flex justify-end">
                                                 <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-3 sm:mr-5">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -208,14 +209,14 @@
                                         (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title class="w-1/3 my-auto">
-                                            <span class="font-bold">Ordine N. {{ order.n_ordine }}</span>
+                                            <span class="font-bold">N. {{ order.n_ordine }}</span>
                                         </mat-panel-title>
                                         <mat-panel-description class="w-1/3 flex justify-center my-auto">
                                             <span class="leading-loose text-black mr-auto hidden sm:inline">
                                                 Tot. capi: {{ order.n_clothes}} 
                                             </span>
-                                            <div class="flex items-center">
-                                                <span class="leading-loose text-black mr-auto pr-4">Stato: </span>
+                                            <div class="flex items-center justify-center">
+                                                <span class="leading-loose text-black mr-auto pr-4 hidden sm:inline">Stato: </span>
                                                 <div *ngIf="order.status === order_attesa">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -256,19 +257,23 @@
                                             </button>
                                         </div>
                                     </mat-expansion-panel-header>
-                                    <p class="font-bold">{{ order.client?.nome }} {{ order.client?.cognome }} - N. Tessera {{ order.client?.n_tessera }}</p>
+                                    <p class="font-bold">N. {{ user.n_tessera }} - {{ user.nome | uppercase }} {{ user.cognome | uppercase }}</p>
+                                    
+
                                     <p>Punto di ritiro: {{ order.p_ritiro }}</p>
                                     <table class="w-full">
-                                        <tr>
-                                            <td>Tipo vestiario</td>
-                                            <td>Genere</td>
+                                        <tr class="font-medium space-x-1">
+                                            <td>Tipo</td>
+                                            <td class="hidden sm:inline">Genere</td>
                                             <td>Taglia</td>
                                             <td>Quantità</td>
                                             <td>Stato</td>
                                         </tr>
-                                        <tr *ngFor="let clothe of order.clothes">
+                                        <tr *ngFor="let clothe of order.clothes" class="space-x-1">
                                             <td>{{ clothe.t_vestiario }}</td>
-                                            <td>{{ clothe.taglia }}</td>
+                                            <td class="hidden sm:inline"></td>
+                                            <!-- <td class="hidden sm:inline">{{ user.t_pantaloni }}</td>
+                                            <td class="hidden sm:inline">{{ user.t_pantaloni }}</td> -->
                                             <td>{{ clothe.taglia }}</td>
                                             <td>{{ clothe.quantita }}</td>
                                             <td>{{ clothe.status }}</td>
