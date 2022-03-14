@@ -192,10 +192,8 @@ export class CreateOrderComponent implements OnInit {
       let response = await axios.get(
         'https://backoffice-ronda.herokuapp.com/api/clients'
       );
-      console.log(response.status);
-      console.log(response.data);
+      
       this.clients = response.data;
-      console.log(this.clients);
     } catch (err) {
       console.log(err);
     }
@@ -222,7 +220,6 @@ export class CreateOrderComponent implements OnInit {
 
   filterClothes() {
     let clothes = this.tvestiariolv2.filter((clothe) => {
-      console.log(clothe.reference);
 
       return clothe.reference == this.selectedReference;
     });
@@ -327,7 +324,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder.clothes[0]);
       let response = await axios.post(
-        'http://localhost:8000/api/order/create',
+        'https://backoffice-ronda.herokuapp.com/api/order/create',
         this.newOrder
       );
       console.log(response.data);
@@ -384,10 +381,10 @@ export class CreateOrderComponent implements OnInit {
     this.newOrder.user.surname = surname;
     try {
       let response = await axios.get(
-        'http://localhost:8000/api/order/history/' + id
+        'https://backoffice-ronda.herokuapp.com/api/order/history/' + id
       );
       this.client = (
-        await axios.get('http://localhost:8000/api/client/' + id)
+        await axios.get('https://backoffice-ronda.herokuapp.com/api/client/' + id)
       ).data;
       this.history = response.data;
     } catch (error) {
