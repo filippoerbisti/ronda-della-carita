@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,9 +14,6 @@ import { IOrder } from 'src/app/shared/interface/iorder';
 import { IClient } from 'src/app/shared/interface/iclient';
 import { IHistory } from '../shared/interface/ihistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
-// import { IClothe } from 'src/app/shared/interface/iclothe';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 
 @Component({
@@ -357,7 +354,8 @@ export class HomeComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10);
   }
 
-  async openPreviewPDF() {
+  async downloadPDF() {
+    return await axios.get("https://backoffice-ronda.herokuapp.com/api/download/pdf");
     // if (this.router.url.includes('vol1')) {
     //   this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
     // }
@@ -368,12 +366,16 @@ export class HomeComponent implements OnInit {
     //   this.router.navigateByUrl('admin/preview-pdf/' + n_ordine);
     // }
 
-    try {
-      await axios.get("http://localhost:8000/api/download/pdf");
-    }
-    catch (err) {
-      console.log(err);
-    }
+    // try {
+    //  let response_pdf = await axios.get("https://backoffice-ronda.herokuapp.com/api/download/pdf");
+    //  this.pdf = response_pdf;
+    //  console.log(response_pdf.data);
+     
+    // }
+    // catch (err) {
+    //   console.log(err);
+    //   return err;
+    // }
   }
 
   openDeleteUserDialog(userId: number) {

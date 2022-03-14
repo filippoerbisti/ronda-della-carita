@@ -49,18 +49,18 @@ class OrderController extends Controller
     public function createPDF() {
         // $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
         // $clothe = Clothe::where('order_id', $id)->get();
-        $data = [
+        // $data = [
 
-            'title' => 'Welcome to ItSolutionStuff.com',
+        //     'title' => 'Welcome to ItSolutionStuff.com',
 
-            'date' => date('m/d/Y'),
+        //     'date' => date('m/d/Y'),
 
 
-        ];
+        // ];
         // share data to view
-        $pdf = PDF::loadView('myPDF', $data);
+        $pdf = PDF::loadView('myPDF');
         Log::info('pallone');
-        // download PDF file with download method
+        $pdf->save(storage_path().'_test.pdf');
         return $pdf->download('myPDF.pdf');
       }
 

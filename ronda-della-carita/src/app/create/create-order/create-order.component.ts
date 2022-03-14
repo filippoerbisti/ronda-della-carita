@@ -26,8 +26,8 @@ export class CreateOrderComponent implements OnInit {
   isLoading = false;
   historyLoading = false;
   panelOpenState = false;
-  client!:IClient;
-  history:IOrder[]=[];
+  client!: IClient;
+  history: IOrder[] = [];
   invalidInput = false;
   invalidClothe = false;
   nm = "";
@@ -42,16 +42,16 @@ export class CreateOrderComponent implements OnInit {
   quantita = 1;
 
   public tvestiario = [
-    {value: "Maglietta"},
-    {value: 'Pantaloni'},
-    {value: 'Scarpe'},
+    { value: "Maglietta" },
+    { value: 'Pantaloni' },
+    { value: 'Scarpe' },
   ];
 
   public newClothe = {
     type: String,
   };
 
-  public clothes : any[] = [];
+  public clothes: any[] = [];
 
   public newOrder = {
     user: {
@@ -66,7 +66,7 @@ export class CreateOrderComponent implements OnInit {
   };
 
 
-  public tvestiarioUseCaseMapping:any = sizes;
+  public tvestiarioUseCaseMapping: any = sizes;
 
   // public tvestiarioUseCaseMapping: any = izes[] = [] {
   //   "maglietta": [
@@ -126,18 +126,18 @@ export class CreateOrderComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    public router:Router
-    ) {}
-  
+    public router: Router
+  ) { }
+
   async ngOnInit() {
     this.isLoading = true;
     try {
       let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       console.log(response.status);
       console.log(response.data);
-      this.clients=response.data;
+      this.clients = response.data;
       console.log(this.clients);
-    } 
+    }
     catch (err) {
       console.log(err);
     }
@@ -151,17 +151,17 @@ export class CreateOrderComponent implements OnInit {
 
   goToHome() {
     if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
+      this.rule = 'vol1';
       this.router.navigateByUrl(`/${this.rule}` + '/home');
     } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.router.navigateByUrl(`/${this.rule}` + '/home');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
       this.router.navigateByUrl(`/${this.rule}` + '/home');
     }
   }
-  
+
   // public sea() {
   //   if(this.nm != ""){
   //     let nmo = this.nm.split(' ');
@@ -192,17 +192,17 @@ export class CreateOrderComponent implements OnInit {
   //       this.tagliaValue = parseInt(this.search[0].t_pantaloni);
   //   }
   //   console.log(this.tagliaValue);
-    
+
   // }
 
-   private _filter(n_tessera: string): IClient[] {
-     const filterValue = n_tessera.toLowerCase();
+  private _filter(n_tessera: string): IClient[] {
+    const filterValue = n_tessera.toLowerCase();
     return this.clients.filter(client => client.n_tessera.toString().toLowerCase().includes(filterValue));
   }
 
   test() {
     console.log('oooo');
-    
+
   }
 
   createOrder() {
@@ -230,7 +230,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkNewClotheForm()) {
       this.invalidClothe = false;
       let clothe = this.newClothe;
-      this.clothes.push(clothe); 
+      this.clothes.push(clothe);
       this.newClothe = {
         type: String,
       }
@@ -241,7 +241,7 @@ export class CreateOrderComponent implements OnInit {
     this.clothes.splice(index, 1)
   }
 
-  checkNewClotheForm(){
+  checkNewClotheForm() {
     if (this.newClothe.type != String) {
       return true
     } else {
@@ -249,16 +249,16 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  async create(){
+  async create() {
     if (this.checkFields()) {
       console.log(this.newOrder.clothes[0]);
-      let response = await axios.post("http://localhost:8000/api/order/create",this.newOrder);
+      let response = await axios.post("https://backoffice-ronda.herokuapp.com/api/order/create", this.newOrder);
       console.log(response.data);
       if (window.location.href.includes('vol1')) {
-        this.rule =  'vol1';
+        this.rule = 'vol1';
         this.router.navigateByUrl(`/${this.rule}` + '/home');
       } else if (window.location.href.includes('vol0')) {
-        this.rule =  'vol0';
+        this.rule = 'vol0';
         this.router.navigateByUrl(`/${this.rule}` + '/home');
       } else if (window.location.href.includes('admin')) {
         this.rule = 'admin';
@@ -269,56 +269,56 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  async clientHistory($event:any){
-    let temp:any=localStorage.getItem("user");
-    this.newOrder.user_id=JSON.parse(temp).id;
+  async clientHistory($event: any) {
+    let temp: any = localStorage.getItem("user");
+    this.newOrder.user_id = JSON.parse(temp).id;
     this.historyLoading = true;
     console.log($event)
-    let id="";
-    let space=0;
-    for(let i=0; i<$event.length; i++){
-      if($event.charAt(i)!=" "){
-        id+=$event.charAt(i);
-      }else{
-        space=i;
+    let id = "";
+    let space = 0;
+    for (let i = 0; i < $event.length; i++) {
+      if ($event.charAt(i) != " ") {
+        id += $event.charAt(i);
+      } else {
+        space = i;
         break;
       }
     }
-    let name="";
-    for(let i=space+3; i<$event.length; i++){
-      if($event.charAt(i)!=" "){
-        name+=$event.charAt(i);
-      }else{
-        space=i;
+    let name = "";
+    for (let i = space + 3; i < $event.length; i++) {
+      if ($event.charAt(i) != " ") {
+        name += $event.charAt(i);
+      } else {
+        space = i;
         break;
       }
     }
-    let surname="";
-    for(let i=space+1; i<$event.length; i++){
-      if($event.charAt(i)!=" "){
-        surname+=$event.charAt(i);
-      }else{
-        space=i;
+    let surname = "";
+    for (let i = space + 1; i < $event.length; i++) {
+      if ($event.charAt(i) != " ") {
+        surname += $event.charAt(i);
+      } else {
+        space = i;
         break;
       }
     }
-    this.newOrder.user.id=id;
-    this.newOrder.user.name=name;
-    this.newOrder.user.surname=surname;
+    this.newOrder.user.id = id;
+    this.newOrder.user.name = name;
+    this.newOrder.user.surname = surname;
     try {
-      let response = await axios.get("http://localhost:8000/api/order/history/"+id);
-      this.client = (await axios.get("http://localhost:8000/api/client/"+id)).data;
-      this.history=response.data;
+      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/history/" + id);
+      this.client = (await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + id)).data;
+      this.history = response.data;
     } catch (error) {
       console.log(error);
-      
+
     }
     this.historyLoading = false;
   }
 
-  checkFields(){
+  checkFields() {
     console.log('checkFields');
-    
+
     // check forms
     this.newOrder.user.name != "" && this.newOrder.p_ritiro != "" ? this.invalidInput = false : this.invalidInput = true
     // check if there's at least a clothe

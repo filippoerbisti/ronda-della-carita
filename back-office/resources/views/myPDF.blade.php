@@ -11,10 +11,6 @@
 
 <body>
 
-    <h1>{{ $title }}</h1>
-
-    <p>{{ $date }}</p>
-
     <h3>diocan</h3>
 
     
