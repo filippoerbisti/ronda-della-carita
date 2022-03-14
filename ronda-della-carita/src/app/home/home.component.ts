@@ -18,6 +18,7 @@ import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notif
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
+import { WhiteRectangleDetector } from '@zxing/library';
 
 @Component({
   selector: 'app-home',
@@ -357,7 +358,7 @@ export class HomeComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10);
   }
 
-  async openPreviewPDF() {
+  async openPreviewPDF(id:any) {
     // if (this.router.url.includes('vol1')) {
     //   this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
     // }
@@ -369,7 +370,8 @@ export class HomeComponent implements OnInit {
     // }
 
     try {
-      await axios.get("http://localhost:8000/api/download/pdf");
+      //await axios.get("https://backoffice-ronda.herokuapp.com/api/download/pdf");
+      window.open("http://localhost:8000/api/download/pdf/"+id, "_blank")
     }
     catch (err) {
       console.log(err);
