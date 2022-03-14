@@ -46,14 +46,15 @@ class OrderController extends Controller
     }
 
     // Generate PDF
-    public function createPDF() {
-        // $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
-        // $clothe = Clothe::where('order_id', $id)->get();
+    public function createPDF($id) {
+        $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
+        return $orderPDF;
+        $clothe = Clothe::where('order_id', $orderPDF->client_id)->get();
         $data = [
 
-            'title' => 'Welcome to ItSolutionStuff.com',
+            'title' => $orderPDF,
 
-            'date' => date('m/d/Y'),
+            'date' => $clothe,
 
 
         ];
