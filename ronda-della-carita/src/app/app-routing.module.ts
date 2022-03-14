@@ -11,7 +11,6 @@ import { CreateUserComponent } from './create/create-user/create-user.component'
 import { CreateClientComponent } from './create/create-client/create-client.component';
 import { CreateOrderComponent } from './create/create-order/create-order.component';
 
-import { ConfirmUserComponent } from './utils/confirm-user/confirm-user.component';
 import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi.component';
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';

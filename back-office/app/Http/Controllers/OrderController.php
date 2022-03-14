@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\Order;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Mockery\Undefined;
+use PDF;
 
 class OrderController extends Controller
 {
+
     public function list()
     {
         $orders = Order::with('client')
@@ -35,13 +37,33 @@ class OrderController extends Controller
         return $orders;
     }
 
-    public function id($id)
+    public function n_ordine($n_ordine)
     {
         return Order::with('client')
             ->with('user')
-            ->where('id', $id)
+            ->where('n_ordine', $n_ordine)
             ->first();
     }
+
+    // Generate PDF
+    public function createPDF() {
+        // $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
+        // $clothe = Clothe::where('order_id', $id)->get();
+        $data = [
+
+            'title' => 'Welcome to ItSolutionStuff.com',
+
+            'date' => date('m/d/Y'),
+
+
+        ];
+        // share data to view
+        $pdf = PDF::loadView('myPDF', $data);
+        Log::info('pallone');
+        // download PDF file with download method
+        return $pdf->download('myPDF.pdf');
+      }
+
     public function history($id)
     {
         $start = Carbon::now()->subMonth(1)->format('Y-m-d');
@@ -223,7 +245,7 @@ class OrderController extends Controller
         $client=Client::where('id',$newOrder->user_id)->first();
         $newOrder->save();
 
-        for($i=0; $i<count($newOrderData->clothes); $i++){
+        for($i = 0; $i < count($newOrderData->clothes); $i++){
             $newClothe = new Clothe();
             $newClothe->t_vestiario=$newOrderData->clothes[$i]->type;
             // switch($newOrderData->clothes[$i]->type){
