@@ -1,6 +1,4 @@
-
-
-<!--ngModel-->
+<!-- 
 
 <div class="h-full w-full">
     <div *ngIf="!isLoading" class="w-full flex">
@@ -25,14 +23,6 @@
                                 
                                 placeholder="Cognome">
                         </mat-form-field>
-                        <!-- <mat-form-field appearance="fill" class="w-full ml-4">
-                            <mat-label>N. Tessera</mat-label>
-                            <input type="number" 
-                                matInput 
-                                name="n_tessera"
-                                [(ngModel)]="newUser.n_tessera" 
-                                placeholder="N. Tessera">
-                        </mat-form-field> -->
                     </div>
                     <div class="w-full flex flex-col sm:flex-row">
                         <mat-form-field appearance="fill" class="w-full">
@@ -86,4 +76,9 @@
         <mat-spinner class="m-auto"></mat-spinner>
     </div>
 </div>
+ -->
 
+ <div class="w-full h-full flex flex-col justify-center items-center px-10 sm:px-0">
+    <p class="text-2xl text-nav font-medium w-full sm:w-2/4 text-left">Registra volontario</p>
+    <app-registration class="w-full sm:w-2/4"></app-registration>
+ </div>

@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: ':rule/create/user', component: CreateUserComponent},
   { path: ':rule/create/client', component: CreateClientComponent },
   { path: ':rule/create/order', component: CreateOrderComponent },
-  { path: 'confirm/user', component: ConfirmUserComponent},
+  // { path: '/confirm/user', component: ConfirmUserComponent},
   { path: 'history', component: StoricoAccessiComponent},
   { path: 'vol0/scanner-qr', component: ScannerQrComponent },
   { path: ':rule/preview-pdf/:n_ordine', component: PreviewPdfComponent },
