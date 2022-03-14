@@ -61,44 +61,49 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div class="flex flex-col">
-                  <div class="flex" >
-                      <div class="flex flex-col w-full">
-                        <div class="grid grid-cols-3 w-full border-b-2 border-nav text-nav font-medium pb-0.5 mb-2">
-                          <div class="flex-col">
-                            Tipo
-                          </div>
-                          <div class="flex-col text-center">
-                            Taglia
-                          </div>
-                          <div class="flex-col text-right">
-                            Data ordine
-                          </div>
+                <div class="flex">
+                  <div class="flex flex-col w-full">
+                    <div
+                      class="grid grid-cols-3 w-full border-b-2 border-nav text-nav font-medium pb-0.5 mb-2"
+                    >
+                      <div class="flex-col">Tipo</div>
+                      <div class="flex-col text-center">Taglia</div>
+                      <div class="flex-col text-right">Data ordine</div>
+                    </div>
+                    <div class="" *ngFor="let order of history">
+                      <div
+                        class="grid grid-cols-3 w-full mb-1"
+                        *ngFor="let clothe of order.clothes"
+                      >
+                        <div class="flex-col">
+                          {{ clothe.t_vestiario }}
                         </div>
-                        <div class="" *ngFor="let order of history">
-                          <div class="grid grid-cols-3 w-full mb-1" *ngFor="let clothe of order.clothes">
-                            <div class="flex-col">
-                              {{ clothe.t_vestiario }}  
-                            </div>
-                            <div class="flex-col text-center">
-                              <span *ngIf="clothe.t_vestiario == 'Maglietta'">{{ client.t_maglietta }}</span>
-                              <span *ngIf="clothe.t_vestiario == 'Pantaloni'">{{ client.t_pantaloni }}</span>
-                              <span *ngIf="clothe.t_vestiario == 'Scarpe'">{{ client.t_scarpe }}</span>
-                            </div>
-                            <div class="flex-col text-right">
-                              {{ order.created_at | date:'dd/MM/yy' }}
-                            </div>
-                          </div>
+                        <div class="flex-col text-center">
+                          <span *ngIf="clothe.t_vestiario == 'Maglietta'">{{
+                            client.t_maglietta
+                          }}</span>
+                          <span *ngIf="clothe.t_vestiario == 'Pantaloni'">{{
+                            client.t_pantaloni
+                          }}</span>
+                          <span *ngIf="clothe.t_vestiario == 'Scarpe'">{{
+                            client.t_scarpe
+                          }}</span>
                         </div>
-                        <!-- {{todayDate | date:'shortDate'}} -->
+                        <div class="flex-col text-right">
+                          {{ order.created_at | date: "dd/MM/yy" }}
+                        </div>
                       </div>
+                    </div>
+                    <!-- {{todayDate | date:'shortDate'}} -->
                   </div>
+                </div>
               </div>
             </mat-expansion-panel>
           </div>
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label
-              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro}"
+              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro }"
               >Punto di ritiro</mat-label
             >
             <input
@@ -110,33 +115,31 @@
               required
             />
           </mat-form-field>
-          <div class="w-full flex">
+          <div class=" flex">
             <div class="flex w-5/6 sm:w-11/12">
-              <mat-form-field appearance="fill" class="w-full">
-                <mat-label>Tipo</mat-label>
+              <mat-form-field appearance="fill" class="w-1/2">
+                <mat-label>Categoria vestiario</mat-label>
                 <!-- (selectionChange)="change()" -->
-                <mat-select name="tvestiario" [(ngModel)]="newClothe.type">
+                <mat-select name="tvestiariolv1" [(ngModel)]="selectedReference">
                   <mat-option
-                    *ngFor="let item of tvestiario"
+                    *ngFor="let item of tvestiariolv1"
                     [value]="item.value"
                   >
                     {{ item.value }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <!-- <mat-form-field appearance="fill" class="w-1/3">
-                                <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Taglia</mat-label>
-                                <mat-select (selectionChange)="change()" name="tagliaValue" [(ngModel)]="newClothe.size">
-                                    <mat-option *ngFor="let item of tvestiarioUseCaseMapping[tvestiarioValue]" [value]="item.value">
-                                        {{item.value}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-1/3">
-                                <mat-label [ngClass]="{'text-red-500': invalidInput && !newOrder.user.name}">Quantità</mat-label>
-                                <input type="number" matInput 
-                                    placeholder="Quantità" [(ngModel)]="newClothe.number" name="quantita">
-                            </mat-form-field> -->
+              <mat-form-field appearance="fill" class="w-1/2">
+                <mat-label>Tipo</mat-label>
+                <mat-select name="tvestiariolv2" [disabled]="!selectedReference" [(ngModel)]="newClothe.type">
+                  <mat-option
+                    *ngFor="let item of filterClothes()"
+                    [value]="item.value"
+                  >
+                    {{ item.value }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
             <div class="flex flex-col w-1/6 sm:w-1/12 items-center mt-2">

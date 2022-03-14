@@ -95,7 +95,7 @@ Route::post('/register', [AuthController::class, 'register']);
     Route::get('/orders/notif/inattesa', [OrderController::class, 'orderInAttesa']);
 
     // Download PDF
-    Route::get('/download/pdf', [OrderController::class, 'createPDF']);
+    Route::get('/download/pdf/{id}', [OrderController::class, 'createPDF']);
 
 
     // Clothe

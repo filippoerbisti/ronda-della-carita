@@ -15,6 +15,7 @@ import { IClient } from 'src/app/shared/interface/iclient';
 import { IHistory } from '../shared/interface/ihistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
+import { WhiteRectangleDetector } from '@zxing/library';
 
 @Component({
   selector: 'app-home',
@@ -92,30 +93,30 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     try {
-      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
+      let response_account = await axios.get("http://localhost:8000/api/user", {withCredentials: true});
       this.user = response_account.data;
       console.log(this.user);
 
       let historyId = this.user.id;
-      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
+      let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
       this.history = response_history.data;
 
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
+      let response_user = await axios.get("http://localhost:8000/api/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
+      let response_client = await axios.get("http://localhost:8000/api/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
+      let response_order = await axios.get("http://localhost:8000/api/orders");
       this.orders = response_order.data;
 
-      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
 
-      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
 
-      let response_order_daconf = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
+      let response_order_daconf= await axios.get("http://localhost:8000/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
 
     }
@@ -305,7 +306,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
+      let response_filter = await axios.get("http://localhost:8000/api/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -326,7 +327,7 @@ export class HomeComponent implements OnInit {
       status = "all";
     console.log("search" + search)
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status + "/search/" + search);
+      let response_filter = await axios.get("http://localhost:8000/api/orders/filt/" + status+"/search/"+search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -343,7 +344,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients/" + search);
+      let response_filter = await axios.get("http://localhost:8000/api/clients/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;
@@ -354,8 +355,7 @@ export class HomeComponent implements OnInit {
     this.pageClientSlice = this.clients.slice(0, 10);
   }
 
-  async downloadPDF() {
-    return await axios.get("https://backoffice-ronda.herokuapp.com/api/download/pdf");
+  async openPreviewPDF(id:any) {
     // if (this.router.url.includes('vol1')) {
     //   this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
     // }
@@ -366,16 +366,13 @@ export class HomeComponent implements OnInit {
     //   this.router.navigateByUrl('admin/preview-pdf/' + n_ordine);
     // }
 
-    // try {
-    //  let response_pdf = await axios.get("https://backoffice-ronda.herokuapp.com/api/download/pdf");
-    //  this.pdf = response_pdf;
-    //  console.log(response_pdf.data);
-     
-    // }
-    // catch (err) {
-    //   console.log(err);
-    //   return err;
-    // }
+    try {
+      //await axios.get("https://backoffice-ronda.herokuapp.com/api/download/pdf");
+      window.open("http://localhost:8000/api/download/pdf/"+id, "_blank")
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   openDeleteUserDialog(userId: number) {
