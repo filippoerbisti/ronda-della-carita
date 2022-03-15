@@ -63,7 +63,6 @@ export class CreateOrderComponent implements OnInit {
     { value: 'Accessori' },
   ];
 
-
   // public tvestiariolv2 = [
   //   { reference: 'Giacca', value: 'Giaccone lungo' },
   //   { reference: 'Giacca', value: 'Giubbotto leggero' },
@@ -111,7 +110,7 @@ export class CreateOrderComponent implements OnInit {
 
   public newClothe = {
     type: String,
-    reference: String
+    reference: String,
   };
 
   public clothes: any[] = [];
@@ -188,35 +187,35 @@ export class CreateOrderComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     public router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   async ngOnInit() {
-    let n_tessera = this.route.snapshot.paramMap.get("n_tessera") ?? null;
+    let n_tessera = this.route.snapshot.paramMap.get('n_tessera') ?? null;
     console.log(n_tessera);
-    
+
     this.isLoading = true;
 
     if (n_tessera) {
       try {
-        let result = await axios.get('http://localhost:8000/api/client/by_tessera/' + n_tessera)
+        let result = await axios.get(
+          'http://localhost:8000/api/client/by_tessera/' + n_tessera
+        );
+        this.client = result.data;
       } catch (error) {
         console.log(error);
       }
     }
 
     try {
-      let response = await axios.get(
-        'http://localhost:8000/api/clients'
-      );
+      let response = await axios.get('http://localhost:8000/api/clients');
       let tvestiariolv2 = await axios.get(
-        "http://localhost:8000/api/clothes/options"
-      )
+        'http://localhost:8000/api/clothes/options'
+      );
       this.tvestiariolv2 = tvestiariolv2.data;
       this.clients = response.data;
       console.log(this.clients);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
     this.isLoading = false;
@@ -225,6 +224,9 @@ export class CreateOrderComponent implements OnInit {
       map((value) => (typeof value === 'string' ? value : value.nome)),
       map((nome) => (nome ? this._filter(nome) : this.clients.slice()))
     );
+    this.newOrder.user.name = this.client.nome;
+    console.log(this.client);
+    console.log('NEW ORDER', this.newOrder);
   }
 
   goToHome() {
@@ -289,19 +291,19 @@ export class CreateOrderComponent implements OnInit {
   }
 
   // async createOrder() {
-    // if(tuttto bene con i dati e salva nel db) {
-    //   this.router.navigateByUrl('/home-interno');
-    //   this.snackBar.open("Ordine creato con successo!", '', {
-    //   horizontalPosition: this.horizontalPosition,
-    //   duration: this.durationInSeconds * 1000
-    // })
-    // } else {
-    //   errore dati sbagliati o qualcosa non va
-    //   this.snackBar.open("Ordine creato con successo!", '', {
-    //   horizontalPosition: this.horizontalPosition,
-    //   duration: this.durationInSeconds * 1000
-    // })
-    // }
+  // if(tuttto bene con i dati e salva nel db) {
+  //   this.router.navigateByUrl('/home-interno');
+  //   this.snackBar.open("Ordine creato con successo!", '', {
+  //   horizontalPosition: this.horizontalPosition,
+  //   duration: this.durationInSeconds * 1000
+  // })
+  // } else {
+  //   errore dati sbagliati o qualcosa non va
+  //   this.snackBar.open("Ordine creato con successo!", '', {
+  //   horizontalPosition: this.horizontalPosition,
+  //   duration: this.durationInSeconds * 1000
+  // })
+  // }
   //   try {
   //     let response = await axios.post(
   //       'http://localhost:8000/api/order/create',
@@ -319,18 +321,18 @@ export class CreateOrderComponent implements OnInit {
 
   addClothe() {
     console.log(this.newClothe);
-    
+
     if (this.checkNewClotheForm()) {
       this.invalidClothe = false;
-      
+
       let clothe = this.newClothe;
       this.clothes.push(clothe);
 
       this.newClothe = {
         type: String,
-        reference: String
+        reference: String,
       };
-      this.selectedReference = null
+      this.selectedReference = null;
     }
   }
 
