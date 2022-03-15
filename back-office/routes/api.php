@@ -81,6 +81,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
 
+    Route::get('clothes/options', [OrderController::class, 'getOptions']);
+
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);
 
