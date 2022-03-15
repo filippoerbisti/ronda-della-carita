@@ -9,7 +9,7 @@ import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
 } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { IClotheType } from 'src/app/shared/interface/iClotheType';
@@ -187,11 +187,24 @@ export class CreateOrderComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    public router: Router
+    public router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   async ngOnInit() {
+    let n_tessera = this.route.snapshot.paramMap.get("n_tessera") ?? null;
+    console.log(n_tessera);
+    
     this.isLoading = true;
+
+    if (n_tessera) {
+      try {
+        let result = await axios.get('http://localhost:8000/api/client/by_tessera/' + n_tessera)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     try {
       let response = await axios.get(
         'http://localhost:8000/api/clients'

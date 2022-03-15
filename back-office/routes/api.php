@@ -56,6 +56,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('/client/{id}', [ClientController::class, 'id']);
 
+    Route::get('/client/by_tessera/{tessera}', [ClientController::class, 'getClientByTessera']);
+
     Route::get('/clients/{filter}', [ClientController::class, 'filter']);
 
     Route::post('/client/create', [ClientController::class, 'create']);

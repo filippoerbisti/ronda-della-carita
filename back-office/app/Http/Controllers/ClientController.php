@@ -82,6 +82,13 @@ class ClientController extends Controller
         return $client;
     }
 
+    public function getClientByTessera($n_tessera) {
+        return Client::where('n_tessera', $n_tessera)
+                    ->with('user')
+                    ->with('document')
+                    ->first();
+    }
+
     public function delete($id) 
     {
         $client = Client::where("id", $id)->delete();
