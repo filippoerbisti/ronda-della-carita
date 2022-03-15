@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   panelOpenState = false;
 
+  indexTab!: number;
+
   isAdmin!: boolean;
 
   order_cons = 'Consegnato';
@@ -77,10 +79,6 @@ export class HomeComponent implements OnInit {
   swipeTime: any;
   swipeCoord: any;
 
-  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
-  tab_num = 0;
-  indexTab = 0;
-
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -90,6 +88,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
+    this.indexTab >= 0;
     try {
       let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
       this.user = response_account.data;
@@ -420,45 +419,33 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
 
-  // swipe(e: TouchEvent, when: string): void {
-  //   const coord: [number, number] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
-  //   const time = new Date().getTime();
-  //   if (when === 'start') {
-  //     this.swipeCoord = coord;
-  //     this.swipeTime = time;
-  //   } else if (when === 'end') {
-  //     const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
-  //     const duration = time - this.swipeTime;
-  //     if (duration < 1000 && Math.abs(direction[0]) > 30 && Math.abs(direction[0]) > Math.abs(direction[1] * 3)) {
-  //       const swipe = direction[0] < 0 ? 'next' : 'previous';
-  //       console.info(swipe);
-  //       if(swipe === 'next') {
-  //         const isFirst = this.indexTab === 0;
-  //         if(this.indexTab <= 3){
-  //           this.indexTab = isFirst ? 1 : this.indexTab + 1;
-  //         }
-  //         console.log("Swipe left — INDEX: " + this.indexTab);
-  //       } else if(swipe === 'previous'){
-  //         const isLast = this.indexTab === 4;
-  //         if(this.indexTab >= 1){
-  //           this.indexTab = this.indexTab - 1;
-  //         }
-  //         console.log("Swipe right — INDEX: " + this.indexTab);
-  //       }
-  //     }
-  //   }
-
-  swipe(eType: any){
-    console.log(eType);
-    if(eType === this.SWIPE_ACTION.LEFT && this.indexTab > 0){
-      console.log("movin left")
-      this.indexTab--;
+  swipe(e: TouchEvent, when: string): void {
+    const coord: [number, number] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
+    const time = new Date().getTime();
+    if (when === 'start') {
+      this.swipeCoord = coord;
+      this.swipeTime = time;
+    } else if (when === 'end') {
+      const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
+      const duration = time - this.swipeTime;
+      if (duration < 1000 && Math.abs(direction[0]) > 30 && Math.abs(direction[0]) > Math.abs(direction[1] * 3)) {
+        const swipe = direction[0] < 0 ? 'next' : 'previous';
+        console.info(swipe);
+        if(swipe === 'next') {
+          const isFirst = this.indexTab === 0;
+          if(this.indexTab <= 3){
+            this.indexTab = isFirst ? 1 : this.indexTab + 1;
+          }
+          console.log("Swipe left — INDEX: " + this.indexTab);
+        } else if(swipe === 'previous'){
+          const isLast = this.indexTab === 4;
+          if(this.indexTab >= 1){
+            this.indexTab = this.indexTab - 1;
+          }
+          console.log("Swipe right — INDEX: " + this.indexTab);
+        }
+      }
     }
-    else if(eType === this.SWIPE_ACTION.RIGHT && this.indexTab < 3){
-      console.log("movin right")
-      this.indexTab++;
-    }
-    console.log(this.indexTab)
   }
 
 }
