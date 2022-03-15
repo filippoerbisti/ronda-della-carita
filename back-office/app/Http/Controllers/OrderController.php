@@ -53,12 +53,12 @@ class OrderController extends Controller
             'title' => $orderPDF,
             'date' => $clothe,
          ];
+         $formatted_date = substr($orderPDF->created_at, 0, -9);
         // share data to view
         $pdf = PDF::loadView('myPDF',$data);
         Log::info('pallone');
         $pdf->save(storage_path().'_test.pdf');
-        return $pdf->download('myPDF.pdf');
-        Log::info('dopo pallone dionebro');
+        return $pdf->download('N_'.$orderPDF->n_ordine.'_D_'.$formatted_date.'.pdf');
       }
 
     public function history($id)
