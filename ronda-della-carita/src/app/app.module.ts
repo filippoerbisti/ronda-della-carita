@@ -59,9 +59,10 @@ import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notifi
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { PreviewPdfComponent } from './preview-pdf/preview-pdf.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,6 @@ import { PreviewPdfComponent } from './preview-pdf/preview-pdf.component';
     CreateClientComponent,
     CreateOrderComponent,
     RegistrationComponent,
-    PreviewPdfComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,6 +131,10 @@ import { PreviewPdfComponent } from './preview-pdf/preview-pdf.component';
       useClass: AuthInterceptor,
       multi: true,
     },
+    { 
+      provide: HAMMER_GESTURE_CONFIG, 
+      useClass: HammerGestureConfig 
+    }
     // { 
     //   provide: BASE_API_URL, 
     //   useValue: "https://backoffice-ronda.herokuapp.com/api" 

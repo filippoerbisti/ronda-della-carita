@@ -1,12 +1,13 @@
 <div class="h-full w-full" >
     <div *ngIf="!isLoading" class="w-full flex items-stretch">
 
-        <div class="w-full h-full" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
+        <div class="w-full h-full">
 
             <mat-tab-group 
                 mat-align-tabs="center" 
                 [(selectedIndex)]="indexTab"
                 class="w-full flex bg-nav" 
+                (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)"
             >
                 <!-- USERS -->
                 <mat-tab label="VOLONTARI" *ngIf="isAdmin">
