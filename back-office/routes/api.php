@@ -33,6 +33,7 @@ Route::post('/register', [AuthController::class, 'register']);
     Route::post('/user/create', [UserController::class, 'create']);
 
     Route::delete('/user/delete/{id}', [UserController::class, 'delete']);
+    
     Route::put('/user/edit/{id}', [UserController::class, 'edit']);
 
 

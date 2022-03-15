@@ -201,7 +201,9 @@ export class CreateOrderComponent implements OnInit {
       )
       this.tvestiariolv2 = tvestiariolv2.data;
       this.clients = response.data;
-    } catch (err) {
+      console.log(this.clients);
+    }
+    catch (err) {
       console.log(err);
     }
     this.isLoading = false;
