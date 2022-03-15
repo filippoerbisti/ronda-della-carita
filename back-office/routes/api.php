@@ -56,6 +56,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('/client/{id}', [ClientController::class, 'id']);
 
+    Route::get('/client/by_tessera/{tessera}', [ClientController::class, 'getClientByTessera']);
+
     Route::get('/clients/{filter}', [ClientController::class, 'filter']);
 
     Route::post('/client/create', [ClientController::class, 'create']);
@@ -81,6 +83,8 @@ Route::post('/register', [AuthController::class, 'register']);
     Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
 
     Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
+
+    Route::get('clothes/options', [OrderController::class, 'getOptions']);
 
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);

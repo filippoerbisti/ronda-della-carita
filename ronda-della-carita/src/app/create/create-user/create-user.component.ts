@@ -51,7 +51,7 @@ export class CreateUserComponent implements OnInit {
 
   async createUser() {
     // try {
-    //   let response = await axios.post("https://backoffice-ronda.herokuapp.com/api/user/create", this.newUser);
+    //   let response = await axios.post("http://localhost:8000/api/user/create", this.newUser);
     //   console.log(response.status);
     //   console.log(response.data);
     // }

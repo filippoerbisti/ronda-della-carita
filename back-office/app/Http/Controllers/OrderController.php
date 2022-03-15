@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Clothe;
+use App\Models\ClotheType;
 use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
@@ -244,7 +245,7 @@ class OrderController extends Controller
 
         for($i = 0; $i < count($newOrderData->clothes); $i++){
             $newClothe = new Clothe();
-            $newClothe->t_vestiario=$newOrderData->clothes[$i]->type;
+            $newClothe->t_vestiario=$newOrderData->clothes[$i]->value;
             // switch($newOrderData->clothes[$i]->type){
             //     case "Maglietta":
             //         $newClothe->taglia=$client->t_maglietta;
@@ -295,5 +296,9 @@ class OrderController extends Controller
     public function showLabel($id)
     {
         $order = Order::find($id);
+    }
+
+    public function getOptions() {
+        return ClotheType::all();
     }
 }

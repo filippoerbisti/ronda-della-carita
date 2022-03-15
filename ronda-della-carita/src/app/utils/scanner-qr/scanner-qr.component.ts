@@ -4,29 +4,34 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-scanner-qr',
   templateUrl: './scanner-qr.component.html',
-  styleUrls: ['./scanner-qr.component.css']
+  styleUrls: ['./scanner-qr.component.css'],
 })
 export class ScannerQrComponent implements OnInit {
-
   qrResultString!: string;
+  rule!: any;
 
   clearResult(): void {
-    this.qrResultString = "";
+    this.qrResultString = '';
   }
 
   onCodeResult(resultString: string) {
-    this.router.navigateByUrl('/ordine-esterno');
     this.qrResultString = resultString;
-
+    alert(this.qrResultString);
+    if (window.location.href.includes('vol1')) {
+      this.rule = 'vol1';
+    } else if (window.location.href.includes('vol0')) {
+      this.rule = 'vol0';
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+    }
+    this.router.navigateByUrl(`/${this.rule}` + '/create/order/' + this.qrResultString);
   }
 
-  constructor(public router:Router) { }
+  constructor(public router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   goToHome() {
-    this.router.navigateByUrl('/vol0/home');
+    // this.router.navigateByUrl('/vol0/home');
   }
-
 }
