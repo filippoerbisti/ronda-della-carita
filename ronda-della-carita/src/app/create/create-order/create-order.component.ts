@@ -192,26 +192,12 @@ export class CreateOrderComponent implements OnInit {
 
   async ngOnInit() {
     let n_tessera = this.route.snapshot.paramMap.get('n_tessera') ?? null;
-    console.log(n_tessera);
 
     this.isLoading = true;
 
-    if (n_tessera) {
-      try {
-        let result = await axios.get(
-          'http://localhost:8000/api/client/by_tessera/' + n_tessera
-        );
-        this.client = result.data;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
     try {
       let response = await axios.get('http://localhost:8000/api/clients');
-      let tvestiariolv2 = await axios.get(
-        'http://localhost:8000/api/clothes/options'
-      );
+      let tvestiariolv2 = await axios.get( 'http://localhost:8000/api/clothes/options');
       this.tvestiariolv2 = tvestiariolv2.data;
       this.clients = response.data;
       console.log(this.clients);
@@ -224,9 +210,22 @@ export class CreateOrderComponent implements OnInit {
       map((value) => (typeof value === 'string' ? value : value.nome)),
       map((nome) => (nome ? this._filter(nome) : this.clients.slice()))
     );
-    this.newOrder.user.name = this.client.nome;
-    console.log(this.client);
+    if(this.newOrder.user.name!=""){
+      this.newOrder.user.name = this.client.nome;
+    }
     console.log('NEW ORDER', this.newOrder);
+    if (n_tessera) {
+      try {
+        let result = await axios.get( 'http://localhost:8000/api/client/by_tessera/' + n_tessera);
+        console.log(result.data)
+        this.client = result.data;
+        this.newOrder.user.name=result.data.id+" - "+result.data.nome+" "+result.data.cognome;
+        console.log("newOrder "+this.newOrder.user.name);
+      } catch (error) {
+        console.log("errore"+error);
+      }
+    }
+    console.log(this.newOrder)
   }
 
   goToHome() {
@@ -372,53 +371,56 @@ export class CreateOrderComponent implements OnInit {
   }
 
   async clientHistory($event: any) {
-    let temp: any = localStorage.getItem('user');
-    this.newOrder.user_id = JSON.parse(temp).id;
-    this.historyLoading = true;
-    console.log($event);
-    let id = '';
-    let space = 0;
-    for (let i = 0; i < $event.length; i++) {
-      if ($event.charAt(i) != ' ') {
-        id += $event.charAt(i);
-      } else {
-        space = i;
-        break;
+    console.log("entrato")
+    if($event!=""){
+      let temp: any = localStorage.getItem('user');
+      this.newOrder.user_id = JSON.parse(temp).id;
+      this.historyLoading = true;
+      console.log($event);
+      let id = '';
+      let space = 0;
+      for (let i = 0; i < $event.length; i++) {
+        if ($event.charAt(i) != ' ') {
+          id += $event.charAt(i);
+        } else {
+          space = i;
+          break;
+        }
       }
-    }
-    let name = '';
-    for (let i = space + 3; i < $event.length; i++) {
-      if ($event.charAt(i) != ' ') {
-        name += $event.charAt(i);
-      } else {
-        space = i;
-        break;
+      let name = '';
+      for (let i = space + 3; i < $event.length; i++) {
+        if ($event.charAt(i) != ' ') {
+          name += $event.charAt(i);
+        } else {
+          space = i;
+          break;
+        }
       }
-    }
-    let surname = '';
-    for (let i = space + 1; i < $event.length; i++) {
-      if ($event.charAt(i) != ' ') {
-        surname += $event.charAt(i);
-      } else {
-        space = i;
-        break;
+      let surname = '';
+      for (let i = space + 1; i < $event.length; i++) {
+        if ($event.charAt(i) != ' ') {
+          surname += $event.charAt(i);
+        } else {
+          space = i;
+          break;
+        }
       }
+      this.newOrder.user.id = id;
+      this.newOrder.user.name = name;
+      this.newOrder.user.surname = surname;
+      try {
+        let response = await axios.get(
+          'http://localhost:8000/api/order/history/' + id
+        );
+        this.client = (
+          await axios.get('http://localhost:8000/api/client/' + id)
+        ).data;
+        this.history = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+      this.historyLoading = false;
     }
-    this.newOrder.user.id = id;
-    this.newOrder.user.name = name;
-    this.newOrder.user.surname = surname;
-    try {
-      let response = await axios.get(
-        'http://localhost:8000/api/order/history/' + id
-      );
-      this.client = (
-        await axios.get('http://localhost:8000/api/client/' + id)
-      ).data;
-      this.history = response.data;
-    } catch (error) {
-      console.log(error);
-    }
-    this.historyLoading = false;
   }
 
   checkFields() {
