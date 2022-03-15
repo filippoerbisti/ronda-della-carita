@@ -8,7 +8,7 @@ import { IClient } from '../../../shared/interface/iclient';
   styleUrls: ['./delete-client-dialog.component.css']
 })
 export class DeleteClientDialogComponent implements OnInit {
-  
+
   isLoading = false;
 
   client!: IClient;
@@ -22,11 +22,11 @@ export class DeleteClientDialogComponent implements OnInit {
     let clientId = this.clientId;
     console.log(this.clientId);
     try {
-      let response = await axios.get("http://localhost:8000/api/client/" + clientId);
+      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + clientId);
       console.log(response.status);
       console.log(response.data);
       this.client = response.data;
-    } 
+    }
     catch (err) {
       console.log(err);
     }
@@ -40,12 +40,12 @@ export class DeleteClientDialogComponent implements OnInit {
   async deleteClient() {
     this.isLoading = true;
     this.clientId = localStorage["id"];
-    let clientId = this.clientId; 
+    let clientId = this.clientId;
     console.log(clientId);
-      await axios.delete("http://localhost:8000/api/client/delete/" + clientId)
-        .then(response => {
-          console.log(response);
-        });
+    await axios.delete("https://backoffice-ronda.herokuapp.com/api/client/delete/" + clientId)
+      .then(response => {
+        console.log(response);
+      });
     localStorage.removeItem("id");
     window.location.reload();
     this.isLoading = false;

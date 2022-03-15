@@ -37,7 +37,7 @@ export class CreateUserComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
-    public router:Router
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class CreateUserComponent implements OnInit {
 
   async createUser() {
     // try {
-    //   let response = await axios.post("http://localhost:8000/api/user/create", this.newUser);
+    //   let response = await axios.post("https://backoffice-ronda.herokuapp.com/api/user/create", this.newUser);
     //   console.log(response.status);
     //   console.log(response.data);
     // }
@@ -59,20 +59,20 @@ export class CreateUserComponent implements OnInit {
     //   console.log(err);
     // }
     // if(tuttto bene con i dati e salva nel db) {
-//   this.router.navigateByUrl('/home-interno');
-//   this.snackBar.open("Ordine creato con successo!", '', {
-//   horizontalPosition: this.horizontalPosition,
-//   duration: this.durationInSeconds * 1000
-// })
-// } else {
-//   errore dati sbagliati o qualcosa non va
-//   this.snackBar.open("Ordine creato con successo!", '', {
-//   horizontalPosition: this.horizontalPosition,
-//   duration: this.durationInSeconds * 1000
-// })
-// }
-      this.router.navigateByUrl('/home/admin');
-      this.snackBar.open("Volontario registrato con successo!", '', {
+    //   this.router.navigateByUrl('/home-interno');
+    //   this.snackBar.open("Ordine creato con successo!", '', {
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
+    // } else {
+    //   errore dati sbagliati o qualcosa non va
+    //   this.snackBar.open("Ordine creato con successo!", '', {
+    //   horizontalPosition: this.horizontalPosition,
+    //   duration: this.durationInSeconds * 1000
+    // })
+    // }
+    this.router.navigateByUrl('/home/admin');
+    this.snackBar.open("Volontario registrato con successo!", '', {
       horizontalPosition: this.horizontalPosition,
       duration: this.durationInSeconds * 1000
     })

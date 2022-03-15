@@ -20,13 +20,13 @@ export class HomeEsternoComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    const x:any = localStorage.getItem('user')
+    const x: any = localStorage.getItem('user')
     this.user = JSON.parse(x);
     // try {
-    //   let response = await axios.get("http://localhost:8000/api/user-profile", {withCredentials: true});
+    //   let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/user-profile", {withCredentials: true});
     //   console.log(response.status);
     //   console.log(response.data);
-      
+
     //   this.user = response.data;
     // } 
     // catch (err) {

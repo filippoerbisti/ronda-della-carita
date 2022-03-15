@@ -39,11 +39,11 @@ export class EditUserDialogComponent implements OnInit {
     this.userId = localStorage["id"];
     let userId = this.userId;
     try {
-      let response_order = await axios.get("http://localhost:8000/api/" + userId);
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/" + userId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.user = response_order.data;
-    } 
+    }
     catch (err) {
       console.log(err);
     }

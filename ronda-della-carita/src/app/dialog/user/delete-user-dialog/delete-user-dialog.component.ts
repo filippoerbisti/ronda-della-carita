@@ -22,11 +22,11 @@ export class DeleteUserDialogComponent implements OnInit {
     let userId = this.userId;
     console.log(this.userId);
     try {
-      let response = await axios.get("http://localhost:8000/api/user/" + userId);
+      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/user/" + userId);
       console.log(response.status);
       console.log(response.data);
       this.user = response.data;
-    } 
+    }
     catch (err) {
       console.log(err);
     }
@@ -40,12 +40,13 @@ export class DeleteUserDialogComponent implements OnInit {
   async deleteUser() {
     this.isLoading = true;
     this.userId = localStorage["id"];
-    let userId = this.userId; 
+    let userId = this.userId;
     console.log(userId);
-      await axios.delete("http://localhost:8000/api/user/delete/" + userId)
-        .then(response => {userId
-          console.log(response);
-        });
+    await axios.delete("https://backoffice-ronda.herokuapp.com/api/user/delete/" + userId)
+      .then(response => {
+        userId
+        console.log(response);
+      });
     localStorage.removeItem("id");
     window.location.reload();
     this.isLoading = false;

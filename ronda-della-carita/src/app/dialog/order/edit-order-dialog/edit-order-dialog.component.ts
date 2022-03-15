@@ -14,9 +14,9 @@ import { IClothe } from 'src/app/shared/interface/iclothe';
 })
 export class EditOrderDialogComponent implements OnInit {
 
-  isLoading = false;  
+  isLoading = false;
   panelOpenState = false;
-  
+
   nm = "";
   gen = "";
   myControl = new FormControl();
@@ -30,62 +30,62 @@ export class EditOrderDialogComponent implements OnInit {
   genders: string[] = ['Uomo', 'Donna'];
   choseGender = "Uomo";
   quantita = 1;
-  orders:any=[];
+  orders: any = [];
 
   public tvestiario = [
-    {value: 'Maglietta', viewValue: "Maglietta"},
-    {value: 'Pantaloni', viewValue: 'Pantaloni'},
-    {value: 'Scarpe', viewValue: 'Scarpe'},
+    { value: 'Maglietta', viewValue: "Maglietta" },
+    { value: 'Pantaloni', viewValue: 'Pantaloni' },
+    { value: 'Scarpe', viewValue: 'Scarpe' },
   ];
 
   public tvestiarioUseCaseMapping: any = {
     "Maglietta": [
-      {value: 'xs', viewValue: 'XS'},
-      {value: 's', viewValue: 'S'},
-      {value: 'm', viewValue: 'M'},
-      {value: 'l', viewValue: 'L'},
-      {value: 'xl', viewValue: 'XL'},
-      {value: 'xxl', viewValue: 'XXL'},
-    ], 
+      { value: 'xs', viewValue: 'XS' },
+      { value: 's', viewValue: 'S' },
+      { value: 'm', viewValue: 'M' },
+      { value: 'l', viewValue: 'L' },
+      { value: 'xl', viewValue: 'XL' },
+      { value: 'xxl', viewValue: 'XXL' },
+    ],
     "Pantaloni": [
-      {value: "42", viewValue: 42},
-      {value: "43", viewValue: 43},
-      {value: "44", viewValue: 44},
-      {value: "45", viewValue: 45},
-      {value: "46", viewValue: 46},
-      {value: "47", viewValue: 47},
-      {value: "48", viewValue: 48},
-      {value: "49", viewValue: 49},
-      {value: "50", viewValue: 50},
-      {value: "51", viewValue: 51},
-      {value: "52", viewValue: 52},
-      {value: "53", viewValue: 53},
-      {value: "54", viewValue: 54},
-      {value: "55", viewValue: 55},
-      {value: "56", viewValue: 56},
-      {value: "57", viewValue: 57},
-      {value: "58", viewValue: 58},
+      { value: "42", viewValue: 42 },
+      { value: "43", viewValue: 43 },
+      { value: "44", viewValue: 44 },
+      { value: "45", viewValue: 45 },
+      { value: "46", viewValue: 46 },
+      { value: "47", viewValue: 47 },
+      { value: "48", viewValue: 48 },
+      { value: "49", viewValue: 49 },
+      { value: "50", viewValue: 50 },
+      { value: "51", viewValue: 51 },
+      { value: "52", viewValue: 52 },
+      { value: "53", viewValue: 53 },
+      { value: "54", viewValue: 54 },
+      { value: "55", viewValue: 55 },
+      { value: "56", viewValue: 56 },
+      { value: "57", viewValue: 57 },
+      { value: "58", viewValue: 58 },
     ],
     "Scarpe": [
-      {value: 36, viewValue: 36},
-      {value: 37, viewValue: 37},
-      {value: 38, viewValue: 38},
-      {value: 39, viewValue: 39},
-      {value: 40, viewValue: 40},
-      {value: 41, viewValue: 41},
-      {value: 42, viewValue: 42},
-      {value: 43, viewValue: 43},
-      {value: 44, viewValue: 44},
-      {value: 45, viewValue: 45},
-      {value: 46, viewValue: 46},
-      {value: 47, viewValue: 47},
-      {value: 48, viewValue: 48},
+      { value: 36, viewValue: 36 },
+      { value: 37, viewValue: 37 },
+      { value: 38, viewValue: 38 },
+      { value: 39, viewValue: 39 },
+      { value: 40, viewValue: 40 },
+      { value: 41, viewValue: 41 },
+      { value: 42, viewValue: 42 },
+      { value: 43, viewValue: 43 },
+      { value: 44, viewValue: 44 },
+      { value: 45, viewValue: 45 },
+      { value: 46, viewValue: 46 },
+      { value: 47, viewValue: 47 },
+      { value: 48, viewValue: 48 },
     ]
   };
 
-  tvestiarioValue: any= 'maglietta';
+  tvestiarioValue: any = 'maglietta';
   clientValue: any = 'Uomo';
-  tagliaValue: any= '';
+  tagliaValue: any = '';
 
   constructor() { }
 
@@ -94,7 +94,7 @@ export class EditOrderDialogComponent implements OnInit {
     this.orderId = localStorage["id"];
     let orderId = this.orderId;
     try {
-      let response_order = await axios.get("http://localhost:8000/api/order/" + orderId);
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.order = response_order.data;
@@ -103,27 +103,27 @@ export class EditOrderDialogComponent implements OnInit {
         this.orders.push(response_order.data.clothes[i]);
         console.log(response_order.data.clothes[i]);
       }*/
-      for(let i =0; i<this.orders.length;i++){
-        this.orders[i].open="false";
+      for (let i = 0; i < this.orders.length; i++) {
+        this.orders[i].open = "false";
       }
-      console.log("oreds",this.orders);
+      console.log("oreds", this.orders);
       let clotheId = this.order.id;
-      let response_clothe = await axios.get("http://localhost:8000/api/clothe/edit/" + clotheId);
+      let response_clothe = await axios.get("https://backoffice-ronda.herokuapp.com/api/clothe/edit/" + clotheId);
       console.log(response_clothe.status);
       console.log(response_clothe.data);
       this.clothes = response_clothe.data;
-    } 
+    }
     catch (err) {
       console.log(err);
     }
     this.isLoading = false;
   }
-  press(clothe:any){
-    console.log("clothe",clothe)
-    clothe.open=true;
-    console.log("open or not"+clothe.open)
+  press(clothe: any) {
+    console.log("clothe", clothe)
+    clothe.open = true;
+    console.log("open or not" + clothe.open)
   }
-  save(prova:any){
+  save(prova: any) {
     /*let exist=false;
     for(let i = 0; i< this.orders.length;i++){
       if(this.orders[i].id==prova.id){

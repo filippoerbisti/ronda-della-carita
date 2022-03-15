@@ -43,22 +43,22 @@ export class SidebarMenuComponent implements OnInit {
     public dialog: MatDialog,
     public router: Router,
     private breakpointObserver: BreakpointObserver
-    ) { }
+  ) { }
 
   async ngOnInit() {
     try {
-      // let response_user = await axios.get("http://localhost:8000/api/user");
+      // let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
       // this.user = response_user.data;
       // let historyId = this.user.id;
       // let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       // this.history = response_history.data;
-      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
-      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
-      let response_order_daconf= await axios.get("http://localhost:8000/api/orders/daconf");
+      let response_order_daconf = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
-    } 
+    }
     catch (err) {
       console.log(err);
     }
@@ -82,9 +82,9 @@ export class SidebarMenuComponent implements OnInit {
 
   goToHome() {
     if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
+      this.rule = 'vol1';
     } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
     }
@@ -109,10 +109,10 @@ export class SidebarMenuComponent implements OnInit {
 
   goToCreateClient() {
     if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
+      this.rule = 'vol1';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.router.navigateByUrl(`/${this.rule}` + '/create/client');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
@@ -123,10 +123,10 @@ export class SidebarMenuComponent implements OnInit {
 
   goToCreateOrder() {
     if (window.location.href.includes('vol1')) {
-      this.rule =  'vol1';
+      this.rule = 'vol1';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
@@ -137,7 +137,7 @@ export class SidebarMenuComponent implements OnInit {
 
   goToViewAll() {
     if (window.location.href.includes('vol0')) {
-      this.rule =  'vol0';
+      this.rule = 'vol0';
       this.router.navigate([`/${this.rule}` + '/mob/home']);
     }
     this.isSidebarOpen = false;
@@ -176,7 +176,7 @@ export class SidebarMenuComponent implements OnInit {
   closeSidebar() {
     this.isSidebarOpen = false;
   }
-  
+
   isMobile() {
     return window.innerWidth < 500
   }
