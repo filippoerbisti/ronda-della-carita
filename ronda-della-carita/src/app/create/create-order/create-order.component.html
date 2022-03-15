@@ -64,31 +64,20 @@
                 <div class="flex">
                   <div class="flex flex-col w-full">
                     <div
-                      class="grid grid-cols-3 w-full border-b-2 border-nav text-nav font-medium pb-0.5 mb-2"
+                      class="grid grid-cols-2 w-full border-b-2 border-nav text-nav font-medium pb-0.5 mb-2"
                     >
                       <div class="flex-col">Tipo</div>
-                      <div class="flex-col text-center">Taglia</div>
                       <div class="flex-col text-right">Data ordine</div>
                     </div>
                     <div class="" *ngFor="let order of history">
                       <div
-                        class="grid grid-cols-3 w-full mb-1"
+                        class="grid grid-cols-2 w-full mb-1"
                         *ngFor="let clothe of order.clothes"
                       >
                         <div class="flex-col">
                           {{ clothe.t_vestiario }}
                         </div>
-                        <div class="flex-col text-center">
-                          <span *ngIf="clothe.t_vestiario == 'Maglietta'">{{
-                            client.t_maglietta
-                          }}</span>
-                          <span *ngIf="clothe.t_vestiario == 'Pantaloni'">{{
-                            client.t_pantaloni
-                          }}</span>
-                          <span *ngIf="clothe.t_vestiario == 'Scarpe'">{{
-                            client.t_scarpe
-                          }}</span>
-                        </div>
+                        
                         <div class="flex-col text-right">
                           {{ order.created_at | date: "dd/MM/yy" }}
                         </div>
@@ -131,10 +120,10 @@
               </mat-form-field>
               <mat-form-field appearance="fill" class="w-1/2">
                 <mat-label>Tipo</mat-label>
-                <mat-select name="tvestiariolv2" [disabled]="!selectedReference" [(ngModel)]="newClothe.type">
+                <mat-select name="tvestiariolv2" [disabled]="!selectedReference" [(ngModel)]="newClothe">
                   <mat-option
                     *ngFor="let item of filterClothes()"
-                    [value]="item.value"
+                    [value]="item"
                   >
                     {{ item.value }}
                   </mat-option>
@@ -160,7 +149,8 @@
             >
               <span class="text-md">Ordine</span>
               <div class="grid grid-cols-8 w-full pb-1">
-                <div class="col-span-6">Tipo</div>
+                <div class="col-span-5">Tipo</div>
+                <div class="col-span-1">Taglia</div>
                 <div class="col-span-2"></div>
               </div>
             </div>
@@ -172,8 +162,22 @@
             <div class="flex flex-col py-3">
               <div *ngFor="let clothe of clothes; let i = index" class="w-full">
                 <div class="grid grid-cols-8 w-full">
-                  <div class="col-span-6">
-                    {{ clothe.type }}
+                  <div class="col-span-5">
+                    {{ clothe.value }}
+                  </div>
+                  <div class="col-span-1">
+                    <span *ngIf="['Giacca', 'Maglieria', 'Camicia'].includes(clothe.reference)">
+                      {{ client.t_maglietta }}
+                    </span>
+                    <span *ngIf="['Pantaloni', 'Intimo'].includes(clothe.reference)">
+                      {{ client.t_pantaloni }}
+                    </span>
+                    <span *ngIf="['Calze', 'Scarpe'].includes(clothe.reference)">
+                      {{ client.t_scarpe }}
+                    </span>
+                    <span *ngIf="['Accessori'].includes(clothe.reference)">
+                      -
+                    </span>
                   </div>
                   <div class="col-span-2 text-right">
                     <mat-icon class="cursor-pointer" (click)="removeClothe(i)"
