@@ -151,12 +151,16 @@ export class HomeComponent implements OnInit {
   }
 
   goToCreateUser() {
-    if (this.user.ruolo === 'admin') {
-      this.rule = `${this.user.ruolo}`;
-    } else if (this.user.ruolo === 'vol') {
-      this.rule = `${this.user.ruolo}`;
+    if (window.location.href.includes('vol1')) {
+      this.rule = 'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule = 'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
     }
-    this.router.navigateByUrl('create/user/' + this.rule);
   }
 
   goToCreateOrder() {

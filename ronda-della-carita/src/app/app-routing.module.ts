@@ -30,9 +30,8 @@ const routes: Routes = [
   { path: ':rule/create/client', component: CreateClientComponent },
   { path: ':rule/create/order', component: CreateOrderComponent },
   { path: ':rule/create/order/:n_tessera', component: CreateOrderComponent },
-  // { path: '/confirm/user', component: ConfirmUserComponent},
-  { path: 'history', component: StoricoAccessiComponent},
-  { path: 'vol0/scanner-qr', component: ScannerQrComponent },
+  { path: ':rule/history', component: StoricoAccessiComponent},
+  { path: ':rule/scanner-qr', component: ScannerQrComponent },
   { path: ':rule/preview-pdf/:n_ordine', component: PreviewPdfComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },  
   { path: '**', component: PageNotFoundComponent }  
