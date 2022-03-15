@@ -365,8 +365,16 @@ export class CreateOrderComponent implements OnInit {
         this.rule = 'admin';
         this.router.navigateByUrl(`/${this.rule}` + '/home');
       }
+      this.snackBar.open('Ordine creato con successo!', '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000,
+      });
     } else {
       console.log('NO NON PUOI');
+      this.snackBar.open('ERRORE: Ordine non creato!', '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000,
+      });
     }
   }
 
