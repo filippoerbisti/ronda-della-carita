@@ -12,6 +12,7 @@ import {
 import { Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
 import { IOrder } from 'src/app/shared/interface/iorder';
+import { IClotheType } from 'src/app/shared/interface/iClotheType';
 
 export interface IClothes {
   type: string;
@@ -38,6 +39,7 @@ export class CreateOrderComponent implements OnInit {
   search: IClient[] = [];
   myControl = new FormControl();
   clients: IClient[] = [];
+  tvestiariolv2: IClotheType[] = [];
   filteredClients: Observable<IClient[]> | undefined;
 
   choseGender = 'Uomo';
@@ -61,53 +63,55 @@ export class CreateOrderComponent implements OnInit {
     { value: 'Accessori' },
   ];
 
-  public tvestiariolv2 = [
-    { reference: 'Giacca', value: 'Giaccone lungo' },
-    { reference: 'Giacca', value: 'Giubbotto leggero' },
-    { reference: 'Giacca', value: 'Giubbotto pesante' },
-    { reference: 'Giacca', value: 'Spolverino impermeabile' },
-    { reference: 'Giacca', value: 'Gilet imbottito' },
-    { reference: 'Maglieria', value: 'Felpa senza cappuccio' },
-    { reference: 'Maglieria', value: 'Felpa con cappuccio' },
-    { reference: 'Maglieria', value: 'T-shirt' },
-    { reference: 'Maglieria', value: 'Canottieria sportiva' },
-    { reference: 'Maglieria', value: 'Maglia manica lunga' },
-    { reference: 'Maglieria', value: 'Polo manica corta' },
-    { reference: 'Maglieria', value: 'Maglione' },
-    { reference: 'Camicia', value: 'Camicia pesante' },
-    { reference: 'Camicia', value: 'Camicia manica lunga' },
-    { reference: 'Camicia', value: 'Camicia manica corta' },
-    { reference: 'Pantaloni', value: 'Pantaloni corti' },
-    { reference: 'Pantaloni', value: 'Pantaloni lunghi jeans' },
-    { reference: 'Pantaloni', value: 'Pantaloni lunghi altro' },
-    { reference: 'Pantaloni', value: 'Tuta leggera' },
-    { reference: 'Pantaloni', value: 'Tuta pesante' },
-    { reference: 'Pantaloni', value: 'Tuta solo pantaloni' },
-    { reference: 'Intimo', value: 'Slip' },
-    { reference: 'Intimo', value: 'Boxer' },
-    { reference: 'Intimo', value: 'Canottiera' },
-    { reference: 'Calze', value: 'Calze lunghe' },
-    { reference: 'Calze', value: 'Calze corte' },
-    { reference: 'Calze', value: 'Calze fanstasmini' },
-    { reference: 'Calze', value: 'Calze calzamaglia' },
-    { reference: 'Scarpe', value: 'Ciabatte' },
-    { reference: 'Scarpe', value: 'Scarpe da lavoro' },
-    { reference: 'Scarpe', value: 'Scarponcino pesante' },
-    { reference: 'Scarpe', value: 'Sportive' },
-    { reference: 'Scarpe', value: 'Scarpe normali' },
-    { reference: 'Accessori', value: 'Borsone' },
-    { reference: 'Accessori', value: 'Cappello invernale' },
-    { reference: 'Accessori', value: 'Cappello con visiera' },
-    { reference: 'Accessori', value: 'Cintura' },
-    { reference: 'Accessori', value: 'Guanti' },
-    { reference: 'Accessori', value: 'Sciarpa' },
-    { reference: 'Accessori', value: 'Valigia' },
-    { reference: 'Accessori', value: 'Zaino piccolo' },
-    { reference: 'Accessori', value: 'Zaino grande' },
-  ];
+
+  // public tvestiariolv2 = [
+  //   { reference: 'Giacca', value: 'Giaccone lungo' },
+  //   { reference: 'Giacca', value: 'Giubbotto leggero' },
+  //   { reference: 'Giacca', value: 'Giubbotto pesante' },
+  //   { reference: 'Giacca', value: 'Spolverino impermeabile' },
+  //   { reference: 'Giacca', value: 'Gilet imbottito' },
+  //   { reference: 'Maglieria', value: 'Felpa senza cappuccio' },
+  //   { reference: 'Maglieria', value: 'Felpa con cappuccio' },
+  //   { reference: 'Maglieria', value: 'T-shirt' },
+  //   { reference: 'Maglieria', value: 'Canottieria sportiva' },
+  //   { reference: 'Maglieria', value: 'Maglia manica lunga' },
+  //   { reference: 'Maglieria', value: 'Polo manica corta' },
+  //   { reference: 'Maglieria', value: 'Maglione' },
+  //   { reference: 'Camicia', value: 'Camicia pesante' },
+  //   { reference: 'Camicia', value: 'Camicia manica lunga' },
+  //   { reference: 'Camicia', value: 'Camicia manica corta' },
+  //   { reference: 'Pantaloni', value: 'Pantaloni corti' },
+  //   { reference: 'Pantaloni', value: 'Pantaloni lunghi jeans' },
+  //   { reference: 'Pantaloni', value: 'Pantaloni lunghi altro' },
+  //   { reference: 'Pantaloni', value: 'Tuta leggera' },
+  //   { reference: 'Pantaloni', value: 'Tuta pesante' },
+  //   { reference: 'Pantaloni', value: 'Tuta solo pantaloni' },
+  //   { reference: 'Intimo', value: 'Slip' },
+  //   { reference: 'Intimo', value: 'Boxer' },
+  //   { reference: 'Intimo', value: 'Canottiera' },
+  //   { reference: 'Calze', value: 'Calze lunghe' },
+  //   { reference: 'Calze', value: 'Calze corte' },
+  //   { reference: 'Calze', value: 'Calze fanstasmini' },
+  //   { reference: 'Calze', value: 'Calze calzamaglia' },
+  //   { reference: 'Scarpe', value: 'Ciabatte' },
+  //   { reference: 'Scarpe', value: 'Scarpe da lavoro' },
+  //   { reference: 'Scarpe', value: 'Scarponcino pesante' },
+  //   { reference: 'Scarpe', value: 'Sportive' },
+  //   { reference: 'Scarpe', value: 'Scarpe normali' },
+  //   { reference: 'Accessori', value: 'Borsone' },
+  //   { reference: 'Accessori', value: 'Cappello invernale' },
+  //   { reference: 'Accessori', value: 'Cappello con visiera' },
+  //   { reference: 'Accessori', value: 'Cintura' },
+  //   { reference: 'Accessori', value: 'Guanti' },
+  //   { reference: 'Accessori', value: 'Sciarpa' },
+  //   { reference: 'Accessori', value: 'Valigia' },
+  //   { reference: 'Accessori', value: 'Zaino piccolo' },
+  //   { reference: 'Accessori', value: 'Zaino grande' },
+  // ];
 
   public newClothe = {
     type: String,
+    reference: String
   };
 
   public clothes: any[] = [];
@@ -190,9 +194,12 @@ export class CreateOrderComponent implements OnInit {
     this.isLoading = true;
     try {
       let response = await axios.get(
-        'https://backoffice-ronda.herokuapp.com/api/clients'
+        'http://localhost:8000/api/clients'
       );
-      
+      let tvestiariolv2 = await axios.get(
+        "http://localhost:8000/api/clothes/options"
+      )
+      this.tvestiariolv2 = tvestiariolv2.data;
       this.clients = response.data;
     } catch (err) {
       console.log(err);
@@ -220,7 +227,6 @@ export class CreateOrderComponent implements OnInit {
 
   filterClothes() {
     let clothes = this.tvestiariolv2.filter((clothe) => {
-
       return clothe.reference == this.selectedReference;
     });
 
@@ -283,7 +289,7 @@ export class CreateOrderComponent implements OnInit {
     // }
   //   try {
   //     let response = await axios.post(
-  //       'https://backoffice-ronda.herokuapp.com/api/order/create',
+  //       'http://localhost:8000/api/order/create',
   //       this.newOrder
   //     );
   //     this.router.navigateByUrl('/home/interno');
@@ -297,12 +303,17 @@ export class CreateOrderComponent implements OnInit {
   // }
 
   addClothe() {
+    console.log(this.newClothe);
+    
     if (this.checkNewClotheForm()) {
       this.invalidClothe = false;
+      
       let clothe = this.newClothe;
       this.clothes.push(clothe);
+
       this.newClothe = {
         type: String,
+        reference: String
       };
       this.selectedReference = null
     }
@@ -324,7 +335,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder.clothes[0]);
       let response = await axios.post(
-        'https://backoffice-ronda.herokuapp.com/api/order/create',
+        'http://localhost:8000/api/order/create',
         this.newOrder
       );
       console.log(response.data);
@@ -381,10 +392,10 @@ export class CreateOrderComponent implements OnInit {
     this.newOrder.user.surname = surname;
     try {
       let response = await axios.get(
-        'https://backoffice-ronda.herokuapp.com/api/order/history/' + id
+        'http://localhost:8000/api/order/history/' + id
       );
       this.client = (
-        await axios.get('https://backoffice-ronda.herokuapp.com/api/client/' + id)
+        await axios.get('http://localhost:8000/api/client/' + id)
       ).data;
       this.history = response.data;
     } catch (error) {
