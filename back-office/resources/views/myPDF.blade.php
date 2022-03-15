@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="it">
-<<<<<<< HEAD
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>PDF</title>
-</head>
-
-<body>
-
-    <h3>diocan</h3>
-
-    
-
-</body>
-
-=======
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdn.tailwindcss.com"></script>
         <title>PDF</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+        </style>
     </head>
     <body>
-        <h1>Id: {{ $title->id }}</h1>
-        <h1>Punto Ritiro: {{ $title->p_ritiro }}</h1>
-        <h1>{{$date}}</h1>
-        <?php
-        foreach($date as $key){
-            echo "<h1>Vestiario: $key->t_vestiario</h1>";
-            echo "<h1>Taglia: $key->taglia</h1>";
-            echo "<h1>Quantita': $key->quantita</h1>";
-        }
-        ?>
+        <h2>Id: {{ $title->id }}</h2>
+        <h2>Punto Ritiro: {{ $title->p_ritiro }}</h2>
+        <table>
+            <tr>
+                <th>Vestiario</th>
+                <th>Taglia</th>
+                <th>Quantita</th>
+            </tr>
+            <?php
+                foreach($date as $key){
+                    echo "<tr>";
+                        echo "<td>$key->t_vestiario</td>";
+                        echo "<td> $key->taglia</td>";
+                        echo "<td>$key->quantita</td>";
+                    echo "</tr>";
+                }
+            ?>
     </body>
->>>>>>> e9d98f8f038868688cc94c5c08966dfccb6b03ee
 </html>
