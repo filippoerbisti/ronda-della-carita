@@ -6,6 +6,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { IUser } from '../../shared/interface/iuser';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
+import axios from 'axios';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -93,7 +94,7 @@ export class RegistrationComponent implements OnInit {
     
   }
 
-  registration() {
+  async registration() {
     this.authService.register(this.registerForm.value).subscribe(
       result => {
         console.log(result)
@@ -105,14 +106,15 @@ export class RegistrationComponent implements OnInit {
         this.isSubmitted = true;
         this.registerForm.reset();
         this.router.navigate(['admin/home']);
-        // this.snackBar.open("Registrazione avvenuta con successo! In attesa dell'amministratore, la contatteremo via mail quando tutto sarà pronto.", 'OK', {
         this.snackBar.open("Volontario registrato con successo!", 'OK', {
           horizontalPosition: this.horizontalPosition,
           duration: this.durationInSeconds * 1000
-        })
-        
+        });
       }
     )
+    //catch id to send mail
+    let id = 3;
+    await axios.get("https://backoffice-ronda.herokuapp.com/api/sendmail/" + id);
   }
 
 }
