@@ -1,23 +1,5 @@
 <!DOCTYPE html>
 <html lang="it">
-<<<<<<< HEAD
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>PDF</title>
-</head>
-
-<body>
-
-    <h3>diocan</h3>
-
-    
-
-</body>
-
-=======
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,5 +18,4 @@
         }
         ?>
     </body>
->>>>>>> e9d98f8f038868688cc94c5c08966dfccb6b03ee
 </html>

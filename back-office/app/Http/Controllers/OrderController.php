@@ -46,16 +46,6 @@ class OrderController extends Controller
     }
 
     // Generate PDF
-<<<<<<< HEAD
-    public function createPDF() {
-        // $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
-        // $clothe = Clothe::where('order_id', $id)->get();
-        // $data = [
-
-        //     'title' => 'Welcome to ItSolutionStuff.com',
-
-        //     'date' => date('m/d/Y'),
-=======
     public function createPDF($id) {
         $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
         return $orderPDF;
@@ -65,15 +55,15 @@ class OrderController extends Controller
             'title' => $orderPDF,
 
             'date' => $clothe,
->>>>>>> e9d98f8f038868688cc94c5c08966dfccb6b03ee
 
 
-        // ];
+        ];
         // share data to view
         $pdf = PDF::loadView('myPDF');
         Log::info('pallone');
         $pdf->save(storage_path().'_test.pdf');
         return $pdf->download('myPDF.pdf');
+        Log::info('dopo pallone dionebro');
       }
 
     public function history($id)
