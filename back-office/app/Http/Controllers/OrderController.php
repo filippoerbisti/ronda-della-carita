@@ -6,11 +6,10 @@ use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\ClotheType;
 use App\Models\Order;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -59,7 +58,7 @@ class OrderController extends Controller
         $pdf = PDF::loadView('myPDF',$data);
         Log::info('pallone');
         $pdf->save(storage_path().'_test.pdf');
-        return $pdf->download('N_'.$orderPDF->n_ordine.'_D_'.$formatted_date.'.pdf');
+        return $pdf->download('N_'.$orderPDF->n_ordine.'_Date_'.$formatted_date.'.pdf');
       }
 
     public function history($id)

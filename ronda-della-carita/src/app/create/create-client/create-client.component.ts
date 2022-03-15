@@ -3,10 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import axios from 'axios';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
-  FormGroupDirective,
-  NgForm,
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -17,7 +14,6 @@ import {
 } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
-import { IClient } from 'src/app/shared/interface/iclient';
 
 @Component({
   selector: 'app-create-client',
@@ -25,10 +21,10 @@ import { IClient } from 'src/app/shared/interface/iclient';
   styleUrls: ['./create-client.component.css'],
 })
 export class CreateClientComponent implements OnInit {
+  
   isLoading = false;
   errorMessage = '';
 
-  // public newClient!: IClient;
   user: any = localStorage.getItem('user');
   createClientForm!: FormGroup;
 
@@ -87,37 +83,24 @@ export class CreateClientComponent implements OnInit {
   }
 
   async createClient() {
-    // console.log(this.createClientForm.value);
-
     try {
       let response = await axios.post(
         'http:/backoffice-ronda.herokuapp.com/api/client/create',
         this.createClientForm.value
       );
       this.goToHome();
-      
+      this.snackBar.open("Assistito registrato con successo!", '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000
+      })
     } catch (err) {
       this.errorMessage = '';
       console.log(err);
+      this.snackBar.open("ERRORE: Registrazione assistito fallita!", '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000
+      })
     }
-    // if(tuttto bene con i dati e salva nel db) {
-    //   this.router.navigateByUrl('/home-interno');
-    //   this.snackBar.open("Ordine creato con successo!", '', {
-    //   horizontalPosition: this.horizontalPosition,
-    //   duration: this.durationInSeconds * 1000
-    // })
-    // } else {
-    //   errore dati sbagliati o qualcosa non va
-    //   this.snackBar.open("Ordine creato con successo!", '', {
-    //   horizontalPosition: this.horizontalPosition,
-    //   duration: this.durationInSeconds * 1000
-    // })
-    // }
-    // this.router.navigateByUrl('/home-interno');
-    // this.snackBar.open("Assistito registrato con successo!", '', {
-    //   horizontalPosition: this.horizontalPosition,
-    //   duration: this.durationInSeconds * 1000
-    // })
   }
 }
 

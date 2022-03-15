@@ -1,7 +1,7 @@
 <div class="h-full w-full" >
     <div *ngIf="!isLoading" class="w-full flex items-stretch">
 
-        <div class="w-full h-full">
+        <div class="w-full h-full" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
 
             <mat-tab-group 
                 mat-align-tabs="center" 
