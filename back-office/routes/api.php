@@ -70,7 +70,9 @@ Route::post('/register', [AuthController::class, 'register']);
     // Order
     Route::get('/orders', [OrderController::class, 'list']);
 
-    Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
+    Route::get('/order/{id}', [OrderController::class, 'id']);
+
+    // Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
 
     Route::get('/order/history/{id}', [OrderController::class, 'history']);
 
@@ -84,7 +86,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
 
-    Route::get('clothes/options', [OrderController::class, 'getOptions']);
+    Route::get('/clothes/options', [OrderController::class, 'getOptions']);
 
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);

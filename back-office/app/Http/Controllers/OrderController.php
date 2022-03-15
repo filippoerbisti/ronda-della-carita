@@ -37,13 +37,21 @@ class OrderController extends Controller
         return $orders;
     }
 
-    public function n_ordine($n_ordine)
+    public function id($id)
     {
         return Order::with('client')
-            ->with('user')
-            ->where('n_ordine', $n_ordine)
-            ->first();
+                    ->with('user')
+                    ->where('id', $id)
+                    ->first();
     }
+
+    // public function n_ordine($n_ordine)
+    // {
+    //     return Order::with('client')
+    //         ->with('user')
+    //         ->where('n_ordine', $n_ordine)
+    //         ->first();
+    // }
 
     // Generate PDF
     public function createPDF($id) {
