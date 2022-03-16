@@ -33,15 +33,17 @@ Per accedere inserire la propria email o il numero tessera, con la corrispondent
 <br/>
 Grazie
 <br/>
-I nostri contatti
-<br/>
-Sede : via G. Negri, 6, Verona
-<br/>
-Telefono : 045 7703942
-<br/>
-Email : rondacard.dellacarita@gmail.com
-<br/>
+<div style="text-align: right;">
+    I nostri contatti
+    <br/>
+    Sede : via G. Negri, 6, Verona
+    <br/>
+    Telefono : 045 7703942
+    <br/>
+    Email : rondacard.dellacarita@gmail.com
+    <br/>
 
-<br/>
-<a href="mailto:rondacard.dellacarita@gmail.com.com">Richiesta supporto</a>
-<br/>
+    <br/>
+    <a href="mailto:rondacard.dellacarita@gmail.com.com">Richiesta supporto</a>
+    <br/>
+</div>
