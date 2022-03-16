@@ -78,7 +78,7 @@ export class CreateClientComponent implements OnInit {
   async createClient() {
     try {
       let response = await axios.post(
-        'http:/backoffice-ronda.herokuapp.com/api/client/create',
+        'https:/backoffice-ronda.herokuapp.com/api/client/create',
         this.createClientForm.value
       );
       this.goToHome();
