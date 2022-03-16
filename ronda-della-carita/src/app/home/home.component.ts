@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
-import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/dialog/order/delete-order-dialog/delete-order-dialog.component';
@@ -15,7 +14,7 @@ import { IClient } from 'src/app/shared/interface/iclient';
 import { IHistory } from '../shared/interface/ihistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
-import { WhiteRectangleDetector } from '@zxing/library';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -31,8 +30,6 @@ export class HomeComponent implements OnInit {
 
   isAdmin!: boolean;
 
-  pdf: any;
-
   order_cons = 'Consegnato';
   order_no_disp = 'Non disponibile';
   order_attesa = 'Attesa';
@@ -41,13 +38,10 @@ export class HomeComponent implements OnInit {
   users: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
-  // clothes: IClothe[] = [];
 
   userId!: number;
   orderId!: number;
   clientId!: number;
-
-  @ViewChild('viewPDF', { static: false }) viewPDF!: ElementRef;
 
   orderPDF!: IOrder;
 
@@ -82,16 +76,19 @@ export class HomeComponent implements OnInit {
   pageClientSlice = this.clients.slice(0, 10);
   pageSizeOptions: number[] = [5, 10, 20, 30];
 
+  swipeTime: any;
+  swipeCoord: any;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute,
     private snackBar: MatSnackBar
   ) { }
 
   async ngOnInit() {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
+    this.indexTab >= 0;
     try {
       let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
       this.user = response_account.data;
@@ -126,13 +123,6 @@ export class HomeComponent implements OnInit {
     console.log(this.orders);
     this.isLoading = false;
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
-
-    if (window.location.href.includes('order')) {
-      this.indexTab = 0;
-    } else if (window.location.href.includes('client')) {
-      this.indexTab = 1;
-    };
-
     this.pageUserSlice = this.users.slice(0, 10);
     this.pageOrderSlice = this.orders.slice(0, 10);
     this.pageClientSlice = this.clients.slice(0, 10);
@@ -153,21 +143,21 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl(`/${this.rule}` + '/home');
   }
 
-  goToConfirm() {
-    this.router.navigateByUrl('/confirm/user');
-  }
-
   goToHistory() {
-    this.router.navigateByUrl('/history');
+    this.router.navigateByUrl('/admin/history');
   }
 
   goToCreateUser() {
-    if (this.user.ruolo === 'admin') {
-      this.rule = `${this.user.ruolo}`;
-    } else if (this.user.ruolo === 'vol') {
-      this.rule = `${this.user.ruolo}`;
+    if (window.location.href.includes('vol1')) {
+      this.rule = 'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule = 'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
     }
-    this.router.navigateByUrl('create/user/' + this.rule);
   }
 
   goToCreateOrder() {
@@ -276,8 +266,8 @@ export class HomeComponent implements OnInit {
         }
         break;
     }
-
   }
+
   public search(were: string) {
     switch (were) {
       case 'nuovoassistito':
@@ -357,22 +347,19 @@ export class HomeComponent implements OnInit {
   }
 
   async openPreviewPDF(id: any) {
-    // if (this.router.url.includes('vol1')) {
-    //   this.router.navigateByUrl('vol1/preview-pdf/' + n_ordine);
-    // }
-    // if (this.router.url.includes('vol0')) {
-    //   this.router.navigateByUrl('vol0/preview-pdf/' + n_ordine);
-    // }
-    // if (this.router.url.includes('admin')) {
-    //   this.router.navigateByUrl('admin/preview-pdf/' + n_ordine);
-    // }
-
     try {
-      //await axios.get("https://backoffice-ronda.herokuapp.com/api/download/pdf");
-      window.open("https://backoffice-ronda.herokuapp.com/api/download/pdf/" + id, "_blank")
+      window.open("https://backoffice-ronda.herokuapp.com/api/download/pdf/" + id, "_blank");
+      this.snackBar.open('Download completato!', '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000,
+      });
     }
     catch (err) {
       console.log(err);
+      this.snackBar.open('ERRORE:Download fallito!', '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000,
+      });
     }
   }
 
@@ -433,6 +420,34 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
 
+  swipe(e: TouchEvent, when: string): void {
+    const coord: [number, number] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
+    const time = new Date().getTime();
+    if (when === 'start') {
+      this.swipeCoord = coord;
+      this.swipeTime = time;
+    } else if (when === 'end') {
+      const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
+      const duration = time - this.swipeTime;
+      if (duration < 1000 && Math.abs(direction[0]) > 30 && Math.abs(direction[0]) > Math.abs(direction[1] * 3)) {
+        const swipe = direction[0] < 0 ? 'next' : 'previous';
+        console.info(swipe);
+        if(swipe === 'next') {
+          const isFirst = this.indexTab === 0;
+          if(this.indexTab <= 3){
+            this.indexTab = isFirst ? 1 : this.indexTab + 1;
+          }
+          console.log("Swipe left — INDEX: " + this.indexTab);
+        } else if(swipe === 'previous'){
+          const isLast = this.indexTab === 4;
+          if(this.indexTab >= 1){
+            this.indexTab = this.indexTab - 1;
+          }
+          console.log("Swipe right — INDEX: " + this.indexTab);
+        }
+      }
+    }
+  }
 
 }
 

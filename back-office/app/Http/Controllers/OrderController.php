@@ -6,11 +6,10 @@ use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\ClotheType;
 use App\Models\Order;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -38,13 +37,21 @@ class OrderController extends Controller
         return $orders;
     }
 
-    public function n_ordine($n_ordine)
+    public function id($id)
     {
         return Order::with('client')
-            ->with('user')
-            ->where('n_ordine', $n_ordine)
-            ->first();
+                    ->with('user')
+                    ->where('id', $id)
+                    ->first();
     }
+
+    // public function n_ordine($n_ordine)
+    // {
+    //     return Order::with('client')
+    //         ->with('user')
+    //         ->where('n_ordine', $n_ordine)
+    //         ->first();
+    // }
 
     // Generate PDF
     public function createPDF($id) {
@@ -54,12 +61,12 @@ class OrderController extends Controller
             'title' => $orderPDF,
             'date' => $clothe,
          ];
+         $formatted_date = substr($orderPDF->created_at, 0, -9);
         // share data to view
         $pdf = PDF::loadView('myPDF',$data);
         Log::info('pallone');
         $pdf->save(storage_path().'_test.pdf');
-        return $pdf->download('myPDF.pdf');
-        Log::info('dopo pallone dionebro');
+        return $pdf->download('N_'.$orderPDF->n_ordine.'_Date_'.$formatted_date.'.pdf');
       }
 
     public function history($id)

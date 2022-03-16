@@ -188,7 +188,7 @@ export class CreateOrderComponent implements OnInit {
     private snackBar: MatSnackBar,
     public router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   async ngOnInit() {
     let n_tessera = this.route.snapshot.paramMap.get('n_tessera') ?? null;
@@ -196,8 +196,8 @@ export class CreateOrderComponent implements OnInit {
     this.isLoading = true;
 
     try {
-      let response = await axios.get('http://localhost:8000/api/clients');
-      let tvestiariolv2 = await axios.get( 'http://localhost:8000/api/clothes/options');
+      let response = await axios.get('https://backoffice-ronda.herokuapp.com/api/clients');
+      let tvestiariolv2 = await axios.get('https://backoffice-ronda.herokuapp.com/api/clothes/options');
       this.tvestiariolv2 = tvestiariolv2.data;
       this.clients = response.data;
       console.log(this.clients);
@@ -210,19 +210,19 @@ export class CreateOrderComponent implements OnInit {
       map((value) => (typeof value === 'string' ? value : value.nome)),
       map((nome) => (nome ? this._filter(nome) : this.clients.slice()))
     );
-    if(this.newOrder.user.name!=""){
+    if (this.newOrder.user.name != "") {
       this.newOrder.user.name = this.client.nome;
     }
     console.log('NEW ORDER', this.newOrder);
     if (n_tessera) {
       try {
-        let result = await axios.get( 'http://localhost:8000/api/client/by_tessera/' + n_tessera);
+        let result = await axios.get('https://backoffice-ronda.herokuapp.com/api/client/by_tessera/' + n_tessera);
         console.log(result.data)
         this.client = result.data;
-        this.newOrder.user.name=result.data.id+" - "+result.data.nome+" "+result.data.cognome;
-        console.log("newOrder "+this.newOrder.user.name);
+        this.newOrder.user.name = result.data.id + " - " + result.data.nome + " " + result.data.cognome;
+        console.log("newOrder " + this.newOrder.user.name);
       } catch (error) {
-        console.log("errore"+error);
+        console.log("errore" + error);
       }
     }
     console.log(this.newOrder)
@@ -305,7 +305,7 @@ export class CreateOrderComponent implements OnInit {
   // }
   //   try {
   //     let response = await axios.post(
-  //       'http://localhost:8000/api/order/create',
+  //       'https://backoffice-ronda.herokuapp.com/api/order/create',
   //       this.newOrder
   //     );
   //     this.router.navigateByUrl('/home/interno');
@@ -351,7 +351,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder);
       let response = await axios.post(
-        'http://localhost:8000/api/order/create',
+        'https://backoffice-ronda.herokuapp.com/api/order/create',
         this.newOrder
       );
       console.log(response.data);
@@ -365,14 +365,22 @@ export class CreateOrderComponent implements OnInit {
         this.rule = 'admin';
         this.router.navigateByUrl(`/${this.rule}` + '/home');
       }
+      this.snackBar.open('Ordine creato con successo!', '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000,
+      });
     } else {
       console.log('NO NON PUOI');
+      this.snackBar.open('ERRORE: Ordine non creato!', '', {
+        horizontalPosition: this.horizontalPosition,
+        duration: this.durationInSeconds * 1000,
+      });
     }
   }
 
   async clientHistory($event: any) {
     console.log("entrato")
-    if($event!=""){
+    if ($event != "") {
       let temp: any = localStorage.getItem('user');
       this.newOrder.user_id = JSON.parse(temp).id;
       this.historyLoading = true;
@@ -410,10 +418,10 @@ export class CreateOrderComponent implements OnInit {
       this.newOrder.user.surname = surname;
       try {
         let response = await axios.get(
-          'http://localhost:8000/api/order/history/' + id
+          'https://backoffice-ronda.herokuapp.com/api/order/history/' + id
         );
         this.client = (
-          await axios.get('http://localhost:8000/api/client/' + id)
+          await axios.get('https://backoffice-ronda.herokuapp.com/api/client/' + id)
         ).data;
         this.history = response.data;
       } catch (error) {

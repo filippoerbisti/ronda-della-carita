@@ -15,9 +15,7 @@ import { StoricoAccessiComponent } from './utils/storico-accessi/storico-accessi
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 
-import { PreviewPdfComponent } from './preview-pdf/preview-pdf.component';
-
-import { AuthGuardService } from './shared/service/auth-guard.service';
+// import { AuthGuardService } from './shared/service/auth-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,10 +28,8 @@ const routes: Routes = [
   { path: ':rule/create/client', component: CreateClientComponent },
   { path: ':rule/create/order', component: CreateOrderComponent },
   { path: ':rule/create/order/:n_tessera', component: CreateOrderComponent },
-  // { path: '/confirm/user', component: ConfirmUserComponent},
-  { path: 'history', component: StoricoAccessiComponent},
-  { path: 'vol0/scanner-qr', component: ScannerQrComponent },
-  { path: ':rule/preview-pdf/:n_ordine', component: PreviewPdfComponent },
+  { path: ':rule/history', component: StoricoAccessiComponent},
+  { path: ':rule/scanner-qr', component: ScannerQrComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },  
   { path: '**', component: PageNotFoundComponent }  
 

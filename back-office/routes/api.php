@@ -9,7 +9,7 @@ use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\MailController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -33,7 +33,7 @@ Route::post('/register', [AuthController::class, 'register']);
     Route::post('/user/create', [UserController::class, 'create']);
 
     Route::delete('/user/delete/{id}', [UserController::class, 'delete']);
-    
+
     Route::put('/user/edit/{id}', [UserController::class, 'edit']);
 
 
@@ -70,7 +70,9 @@ Route::post('/register', [AuthController::class, 'register']);
     // Order
     Route::get('/orders', [OrderController::class, 'list']);
 
-    Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
+    Route::get('/order/{id}', [OrderController::class, 'id']);
+
+    // Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
 
     Route::get('/order/history/{id}', [OrderController::class, 'history']);
 
@@ -84,7 +86,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
 
-    Route::get('clothes/options', [OrderController::class, 'getOptions']);
+    Route::get('/clothes/options', [OrderController::class, 'getOptions']);
 
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);
@@ -107,5 +109,8 @@ Route::post('/register', [AuthController::class, 'register']);
     Route::get('/clothes', [ClotheController::class, 'list']);
 
     Route::get('/clothe/edit/{id}', [ClotheController::class, 'id']);
+
+    // Email
+    Route::get('/sendmail/{id}', [MailController::class, 'sendEmail']);
 
 // });
