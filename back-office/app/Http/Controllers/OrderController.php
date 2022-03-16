@@ -242,6 +242,7 @@ class OrderController extends Controller
         $newOrder->p_ritiro = $newOrderData->p_ritiro;
         //$newOrder->livello = $newOrderData->livello;
         $newOrder->note = $newOrderData->note;
+        $newOrder->n_ordine = rand(1, 100000);
         //$newOrder->created_at = $newOrderData->created_at;
         //$newOrder->update_at = $newOrderData->update_at;
 

@@ -126,6 +126,20 @@ export class HomeComponent implements OnInit {
     this.pageUserSlice = this.users.slice(0, 10);
     this.pageOrderSlice = this.orders.slice(0, 10);
     this.pageClientSlice = this.clients.slice(0, 10);
+    let data=['taglia',''];
+    for(let i=0;i<this.orders.length;i++){
+      for(let y=0;y<this.orders[i].clothes.length;y++){
+        if(this.orders[i].clothes[y].t_vestiario=="Giacca" || this.orders[i].clothes[y].t_vestiario=="Maglietta" || this.orders[i].clothes[y].t_vestiario=="Camicia"){
+          this.orders[i].clothes[y]["taglia"]=this.orders[i].client.t_maglietta;
+        }
+        if(this.orders[i].clothes[y].t_vestiario=="Pantaloni" || this.orders[i].clothes[y].t_vestiario=="Intimoo"){
+          this.orders[i].clothes[y]["taglia"]=this.orders[i].client.t_maglietta;
+        }
+        if(this.orders[i].clothes[y].t_vestiario=="Calze" || this.orders[i].clothes[y].t_vestiario=="Scarpe"){
+          this.orders[i].clothes[y]["taglia"]=this.orders[i].client.t_maglietta;
+        }
+      }
+    }
   }
 
   goToLogin() {
@@ -335,7 +349,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;
