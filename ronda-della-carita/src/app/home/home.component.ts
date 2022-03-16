@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit {
     catch (err) {
       console.log(err);
     }
+    console.log(this.orders);
     this.isLoading = false;
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
 
