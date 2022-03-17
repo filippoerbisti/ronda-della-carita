@@ -349,7 +349,7 @@ export class CreateOrderComponent implements OnInit {
 
   async create() {
     if (this.checkFields()) {
-      console.log(this.newOrder.clothes[0]);
+      console.log(this.newOrder);
       let response = await axios.post(
         'https://backoffice-ronda.herokuapp.com/api/order/create',
         this.newOrder

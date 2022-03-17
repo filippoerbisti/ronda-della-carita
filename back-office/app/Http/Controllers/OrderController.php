@@ -242,12 +242,11 @@ class OrderController extends Controller
         $newOrder->p_ritiro = $newOrderData->p_ritiro;
         //$newOrder->livello = $newOrderData->livello;
         $newOrder->note = $newOrderData->note;
+        $newOrder->n_ordine = rand(1, 100000);
         //$newOrder->created_at = $newOrderData->created_at;
         //$newOrder->update_at = $newOrderData->update_at;
-        $newOrder->n_ordine = rand(1, 100000);
-        $newOrder->user_id = $newOrderData->user_id;
+
         $newOrder->client_id = $newOrderData->user->id;
-        $client=Client::where('id',$newOrder->user_id)->first();
         $newOrder->save();
 
         for($i = 0; $i < count($newOrderData->clothes); $i++){
@@ -269,7 +268,6 @@ class OrderController extends Controller
             $newClothe->order_id=$newOrder->id;
             $newClothe->save();
         }
-
         return $newOrder;
     }
 
