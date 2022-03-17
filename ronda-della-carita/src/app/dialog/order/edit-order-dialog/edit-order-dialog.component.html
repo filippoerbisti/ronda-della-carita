@@ -30,7 +30,7 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Taglia:</mat-label>
-                            <mat-select [(value)]='clothe.taglia'>
+                            <mat-select [(value)]='order.client.t_maglietta'>
                                 <mat-option *ngFor="let item of tvestiarioUseCaseMapping[clothe.t_vestiario]" value="{{item.value}}">
                                     {{item.viewValue}}
                                 </mat-option>
