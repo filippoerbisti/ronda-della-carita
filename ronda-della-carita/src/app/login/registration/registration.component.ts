@@ -98,7 +98,7 @@ export class RegistrationComponent implements OnInit {
     let idUser: number;
     this.authService.register(this.registerForm.value).subscribe(
       result => {
-        console.log(result + 'dioooo');
+        console.log(result);
         idUser = result.user.id;
       },
       error => {
