@@ -92,7 +92,6 @@ export class HomeComponent implements OnInit {
     try {
       let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
       this.user = response_account.data;
-      console.log(this.user);
 
       let historyId = this.user.id;
       let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
@@ -120,23 +119,23 @@ export class HomeComponent implements OnInit {
     catch (err) {
       console.log(err);
     }
-    console.log(this.orders);
     this.isLoading = false;
     this.countNotifiche = this.orderInAttesa + this.orderNonDisp + this.orderDaConf;
     this.pageUserSlice = this.users.slice(0, 10);
     this.pageOrderSlice = this.orders.slice(0, 10);
     this.pageClientSlice = this.clients.slice(0, 10);
-    let data=['taglia',''];
-    for(let i=0;i<this.orders.length;i++){
-      for(let y=0;y<this.orders[i].clothes.length;y++){
-        if(this.orders[i].clothes[y].t_vestiario=="Giacca" || this.orders[i].clothes[y].t_vestiario=="Maglietta" || this.orders[i].clothes[y].t_vestiario=="Camicia"){
-          this.orders[i].clothes[y]["taglia"]=this.orders[i].client.t_maglietta;
+
+    let data = ['taglia',''];
+    for(let i = 0; i < this.orders.length; i++){
+      for(let y = 0; y < this.orders[i].clothes.length; y++){
+        if(this.orders[i].clothes[y].t_vestiario == "Giacca" || this.orders[i].clothes[y].t_vestiario == "Maglietta" || this.orders[i].clothes[y].t_vestiario == "Camicia"){
+          this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
         }
-        if(this.orders[i].clothes[y].t_vestiario=="Pantaloni" || this.orders[i].clothes[y].t_vestiario=="Intimoo"){
-          this.orders[i].clothes[y]["taglia"]=this.orders[i].client.t_maglietta;
+        if(this.orders[i].clothes[y].t_vestiario == "Pantaloni" || this.orders[i].clothes[y].t_vestiario == "Intimo"){
+          this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
         }
-        if(this.orders[i].clothes[y].t_vestiario=="Calze" || this.orders[i].clothes[y].t_vestiario=="Scarpe"){
-          this.orders[i].clothes[y]["taglia"]=this.orders[i].client.t_maglietta;
+        if(this.orders[i].clothes[y].t_vestiario == "Calze" || this.orders[i].clothes[y].t_vestiario == "Scarpe"){
+          this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
         }
       }
     }

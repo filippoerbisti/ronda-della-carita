@@ -9,6 +9,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/sn
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../shared/interface/iuser';
+import { ActivatedRoute } from '@angular/router';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -42,12 +43,15 @@ export class LoginComponent implements OnInit {
 
   isLoading = false;
 
+  // email:any;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
     public fb: FormBuilder,
     public authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
     ) {
       this.loginForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -55,14 +59,39 @@ export class LoginComponent implements OnInit {
       })
     }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    // this.route.queryParams
+    //   .subscribe((params) => {
+    //     console.log(params);
+    //     let x: any;
+
+    //     x = params['email'];
+
+    //     console.log(this.email);
+    //   }
+    // );
   }
+
+  // ngAfterViewInit() {
+  //   this.route.queryParams
+  //     .subscribe((params) => {
+  //       console.log(params);
+  //       if (params['email'] == '') {
+  //         console.log();
+  //       } else if (params['email'] != '') {
+  //         this.loginForm.value.email = params['email'];
+  //       }
+  //       console.log(this.loginForm.value.email);
+  //     }
+  //   );
+  // }
 
   goToChangePassword() {
     this.router.navigateByUrl('/change-password');
   }
 
   login() {
+    localStorage.removeItem("user");
     const url = `https://backoffice-ronda.herokuapp.com/sanctum/csrf-cookie`;
     axios.get(url).then(response => {
       // console.log(response); //This is one success but it did set cookie in application cookie
@@ -72,14 +101,13 @@ export class LoginComponent implements OnInit {
           // console.log(result.user);
           this.user = result.user;
           localStorage.setItem('user', JSON.stringify(result.user));
-          let sium = 'admin';
-          if (sium == 'interno') {
+          if (this.user.ruolo == 'Interno') {
             this.router.navigate(['vol1/home']);
           } 
-          if (sium == 'esterno') {
+          if (this.user.ruolo == 'Esterno') {
             this.router.navigate(['vol0/home']);
           } 
-          if (sium == 'admin') {
+          if (this.user.ruolo == 'Admin') {
             this.router.navigate(['admin/home']);
           } 
         },
@@ -90,24 +118,7 @@ export class LoginComponent implements OnInit {
             duration: this.durationInSeconds * 1000
           })
         },() => {
-          this.isSubmitted = true;
-
-          switch (this.user.ruolo) {
-            case 'Interno':
-              this.router.navigate(['vol1/home'])
-              break;
-            case 'Esterno':
-              this.router.navigate(['vol0/home'])
-              break;
-            case 'Admin':
-              this.router.navigate(['admin/home'])
-              break;
-            default:
-              this.router.navigate(['vol1/home'])
-              break;
-          }
-          
-          
+          this.isSubmitted = true;        
           this.loginForm.reset();
         }
       );

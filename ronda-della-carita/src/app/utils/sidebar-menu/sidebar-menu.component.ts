@@ -98,7 +98,7 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   goToHistory() {
-    this.router.navigateByUrl('/history');
+    this.router.navigateByUrl('/admin/history');
     this.isSidebarOpen = false;
   }
 
