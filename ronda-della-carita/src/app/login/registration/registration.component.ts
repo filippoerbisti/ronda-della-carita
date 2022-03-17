@@ -95,9 +95,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   async registration() {
+    let idUser: number;
     this.authService.register(this.registerForm.value).subscribe(
       result => {
-        console.log(result)
+        console.log(result);
+        idUser = result.id
       },
       error => {
         console.log(error.error);
@@ -112,8 +114,7 @@ export class RegistrationComponent implements OnInit {
         });
       }
     )
-    //catch id to send mail
-    let id = 3;
+    let id = 1;
     await axios.get("https://backoffice-ronda.herokuapp.com/api/sendmail/" + id);
   }
 
