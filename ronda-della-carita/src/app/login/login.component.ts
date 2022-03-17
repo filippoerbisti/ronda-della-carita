@@ -9,6 +9,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/sn
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../shared/interface/iuser';
+import { ActivatedRoute } from '@angular/router';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -42,12 +43,15 @@ export class LoginComponent implements OnInit {
 
   isLoading = false;
 
+  // email:any;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
     public fb: FormBuilder,
     public authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
     ) {
       this.loginForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -55,8 +59,32 @@ export class LoginComponent implements OnInit {
       })
     }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    // this.route.queryParams
+    //   .subscribe((params) => {
+    //     console.log(params);
+    //     let x: any;
+
+    //     x = params['email'];
+
+    //     console.log(this.email);
+    //   }
+    // );
   }
+
+  // ngAfterViewInit() {
+  //   this.route.queryParams
+  //     .subscribe((params) => {
+  //       console.log(params);
+  //       if (params['email'] == '') {
+  //         console.log();
+  //       } else if (params['email'] != '') {
+  //         this.loginForm.value.email = params['email'];
+  //       }
+  //       console.log(this.loginForm.value.email);
+  //     }
+  //   );
+  // }
 
   goToChangePassword() {
     this.router.navigateByUrl('/change-password');
