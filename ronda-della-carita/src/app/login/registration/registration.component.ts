@@ -99,7 +99,7 @@ export class RegistrationComponent implements OnInit {
     this.authService.register(this.registerForm.value).subscribe(
       result => {
         console.log(result);
-        idUser = result.id
+        idUser = result.user.id;
       },
       error => {
         console.log(error.error);
@@ -112,10 +112,9 @@ export class RegistrationComponent implements OnInit {
           horizontalPosition: this.horizontalPosition,
           duration: this.durationInSeconds * 1000
         });
+        axios.get("https://backoffice-ronda.herokuapp.com/api/sendmail/" + idUser);
       }
     )
-    let id = 1;
-    await axios.get("https://backoffice-ronda.herokuapp.com/api/sendmail/" + id);
   }
 
 }

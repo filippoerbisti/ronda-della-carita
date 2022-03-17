@@ -3,10 +3,8 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClotheController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\OrderController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MailController;
@@ -84,9 +82,13 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
 
+    Route::put('/order/confirm/{id}', [OrderController::class, 'confirm']);
+
     Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
 
     Route::get('/clothes/options', [OrderController::class, 'getOptions']);
+
+    Route::get('/stages/options', [OrderController::class, 'getStagesOptions']);
 
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);

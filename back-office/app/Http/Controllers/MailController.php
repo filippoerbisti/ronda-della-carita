@@ -18,7 +18,7 @@ class MailController extends Controller
             'cognome' => $user['cognome'],
             'ruolo' => $user['ruolo'],
             'n_tessera' => $user['n_tessera'],
-            'email' => 'rondacard.dellacarita@gmail.com',
+            'email' => $user['email'],
             'password' => $user['password']
         ];
 

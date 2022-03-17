@@ -17,8 +17,12 @@
         </style>
     </head>
     <body>
-        <h2>Id: {{ $title->id }}</h2>
-        <h2>Punto Ritiro: {{ $title->p_ritiro }}</h2>
+        <h1>RONDA DELLA CARITA'</h1>
+        <h2>Numero ordine: {{ $order->n_ordine }}</h2>
+        <h2>Destinatario: {{ $client->nome }} {{ $client->cognome }} - N. {{ $client->n_tessera }}</h2>
+        <h2>Punto Ritiro: {{ $order->p_ritiro }}</h2>
+        <br>
+        <h2>Riepilogo</h2>
         <table>
             <tr>
                 <th>Vestiario</th>
@@ -26,12 +30,15 @@
                 <th>Quantita</th>
             </tr>
             <?php
-                foreach($date as $key){
-                    echo "<tr>";
-                        echo "<td>$key->t_vestiario</td>";
-                        echo "<td> $key->taglia</td>";
-                        echo "<td>$key->quantita</td>";
-                    echo "</tr>";
+                
+                foreach($clothe as $key){
+                    echo "
+                    <tr>
+                        <td>$key->t_vestiario</td>
+                        <td>$client->t_maglietta</td>
+                        <td>$key->quantita</td>
+                    </tr>
+                    ";
                 }
             ?>
     </body>

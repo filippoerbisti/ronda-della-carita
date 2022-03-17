@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Clothe;
 use App\Models\ClotheType;
 use App\Models\Order;
+use App\Models\Stage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -56,10 +57,26 @@ class OrderController extends Controller
     // Generate PDF
     public function createPDF($id) {
         $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
-        $clothe = Clothe::where('order_id', $orderPDF->client_id)->get();
+        $clothe = Clothe::where('order_id', $id)->get();
+        $client = Client::where('id', $orderPDF->client_id)->first();
+
+        // switch($clothe['t_vestiario']) {
+        //     case 'Maglietta':
+        //         $size = $client['t_maglietta'];
+        //         break;
+        //     case 'Pantaloni':
+        //         $size = $client['t_pantaloni'];
+        //         break;
+        //     case 'Scarpe':
+        //         $size = $client['t_scarpe'];
+        //         break;
+        // }
+
         $data = [
-            'title' => $orderPDF,
-            'date' => $clothe,
+            'order' => $orderPDF,
+            'clothe' => $clothe,
+            'client' => $client,
+            // 'size' => $size
          ];
          $formatted_date = substr($orderPDF->created_at, 0, -9);
         // share data to view
@@ -247,8 +264,12 @@ class OrderController extends Controller
         //$newOrder->update_at = $newOrderData->update_at;
 
         $newOrder->client_id = $newOrderData->user->id;
-        $newOrder->save();
 
+        Log::info("pairing order");
+        $newOrder->save();
+        Log::info("order paired");
+
+        Log::info("pairing clothes");
         for($i = 0; $i < count($newOrderData->clothes); $i++){
             $newClothe = new Clothe();
             $newClothe->t_vestiario=$newOrderData->clothes[$i]->value;
@@ -267,16 +288,23 @@ class OrderController extends Controller
             $newClothe->quantita=1;
             $newClothe->order_id=$newOrder->id;
             $newClothe->save();
+            Log::info("clothe paired");
+
         }
         return $newOrder;
     }
 
     public function create(Request $request)
     {
+        Log::info("create");
         $newOrderData = json_decode($request->getContent());
         $newOrder = new Order();
 
+        Log::info("aoh");
+
         $newOrder = $this->pairing($newOrder, $newOrderData);
+        Log::info("paired");
+
         return $newOrder;
     }
 
@@ -298,6 +326,19 @@ class OrderController extends Controller
         $order->delete();
     }
 
+    public function confirm($id) {
+        $order = Order::with('clothes')->where("id", $id)->first();
+
+        foreach ($order->clothes as $clothe) {
+            $clothe = Clothe::find($clothe->id);
+            $clothe->status = "Attesa";
+            $clothe->save();
+            Log::info("CLOTHE" . $clothe);
+        }
+
+        return $order;
+    }
+
     public function showLabel($id)
     {
         $order = Order::find($id);
@@ -305,5 +346,9 @@ class OrderController extends Controller
 
     public function getOptions() {
         return ClotheType::all();
+    }
+
+    public function getStagesOptions() {
+        return Stage::all();
     }
 }

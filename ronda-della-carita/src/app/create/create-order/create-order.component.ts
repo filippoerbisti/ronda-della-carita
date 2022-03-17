@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
 import { IOrder } from 'src/app/shared/interface/iorder';
 import { IClotheType } from 'src/app/shared/interface/iClotheType';
+import { iStage } from 'src/app/shared/interface/iStage';
 
 export interface IClothes {
   type: string;
@@ -40,6 +41,8 @@ export class CreateOrderComponent implements OnInit {
   myControl = new FormControl();
   clients: IClient[] = [];
   tvestiariolv2: IClotheType[] = [];
+  stageReference!: any;
+  stages: iStage[] = [];
   filteredClients: Observable<IClient[]> | undefined;
 
   choseGender = 'Uomo';
@@ -61,6 +64,13 @@ export class CreateOrderComponent implements OnInit {
     { value: 'Calze' },
     { value: 'Scarpe' },
     { value: 'Accessori' },
+  ];
+
+  public giri = [
+    { value: 'Giro 1' },
+    { value: 'Giro 2' },
+    { value: 'Giro 3' },
+    { value: 'Colazioni' },
   ];
 
   // public tvestiariolv2 = [
@@ -198,7 +208,9 @@ export class CreateOrderComponent implements OnInit {
     try {
       let response = await axios.get('https://backoffice-ronda.herokuapp.com/api/clients');
       let tvestiariolv2 = await axios.get('https://backoffice-ronda.herokuapp.com/api/clothes/options');
+      let stages = await axios.get('http://localhost:8000/api/stages/options');
       this.tvestiariolv2 = tvestiariolv2.data;
+      this.stages = stages.data;
       this.clients = response.data;
       console.log(this.clients);
     } catch (err) {
@@ -247,6 +259,14 @@ export class CreateOrderComponent implements OnInit {
     });
 
     return clothes;
+  }
+
+  filterStages() {
+    let stages = this.stages.filter((stage) => {
+      return stage.reference == this.stageReference;
+    });
+
+    return stages;
   }
 
   // public sea() {
@@ -351,7 +371,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder);
       let response = await axios.post(
-        'https://backoffice-ronda.herokuapp.com/api/order/create',
+        'http://localhost:8000/api/order/create',
         this.newOrder
       );
       console.log(response.data);
@@ -370,7 +390,6 @@ export class CreateOrderComponent implements OnInit {
         duration: this.durationInSeconds * 1000,
       });
     } else {
-      console.log('NO NON PUOI');
       this.snackBar.open('ERRORE: Ordine non creato!', '', {
         horizontalPosition: this.horizontalPosition,
         duration: this.durationInSeconds * 1000,
@@ -434,11 +453,13 @@ export class CreateOrderComponent implements OnInit {
   checkFields() {
     console.log('checkFields');
 
-    // check forms
+    console.log(this.newOrder);
+    
+
     this.newOrder.user.name != '' && this.newOrder.p_ritiro != ''
       ? (this.invalidInput = false)
       : (this.invalidInput = true);
-    // check if there's at least a clothe
+
     this.newOrder.clothes.length > 0
       ? (this.invalidClothe = false)
       : (this.invalidClothe = true);
