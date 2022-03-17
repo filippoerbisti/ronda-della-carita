@@ -6,39 +6,41 @@
                 <div class="w-full flex-col">
                     <mat-form-field appearance="fill" class="w-full mt-4">
                         <mat-label>Tipo documento:</mat-label>
-                        <mat-select name="tdocument" ><!--[(ngModel)]="newClient.t_documento"-->
-                            <mat-option *ngFor="let tdocument of tdocuments" [value]="tdocument.value">
+                        <mat-select [(ngModel)]="client.document.t_doc" name="t_doc" ><!--[(ngModel)]="newClient.t_documento"-->
+                            <mat-option *ngFor="let tdocument of tdocuments" [value]="client.document.t_doc">
                                 {{tdocument.viewValue}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>N. Documento</mat-label>
-                        <input type="number" matInput 
+                        <input type="text" matInput 
+                            name="n_doc"
+                            [(ngModel)]="client.document.n_doc"
                             placeholder="N. Documento"><!--[(ngModel)]="newClient.n_documento"-->
                     </mat-form-field>
                 </div>
                 <div class="w-full flex-col">
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Taglia maglietta:</mat-label>
-                        <mat-select name="tmaglietta" ><!--[(ngModel)]="newClient.t_maglietta"-->
-                            <mat-option *ngFor="let tmaglietta of tmagliettas" [value]="tmaglietta.value">
+                        <mat-select name="tmaglietta" [(ngModel)]="client.t_maglietta" ><!--[(ngModel)]="newClient.t_maglietta"-->
+                            <mat-option *ngFor="let tmaglietta of tmagliettas" [value]="client.t_maglietta">
                                 {{tmaglietta.viewValue}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Taglia pantaloni:</mat-label>
-                        <mat-select name="tpantaloni"><!-- [(ngModel)]="newClient.t_pantaloni"-->
-                            <mat-option *ngFor="let tpantaloni of tpantalonis" [value]="tpantaloni.value">
+                        <mat-select name="tpantaloni" [(ngModel)]="client.t_pantaloni"><!-- [(ngModel)]="newClient.t_pantaloni"-->
+                            <mat-option *ngFor="let tpantaloni of tpantalonis" [value]="client.t_pantaloni">
                                 {{tpantaloni.viewValue}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Taglia scarpe:</mat-label>
-                        <mat-select name="tscarpe" ><!--[(ngModel)]="newClient.t_scarpe"-->
-                            <mat-option *ngFor="let tscarpe of tscarpes" [value]="tscarpe.value">
+                        <mat-select name="tscarpe" [(ngModel)]="client.t_scarpe" ><!--[(ngModel)]="newClient.t_scarpe"-->
+                            <mat-option *ngFor="let tscarpe of tscarpes" [value]="client.t_scarpe">
                                 {{tscarpe.viewValue}}
                             </mat-option>
                         </mat-select>
