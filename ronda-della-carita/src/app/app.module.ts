@@ -63,6 +63,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ConfirmOrderDialogComponent } from './dialog/order/confirm-order-dialog/confirm-order-dialog.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { environment } from '../environments/environment';
     CreateClientComponent,
     CreateOrderComponent,
     RegistrationComponent,
+    ConfirmOrderDialogComponent,
   ],
   imports: [
     BrowserModule,

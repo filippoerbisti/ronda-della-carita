@@ -326,6 +326,19 @@ class OrderController extends Controller
         $order->delete();
     }
 
+    public function confirm($id) {
+        $order = Order::with('clothes')->where("id", $id)->first();
+
+        foreach ($order->clothes as $clothe) {
+            $clothe = Clothe::find($clothe->id);
+            $clothe->status = "Attesa";
+            $clothe->save();
+            Log::info("CLOTHE" . $clothe);
+        }
+
+        return $order;
+    }
+
     public function showLabel($id)
     {
         $order = Order::find($id);

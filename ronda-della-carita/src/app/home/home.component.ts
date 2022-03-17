@@ -4,6 +4,7 @@ import axios from "axios";
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteClientDialogComponent } from 'src/app/dialog/client/delete-client-dialog/delete-client-dialog.component';
 import { DeleteOrderDialogComponent } from 'src/app/dialog/order/delete-order-dialog/delete-order-dialog.component';
+import { ConfirmOrderDialogComponent } from 'src/app/dialog/order/confirm-order-dialog/confirm-order-dialog.component';
 import { DeleteUserDialogComponent } from 'src/app/dialog/user/delete-user-dialog/delete-user-dialog.component';
 import { EditClientDialogComponent } from 'src/app/dialog/client/edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from 'src/app/dialog/user/edit-user-dialog/edit-user-dialog.component';
@@ -392,6 +393,12 @@ export class HomeComponent implements OnInit {
     this.orderId = orderId;
     localStorage["id"] = this.orderId;
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  }
+
+  openConfirmOrderDialog(orderId: number) {
+    this.orderId = orderId;
+    localStorage["id"] = this.orderId;
+    const dialogRef = this.dialog.open(ConfirmOrderDialogComponent);
   }
 
   openEditUserDialog(userId: number) {
