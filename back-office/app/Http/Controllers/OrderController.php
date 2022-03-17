@@ -56,10 +56,26 @@ class OrderController extends Controller
     // Generate PDF
     public function createPDF($id) {
         $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
-        $clothe = Clothe::where('order_id', $orderPDF->client_id)->get();
+        $clothe = Clothe::where('order_id', $id)->get();
+        $client = Client::where('id', $orderPDF->client_id)->first();
+
+        // switch($clothe['t_vestiario']) {
+        //     case 'Maglietta':
+        //         $size = $client['t_maglietta'];
+        //         break;
+        //     case 'Pantaloni':
+        //         $size = $client['t_pantaloni'];
+        //         break;
+        //     case 'Scarpe':
+        //         $size = $client['t_scarpe'];
+        //         break;
+        // }
+
         $data = [
-            'title' => $orderPDF,
-            'date' => $clothe,
+            'order' => $orderPDF,
+            'clothe' => $clothe,
+            'client' => $client,
+            // 'size' => $size
          ];
          $formatted_date = substr($orderPDF->created_at, 0, -9);
         // share data to view
