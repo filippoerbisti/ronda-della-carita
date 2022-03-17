@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    localStorage.removeItem("user");
     const url = `https://backoffice-ronda.herokuapp.com/sanctum/csrf-cookie`;
     axios.get(url).then(response => {
       // console.log(response); //This is one success but it did set cookie in application cookie
@@ -72,14 +73,13 @@ export class LoginComponent implements OnInit {
           // console.log(result.user);
           this.user = result.user;
           localStorage.setItem('user', JSON.stringify(result.user));
-          let sium = 'admin';
-          if (sium == 'interno') {
+          if (this.user.ruolo == 'Interno') {
             this.router.navigate(['vol1/home']);
           } 
-          if (sium == 'esterno') {
+          if (this.user.ruolo == 'Esterno') {
             this.router.navigate(['vol0/home']);
           } 
-          if (sium == 'admin') {
+          if (this.user.ruolo == 'Admin') {
             this.router.navigate(['admin/home']);
           } 
         },
@@ -90,24 +90,7 @@ export class LoginComponent implements OnInit {
             duration: this.durationInSeconds * 1000
           })
         },() => {
-          this.isSubmitted = true;
-
-          switch (this.user.ruolo) {
-            case 'Interno':
-              this.router.navigate(['vol1/home'])
-              break;
-            case 'Esterno':
-              this.router.navigate(['vol0/home'])
-              break;
-            case 'Admin':
-              this.router.navigate(['admin/home'])
-              break;
-            default:
-              this.router.navigate(['vol1/home'])
-              break;
-          }
-          
-          
+          this.isSubmitted = true;        
           this.loginForm.reset();
         }
       );
