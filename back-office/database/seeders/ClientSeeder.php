@@ -24,7 +24,7 @@ class ClientSeeder extends Seeder
                 'nome' => $faker -> firstName,
                 'cognome' => $faker -> lastName,
                 'n_tessera' => $n++,
-                'genere' => $faker->randomElement(['male', 'female']),
+                'genere' => $faker->randomElement(['M', 'F']),
                 'nazionalita' => $faker -> state,
                 'altezza' => rand(150, 208), 
                 't_maglietta' => 'M',
