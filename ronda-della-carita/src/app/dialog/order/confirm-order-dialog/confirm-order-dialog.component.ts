@@ -42,7 +42,7 @@ export class ConfirmOrderDialogComponent implements OnInit {
     this.orderId = localStorage["id"];
     let orderId = this.orderId;
     console.log(orderId);
-    await axios.put("http://localhost:8000/api/order/confirm/" + orderId)
+    await axios.put("https://backoffice-ronda.herokuapp.com/api/order/confirm/" + orderId)
       .then(response => {
         console.log(response);
       });

@@ -50,7 +50,7 @@ class AuthController extends Controller
 
         $user = User::create(array_merge(
             $validator->validated(),
-            ['ruolo' => 'Interno'],
+            ['ruolo' => $request->ruolo],
             ['n_tessera' => $n_tessera++],
             ['password' => bcrypt($request->password)]
         ));

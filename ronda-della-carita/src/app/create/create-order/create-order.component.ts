@@ -208,7 +208,7 @@ export class CreateOrderComponent implements OnInit {
     try {
       let response = await axios.get('https://backoffice-ronda.herokuapp.com/api/clients');
       let tvestiariolv2 = await axios.get('https://backoffice-ronda.herokuapp.com/api/clothes/options');
-      let stages = await axios.get('http://localhost:8000/api/stages/options');
+      let stages = await axios.get('https://backoffice-ronda.herokuapp.com/api/stages/options');
       this.tvestiariolv2 = tvestiariolv2.data;
       this.stages = stages.data;
       this.clients = response.data;
@@ -371,7 +371,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder);
       let response = await axios.post(
-        'http://localhost:8000/api/order/create',
+        'https://backoffice-ronda.herokuapp.com/api/order/create',
         this.newOrder
       );
       console.log(response.data);
