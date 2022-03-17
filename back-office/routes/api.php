@@ -88,6 +88,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('/clothes/options', [OrderController::class, 'getOptions']);
 
+    Route::get('/stages/options', [OrderController::class, 'getStagesOptions']);
+
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);
 
