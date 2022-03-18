@@ -18,7 +18,7 @@ class OrderSeeder extends Seeder
         $userId = DB::table('users')->pluck('id');
         $clientId = DB::table('clients')->pluck('id');
 
-        for ($i = 0; $i < 80; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             DB::table('orders')->insert([
                 'n_ordine' => $faker -> unique() -> numberBetween(1, 100000),
                 'p_ritiro' => $faker -> streetName,

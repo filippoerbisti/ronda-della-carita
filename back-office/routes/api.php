@@ -66,7 +66,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 
     // Order
-    Route::get('/orders', [OrderController::class, 'list']);
+    Route::get('/orders', [OrderController::class, 'list']);  //funzia
 
     Route::get('/order/{id}', [OrderController::class, 'id']);
 
@@ -84,7 +84,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::put('/order/confirm/{id}', [OrderController::class, 'confirm']);
 
-    Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
+    Route::get('/orderLabel/{id}', [OrderController::class, 'showLabel']);
 
     Route::get('/clothes/options', [OrderController::class, 'getOptions']);
 

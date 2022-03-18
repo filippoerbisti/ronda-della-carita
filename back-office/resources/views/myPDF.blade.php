@@ -42,6 +42,6 @@
                 }
             ?>
         </table>
-        <p>Creato il {{ $formatted_date }}</p>
+        <p>Creato il {{ $date }}</p>
     </body>
 </html>

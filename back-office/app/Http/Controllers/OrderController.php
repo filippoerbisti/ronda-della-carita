@@ -60,16 +60,18 @@ class OrderController extends Controller
         $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
         $clothe = Clothe::where('order_id', $id)->get();
         $client = Client::where('id', $orderPDF->client_id)->first();
+        $formatted_date = substr($orderPDF->created_at, 0, -9);
 
         $data = [
             'order' => $orderPDF,
             'clothe' => $clothe,
             'client' => $client,
             // 'size' => $size
+            'date' => $formatted_date
          ];
-         $formatted_date = substr($orderPDF->created_at, 0, -9);
+         
         // share data to view
-        $pdf = PDF::loadView('myPDF',$data, $formatted_date);
+        $pdf = PDF::loadView('myPDF',$data);
         Log::info('pallone');
         $pdf->save(storage_path().'_test.pdf');
         return $pdf->download('N_'.$orderPDF->n_ordine.'_Date_'.$formatted_date.'.pdf');
