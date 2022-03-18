@@ -19,7 +19,7 @@ class ClientSeeder extends Seeder
         $userId = DB::table('users')->pluck('id');
         $documentId = DB::table('documents')->pluck('id');
         
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 60; $i++) {
             DB::table('clients')->insert([
                 'nome' => $faker -> firstName,
                 'cognome' => $faker -> lastName,

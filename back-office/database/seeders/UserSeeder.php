@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     {
         $n = 1;
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             DB::table('users')->insert([
                 'nome' => $faker -> firstName,
                 'cognome' => $faker -> lastName,

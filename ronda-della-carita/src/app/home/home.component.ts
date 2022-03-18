@@ -93,29 +93,29 @@ export class HomeComponent implements OnInit {
     this.isAdmin = window.location.href.includes('admin');
     this.indexTab >= 0;
     try {
-      let response_account = await axios.get("http://localhost:8000/api/user", { withCredentials: true });
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
       this.user = response_account.data;
 
       let historyId = this.user.id;
-      let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       this.history = response_history.data;
 
-      let response_user = await axios.get("http://localhost:8000/api/users");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("http://localhost:8000/api/clients");
+      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("http://localhost:8000/api/orders");
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
       this.orders = response_order.data;
 
-      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/nondisp");
       this.orderNonDisp = response_order_nondisp.data;
 
-      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/inattesa");
       this.orderInAttesa = response_order_inattesa.data;
 
-      let response_order_daconf = await axios.get("http://localhost:8000/api/orders/daconf");
+      let response_order_daconf = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/daconf");
       this.orderDaConf = response_order_daconf.data;
 
     }
@@ -128,16 +128,16 @@ export class HomeComponent implements OnInit {
     this.pageOrderSlice = this.orders.slice(0, 10);
     this.pageClientSlice = this.clients.slice(0, 10);
 
-    let data = ['taglia',''];
-    for(let i = 0; i < this.orders.length; i++){
-      for(let y = 0; y < this.orders[i].clothes.length; y++){
-        if(this.orders[i].clothes[y].t_vestiario == "Giacca" || this.orders[i].clothes[y].t_vestiario == "Maglietta" || this.orders[i].clothes[y].t_vestiario == "Camicia"){
+    let data = ['taglia', ''];
+    for (let i = 0; i < this.orders.length; i++) {
+      for (let y = 0; y < this.orders[i].clothes.length; y++) {
+        if (this.orders[i].clothes[y].t_vestiario == "Giacca" || this.orders[i].clothes[y].t_vestiario == "Maglietta" || this.orders[i].clothes[y].t_vestiario == "Camicia") {
           this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
         }
-        if(this.orders[i].clothes[y].t_vestiario == "Pantaloni" || this.orders[i].clothes[y].t_vestiario == "Intimo"){
+        if (this.orders[i].clothes[y].t_vestiario == "Pantaloni" || this.orders[i].clothes[y].t_vestiario == "Intimo") {
           this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
         }
-        if(this.orders[i].clothes[y].t_vestiario == "Calze" || this.orders[i].clothes[y].t_vestiario == "Scarpe"){
+        if (this.orders[i].clothes[y].t_vestiario == "Calze" || this.orders[i].clothes[y].t_vestiario == "Scarpe") {
           this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
         }
       }
@@ -313,7 +313,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/users/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -334,7 +334,7 @@ export class HomeComponent implements OnInit {
       status = "all";
     console.log("search" + search)
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/orders/filt/" + status + "/search/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status + "/search/" + search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -351,7 +351,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/client/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;
@@ -364,7 +364,7 @@ export class HomeComponent implements OnInit {
 
   async openPreviewPDF(id: any) {
     try {
-      window.open("http://localhost:8000/api/download/pdf/" + id, "_blank");
+      window.open("https://backoffice-ronda.herokuapp.com/api/download/pdf/" + id, "_blank");
       this.snackBar.open('Download completato!', '', {
         horizontalPosition: this.horizontalPosition,
         duration: this.durationInSeconds * 1000,
@@ -454,15 +454,15 @@ export class HomeComponent implements OnInit {
       if (duration < 1000 && Math.abs(direction[0]) > 30 && Math.abs(direction[0]) > Math.abs(direction[1] * 3)) {
         const swipe = direction[0] < 0 ? 'next' : 'previous';
         console.info(swipe);
-        if(swipe === 'next') {
+        if (swipe === 'next') {
           const isFirst = this.indexTab === 0;
-          if(this.indexTab <= 3){
+          if (this.indexTab <= 3) {
             this.indexTab = isFirst ? 1 : this.indexTab + 1;
           }
           console.log("Swipe left — INDEX: " + this.indexTab);
-        } else if(swipe === 'previous'){
+        } else if (swipe === 'previous') {
           const isLast = this.indexTab === 4;
-          if(this.indexTab >= 1){
+          if (this.indexTab >= 1) {
             this.indexTab = this.indexTab - 1;
           }
           console.log("Swipe right — INDEX: " + this.indexTab);

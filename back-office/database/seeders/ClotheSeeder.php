@@ -19,7 +19,7 @@ class ClotheSeeder extends Seeder
     {
         $orderId = DB::table('orders')->pluck('id');
         
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             DB::table('clothes')->insert([
                 't_vestiario' => 'Maglietta',
                 // 'taglia' => 'XXX',

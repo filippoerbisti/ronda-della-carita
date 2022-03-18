@@ -17,7 +17,7 @@ class HistorySeeder extends Seeder
     {
         $userId = DB::table('users')->pluck('id');
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             DB::table('histories')->insert([
                 'ultimo_accesso' => $faker -> dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null),
                 'user_id' => $faker->randomElement($userId),

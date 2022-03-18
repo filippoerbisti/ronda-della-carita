@@ -16,7 +16,7 @@ class DocumentSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             DB::table('documents')->insert([
                 'n_doc' => Str::random(10),
                 't_doc' =>  $faker->randomElement(['Patente', 'Passaporto', "Carta d'identità"]),
