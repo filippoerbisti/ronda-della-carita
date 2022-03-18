@@ -16,7 +16,6 @@ export class ScannerQrComponent implements OnInit {
 
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
-    alert(this.qrResultString);
     if (window.location.href.includes('vol1')) {
       this.rule = 'vol1';
     } else if (window.location.href.includes('vol0')) {

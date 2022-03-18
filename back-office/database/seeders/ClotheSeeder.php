@@ -23,7 +23,7 @@ class ClotheSeeder extends Seeder
             DB::table('clothes')->insert([
                 't_vestiario' => 'Maglietta',
                 // 'taglia' => 'XXX',
-                'status' => $faker->randomElement(['Attesa', 'Non disponibile', 'Da confermare', 'Consegnato']),
+                'status' => $faker->randomElement(['Da consegnare', 'Non disponibile', 'Da preparare', 'Consegnato']),
                 'quantita' => 1,
                 'created_at' => now(),
                 'order_id' => $faker->randomElement($orderId),

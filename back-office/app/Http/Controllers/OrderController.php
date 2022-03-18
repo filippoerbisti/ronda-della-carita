@@ -21,7 +21,8 @@ class OrderController extends Controller
             ->with('user')
             ->get();
         for ($i = 0; $i < count($orders); $i++) {
-            $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
             for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                 $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
             }
@@ -60,18 +61,6 @@ class OrderController extends Controller
         $clothe = Clothe::where('order_id', $id)->get();
         $client = Client::where('id', $orderPDF->client_id)->first();
 
-        // switch($clothe['t_vestiario']) {
-        //     case 'Maglietta':
-        //         $size = $client['t_maglietta'];
-        //         break;
-        //     case 'Pantaloni':
-        //         $size = $client['t_pantaloni'];
-        //         break;
-        //     case 'Scarpe':
-        //         $size = $client['t_scarpe'];
-        //         break;
-        // }
-
         $data = [
             'order' => $orderPDF,
             'clothe' => $clothe,
@@ -80,7 +69,7 @@ class OrderController extends Controller
          ];
          $formatted_date = substr($orderPDF->created_at, 0, -9);
         // share data to view
-        $pdf = PDF::loadView('myPDF',$data);
+        $pdf = PDF::loadView('myPDF',$data, $formatted_date);
         Log::info('pallone');
         $pdf->save(storage_path().'_test.pdf');
         return $pdf->download('N_'.$orderPDF->n_ordine.'_Date_'.$formatted_date.'.pdf');
@@ -153,14 +142,16 @@ class OrderController extends Controller
     public function filter($status, $search)
     {
         if ($search == "nu") {
-            $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
             $search = "";
             $orders = Order::with('client')
                 ->with('user')
                 ->get();
             if ($status == "all") {
                 for ($i = 0; $i < count($orders); $i++) {
-                    $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                    // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                    $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
                     for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                         $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                     }
@@ -177,7 +168,8 @@ class OrderController extends Controller
                 return $orders;
             }
             for ($i = 0; $i < count($orders); $i++) {
-                $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
                 for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                     $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                 }
@@ -201,7 +193,8 @@ class OrderController extends Controller
             }
             return $temp;
         } else if ($search != "nu") {
-            $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
             $orders = Order::with('client')
                 ->with('user')
                 ->where('n_ordine', 'LIKE', "%$search%")
@@ -210,7 +203,8 @@ class OrderController extends Controller
                 ->get();
             if ($status == "all") {
                 for ($i = 0; $i < count($orders); $i++) {
-                    $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                    // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                    $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
                     for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                         $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                     }
@@ -227,7 +221,8 @@ class OrderController extends Controller
                 return $orders;
             }
             for ($i = 0; $i < count($orders); $i++) {
-                $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+                $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
                 for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                     $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
                 }

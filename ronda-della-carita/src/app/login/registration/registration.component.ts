@@ -70,8 +70,8 @@ export class RegistrationComponent implements OnInit {
       cognome: ['', [Validators.required]],
       ruolo: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      password_confirmation: ['', [Validators.required]]
+      password: ['Ronda1234.', [Validators.required]],
+      password_confirmation: ['Ronda1234.', [Validators.required]]
     },
     { validators: this.checkPasswords }
     )

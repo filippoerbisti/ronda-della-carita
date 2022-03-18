@@ -41,5 +41,7 @@
                     ";
                 }
             ?>
+        </table>
+        <p>Creato il {{ $formatted_date }}</p>
     </body>
 </html>
