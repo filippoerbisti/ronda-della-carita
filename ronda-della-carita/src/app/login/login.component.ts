@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
   durationInSeconds = 5;
 
   isLoading = false;
+  
 
   // email:any;
 
@@ -76,12 +77,16 @@ export class LoginComponent implements OnInit {
   //   this.route.queryParams
   //     .subscribe((params) => {
   //       console.log(params);
-  //       if (params['email'] == '') {
-  //         console.log();
-  //       } else if (params['email'] != '') {
+  //       console.log(this.loginForm.value)
+  //       if (params['email'] != '') {
   //         this.loginForm.value.email = params['email'];
   //       }
+  //       if (params['passowrd'] != '') {
+  //         this.loginForm.value.password = params['password'];
+  //       }
+        
   //       console.log(this.loginForm.value.email);
+  //       console.log(this.loginForm.value.password);
   //     }
   //   );
   // }
