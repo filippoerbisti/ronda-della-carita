@@ -7,16 +7,23 @@
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Nome</mat-label>
                         <input type="text" matInput 
-                            placeholder="Nome"><!--[(ngModel)]="newClient.nome"-->
+                            placeholder="Nome"
+                            name="nome"
+                            [(ngModel)]="user.nome"
+                            ><!--[(ngModel)]="newClient.nome"-->
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="w-full ml-4">
                         <mat-label>Cognome</mat-label>
                         <input type="text" matInput 
+                            name="surname"
+                            [(ngModel)]="user.cognome"
                             placeholder="Cognome"><!--[(ngModel)]="newClient.cognome"-->
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="w-full ml-4">
                         <mat-label>N. Tessera</mat-label>
                         <input type="number" matInput 
+                            name="n_tessera"
+                            [(ngModel)]="user.n_tessera"
                             placeholder="N. Tessera"><!--[(ngModel)]="newClient.n_tessera"-->
                     </mat-form-field>
                 </div>
@@ -25,6 +32,8 @@
                         <mat-label>Email</mat-label>
                         <input type="email" 
                             matInput 
+                            name="email"
+                            [(ngModel)]="user.email"
                             [formControl]="emailFormControl" 
                             [errorStateMatcher]="matcher"
                             placeholder="Email">
@@ -37,8 +46,8 @@
                     </mat-form-field>
                     <div class="flex-col w-full ml-4">
                         <div>Ruolo: </div>
-                        <mat-radio-group><!--[(ngModel)]="newClient.ruolo"-->
-                            <mat-radio-button class="mx-2" *ngFor="let rule of rules" [value]="rule">
+                        <mat-radio-group [(ngModel)]="user.ruolo" name="ruolo"><!--[(ngModel)]="newClient.ruolo"-->
+                            <mat-radio-button class="mx-2"  *ngFor="let rule of rules" [value]="rule">
                                 {{ rule }}
                             </mat-radio-button>
                         </mat-radio-group>

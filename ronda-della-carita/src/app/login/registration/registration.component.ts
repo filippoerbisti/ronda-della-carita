@@ -34,6 +34,12 @@ export class RegistrationComponent implements OnInit {
 
   registerForm!: FormGroup;
 
+  public roles = [
+    {value: "Esterno"},
+    {value: "Interno"},
+    {value: "Admin"}
+  ]
+
   errors: any = null;
 
   isSubmitted: boolean = false;
@@ -62,6 +68,7 @@ export class RegistrationComponent implements OnInit {
     this.registerForm = this.fb.group({
       nome: ['', [Validators.required]],
       cognome: ['', [Validators.required]],
+      ruolo: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       password_confirmation: ['', [Validators.required]]

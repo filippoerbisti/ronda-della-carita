@@ -82,9 +82,13 @@ Route::post('/register', [AuthController::class, 'register']);
 
     Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
 
+    Route::put('/order/confirm/{id}', [OrderController::class, 'confirm']);
+
     Route::get('orderLabel/{id}', [OrderController::class, 'showLabel']);
 
     Route::get('/clothes/options', [OrderController::class, 'getOptions']);
+
+    Route::get('/stages/options', [OrderController::class, 'getStagesOptions']);
 
     // Order Notification
     Route::get('/orders/daconf', [OrderController::class, 'countOrderDaConf']);

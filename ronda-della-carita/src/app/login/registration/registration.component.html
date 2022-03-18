@@ -47,6 +47,16 @@
                 Email <strong>obbligatoria</strong>
             </mat-error>
         </mat-form-field>
+        <mat-form-field appearance="fill" class="">
+            <mat-label
+              >Ruolo</mat-label
+            >
+            <mat-select name="ruolo" formControlName="ruolo">
+              <mat-option *ngFor="let item of roles" [value]="item.value">
+                {{ item.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         <div class="flex flex-col sm:flex-row sm:space-x-3">
             <mat-form-field class="w-full" appearance="fill">
                 <mat-label>Password</mat-label>
