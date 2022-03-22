@@ -10,6 +10,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../shared/interface/iuser';
 import { ActivatedRoute } from '@angular/router';
+import { IHistory } from '../shared/interface/ihistory';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -34,17 +35,18 @@ export class LoginComponent implements OnInit {
 
   hide = true;
 
+  emailQueryParams = true;
+  pswQueryParams = true;
+
   matcherEmail = new MyErrorStateMatcherEmail();
 
   user!: IUser;
+  history!: IHistory;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 5;
 
   isLoading = false;
-  
-
-  // email:any;
 
   constructor(
     public dialog: MatDialog,
@@ -61,35 +63,20 @@ export class LoginComponent implements OnInit {
     }
 
   ngOnInit() {
-    // this.route.queryParams
-    //   .subscribe((params) => {
-    //     console.log(params);
-    //     let x: any;
-
-    //     x = params['email'];
-
-    //     console.log(this.email);
-    //   }
-    // );
   }
 
-  // ngAfterViewInit() {
-  //   this.route.queryParams
-  //     .subscribe((params) => {
-  //       console.log(params);
-  //       console.log(this.loginForm.value)
-  //       if (params['email'] != '') {
-  //         this.loginForm.value.email = params['email'];
-  //       }
-  //       if (params['passowrd'] != '') {
-  //         this.loginForm.value.password = params['password'];
-  //       }
-        
-  //       console.log(this.loginForm.value.email);
-  //       console.log(this.loginForm.value.password);
-  //     }
-  //   );
-  // }
+  ngAfterViewInit() {
+    if (this.route.snapshot.queryParams['email'] && this.route.snapshot.queryParams['password']) {
+      this.route.queryParams
+        .subscribe((params) => {
+          this.pswQueryParams = false;
+          this.emailQueryParams = false;
+          this.loginForm.value.email = params['email'];
+          this.loginForm.value.password = params['password'];
+        }
+      );
+    }
+  }
 
   goToChangePassword() {
     this.router.navigateByUrl('/change-password');
@@ -106,6 +93,9 @@ export class LoginComponent implements OnInit {
           // console.log(result.user);
           this.user = result.user;
           localStorage.setItem('user', JSON.stringify(result.user));
+          this.history = result.user.id; 
+          console.log(this.history);
+          // axios.post('http:localhost:8000/api/history/create', this.history);
           if (this.user.ruolo == 'Interno') {
             this.router.navigate(['vol1/home']);
           } 

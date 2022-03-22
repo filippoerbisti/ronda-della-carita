@@ -25,7 +25,7 @@ Email : {{ $customer_details['email'] }}
 <br/>
 
 <br/>
-<a href="https://rondadellacarita.netlify.app">ACCEDI</a>
+<a href="https://rondadellacarita.netlify.app/login?email={{$customer_details['email']}}&password=Ronda1234.">ACCEDI</a>
 <br/>
 Per accedere inserire la propria email o il numero tessera, con la corrispondente password.
 <br/>

@@ -53,8 +53,8 @@
                                                 <span class="font-bold sm:hidden flex">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
                                                 <span class="font-bold hidden sm:flex">N. {{ user.n_tessera }} - {{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
                                             </mat-panel-title>
-                                            <mat-panel-description class="w-1/3 flex justify-center py-auto">
-                                                <p class="leading-loose text-black mr-auto hidden sm:inline my-auto">N. tessera: {{ user.n_tessera }}</p>
+                                            <mat-panel-description class="w-1/3 flex justify-center my-auto">
+                                                <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ user.n_tessera }}</span>
                                             </mat-panel-description>
                                             <div class="w-1/3 flex justify-end">
                                                 <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-3 sm:mr-5">
@@ -85,7 +85,7 @@
                                                 <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
                                             </mat-panel-title>
                                             <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                                <p class="leading-loose text-black mr-auto hidden sm:inline my-auto">N. tessera: {{ user.n_tessera }}</p>
+                                                <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ user.n_tessera }}</span>
                                             </mat-panel-description>
                                             <div class="w-1/3 flex justify-end">
                                                 <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-3 sm:mr-5">

@@ -92,11 +92,6 @@ export class SidebarMenuComponent implements OnInit {
     this.isSidebarOpen = false;
   }
 
-  goToConfirm() {
-    this.router.navigateByUrl('/confirm/user');
-    this.isSidebarOpen = false;
-  }
-
   goToHistory() {
     this.router.navigateByUrl('/admin/history');
     this.isSidebarOpen = false;
