@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.com
 import { HomeComponent } from './home/home.component';
 import { HomeEsternoComponent } from './home-esterno/home-esterno.component';
 
-import { CreateUserComponent } from './create/create-user/create-user.component';
+import { RegistrationComponent } from './create/registration/registration.component';
 import { CreateClientComponent } from './create/create-client/create-client.component';
 import { CreateOrderComponent } from './create/create-order/create-order.component';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'vol0/home', component: HomeEsternoComponent },
   { path: 'vol0/mob/home', component: HomeComponent },
 
-  { path: ':rule/create/user', component: CreateUserComponent},
+  { path: ':rule/create/user', component: RegistrationComponent},
   { path: ':rule/create/client', component: CreateClientComponent },
   { path: ':rule/create/order', component: CreateOrderComponent },
   { path: ':rule/create/order/:n_tessera', component: CreateOrderComponent },

@@ -33,13 +33,12 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 import { AuthInterceptor } from './shared/service/auth.interceptor';
 
 import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './login/registration/registration.component';
 
 import { HomeComponent } from './home/home.component';
 import { HomeEsternoComponent } from './home-esterno/home-esterno.component';
 import { SidebarMenuComponent } from './utils/sidebar-menu/sidebar-menu.component';
 
-import { CreateUserComponent } from './create/create-user/create-user.component';
+import { RegistrationComponent } from './create/registration/registration.component';
 import { CreateClientComponent } from './create/create-client/create-client.component';
 import { CreateOrderComponent } from './create/create-order/create-order.component';
 
@@ -55,6 +54,7 @@ import { EditClientDialogComponent } from './dialog/client/edit-client-dialog/ed
 import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-user-dialog.component';
 import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
 import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notification-dialog/view-order-notification-dialog.component';
+import { ConfirmOrderDialogComponent } from './dialog/order/confirm-order-dialog/confirm-order-dialog.component';
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
@@ -63,7 +63,6 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { ConfirmOrderDialogComponent } from './dialog/order/confirm-order-dialog/confirm-order-dialog.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +82,6 @@ import { ConfirmOrderDialogComponent } from './dialog/order/confirm-order-dialog
     ViewOrderNotificationDialogComponent,
     HomeComponent,
     StoricoAccessiComponent,
-    CreateUserComponent,
     CreateClientComponent,
     CreateOrderComponent,
     RegistrationComponent,
