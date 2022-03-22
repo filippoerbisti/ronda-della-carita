@@ -87,19 +87,19 @@ export class RegistrationComponent implements OnInit {
     return password === password_confirmation ? null : { notSame: true };
   }
 
-  makePassword(){
-    console.log('make password');
+  // makePassword(){
+  //   console.log('make password');
     
-    if (this.registerForm.value.nome != '' && this.registerForm.value.cognome != '') {
-      console.log('making');
-      this.psw = "#" +this.registerForm.value.nome + '.' + this.registerForm.value.cognome
-      console.log(this.psw);      
-      this.registerForm.value.password = this.psw
-      this.registerForm.value.password_confirmation = this.psw
-      console.log(this.registerForm.value);
-    }
+  //   if (this.registerForm.value.nome != '' && this.registerForm.value.cognome != '') {
+  //     console.log('making');
+  //     this.psw = "#" +this.registerForm.value.nome + '.' + this.registerForm.value.cognome
+  //     console.log(this.psw);      
+  //     this.registerForm.value.password = this.psw
+  //     this.registerForm.value.password_confirmation = this.psw
+  //     console.log(this.registerForm.value);
+  //   }
     
-  }
+  // }
 
   async registration() {
     let idUser: number;
