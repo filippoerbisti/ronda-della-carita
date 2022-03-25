@@ -110,15 +110,17 @@
 
                             <div class="sm:flex hidden justify-end -mr-4 -mb-4">
                                 <mat-paginator 
+                                    showFirstLastButtons
                                     [length]="this.users.length"
                                     [pageSize]="10"
                                     [pageSizeOptions]="pageSizeOptions"
                                     (page)="OnPageChange($event)">
                                 </mat-paginator>
                             </div>
-                            <div class="flex sm:hidden justify-center ml-3 mt-2">
+                            <div class="flex sm:hidden justify-end mt-2">
                                 <mat-paginator 
                                     class="mb-16"
+                                    hidePageSize
                                     [length]="this.users.length" 
                                     [pageSize]="10"
                                     (page)="OnPageChange($event)">
@@ -334,15 +336,17 @@
 
                             <div class="sm:flex hidden justify-end -mr-4 -mb-4">
                                 <mat-paginator 
+                                    showFirstLastButtons
                                     [length]="this.orders.length"
                                     [pageSize]="10"
                                     [pageSizeOptions]="pageSizeOptions"
                                     (page)="OnPageChange($event)">
                                 </mat-paginator>
                             </div>
-                            <div class="flex sm:hidden justify-center ml-3 mt-2">
+                            <div class="flex sm:hidden justify-end mt-2">
                                 <mat-paginator 
                                     class="mb-16"
+                                    hidePageSize
                                     [length]="this.orders.length" 
                                     [pageSize]="10"
                                     (page)="OnPageChange($event)">
@@ -434,15 +438,17 @@
                             </div>
                             <div class="sm:flex hidden justify-end -mr-4 -mb-4">
                                 <mat-paginator 
+                                    showFirstLastButtons
                                     [length]="this.clients.length"
                                     [pageSize]="10"
                                     [pageSizeOptions]="pageSizeOptions"
                                     (page)="OnPageChange($event)">
                                 </mat-paginator>
                             </div>
-                            <div class="flex sm:hidden justify-center ml-3 mt-2">
+                            <div class="flex sm:hidden justify-end mt-2">
                                 <mat-paginator 
                                     class="mb-16"
+                                    hidePageSize
                                     [length]="this.clients.length" 
                                     [pageSize]="10"
                                     (page)="OnPageChange($event)">
