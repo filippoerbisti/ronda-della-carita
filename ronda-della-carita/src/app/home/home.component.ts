@@ -16,6 +16,7 @@ import { IHistory } from '../shared/interface/ihistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { IStatus } from '../shared/interface/iStatus';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,7 @@ export class HomeComponent implements OnInit {
   users: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
-  statuses: any[] = [];
+  statuses: IStatus[] = [];
 
   userId!: number;
   orderId!: number;
@@ -52,7 +53,6 @@ export class HomeComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 3;
 
-  status: string[] = ["Consegnato", "Non disponibile", "Da consegnare", "Da preparare"];
   order_status!: string;
 
   user!: IUser;
@@ -97,6 +97,9 @@ export class HomeComponent implements OnInit {
       let response_account = await axios.get("http://localhost:8000/api/user", { withCredentials: true });
       this.user = response_account.data;
 
+      let response_statuses = await axios.get("http://localhost:8000/api/statuses");
+      this.statuses = response_statuses.data;
+
       let historyId = this.user.id;
       let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
       this.history = response_history.data;
@@ -109,16 +112,6 @@ export class HomeComponent implements OnInit {
 
       let response_order = await axios.get("http://localhost:8000/api/orders");
       this.orders = response_order.data;
-
-      // let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
-      // this.orderNonDisp = response_order_nondisp.data;
-
-      // let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
-      // this.orderInAttesa = response_order_inattesa.data;
-
-      // let response_order_daconf = await axios.get("http://localhost:8000/api/orders/daconf");
-      // this.orderDaConf = response_order_daconf.data;
-
     }
     catch (err) {
       console.log(err);
@@ -328,7 +321,7 @@ export class HomeComponent implements OnInit {
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.order_status;
-    console.log("status" + status);
+    console.log("status",  status);
     if (search == undefined || search == "")
       search = "nu";
     if (status == undefined)

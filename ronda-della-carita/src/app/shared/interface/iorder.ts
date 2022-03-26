@@ -9,6 +9,7 @@ export interface IOrder {
     p_ritiro: string,
     livello: number,
     note: string,
+    clothes_count: number,
     created_at: Date,
     update_at: Date,
     user_id: number,

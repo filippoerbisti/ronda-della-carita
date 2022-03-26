@@ -21,26 +21,7 @@ class OrderController extends Controller
         $orders = Order::with('client')
             ->with('user')
             ->get();
-        for ($i = 0; $i < count($orders); $i++) {
-            // TODO: get all statuses and map an array
-            $priorita = ['delivered' => 0, 'not_available' => 0, 'to_be_delivered' => 0, 'to_be_prepared' => 0];
-
-            for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
-                $priorita[$orders[$i]->clothes[$y]->status->name] = $priorita[$orders[$i]->clothes[$y]->status->name] + 1;
-            }
-            foreach ($priorita as $key => $item) {
-                if ($item > 0) {
-                    $orders[$i]->setAttribute("status", Status::where('name', $key)->first());
-                    // $orders[$i]->setAttribute("status", $key);
-                    break;
-                }
-            }
-            $id = $orders[$i]->id;
-            $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
-            $orders[$i]->setAttribute("n_clothes", $n_clothes);
-        }
-        return $orders;
-
+        return $this->setOrdersStatus($orders);
     }
 
     public function id($id)
@@ -114,6 +95,7 @@ class OrderController extends Controller
     public function countOrderNonDisp()
     {
         $status = 'Non disponibile';
+        Log::info("NON DOVREI ESSERE QUI");
 
         return Clothe::where('status', $status)
             ->count();
@@ -148,109 +130,47 @@ class OrderController extends Controller
     public function filter($status, $search)
     {
         if ($search == "nu") {
-            // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-            $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
             $search = "";
-            $orders = Order::with('client')
-                ->with('user')
-                ->get();
+            $ordersQuery = Order::with('client')
+                ->with('user');
+                
             if ($status == "all") {
-                for ($i = 0; $i < count($orders); $i++) {
-                    // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                    $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                    for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
-                        $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
-                    }
-                    foreach ($priorita as $key => $item) {
-                        if ($item > 0) {
-                            $orders[$i]->setAttribute("status", $key);
-                            break;
-                        }
-                    }
-                    $id = $orders[$i]->id;
-                    $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
-                    $orders[$i]->setAttribute("n_clothes", $n_clothes);
-                }
-                return $orders;
+                return $this->setOrdersStatus($ordersQuery->get());
             }
-            for ($i = 0; $i < count($orders); $i++) {
-                // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
-                    $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
-                }
-                foreach ($priorita as $key => $item) {
-                    if ($item > 0) {
-                        $orders[$i]->setAttribute("status", $key);
-                        break;
-                    }
-                }
-            }
-            for ($i = 0; $i < count($orders); $i++) {
-                $id = $orders[$i]->id;
-                $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
-                $orders[$i]->setAttribute("n_clothes", $n_clothes);
-            }
-            $temp = [];
-            for ($i = 0; $i < count($orders); $i++) {
-                if ($orders[$i]->status == $status) {
-                    $temp[count($temp)] = $orders[$i];
-                }
-            }
-            return $temp;
+            
+            $ordersQuery->whereHas('clothes', function ($q) use ($status) {
+                return $q->where('status_id', Status::where('name', $status)->first()->id);
+            });
+
+            return $this->setOrdersStatus($ordersQuery->get());
+
         } else if ($search != "nu") {
             // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
             $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-            $orders = Order::with('client')
+            $ordersQuery = Order::with('client')
                 ->with('user')
                 ->where('n_ordine', 'LIKE', "%$search%")
                 ->orWhere('p_ritiro', 'LIKE', "%$search%")
-                ->orWhere('note', 'LIKE', "%$search%")
-                ->get();
+                ->orWhere('note', 'LIKE', "%$search%");
+
             if ($status == "all") {
-                for ($i = 0; $i < count($orders); $i++) {
-                    // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                    $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                    for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
-                        $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
-                    }
-                    foreach ($priorita as $key => $item) {
-                        if ($item > 0) {
-                            $orders[$i]->setAttribute("status", $key);
-                            break;
-                        }
-                    }
-                    $id = $orders[$i]->id;
-                    $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
-                    $orders[$i]->setAttribute("n_clothes", $n_clothes);
-                }
-                return $orders;
+                return $this->setOrdersStatus($ordersQuery->get());
             }
-            for ($i = 0; $i < count($orders); $i++) {
-                // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-                for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
-                    $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
-                }
-                foreach ($priorita as $key => $item) {
-                    if ($item > 0) {
-                        $orders[$i]->setAttribute("status", $key);
-                        break;
-                    }
-                }
-            }
-            for ($i = 0; $i < count($orders); $i++) {
-                $id = $orders[$i]->id;
-                $n_clothes = Clothe::where('order_id', $id)->sum('quantita');
-                $orders[$i]->setAttribute("n_clothes", $n_clothes);
-            }
-            $temp = [];
-            for ($i = 0; $i < count($orders); $i++) {
-                if ($orders[$i]->status == $status) {
-                    $temp[count($temp)] = $orders[$i];
-                }
-            }
-            return $temp;
+            
+            $ordersQuery->whereHas('clothes', function ($q) use ($status) {
+                return $q->where('status_id', Status::where('name', $status)->first()->id);
+            });
+
+            return $this->setOrdersStatus($ordersQuery->get());
+
+
+            // $temp = [];
+            // for ($i = 0; $i < count($orders); $i++) {
+            //     if ($orders[$i]->status == $status) {
+            //         $temp[count($temp)] = $orders[$i];
+            //     }
+            // }
+            // return $temp;
         }
     }
 
@@ -355,5 +275,24 @@ class OrderController extends Controller
 
     public function getStatuses() {
         return Status::all();
+    }
+
+    public function setOrdersStatus($orders) {
+        for ($i = 0; $i < count($orders); $i++) {
+            // TODO: get all statuses and map an array
+            $priorita = ['delivered' => 0, 'not_available' => 0, 'to_be_delivered' => 0, 'to_be_prepared' => 0];
+
+            for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
+                $priorita[$orders[$i]->clothes[$y]->status->name] = $priorita[$orders[$i]->clothes[$y]->status->name] + 1;
+            }
+            foreach ($priorita as $key => $item) {
+                if ($item > 0) {
+                    $orders[$i]->setAttribute("status", Status::where('name', $key)->first());
+                    // $orders[$i]->setAttribute("status", $key);
+                    break;
+                }
+            }
+        }
+        return $orders;
     }
 }

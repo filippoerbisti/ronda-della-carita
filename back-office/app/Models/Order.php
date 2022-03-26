@@ -17,6 +17,10 @@ class Order extends Model
         'client'
     ];
 
+    public $withCount = [
+        'clothes'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

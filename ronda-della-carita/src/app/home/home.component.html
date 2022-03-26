@@ -273,74 +273,15 @@
                         >
                           <mat-option value="all"></mat-option>
                           <mat-option
-                            *ngFor="let item of status"
-                            [value]="item"
+                            *ngFor="let status of statuses"
+                            [value]="status.name"
                           >
                             <div class="flex items-center">
-                              <span class="mr-auto">{{ item }}</span>
-                              <div *ngIf="item === order_cons">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-green-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                              </div>
-                              <div *ngIf="item === order_no_disp">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-red-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"
-                                  />
-                                </svg>
-                              </div>
-                              <div *ngIf="item === order_da_prep">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-yellow-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                  />
-                                </svg>
-                              </div>
-                              <div *ngIf="item === order_da_cons">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-blue-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-                                  />
-                                </svg>
+                              <span class="mr-auto">{{ status.value }}</span>
+                              <div>
+                                <span class="material-icons" [ngClass]="status.class">
+                                    {{ status.icon }}
+                                </span>
                               </div>
                             </div>
                           </mat-option>
@@ -371,74 +312,15 @@
                         >
                           <mat-option value="all"></mat-option>
                           <mat-option
-                            *ngFor="let item of status"
-                            [value]="item"
+                            *ngFor="let status of statuses"
+                            [value]="status.name"
                           >
                             <div class="flex items-center">
-                              <span class="mr-auto">{{ item }}</span>
-                              <div *ngIf="item === order_cons">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-green-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                              </div>
-                              <div *ngIf="item === order_no_disp">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-red-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"
-                                  />
-                                </svg>
-                              </div>
-                              <div *ngIf="item === order_da_prep">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-yellow-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                  />
-                                </svg>
-                              </div>
-                              <div *ngIf="item === order_da_cons">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-6 w-6 my-auto text-blue-800"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-                                  />
-                                </svg>
+                              <span class="mr-auto">{{ status.value }}</span>
+                              <div>
+                                <span class="material-icons" [ngClass]="status.class">
+                                    {{ status.icon }}
+                                </span>
                               </div>
                             </div>
                           </mat-option>
@@ -463,7 +345,7 @@
                       <span
                         class="leading-loose text-black mr-auto hidden sm:inline"
                       >
-                        Tot. capi: {{ order.n_clothes }}
+                        Tot. capi: {{ order.clothes_count }}
                       </span>
                       <div
                         class="flex items-center justify-start sm:justify-center w-full sm:w-min"
@@ -479,38 +361,6 @@
                         >
                           {{ order.status.icon }}
                         </span>
-                        
-
-                        <!-- <div *ngIf="order.status === order_attesa">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div>
-                                                <div *ngIf="order.status === order_cons">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                </div>
-                                                <div *ngIf="order.status === order_no_disp">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-                                                </div>
-                                                 <div *ngIf="order.status === order_da_conf">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div>
-                                                <div *ngIf="order.status === order_da_prep">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div>
-                                                <div *ngIf="order.status === order_da_cons">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                                                    </svg>
-                                                </div> -->
                       </div>
                     </mat-panel-description>
                     <div class="w-1/3 flex justify-end">
