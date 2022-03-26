@@ -133,44 +133,43 @@ class OrderController extends Controller
             $search = "";
             $ordersQuery = Order::with('client')
                 ->with('user');
-                
+
+            $orders = $this->setOrdersStatus($ordersQuery->get());
+
             if ($status == "all") {
-                return $this->setOrdersStatus($ordersQuery->get());
+                return $orders;
             }
-            
-            $ordersQuery->whereHas('clothes', function ($q) use ($status) {
-                return $q->where('status_id', Status::where('name', $status)->first()->id);
-            });
 
-            return $this->setOrdersStatus($ordersQuery->get());
-
+            // TODO : change with array_filter
+            Log::info("AOH SO QUI");
+            Log::info($orders);
+            $temp = [];
+            for ($i = 0; $i < count($orders); $i++) {
+                if ($orders[$i]->status->name == $status) {
+                    $temp[count($temp)] = $orders[$i];
+                }
+            }
+            return $temp;
         } else if ($search != "nu") {
-            // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-            $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
             $ordersQuery = Order::with('client')
                 ->with('user')
                 ->where('n_ordine', 'LIKE', "%$search%")
                 ->orWhere('p_ritiro', 'LIKE', "%$search%")
                 ->orWhere('note', 'LIKE', "%$search%");
 
+            $orders = $this->setOrdersStatus($ordersQuery->get());
+
             if ($status == "all") {
-                return $this->setOrdersStatus($ordersQuery->get());
+                return $orders;
             }
-            
-            $ordersQuery->whereHas('clothes', function ($q) use ($status) {
-                return $q->where('status_id', Status::where('name', $status)->first()->id);
-            });
 
-            return $this->setOrdersStatus($ordersQuery->get());
-
-
-            // $temp = [];
-            // for ($i = 0; $i < count($orders); $i++) {
-            //     if ($orders[$i]->status == $status) {
-            //         $temp[count($temp)] = $orders[$i];
-            //     }
-            // }
-            // return $temp;
+            $temp = [];
+            for ($i = 0; $i < count($orders); $i++) {
+                if ($orders[$i]->status->name == $status) {
+                    $temp[count($temp)] = $orders[$i];
+                }
+            }
+            return $temp;
         }
     }
 
