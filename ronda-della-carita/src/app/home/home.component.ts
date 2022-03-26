@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   users: IUser[] = [];
   clients: IClient[] = [];
   orders: IOrder[] = [];
+  statuses: any[] = [];
 
   userId!: number;
   orderId!: number;
@@ -109,14 +110,14 @@ export class HomeComponent implements OnInit {
       let response_order = await axios.get("http://localhost:8000/api/orders");
       this.orders = response_order.data;
 
-      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
-      this.orderNonDisp = response_order_nondisp.data;
+      // let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
+      // this.orderNonDisp = response_order_nondisp.data;
 
-      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
-      this.orderInAttesa = response_order_inattesa.data;
+      // let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
+      // this.orderInAttesa = response_order_inattesa.data;
 
-      let response_order_daconf = await axios.get("http://localhost:8000/api/orders/daconf");
-      this.orderDaConf = response_order_daconf.data;
+      // let response_order_daconf = await axios.get("http://localhost:8000/api/orders/daconf");
+      // this.orderDaConf = response_order_daconf.data;
 
     }
     catch (err) {

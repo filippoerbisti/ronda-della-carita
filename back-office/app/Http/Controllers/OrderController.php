@@ -22,8 +22,7 @@ class OrderController extends Controller
             ->with('user')
             ->get();
         for ($i = 0; $i < count($orders); $i++) {
-            $priorita = ['Da preparare' => 0, 'Da consegnare' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
-            // $priorita = ['Da confermare' => 0, 'Attesa' => 0, 'Consegnato' => 0, 'Non disponibile' => 0];
+            $priorita = ['delivered' => 0, 'not_available' => 0, 'to_be_shipped' => 0, 'to_be_prepared' => 0];
             for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                 $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
             }
@@ -38,6 +37,7 @@ class OrderController extends Controller
             $orders[$i]->setAttribute("n_clothes", $n_clothes);
         }
         return $orders;
+        return Order::with('client')->with('user')->get();
     }
 
     public function id($id)
