@@ -137,7 +137,7 @@ import { environment } from '../environments/environment';
     }
     // { 
     //   provide: BASE_API_URL, 
-    //   useValue: "https://backoffice-ronda.herokuapp.com/api" 
+    //   useValue: "http://localhost:8000/api" 
     // }
   ],
   bootstrap: [AppComponent]

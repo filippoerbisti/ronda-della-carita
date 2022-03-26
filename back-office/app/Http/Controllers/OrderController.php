@@ -7,6 +7,7 @@ use App\Models\Clothe;
 use App\Models\ClotheType;
 use App\Models\Order;
 use App\Models\Stage;
+use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -347,5 +348,9 @@ class OrderController extends Controller
 
     public function getStagesOptions() {
         return Stage::all();
+    }
+
+    public function getStatuses() {
+        return Status::all();
     }
 }

@@ -206,9 +206,9 @@ export class CreateOrderComponent implements OnInit {
     this.isLoading = true;
 
     try {
-      let response = await axios.get('https://backoffice-ronda.herokuapp.com/api/clients');
-      let tvestiariolv2 = await axios.get('https://backoffice-ronda.herokuapp.com/api/clothes/options');
-      let stages = await axios.get('https://backoffice-ronda.herokuapp.com/api/stages/options');
+      let response = await axios.get('http://localhost:8000/api/clients');
+      let tvestiariolv2 = await axios.get('http://localhost:8000/api/clothes/options');
+      let stages = await axios.get('http://localhost:8000/api/stages/options');
       this.tvestiariolv2 = tvestiariolv2.data;
       this.stages = stages.data;
       this.clients = response.data;
@@ -228,7 +228,7 @@ export class CreateOrderComponent implements OnInit {
     console.log('NEW ORDER', this.newOrder);
     if (n_tessera) {
       try {
-        let result = await axios.get('https://backoffice-ronda.herokuapp.com/api/client/by_tessera/' + n_tessera);
+        let result = await axios.get('http://localhost:8000/api/client/by_tessera/' + n_tessera);
         console.log(result.data)
         this.client = result.data;
         this.newOrder.user.name = result.data.id + " - " + result.data.nome + " " + result.data.cognome;
@@ -325,7 +325,7 @@ export class CreateOrderComponent implements OnInit {
   // }
   //   try {
   //     let response = await axios.post(
-  //       'https://backoffice-ronda.herokuapp.com/api/order/create',
+  //       'http://localhost:8000/api/order/create',
   //       this.newOrder
   //     );
   //     this.router.navigateByUrl('/home/interno');
@@ -371,7 +371,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder);
       let response = await axios.post(
-        'https://backoffice-ronda.herokuapp.com/api/order/create',
+        'http://localhost:8000/api/order/create',
         this.newOrder
       );
       console.log(response.data);
@@ -437,10 +437,10 @@ export class CreateOrderComponent implements OnInit {
       this.newOrder.user.surname = surname;
       try {
         let response = await axios.get(
-          'https://backoffice-ronda.herokuapp.com/api/order/history/' + id
+          'http://localhost:8000/api/order/history/' + id
         );
         this.client = (
-          await axios.get('https://backoffice-ronda.herokuapp.com/api/client/' + id)
+          await axios.get('http://localhost:8000/api/client/' + id)
         ).data;
         this.history = response.data;
       } catch (error) {

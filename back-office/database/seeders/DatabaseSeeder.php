@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             ClotheSeeder::class,
             HistorySeeder::class,
+            StatusSeeder::class
         ]);
     }
 }

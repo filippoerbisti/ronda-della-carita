@@ -94,7 +94,7 @@ export class EditOrderDialogComponent implements OnInit {
     this.orderId = localStorage["id"];
     let orderId = this.orderId;
     try {
-      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
+      let response_order = await axios.get("http://localhost:8000/api/order/" + orderId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.order = response_order.data;
@@ -108,7 +108,7 @@ export class EditOrderDialogComponent implements OnInit {
       }
       console.log("oreds", this.orders);
       let clotheId = this.order.id;
-      let response_clothe = await axios.get("https://backoffice-ronda.herokuapp.com/api/clothe/edit/" + clotheId);
+      let response_clothe = await axios.get("http://localhost:8000/api/clothe/edit/" + clotheId);
       console.log(response_clothe.status);
       console.log(response_clothe.data);
       this.clothes = response_clothe.data;
