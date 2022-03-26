@@ -22,13 +22,16 @@ class OrderController extends Controller
             ->with('user')
             ->get();
         for ($i = 0; $i < count($orders); $i++) {
-            $priorita = ['delivered' => 0, 'not_available' => 0, 'to_be_shipped' => 0, 'to_be_prepared' => 0];
+            // TODO: get all statuses and map an array
+            $priorita = ['delivered' => 0, 'not_available' => 0, 'to_be_delivered' => 0, 'to_be_prepared' => 0];
+
             for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
-                $priorita[$orders[$i]->clothes[$y]->status] = $priorita[$orders[$i]->clothes[$y]->status] + 1;
+                $priorita[$orders[$i]->clothes[$y]->status->name] = $priorita[$orders[$i]->clothes[$y]->status->name] + 1;
             }
             foreach ($priorita as $key => $item) {
                 if ($item > 0) {
-                    $orders[$i]->setAttribute("status", $key);
+                    $orders[$i]->setAttribute("status", Status::where('name', $key)->first());
+                    // $orders[$i]->setAttribute("status", $key);
                     break;
                 }
             }
@@ -37,7 +40,7 @@ class OrderController extends Controller
             $orders[$i]->setAttribute("n_clothes", $n_clothes);
         }
         return $orders;
-        return Order::with('client')->with('user')->get();
+
     }
 
     public function id($id)
