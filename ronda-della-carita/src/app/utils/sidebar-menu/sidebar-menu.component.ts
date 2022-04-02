@@ -52,8 +52,8 @@ export class SidebarMenuComponent implements OnInit {
       // let historyId = this.user.id;
       // let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       // this.history = response_history.data;
-      // let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/not_available");
-      // this.orderNonDisp = response_order_nondisp.data;
+      let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/not_available");
+      this.orderNonDisp = response_order_nondisp.data;
       let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/to_be_prepared");
       this.orderInAttesa = response_order_inattesa.data;
       let response_order_daconf = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/to_be_delivered");

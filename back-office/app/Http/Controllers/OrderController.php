@@ -204,8 +204,8 @@ class OrderController extends Controller
             //         $newClothe->taglia=$client->t_scarpe;
             //         break;
             // }
-            // $newClothe->status="Attesa";
-            $newClothe->status = "to_be_prepared";
+            $newClothe->status="Attesa";
+            // $newClothe->status = "to_be_prepared";
             $newClothe->quantita = 1;
             $newClothe->order_id = $newOrder->id;
             $newClothe->save();
