@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { IUser } from '../../../shared/interface/iuser';
+import { IUser } from '../../../shared/interface/IUser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -39,7 +39,7 @@ export class EditUserDialogComponent implements OnInit {
     this.userId = localStorage["id"];
     let userId = this.userId;
     try {
-      let response_order = await axios.get("http://localhost:8000/api/user/" + userId);
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/user/" + userId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.user = response_order.data;

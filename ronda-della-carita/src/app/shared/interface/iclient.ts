@@ -1,5 +1,5 @@
-import { IDocument } from "./idocument";
-import { IUser } from "./iuser";
+import { IDocument } from "./IDocument";
+import { IUser } from "./IUser";
 
 export interface IClient {
     id: number,

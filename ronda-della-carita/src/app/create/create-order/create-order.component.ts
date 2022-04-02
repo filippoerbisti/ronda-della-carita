@@ -4,16 +4,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from 'axios';
-import { IClient } from 'src/app/shared/interface/iclient';
+import { IClient } from 'src/app/shared/interface/IClient';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
 } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
-import { IOrder } from 'src/app/shared/interface/iorder';
-import { IClotheType } from 'src/app/shared/interface/iClotheType';
-import { iStage } from 'src/app/shared/interface/iStage';
+import { IOrder } from 'src/app/shared/interface/IOrder';
+import { IClotheType } from 'src/app/shared/interface/IClotheType';
+import { IStage } from 'src/app/shared/interface/IStage';
 
 export interface IClothes {
   type: string;
@@ -42,7 +42,7 @@ export class CreateOrderComponent implements OnInit {
   clients: IClient[] = [];
   tvestiariolv2: IClotheType[] = [];
   stageReference!: any;
-  stages: iStage[] = [];
+  stages: IStage[] = [];
   filteredClients: Observable<IClient[]> | undefined;
 
   choseGender = 'Uomo';
@@ -206,9 +206,9 @@ export class CreateOrderComponent implements OnInit {
     this.isLoading = true;
 
     try {
-      let response = await axios.get('http://localhost:8000/api/clients');
-      let tvestiariolv2 = await axios.get('http://localhost:8000/api/clothes/options');
-      let stages = await axios.get('http://localhost:8000/api/stages/options');
+      let response = await axios.get('https://backoffice-ronda.herokuapp.com/api/clients');
+      let tvestiariolv2 = await axios.get('https://backoffice-ronda.herokuapp.com/api/clothes/options');
+      let stages = await axios.get('https://backoffice-ronda.herokuapp.com/api/stages/options');
       this.tvestiariolv2 = tvestiariolv2.data;
       this.stages = stages.data;
       this.clients = response.data;
@@ -228,7 +228,7 @@ export class CreateOrderComponent implements OnInit {
     console.log('NEW ORDER', this.newOrder);
     if (n_tessera) {
       try {
-        let result = await axios.get('http://localhost:8000/api/client/by_tessera/' + n_tessera);
+        let result = await axios.get('https://backoffice-ronda.herokuapp.com/api/client/by_tessera/' + n_tessera);
         console.log(result.data)
         this.client = result.data;
         this.newOrder.user.name = result.data.id + " - " + result.data.nome + " " + result.data.cognome;
@@ -325,7 +325,7 @@ export class CreateOrderComponent implements OnInit {
   // }
   //   try {
   //     let response = await axios.post(
-  //       'http://localhost:8000/api/order/create',
+  //       'https://backoffice-ronda.herokuapp.com/api/order/create',
   //       this.newOrder
   //     );
   //     this.router.navigateByUrl('/home/interno');
@@ -371,7 +371,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder);
       let response = await axios.post(
-        'http://localhost:8000/api/order/create',
+        'https://backoffice-ronda.herokuapp.com/api/order/create',
         this.newOrder
       );
       console.log(response.data);
@@ -437,10 +437,10 @@ export class CreateOrderComponent implements OnInit {
       this.newOrder.user.surname = surname;
       try {
         let response = await axios.get(
-          'http://localhost:8000/api/order/history/' + id
+          'https://backoffice-ronda.herokuapp.com/api/order/history/' + id
         );
         this.client = (
-          await axios.get('http://localhost:8000/api/client/' + id)
+          await axios.get('https://backoffice-ronda.herokuapp.com/api/client/' + id)
         ).data;
         this.history = response.data;
       } catch (error) {
@@ -454,7 +454,7 @@ export class CreateOrderComponent implements OnInit {
     console.log('checkFields');
 
     console.log(this.newOrder);
-    
+
 
     this.newOrder.user.name != '' && this.newOrder.p_ritiro != ''
       ? (this.invalidInput = false)

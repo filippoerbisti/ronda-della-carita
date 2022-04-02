@@ -1,4 +1,4 @@
-import { IUser } from "./iuser";
+import { IUser } from "./IUser";
 
 export interface IHistory {
     id: number,

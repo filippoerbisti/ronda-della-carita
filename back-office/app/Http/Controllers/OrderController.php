@@ -75,52 +75,52 @@ class OrderController extends Controller
             ->get();
     }
 
-    public function countOrderInAttesa()
+    public function countOrderToBeDelivered()
     {
-        $status = 'Attesa';
+        $status = 'to_be_delivered';
 
-        return Clothe::where('status', $status)
+        return Clothe::with('status')
+            ->where('status', $status)
             ->count();
     }
 
-    public function orderInAttesa()
+    public function orderToBeDelivered()
     {
-        $status = 'Attesa';
+        $status = 'to_be_delivered';
 
         return Clothe::with('order')
             ->where('status', $status)
             ->get();
     }
 
-    public function countOrderNonDisp()
+    public function countOrderNotAvailable()
     {
-        $status = 'Non disponibile';
-        Log::info("NON DOVREI ESSERE QUI");
+        $status = 'not_available';
 
         return Clothe::where('status', $status)
             ->count();
     }
 
-    public function orderNonDisp()
+    public function orderNotAvailable()
     {
-        $status = 'Non disponibile';
+        $status = 'not_available';
 
         return Clothe::with('order')
             ->where('status', $status)
             ->get();
     }
 
-    public function countOrderDaConf()
+    public function countOrderToBePrepared()
     {
-        $status = 'Da confermare';
+        $status = 'to_be_prepared';
 
         return Clothe::where('status', $status)
             ->count();
     }
 
-    public function orderDaConf()
+    public function orderToBePrepared()
     {
-        $status = 'Da confermare';
+        $status = 'to_be_prepared';
 
         return Clothe::with('order')
             ->where('status', $status)
@@ -204,26 +204,21 @@ class OrderController extends Controller
             //         $newClothe->taglia=$client->t_scarpe;
             //         break;
             // }
-            $newClothe->status="Attesa";
-            $newClothe->quantita=1;
-            $newClothe->order_id=$newOrder->id;
+            // $newClothe->status="Attesa";
+            $newClothe->status = "to_be_prepared";
+            $newClothe->quantita = 1;
+            $newClothe->order_id = $newOrder->id;
             $newClothe->save();
-            Log::info("clothe paired");
-
         }
         return $newOrder;
     }
 
     public function create(Request $request)
     {
-        Log::info("create");
         $newOrderData = json_decode($request->getContent());
         $newOrder = new Order();
 
-        Log::info("aoh");
-
         $newOrder = $this->pairing($newOrder, $newOrderData);
-        Log::info("paired");
 
         return $newOrder;
     }

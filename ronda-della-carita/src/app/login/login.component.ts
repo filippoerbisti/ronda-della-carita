@@ -8,9 +8,9 @@ import axios from 'axios';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from '../shared/interface/iuser';
+import { IUser } from '../shared/interface/IUser';
 import { ActivatedRoute } from '@angular/router';
-import { IHistory } from '../shared/interface/ihistory';
+import { IHistory } from '../shared/interface/IHistory';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -55,12 +55,12 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute
-    ) {
-      this.loginForm = this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]]
-      })
-    }
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    })
+  }
 
   ngOnInit() {
   }
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
           this.loginForm.value.email = params['email'];
           this.loginForm.value.password = params['password'];
         }
-      );
+        );
     }
   }
 
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     localStorage.removeItem("user");
-    const url = `http://localhost:8000/sanctum/csrf-cookie`;
+    const url = `https://backoffice-ronda.herokuapp.com/sanctum/csrf-cookie`;
     axios.get(url).then(response => {
       // console.log(response); //This is one success but it did set cookie in application cookie
       this.authService.signin(this.loginForm.value).subscribe(
@@ -93,18 +93,18 @@ export class LoginComponent implements OnInit {
           // console.log(result.user);
           this.user = result.user;
           localStorage.setItem('user', JSON.stringify(result.user));
-          this.history = result.user.id; 
+          this.history = result.user.id;
           console.log(this.history);
           // axios.post('http:localhost:8000/api/history/create', this.history);
           if (this.user.ruolo == 'Interno') {
             this.router.navigate(['vol1/home']);
-          } 
+          }
           if (this.user.ruolo == 'Esterno') {
             this.router.navigate(['vol0/home']);
-          } 
+          }
           if (this.user.ruolo == 'Admin') {
             this.router.navigate(['admin/home']);
-          } 
+          }
         },
         error => {
           this.errors = error.error;
@@ -112,8 +112,8 @@ export class LoginComponent implements OnInit {
             horizontalPosition: this.horizontalPosition,
             duration: this.durationInSeconds * 1000
           })
-        },() => {
-          this.isSubmitted = true;        
+        }, () => {
+          this.isSubmitted = true;
           this.loginForm.reset();
         }
       );

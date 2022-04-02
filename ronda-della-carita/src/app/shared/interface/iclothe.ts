@@ -1,10 +1,10 @@
-import { IOrder } from "./iorder";
-import { IStatus } from "./iStatus";
+import { IOrder } from "./IOrder";
+import { IStatus } from "./IStatus";
 
 export interface IClothe {
     id: number,
     t_vestiario: string,
-    taglia: string,
+    taglia: any,
     quantita: number,
     created_at: Date,
     update_at: Date,

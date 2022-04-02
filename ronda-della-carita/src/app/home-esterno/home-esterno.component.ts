@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from "axios";
-import { IUser } from '../shared/interface/iuser';
+import { IUser } from '../shared/interface/IUser';
 
 @Component({
   selector: 'app-home-esterno',
@@ -23,7 +23,7 @@ export class HomeEsternoComponent implements OnInit {
     const x: any = localStorage.getItem('user')
     this.user = JSON.parse(x);
     // try {
-    //   let response = await axios.get("http://localhost:8000/api/user-profile", {withCredentials: true});
+    //   let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/user-profile", {withCredentials: true});
     //   console.log(response.status);
     //   console.log(response.data);
 

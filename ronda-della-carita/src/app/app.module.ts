@@ -25,8 +25,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSnackBarModule } from '@angular/material/snack-bar'; 
-import { MatBadgeModule } from '@angular/material/badge'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -131,13 +131,13 @@ import { environment } from '../environments/environment';
       useClass: AuthInterceptor,
       multi: true,
     },
-    { 
-      provide: HAMMER_GESTURE_CONFIG, 
-      useClass: HammerGestureConfig 
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerGestureConfig
     }
     // { 
     //   provide: BASE_API_URL, 
-    //   useValue: "http://localhost:8000/api" 
+    //   useValue: "https://backoffice-ronda.herokuapp.com/api" 
     // }
   ],
   bootstrap: [AppComponent]

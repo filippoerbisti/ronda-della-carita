@@ -60,7 +60,7 @@ export class CreateClientComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   goToHome() {
     if (window.location.href.includes('vol1')) {
@@ -78,7 +78,7 @@ export class CreateClientComponent implements OnInit {
   async createClient() {
     try {
       let response = await axios.post(
-        'http://localhost:8000/api/client/create',
+        'https://backoffice-ronda.herokuapp.com/api/client/create',
         this.createClientForm.value
       );
       this.goToHome();

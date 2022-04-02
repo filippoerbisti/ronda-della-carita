@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import axios from 'axios';
 import { ChangePasswordDialogComponent } from '../../dialog/change-password-dialog/change-password-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
-import { IUser } from 'src/app/shared/interface/iuser';
-import { IHistory } from 'src/app/shared/interface/ihistory';
+import { IUser } from 'src/app/shared/interface/IUser';
+import { IHistory } from 'src/app/shared/interface/IHistory';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -47,16 +47,16 @@ export class SidebarMenuComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      // let response_user = await axios.get("http://localhost:8000/api/user");
+      // let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/user");
       // this.user = response_user.data;
       // let historyId = this.user.id;
-      // let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
+      // let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       // this.history = response_history.data;
-      let response_order_nondisp = await axios.get("http://localhost:8000/api/orders/nondisp");
-      this.orderNonDisp = response_order_nondisp.data;
-      let response_order_inattesa = await axios.get("http://localhost:8000/api/orders/inattesa");
+      // let response_order_nondisp = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/not_available");
+      // this.orderNonDisp = response_order_nondisp.data;
+      let response_order_inattesa = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/to_be_prepared");
       this.orderInAttesa = response_order_inattesa.data;
-      let response_order_daconf = await axios.get("http://localhost:8000/api/orders/daconf");
+      let response_order_daconf = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/to_be_delivered");
       this.orderDaConf = response_order_daconf.data;
     }
     catch (err) {

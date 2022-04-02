@@ -4,7 +4,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormG
 import { AuthService } from '../../shared/service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { IUser } from '../../shared/interface/iuser';
+import { IUser } from '../../shared/interface/IUser';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import axios from 'axios';
 
@@ -35,9 +35,9 @@ export class RegistrationComponent implements OnInit {
   registerForm!: FormGroup;
 
   public roles = [
-    {value: "Esterno"},
-    {value: "Interno"},
-    {value: "Admin"}
+    { value: "Esterno" },
+    { value: "Interno" },
+    { value: "Admin" }
   ]
 
   errors: any = null;
@@ -73,7 +73,7 @@ export class RegistrationComponent implements OnInit {
       password: ['Ronda1234.', [Validators.required]],
       password_confirmation: ['Ronda1234.', [Validators.required]]
     },
-    { validators: this.checkPasswords }
+      { validators: this.checkPasswords }
     )
   }
 
@@ -89,7 +89,7 @@ export class RegistrationComponent implements OnInit {
 
   // makePassword(){
   //   console.log('make password');
-    
+
   //   if (this.registerForm.value.nome != '' && this.registerForm.value.cognome != '') {
   //     console.log('making');
   //     this.psw = "#" +this.registerForm.value.nome + '.' + this.registerForm.value.cognome
@@ -98,7 +98,7 @@ export class RegistrationComponent implements OnInit {
   //     this.registerForm.value.password_confirmation = this.psw
   //     console.log(this.registerForm.value);
   //   }
-    
+
   // }
 
   async registration() {
@@ -119,7 +119,7 @@ export class RegistrationComponent implements OnInit {
           horizontalPosition: this.horizontalPosition,
           duration: this.durationInSeconds * 1000
         });
-        axios.get("http://localhost:8000/api/sendmail/" + idUser);
+        axios.get("https://backoffice-ronda.herokuapp.com/api/sendmail/" + idUser);
       }
     )
   }

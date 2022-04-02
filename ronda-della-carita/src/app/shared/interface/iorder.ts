@@ -1,7 +1,7 @@
-import { IUser } from "./iuser";
-import { IClient } from "./iclient";
-import { IClothe } from "./iclothe";
-import { IStatus } from "./iStatus";
+import { IUser } from "./IUser";
+import { IClient } from "./IClient";
+import { IClothe } from "./IClothe";
+import { IStatus } from "./IStatus";
 
 export interface IOrder {
     id: number,

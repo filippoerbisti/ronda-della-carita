@@ -3,7 +3,7 @@ import axios from "axios";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
-import { IClient } from '../../../shared/interface/iclient';
+import { IClient } from '../../../shared/interface/IClient';
 
 interface Document {
   value: string;
@@ -89,7 +89,7 @@ export class EditClientDialogComponent implements OnInit {
     this.clientId = localStorage["id"];
     let clientId = this.clientId;
     try {
-      let response_order = await axios.get("http://localhost:8000/api/client/" + clientId);
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + clientId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.client = response_order.data;

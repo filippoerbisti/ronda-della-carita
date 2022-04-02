@@ -9,14 +9,15 @@ import { DeleteUserDialogComponent } from 'src/app/dialog/user/delete-user-dialo
 import { EditClientDialogComponent } from 'src/app/dialog/client/edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from 'src/app/dialog/user/edit-user-dialog/edit-user-dialog.component';
 import { EditOrderDialogComponent } from 'src/app/dialog/order/edit-order-dialog/edit-order-dialog.component';
-import { IUser } from 'src/app/shared/interface/iuser';
-import { IOrder } from 'src/app/shared/interface/iorder';
-import { IClient } from 'src/app/shared/interface/iclient';
-import { IHistory } from '../shared/interface/ihistory';
+import { IUser } from 'src/app/shared/interface/IUser';
+import { IOrder } from 'src/app/shared/interface/IOrder';
+import { IClient } from 'src/app/shared/interface/IClient';
+import { IHistory } from '../shared/interface/IHistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IStatus } from '../shared/interface/iStatus';
+import { IStatus } from '../shared/interface/IStatus';
+// import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,8 @@ import { IStatus } from '../shared/interface/iStatus';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  // private API_URL = environment.API_URL;
 
   isLoading = false;
   panelOpenState = false;
@@ -86,7 +89,7 @@ export class HomeComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) { }
 
   async ngOnInit() {
@@ -94,23 +97,23 @@ export class HomeComponent implements OnInit {
     this.isAdmin = window.location.href.includes('admin');
     this.indexTab >= 0;
     try {
-      let response_account = await axios.get("http://localhost:8000/api/user", { withCredentials: true });
+      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
       this.user = response_account.data;
 
-      let response_statuses = await axios.get("http://localhost:8000/api/statuses");
+      let response_statuses = await axios.get("https://backoffice-ronda.herokuapp.com/api/statuses");
       this.statuses = response_statuses.data;
 
       let historyId = this.user.id;
-      let response_history = await axios.get("http://localhost:8000/api/history/" + historyId);
+      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
       this.history = response_history.data;
 
-      let response_user = await axios.get("http://localhost:8000/api/users");
+      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("http://localhost:8000/api/clients");
+      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("http://localhost:8000/api/orders");
+      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
       this.orders = response_order.data;
     }
     catch (err) {
@@ -126,13 +129,13 @@ export class HomeComponent implements OnInit {
     for (let i = 0; i < this.orders.length; i++) {
       for (let y = 0; y < this.orders[i].clothes.length; y++) {
         if (this.orders[i].clothes[y].t_vestiario == "Giacca" || this.orders[i].clothes[y].t_vestiario == "Maglietta" || this.orders[i].clothes[y].t_vestiario == "Camicia") {
-          this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
+          this.orders[i].clothes[y]["taglia"] = this.orders[i].client?.t_maglietta;
         }
         if (this.orders[i].clothes[y].t_vestiario == "Pantaloni" || this.orders[i].clothes[y].t_vestiario == "Intimo") {
-          this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
+          this.orders[i].clothes[y]["taglia"] = this.orders[i].client?.t_pantaloni;
         }
         if (this.orders[i].clothes[y].t_vestiario == "Calze" || this.orders[i].clothes[y].t_vestiario == "Scarpe") {
-          this.orders[i].clothes[y]["taglia"] = this.orders[i].client.t_maglietta;
+          this.orders[i].clothes[y]["taglia"] = this.orders[i].client?.t_scarpe;
         }
       }
     }
@@ -307,7 +310,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/users/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -321,14 +324,14 @@ export class HomeComponent implements OnInit {
   async filterOrder() {
     let search = this.searchOrder;
     let status = this.order_status;
-    console.log("status",  status);
+    console.log("status", status);
     if (search == undefined || search == "")
       search = "nu";
     if (status == undefined)
       status = "all";
     console.log("search" + search)
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/orders/filt/" + status + "/search/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status + "/search/" + search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -345,7 +348,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("http://localhost:8000/api/client/" + search);
+      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;
@@ -358,7 +361,7 @@ export class HomeComponent implements OnInit {
 
   async openPreviewPDF(id: any) {
     try {
-      window.open("http://localhost:8000/api/download/pdf/" + id, "_blank");
+      window.open("https://backoffice-ronda.herokuapp.com/api/download/pdf/" + id, "_blank");
       this.snackBar.open('Download completato!', '', {
         horizontalPosition: this.horizontalPosition,
         duration: this.durationInSeconds * 1000,
