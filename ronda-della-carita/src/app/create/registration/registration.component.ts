@@ -119,7 +119,7 @@ export class RegistrationComponent implements OnInit {
           horizontalPosition: this.horizontalPosition,
           duration: this.durationInSeconds * 1000
         });
-        axios.get("https://backoffice-ronda.herokuapp.com/api/sendmail/" + idUser);
+        axios.get("http://localhost:8000/api/sendmail/" + idUser);
       }
     )
   }

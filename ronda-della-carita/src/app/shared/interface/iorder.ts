@@ -1,6 +1,7 @@
 import { IUser } from "./iuser";
 import { IClient } from "./iclient";
 import { IClothe } from "./iclothe";
+import { IStatus } from "./iStatus";
 
 export interface IOrder {
     id: number,
@@ -8,6 +9,7 @@ export interface IOrder {
     p_ritiro: string,
     livello: number,
     note: string,
+    clothes_count: number,
     created_at: Date,
     update_at: Date,
     user_id: number,
@@ -16,5 +18,5 @@ export interface IOrder {
     client?: IClient,
     clothes: IClothe[],
     n_clothes: number,
-    status: string
+    status: IStatus
 }

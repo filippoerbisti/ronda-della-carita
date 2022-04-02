@@ -9,8 +9,15 @@ class Clothe extends Model
 {
     use HasFactory;
     
+    public $with = [
+        "status"
+    ];
 
     public function order() {
         return $this->belongsTo(Order::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

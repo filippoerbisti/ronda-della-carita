@@ -1,471 +1,673 @@
-<div class="h-full w-full" >
-    <div *ngIf="!isLoading" class="w-full flex items-stretch">
+<div class="h-full w-full">
+  <div *ngIf="!isLoading" class="w-full flex items-stretch">
+    <div class="w-full h-full">
+      <mat-tab-group
+        mat-align-tabs="center"
+        [(selectedIndex)]="indexTab"
+        class="w-full flex bg-nav"
+        (touchstart)="swipe($event, 'start')"
+        (touchend)="swipe($event, 'end')"
+      >
+        <!-- USERS -->
+        <mat-tab label="VOLONTARI" *ngIf="isAdmin">
+          <mat-card class="h-full">
+            <mat-card-content>
+              <div class="sm:flex mb-4 pt-2 sm:space-x-6">
+                <!-- NEW USER -->
+                <div class="sm:flex flex-col justify-center hidden">
+                  <button
+                    mat-raised-button
+                    class="bg-bt-orange"
+                    (click)="goToCreateUser()"
+                  >
+                    <span class="p-2 text-white">NUOVO VOLONTARIO</span>
+                  </button>
+                </div>
 
-        <div class="w-full h-full">
+                <div class="w-full">
+                  <div class="flex items-center sm:space-x-6 space-x-3">
+                    <!-- SEARCHBAR -->
+                    <input
+                      type="text"
+                      [(ngModel)]="searchUser"
+                      (change)="filterUser()"
+                      class="w-full flex-grow pl-3 py-2 rounded border focus:border-nav"
+                      placeholder="Cerca Volontario..."
+                    />
 
-            <mat-tab-group 
-                mat-align-tabs="center" 
-                [(selectedIndex)]="indexTab"
-                class="w-full flex bg-nav" 
-                (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')"
-            >
-                <!-- USERS -->
-                <mat-tab label="VOLONTARI" *ngIf="isAdmin">
-                    <mat-card class="h-full">
-                        <mat-card-content>
-                            <div class="sm:flex mb-4 pt-2 sm:space-x-6">
+                    <!-- SEARCH BUTTON -->
+                    <div class="flex sm:flex-col">
+                      <button
+                        mat-raised-button
+                        (click)="filterUser()"
+                        class="bg-bt-orange"
+                      >
+                        <span class="p-2 text-white">CERCA</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="searchUsers.length == 0">
+                <div *ngFor="let user of pageUserSlice" class="mt-2">
+                  <mat-expansion-panel
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                  >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="w-1/3 my-auto">
+                        <span class="font-bold sm:hidden flex"
+                          >{{ user.nome | uppercase }}
+                          {{ user.cognome | uppercase }}</span
+                        >
+                        <span class="font-bold hidden sm:flex"
+                          >N. {{ user.n_tessera }} -
+                          {{ user.nome | uppercase }}
+                          {{ user.cognome | uppercase }}</span
+                        >
+                      </mat-panel-title>
+                      <mat-panel-description
+                        class="w-1/3 flex justify-center my-auto"
+                      >
+                        <span
+                          class="leading-loose text-black mr-auto hidden sm:inline"
+                          >N. tessera {{ user.n_tessera }}</span
+                        >
+                      </mat-panel-description>
+                      <div class="w-1/3 flex justify-end">
+                        <button
+                          mat-button-basic
+                          (click)="openEditUserDialog(user.id)"
+                          class="ml-auto mr-3 sm:mr-5"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          mat-button-basic
+                          (click)="openDeleteUserDialog(user.id)"
+                          class="mr-3 sm:mr-5"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </mat-expansion-panel-header>
+                    <p class="font-bold sm:hidden flex">
+                      N. tessera {{ user.n_tessera }}
+                    </p>
+                    <p>Email: {{ user.email }}</p>
+                    <p>Ruolo: {{ user.ruolo }}</p>
+                    <p>Creato il: {{ user.created_at | date: "short" }}</p>
+                  </mat-expansion-panel>
+                </div>
+              </div>
+              <div *ngIf="searchUsers.length != 0">
+                <div *ngFor="let user of searchUsers" class="mt-2">
+                  <mat-expansion-panel
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                  >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="w-1/3 my-auto">
+                        <span class="font-bold"
+                          >{{ user.nome | uppercase }}
+                          {{ user.cognome | uppercase }}</span
+                        >
+                      </mat-panel-title>
+                      <mat-panel-description
+                        class="w-1/3 flex justify-center my-auto"
+                      >
+                        <span
+                          class="leading-loose text-black mr-auto hidden sm:inline"
+                          >N. tessera {{ user.n_tessera }}</span
+                        >
+                      </mat-panel-description>
+                      <div class="w-1/3 flex justify-end">
+                        <button
+                          mat-button-basic
+                          (click)="openEditUserDialog(user.id)"
+                          class="ml-auto mr-3 sm:mr-5"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          mat-button-basic
+                          (click)="openDeleteUserDialog(user.id)"
+                          class="mr-3 sm:mr-5"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </mat-expansion-panel-header>
+                    <p class="font-bold sm:hidden flex">
+                      N. tessera {{ user.n_tessera }}
+                    </p>
+                    <p>Email: {{ user.email }}</p>
+                    <p>Ruolo: {{ user.ruolo }}</p>
+                    <p>Creato il: {{ user.created_at | date: "short" }}</p>
+                  </mat-expansion-panel>
+                </div>
+              </div>
 
-                                <!-- NEW USER -->
-                                <div class="sm:flex flex-col justify-center hidden">
-                                    <button mat-raised-button class="bg-bt-orange" (click)="goToCreateUser()">
-                                        <span class="p-2 text-white">NUOVO VOLONTARIO</span>
-                                    </button>
-                                </div>
+              <div class="sm:flex hidden justify-end -mr-4 -mb-4">
+                <mat-paginator
+                  showFirstLastButtons
+                  [length]="this.users.length"
+                  [pageSize]="10"
+                  [pageSizeOptions]="pageSizeOptions"
+                  (page)="OnPageChange($event)"
+                >
+                </mat-paginator>
+              </div>
+              <div class="flex sm:hidden justify-end mt-2">
+                <mat-paginator
+                  class="mb-16"
+                  hidePageSize
+                  [length]="this.users.length"
+                  [pageSize]="10"
+                  (page)="OnPageChange($event)"
+                >
+                </mat-paginator>
+              </div>
 
-                                <div class="w-full">
-                                    <div class="flex items-center sm:space-x-6 space-x-3">
+              <div
+                class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange sm:hidden cursor-pointer"
+                (click)="goToCreateUser()"
+              >
+                <div
+                  class="flex w-full h-full justify-center items-center text-3xl text-white"
+                >
+                  +
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
 
-                                        <!-- SEARCHBAR -->
-                                        <input 
-                                            type="text"
-                                            [(ngModel)]="searchUser"
-                                            (change)="filterUser()"
-                                            class="w-full flex-grow pl-3 py-2 rounded border
-                                            focus:border-nav"
-                                            placeholder="Cerca Volontario..."
-                                        >
+        <!-- ORDERS -->
+        <mat-tab label="ORDINI">
+          <mat-card class="h-full">
+            <mat-card-content>
+              <div class="sm:flex mb-4 pt-2 sm:space-x-6">
+                <!-- NEW ORDER -->
+                <div class="sm:flex flex-col justify-center hidden">
+                  <button
+                    mat-raised-button
+                    class="bg-bt-orange"
+                    (click)="goToCreateOrder()"
+                  >
+                    <span class="p-2 text-white">NUOVO ORDINE</span>
+                  </button>
+                </div>
 
-                                        <!-- SEARCH BUTTON -->
-                                        <div class="flex sm:flex-col">
-                                            <button mat-raised-button (click)="filterUser()" class="bg-bt-orange">
-                                                <span class="p-2 text-white">CERCA</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="w-full">
+                  <div class="flex items-center sm:space-x-6 space-x-3">
+                    <!-- SEARCHBAR -->
+                    <input
+                      type="text"
+                      [(ngModel)]="searchOrder"
+                      (change)="filterOrder()"
+                      class="w-full h-auto flex-grow pl-3 py-2 rounded border focus:border-nav"
+                      placeholder="Cerca Ordine..."
+                    />
+
+                    <!-- SELECT STATUS -->
+                    <div class="hidden sm:flex">
+                      <mat-form-field class="w-full">
+                        <mat-label>Stato Ordine:</mat-label>
+                        <mat-select
+                          name="order_status"
+                          (selectionChange)="filterOrder()"
+                          [(ngModel)]="order_status"
+                        >
+                          <mat-option value="all"></mat-option>
+                          <mat-option
+                            *ngFor="let status of statuses"
+                            [value]="status.name"
+                          >
+                            <div class="flex items-center">
+                              <span class="mr-auto">{{ status.value }}</span>
+                              <div>
+                                <span class="material-icons" [ngClass]="status.class">
+                                    {{ status.icon }}
+                                </span>
+                              </div>
                             </div>
-                            <div *ngIf="searchUsers.length == 0">
-                                <div *ngFor="let user of pageUserSlice" class="mt-2">
-                                    <mat-expansion-panel (opened)="panelOpenState = true"
-                                            (closed)="panelOpenState = false">
-                                        <mat-expansion-panel-header>
-                                            <mat-panel-title class="w-1/3 my-auto">
-                                                <span class="font-bold sm:hidden flex">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
-                                                <span class="font-bold hidden sm:flex">N. {{ user.n_tessera }} - {{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
-                                            </mat-panel-title>
-                                            <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                                <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ user.n_tessera }}</span>
-                                            </mat-panel-description>
-                                            <div class="w-1/3 flex justify-end">
-                                                <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-3 sm:mr-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                    </svg>
-                                                </button>
-                                                <button mat-button-basic (click)="openDeleteUserDialog(user.id)" class="mr-3 sm:mr-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </mat-expansion-panel-header>
-                                        <p class="font-bold sm:hidden flex">N. tessera {{ user.n_tessera }}</p>
-                                        <p>Email: {{ user.email }}</p>
-                                        <p>Ruolo: {{ user.ruolo }}</p>
-                                        <p>Creato il: {{ user.created_at | date :'short'}}</p>
-                                    </mat-expansion-panel>
-                                </div>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <!-- SEARCH BUTTON -->
+                    <div class="flex sm:flex-col">
+                      <button
+                        mat-raised-button
+                        (click)="filterOrder()"
+                        class="bg-bt-orange"
+                      >
+                        <span class="p-2 text-white">CERCA</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="flex sm:hidden">
+                    <!-- SELECT STATUS [MOBILE]-->
+                    <div class="w-full mt-3">
+                      <mat-form-field class="w-full">
+                        <mat-label>Stato Ordine:</mat-label>
+                        <mat-select
+                          name="order_status"
+                          (selectionChange)="filterOrder()"
+                          [(ngModel)]="order_status"
+                        >
+                          <mat-option value="all"></mat-option>
+                          <mat-option
+                            *ngFor="let status of statuses"
+                            [value]="status.name"
+                          >
+                            <div class="flex items-center">
+                              <span class="mr-auto">{{ status.value }}</span>
+                              <div>
+                                <span class="material-icons" [ngClass]="status.class">
+                                    {{ status.icon }}
+                                </span>
+                              </div>
                             </div>
-                            <div *ngIf="searchUsers.length != 0">
-                                <div  *ngFor="let user of searchUsers" class="mt-2">
-                                    <mat-expansion-panel (opened)="panelOpenState = true"
-                                            (closed)="panelOpenState = false">
-                                        <mat-expansion-panel-header>
-                                            <mat-panel-title class="w-1/3 my-auto">
-                                                <span class="font-bold">{{ user.nome | uppercase }} {{ user.cognome | uppercase }}</span>
-                                            </mat-panel-title>
-                                            <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                                <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ user.n_tessera }}</span>
-                                            </mat-panel-description>
-                                            <div class="w-1/3 flex justify-end">
-                                                <button mat-button-basic (click)="openEditUserDialog(user.id)" class="ml-auto mr-3 sm:mr-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                    </svg>
-                                                </button>
-                                                <button mat-button-basic (click)="openDeleteUserDialog(user.id)" class="mr-3 sm:mr-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </mat-expansion-panel-header>
-                                        <p class="font-bold sm:hidden flex">N. tessera {{ user.n_tessera }}</p>
-                                        <p>Email: {{ user.email }}</p>
-                                        <p>Ruolo: {{ user.ruolo }}</p>
-                                        <p>Creato il: {{ user.created_at | date :'short'}}</p>
-                                    </mat-expansion-panel>
-                                </div>
-                            </div>
-
-                            <div class="sm:flex hidden justify-end -mr-4 -mb-4">
-                                <mat-paginator 
-                                    showFirstLastButtons
-                                    [length]="this.users.length"
-                                    [pageSize]="10"
-                                    [pageSizeOptions]="pageSizeOptions"
-                                    (page)="OnPageChange($event)">
-                                </mat-paginator>
-                            </div>
-                            <div class="flex sm:hidden justify-end mt-2">
-                                <mat-paginator 
-                                    class="mb-16"
-                                    hidePageSize
-                                    [length]="this.users.length" 
-                                    [pageSize]="10"
-                                    (page)="OnPageChange($event)">
-                                </mat-paginator>
-                            </div>
-
-                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange sm:hidden cursor-pointer" (click)="goToCreateUser()">
-                                <div class="flex w-full h-full justify-center items-center text-3xl text-white">
-                                    +
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </mat-tab>
-
-                <!-- ORDERS -->
-                <mat-tab label="ORDINI">
-                    <mat-card class="h-full">
-                        <mat-card-content>
-                            <div class="sm:flex mb-4 pt-2 sm:space-x-6">
-
-                                <!-- NEW ORDER -->
-                                <div class="sm:flex flex-col justify-center hidden">
-                                    <button mat-raised-button class="bg-bt-orange" (click)="goToCreateOrder()">
-                                        <span class="p-2 text-white">NUOVO ORDINE</span>
-                                    </button>
-                                </div>
-
-                                <div class="w-full">
-                                    <div class="flex items-center sm:space-x-6 space-x-3">
-
-                                        <!-- SEARCHBAR -->
-                                        <input 
-                                            type="text"
-                                            [(ngModel)]="searchOrder"
-                                            (change)="filterOrder()"
-                                            class="w-full h-auto flex-grow pl-3 py-2 rounded border
-                                            focus:border-nav"
-                                            placeholder="Cerca Ordine..."
-                                        >
-
-                                        <!-- SELECT STATUS -->
-                                        <div class="hidden sm:flex">
-                                            <mat-form-field class="w-full">
-                                                <mat-label>Stato Ordine:</mat-label>
-                                                <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="order_status">
-                                                    <mat-option value="all" ></mat-option>
-                                                    <mat-option *ngFor="let item of status" [value]="item">
-                                                        <div class="flex items-center">
-                                                            <span class="mr-auto">{{ item }}</span>
-                                                            <div *ngIf="item === order_cons">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                                </svg>
-                                                            </div>
-                                                            <div *ngIf="item === order_no_disp">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                </svg>
-                                                            </div>
-                                                            <div *ngIf="item === order_da_prep">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div *ngIf="item === order_da_cons">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <!-- SEARCH BUTTON -->
-                                        <div class="flex sm:flex-col">
-                                            <button mat-raised-button (click)="filterOrder()" class="bg-bt-orange">
-                                                <span class="p-2 text-white">CERCA</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="flex sm:hidden">
-
-                                        <!-- SELECT STATUS [MOBILE]-->
-                                        <div class="w-full mt-3">
-                                            <mat-form-field class="w-full">
-                                                <mat-label>Stato Ordine:</mat-label>
-                                                <mat-select name="order_status" (selectionChange)="filterOrder()" [(ngModel)]="order_status">
-                                                    <mat-option value="all" ></mat-option>
-                                                    <mat-option *ngFor="let item of status" [value]="item">
-                                                        <div class="flex items-center">
-                                                            <span class="mr-auto">{{ item }}</span>
-                                                            <div *ngIf="item === order_cons">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                                </svg>
-                                                            </div>
-                                                            <div *ngIf="item === order_no_disp">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                </svg>
-                                                            </div>
-                                                            <div *ngIf="item === order_da_prep">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div *ngIf="item === order_da_cons">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngFor="let order of pageOrderSlice" class="mt-2">
-                                <mat-expansion-panel (opened)="panelOpenState = true"
-                                        (closed)="panelOpenState = false">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title class="w-1/3 my-auto">
-                                            <span class="font-bold">N. {{ order.n_ordine }}</span>
-                                        </mat-panel-title>
-                                        <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                            <span class="leading-loose text-black mr-auto hidden sm:inline">
-                                                Tot. capi: {{ order.n_clothes}} 
-                                            </span>
-                                            <div class="flex items-center justify-start sm:justify-center w-full sm:w-min">
-                                                <span class="leading-loose text-black mr-auto pr-4 hidden sm:inline">Stato: </span>
-                                                <!-- <div *ngIf="order.status === order_attesa">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div> -->
-                                                <div *ngIf="order.status === order_cons">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                </div>
-                                                <div *ngIf="order.status === order_no_disp">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-                                                </div>
-                                                <!-- <div *ngIf="order.status === order_da_conf">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div> -->
-                                                <div *ngIf="order.status === order_da_prep">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div>
-                                                <div *ngIf="order.status === order_da_cons">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </mat-panel-description>
-                                        <div class="w-1/3 flex justify-end">
-                                            <button mat-button-basic (click)="openPreviewPDF(order.id)" class="ml-auto  mr-3 sm:mr-5">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                  </svg>
-                                            </button>
-                                            <button mat-button-basic (click)="openEditOrderDialog(order.id)" class="mr-3 sm:mr-5">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                </svg>
-                                            </button>
-                                            <button mat-button-basic (click)="openDeleteOrderDialog(order.id)" class="mr-3 sm:mr-5">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </button>
-                                            <button mat-button-basic (click)="openConfirmOrderDialog(order.id)" class="mr-3 sm:mr-5">
-                                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                                    <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </mat-expansion-panel-header>
-                                    <p class="font-bold">N. {{ order.client?.n_tessera }} - {{ order.client?.nome | uppercase }} {{ order.client?.cognome | uppercase }}</p>
-                                    <p>Punto di ritiro: {{ order.p_ritiro }}</p>
-                                    <table class="w-full">
-                                        <tr class="font-medium space-x-1">
-                                            <td>Tipo</td>
-                                            <td class="hidden sm:inline">Genere</td>
-                                            <td>Taglia</td>
-                                            <td>Quantità</td>
-                                            <td>Stato</td>
-                                        </tr>
-                                        <tr *ngFor="let clothe of order.clothes" class="space-x-1">
-                                            <td>{{ clothe.t_vestiario }}</td>
-                                            <td class="hidden sm:inline">{{ order.client?.genere }}</td>
-                                            <!-- <td class="hidden sm:inline">{{ user.t_pantaloni }}</td>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngFor="let order of pageOrderSlice" class="mt-2">
+                <mat-expansion-panel
+                  (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="w-1/3 my-auto">
+                      <span class="font-bold">N. {{ order.n_ordine }}</span>
+                    </mat-panel-title>
+                    <mat-panel-description
+                      class="w-1/3 flex justify-center my-auto"
+                    >
+                      <span
+                        class="leading-loose text-black mr-auto hidden sm:inline"
+                      >
+                        Tot. capi: {{ order.clothes_count }}
+                      </span>
+                      <div
+                        class="flex items-center justify-start sm:justify-center w-full sm:w-min"
+                      >
+                        <span
+                          class="leading-loose text-black mr-auto pr-4 hidden sm:inline"
+                          >Stato:
+                        </span>
+                        <span
+                          class="material-icons"
+                          [ngClass]="order.status.class"
+                          *ngIf="order.status"
+                        >
+                          {{ order.status.icon }}
+                        </span>
+                      </div>
+                    </mat-panel-description>
+                    <div class="w-1/3 flex justify-end">
+                      <button
+                        mat-button-basic
+                        (click)="openPreviewPDF(order.id)"
+                        class="ml-auto mr-3 sm:mr-5"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        mat-button-basic
+                        (click)="openEditOrderDialog(order.id)"
+                        class="mr-3 sm:mr-5"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        mat-button-basic
+                        (click)="openDeleteOrderDialog(order.id)"
+                        class="mr-3 sm:mr-5"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        mat-button-basic
+                        (click)="openConfirmOrderDialog(order.id)"
+                        class="mr-3 sm:mr-5"
+                      >
+                        <svg
+                          style="width: 24px; height: 24px"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </mat-expansion-panel-header>
+                  <p class="font-bold">
+                    N. {{ order.client?.n_tessera }} -
+                    {{ order.client?.nome | uppercase }}
+                    {{ order.client?.cognome | uppercase }}
+                  </p>
+                  <p>Punto di ritiro: {{ order.p_ritiro }}</p>
+                  <table class="w-full">
+                    <tr class="font-medium space-x-1">
+                      <td>Tipo</td>
+                      <td class="hidden sm:inline">Genere</td>
+                      <td>Taglia</td>
+                      <td>Quantità</td>
+                      <td>Stato</td>
+                    </tr>
+                    <tr *ngFor="let clothe of order.clothes" class="space-x-1">
+                      <td>{{ clothe.t_vestiario }}</td>
+                      <td class="hidden sm:inline">
+                        {{ order.client?.genere }}
+                      </td>
+                      <!-- <td class="hidden sm:inline">{{ user.t_pantaloni }}</td>
                                             <td class="hidden sm:inline">{{ user.t_pantaloni }}</td> -->
-                                            <td>{{ clothe.taglia }}</td>
-                                            <td>{{ clothe.quantita }}</td>
-                                            <td>{{ clothe.status }}</td>
-                                        </tr>
-                                    </table>
-                                </mat-expansion-panel>
-                            </div>
+                      <td>{{ clothe.taglia }}</td>
+                      <td>{{ clothe.quantita }}</td>
+                      <td>{{ clothe.status.value }}</td>
+                    </tr>
+                  </table>
+                </mat-expansion-panel>
+              </div>
 
-                            <div class="sm:flex hidden justify-end -mr-4 -mb-4">
-                                <mat-paginator 
-                                    showFirstLastButtons
-                                    [length]="this.orders.length"
-                                    [pageSize]="10"
-                                    [pageSizeOptions]="pageSizeOptions"
-                                    (page)="OnPageChange($event)">
-                                </mat-paginator>
-                            </div>
-                            <div class="flex sm:hidden justify-end mt-2">
-                                <mat-paginator 
-                                    class="mb-16"
-                                    hidePageSize
-                                    [length]="this.orders.length" 
-                                    [pageSize]="10"
-                                    (page)="OnPageChange($event)">
-                                </mat-paginator>
-                            </div>
+              <div class="sm:flex hidden justify-end -mr-4 -mb-4">
+                <mat-paginator
+                  showFirstLastButtons
+                  [length]="this.orders.length"
+                  [pageSize]="10"
+                  [pageSizeOptions]="pageSizeOptions"
+                  (page)="OnPageChange($event)"
+                >
+                </mat-paginator>
+              </div>
+              <div class="flex sm:hidden justify-end mt-2">
+                <mat-paginator
+                  class="mb-16"
+                  hidePageSize
+                  [length]="this.orders.length"
+                  [pageSize]="10"
+                  (page)="OnPageChange($event)"
+                >
+                </mat-paginator>
+              </div>
 
-                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange sm:hidden cursor-pointer" (click)="goToCreateOrder()">
-                                <div class="flex w-full h-full justify-center items-center text-3xl text-white">
-                                    +
-                                </div>
-                            </div>
- 
-                        </mat-card-content>
-                    </mat-card>
-                </mat-tab>
+              <div
+                class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange sm:hidden cursor-pointer"
+                (click)="goToCreateOrder()"
+              >
+                <div
+                  class="flex w-full h-full justify-center items-center text-3xl text-white"
+                >
+                  +
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
 
-                <!-- CLIENT -->
-                <mat-tab label="ASSISTITI">
-                    <mat-card class="h-full">
-                        <mat-card-content>
-                            <div class="sm:flex mb-4 pt-2 sm:space-x-6">
-                                <!-- NEW CLIENT-->
-                                <div class="sm:flex flex-col justify-center hidden">
-                                    <button mat-raised-button class="bg-bt-orange" (click)="goToCreateClient()">
-                                        <span class="p-2 text-white">NUOVO ASSISTITO</span>
-                                    </button>
-                                </div>
-                                <div class="w-full">
-                                    <div class="flex items-center sm:space-x-6 space-x-3">
-                                        <!-- SEARCHBAR -->
-                                        <input 
-                                            type="text"
-                                            [(ngModel)]="searchClient"
-                                            (change)="filterClient()"
-                                            class="w-full flex-grow pl-3 py-2 rounded border
-                                            focus:border-nav"
-                                            placeholder="Cerca Cliente..."
-                                        >
-                                        <!-- SEARCH BUTTON -->
-                                        <div class="flex sm:flex-col">
-                                            <button mat-raised-button (click)="filterClient()" class="bg-bt-orange">
-                                                <span class="p-2 text-white">CERCA</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngFor="let client of pageClientSlice" class="mt-2">
-                                <mat-expansion-panel (opened)="panelOpenState = true"
-                                        (closed)="panelOpenState = false">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title class="w-1/3 my-auto">
-                                            <span class="font-bold sm:hidden flex">{{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
-                                            <span class="font-bold hidden sm:flex">{{ client.n_tessera }} - {{ client.nome | uppercase }} {{ client.cognome | uppercase}}</span>
-                                        </mat-panel-title>
-                                        <mat-panel-description class="w-1/3 flex justify-center my-auto">
-                                            <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ client.n_tessera }}</span>
-                                        </mat-panel-description>
-                                        <div class="w-1/3 flex justify-end">
-                                            <button mat-button-basic (click)="openEditClientDialog(client.id)" class="ml-auto mr-3 sm:mr-5">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                </svg>
-                                            </button>
-                                            <button mat-button-basic (click)="openDeleteClientDialog(client.id)" class="mr-3 sm:mr-5">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </mat-expansion-panel-header>
-                                    <p class="font-bold">{{ client.document?.t_doc }} N. {{ client.document?.n_doc }}</p>
-                                    <p class="font-bold sm:hidden flex">N. tessera {{ client.n_tessera }}</p>
-                                    <p>Genere: {{ client.genere }}</p>
-                                    <p>Nazionalità: {{ client.nazionalita }}</p>
-                                    <table class="w-full">
-                                        <tr>
-                                            <td>Taglia maglia</td>
-                                            <td>Taglia pantaloni</td>
-                                            <td>Taglia scarpe</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ client.t_maglietta }}</td>
-                                            <td>{{ client.t_pantaloni }}</td>
-                                            <td>{{ client.t_scarpe }}</td>
-                                        </tr>
-                                    </table>
-                                </mat-expansion-panel>
-                            </div>
-                            <div class="sm:flex hidden justify-end -mr-4 -mb-4">
-                                <mat-paginator 
-                                    showFirstLastButtons
-                                    [length]="this.clients.length"
-                                    [pageSize]="10"
-                                    [pageSizeOptions]="pageSizeOptions"
-                                    (page)="OnPageChange($event)">
-                                </mat-paginator>
-                            </div>
-                            <div class="flex sm:hidden justify-end mt-2">
-                                <mat-paginator 
-                                    class="mb-16"
-                                    hidePageSize
-                                    [length]="this.clients.length" 
-                                    [pageSize]="10"
-                                    (page)="OnPageChange($event)">
-                                </mat-paginator>
-                            </div>
-                            <div class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange sm:hidden cursor-pointer" (click)="goToCreateClient()">
-                                <div class="flex w-full h-full justify-center items-center text-3xl text-white">
-                                    +
-                                </div>
-                            </div>
- 
-                        </mat-card-content>
-                    </mat-card>
-                </mat-tab>
-            </mat-tab-group>
-        </div>
-        <!-- <div class="hidden w-2/3 mx-auto bg-white px-10" id="viewPDF" #viewPDF>
+        <!-- CLIENT -->
+        <mat-tab label="ASSISTITI">
+          <mat-card class="h-full">
+            <mat-card-content>
+              <div class="sm:flex mb-4 pt-2 sm:space-x-6">
+                <!-- NEW CLIENT-->
+                <div class="sm:flex flex-col justify-center hidden">
+                  <button
+                    mat-raised-button
+                    class="bg-bt-orange"
+                    (click)="goToCreateClient()"
+                  >
+                    <span class="p-2 text-white">NUOVO ASSISTITO</span>
+                  </button>
+                </div>
+                <div class="w-full">
+                  <div class="flex items-center sm:space-x-6 space-x-3">
+                    <!-- SEARCHBAR -->
+                    <input
+                      type="text"
+                      [(ngModel)]="searchClient"
+                      (change)="filterClient()"
+                      class="w-full flex-grow pl-3 py-2 rounded border focus:border-nav"
+                      placeholder="Cerca Cliente..."
+                    />
+                    <!-- SEARCH BUTTON -->
+                    <div class="flex sm:flex-col">
+                      <button
+                        mat-raised-button
+                        (click)="filterClient()"
+                        class="bg-bt-orange"
+                      >
+                        <span class="p-2 text-white">CERCA</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngFor="let client of pageClientSlice" class="mt-2">
+                <mat-expansion-panel
+                  (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="w-1/3 my-auto">
+                      <span class="font-bold sm:hidden flex"
+                        >{{ client.nome | uppercase }}
+                        {{ client.cognome | uppercase }}</span
+                      >
+                      <span class="font-bold hidden sm:flex"
+                        >{{ client.n_tessera }} - {{ client.nome | uppercase }}
+                        {{ client.cognome | uppercase }}</span
+                      >
+                    </mat-panel-title>
+                    <mat-panel-description
+                      class="w-1/3 flex justify-center my-auto"
+                    >
+                      <span
+                        class="leading-loose text-black mr-auto hidden sm:inline"
+                        >N. tessera {{ client.n_tessera }}</span
+                      >
+                    </mat-panel-description>
+                    <div class="w-1/3 flex justify-end">
+                      <button
+                        mat-button-basic
+                        (click)="openEditClientDialog(client.id)"
+                        class="ml-auto mr-3 sm:mr-5"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        mat-button-basic
+                        (click)="openDeleteClientDialog(client.id)"
+                        class="mr-3 sm:mr-5"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </mat-expansion-panel-header>
+                  <p class="font-bold">
+                    {{ client.document?.t_doc }} N. {{ client.document?.n_doc }}
+                  </p>
+                  <p class="font-bold sm:hidden flex">
+                    N. tessera {{ client.n_tessera }}
+                  </p>
+                  <p>Genere: {{ client.genere }}</p>
+                  <p>Nazionalità: {{ client.nazionalita }}</p>
+                  <table class="w-full">
+                    <tr>
+                      <td>Taglia maglia</td>
+                      <td>Taglia pantaloni</td>
+                      <td>Taglia scarpe</td>
+                    </tr>
+                    <tr>
+                      <td>{{ client.t_maglietta }}</td>
+                      <td>{{ client.t_pantaloni }}</td>
+                      <td>{{ client.t_scarpe }}</td>
+                    </tr>
+                  </table>
+                </mat-expansion-panel>
+              </div>
+              <div class="sm:flex hidden justify-end -mr-4 -mb-4">
+                <mat-paginator
+                  showFirstLastButtons
+                  [length]="this.clients.length"
+                  [pageSize]="10"
+                  [pageSizeOptions]="pageSizeOptions"
+                  (page)="OnPageChange($event)"
+                >
+                </mat-paginator>
+              </div>
+              <div class="flex sm:hidden justify-end mt-2">
+                <mat-paginator
+                  class="mb-16"
+                  hidePageSize
+                  [length]="this.clients.length"
+                  [pageSize]="10"
+                  (page)="OnPageChange($event)"
+                >
+                </mat-paginator>
+              </div>
+              <div
+                class="fixed w-16 h-16 bottom-5 right-5 rounded-full bg-bt-orange sm:hidden cursor-pointer"
+                (click)="goToCreateClient()"
+              >
+                <div
+                  class="flex w-full h-full justify-center items-center text-3xl text-white"
+                >
+                  +
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <!-- <div class="hidden w-2/3 mx-auto bg-white px-10" id="viewPDF" #viewPDF>
             <img src="../../assets/ronda-della-carita.png" alt="" class="mx-auto w-1/2 pt-4">
             <p class="pt-8 text-center text-xl">RIEPILOGO ORDINE N. <span class="bold">{{orderPDF.n_ordine}}</span></p>
             <div class="flex w-full">
@@ -499,9 +701,8 @@
                 </div>
             </div>
         </div> -->
-    </div>
-    <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
-        <mat-spinner class="m-auto border-nav"></mat-spinner>
-    </div>
+  </div>
+  <div *ngIf="isLoading" class="h-full grid grid-center m-auto">
+    <mat-spinner class="m-auto border-nav"></mat-spinner>
+  </div>
 </div>
-
