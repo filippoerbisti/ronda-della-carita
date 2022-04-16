@@ -21,7 +21,7 @@ npm install
 5. Entrare nella cartella ```/back-office```
 6. Eseguire nel terminale:
 ```
-composer update
+composer install
 ```
 
 
