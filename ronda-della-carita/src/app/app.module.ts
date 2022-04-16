@@ -135,10 +135,6 @@ import { environment } from '../environments/environment';
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerGestureConfig
     }
-    // { 
-    //   provide: BASE_API_URL, 
-    //   useValue: "https://backoffice-ronda.herokuapp.com/api" 
-    // }
   ],
   bootstrap: [AppComponent]
 })

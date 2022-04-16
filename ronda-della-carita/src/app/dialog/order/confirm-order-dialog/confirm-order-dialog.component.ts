@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
 import { IOrder } from '../../../shared/interface/IOrder';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-confirm-order-dialog',
@@ -14,6 +15,8 @@ export class ConfirmOrderDialogComponent implements OnInit {
   order!: IOrder;
   orderId!: number;
 
+  private API_URL = environment.API_URL;
+
   constructor() { }
 
   async ngOnInit() {
@@ -22,7 +25,7 @@ export class ConfirmOrderDialogComponent implements OnInit {
     let orderId = this.orderId;
     console.log(this.orderId);
     try {
-      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
+      let response = await axios.get(this.API_URL + "/api/order/" + orderId);
       console.log(response.status);
       console.log(response.data);
       this.order = response.data;
@@ -42,7 +45,7 @@ export class ConfirmOrderDialogComponent implements OnInit {
     this.orderId = localStorage["id"];
     let orderId = this.orderId;
     console.log(orderId);
-    await axios.put("https://backoffice-ronda.herokuapp.com/api/order/confirm/" + orderId)
+    await axios.put(this.API_URL + "/api/order/confirm/" + orderId)
       .then(response => {
         console.log(response);
       });

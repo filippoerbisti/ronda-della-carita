@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import axios from "axios";
 import { IClient } from '../../../shared/interface/IClient';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-delete-client-dialog',
@@ -14,6 +15,8 @@ export class DeleteClientDialogComponent implements OnInit {
   client!: IClient;
   clientId!: number;
 
+  private API_URL = environment.API_URL;
+
   constructor() { }
 
   async ngOnInit() {
@@ -22,7 +25,7 @@ export class DeleteClientDialogComponent implements OnInit {
     let clientId = this.clientId;
     console.log(this.clientId);
     try {
-      let response = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + clientId);
+      let response = await axios.get(this.API_URL + "/api/client/" + clientId);
       console.log(response.status);
       console.log(response.data);
       this.client = response.data;
@@ -42,7 +45,7 @@ export class DeleteClientDialogComponent implements OnInit {
     this.clientId = localStorage["id"];
     let clientId = this.clientId;
     console.log(clientId);
-    await axios.delete("https://backoffice-ronda.herokuapp.com/api/client/delete/" + clientId)
+    await axios.delete(this.API_URL + "/api/client/delete/" + clientId)
       .then(response => {
         console.log(response);
       });

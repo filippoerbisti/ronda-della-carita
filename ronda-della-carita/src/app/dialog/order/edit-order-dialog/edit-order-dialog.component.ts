@@ -6,6 +6,7 @@ import axios from "axios";
 import { IClient } from '../../../shared/interface/IClient';
 import { IOrder } from '../../../shared/interface/IOrder';
 import { IClothe } from 'src/app/shared/interface/IClothe';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-edit-order-dialog',
@@ -87,6 +88,8 @@ export class EditOrderDialogComponent implements OnInit {
   clientValue: any = 'Uomo';
   tagliaValue: any = '';
 
+  private API_URL = environment.API_URL;
+
   constructor() { }
 
   async ngOnInit() {
@@ -94,7 +97,7 @@ export class EditOrderDialogComponent implements OnInit {
     this.orderId = localStorage["id"];
     let orderId = this.orderId;
     try {
-      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/order/" + orderId);
+      let response_order = await axios.get(this.API_URL + "/api/order/" + orderId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.order = response_order.data;
@@ -108,7 +111,7 @@ export class EditOrderDialogComponent implements OnInit {
       }
       console.log("oreds", this.orders);
       let clotheId = this.order.id;
-      let response_clothe = await axios.get("https://backoffice-ronda.herokuapp.com/api/clothe/edit/" + clotheId);
+      let response_clothe = await axios.get(this.API_URL + "/api/clothe/edit/" + clotheId);
       console.log(response_clothe.status);
       console.log(response_clothe.data);
       this.clothes = response_clothe.data;

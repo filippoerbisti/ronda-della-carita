@@ -3,6 +3,7 @@ import axios from "axios";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { IUser } from '../../../shared/interface/IUser';
+import { environment } from '../../../../environments/environment';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,6 +33,8 @@ export class EditUserDialogComponent implements OnInit {
 
   rules: string[] = ['Admin', 'Volontario'];
 
+  private API_URL = environment.API_URL;
+
   constructor() { }
 
   async ngOnInit() {
@@ -39,10 +42,8 @@ export class EditUserDialogComponent implements OnInit {
     this.userId = localStorage["id"];
     let userId = this.userId;
     try {
-      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/user/" + userId);
-      console.log(response_order.status);
-      console.log(response_order.data);
-      this.user = response_order.data;
+      let response = await axios.get(this.API_URL + "/api/user/" + userId);
+      this.user = response.data;
     }
     catch (err) {
       console.log(err);

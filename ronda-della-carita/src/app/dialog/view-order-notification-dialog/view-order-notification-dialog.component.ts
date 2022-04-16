@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrder } from 'src/app/shared/interface/IOrder';
 import axios from "axios";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-view-order-notification-dialog',
@@ -18,16 +19,18 @@ export class ViewOrderNotificationDialogComponent implements OnInit {
   inAttesa = 'In attesa';
   nonDisp = 'Non disponibile';
 
+  private API_URL = environment.API_URL;
+
   constructor() { }
 
   async ngOnInit() {
     this.view_notification = localStorage["view_notification"];
     try {
-      let response_inattesa_orders = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/notif/to_be_prepared");
+      let response_inattesa_orders = await axios.get(this.API_URL + "/api/orders/notif/to_be_prepared");
       this.inAttesaOrders = response_inattesa_orders.data;
-      let response_nondisp_orders = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/notif/not_available");
+      let response_nondisp_orders = await axios.get(this.API_URL + "/api/orders/notif/not_available");
       this.nonDispOrders = response_nondisp_orders.data;
-      let response_daconf_orders = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/notif/to_be_delivered");
+      let response_daconf_orders = await axios.get(this.API_URL + "/api/orders/notif/to_be_delivered");
       this.daConfOrders = response_daconf_orders.data;
     }
     catch (err) {

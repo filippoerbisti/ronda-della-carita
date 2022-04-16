@@ -4,6 +4,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
 import { IClient } from '../../../shared/interface/IClient';
+import { environment } from '../../../../environments/environment';
 
 interface Document {
   value: string;
@@ -26,18 +27,6 @@ export class EditClientDialogComponent implements OnInit {
 
   client!: IClient;
   clientId!: number;
-
-  // newClient = {
-  //   nome: '',
-  //   cognome: '',
-  //   genere: 'M',
-  //   n_documento: '',
-  //   t_documento: '',
-  //   nazionalita: '',
-  //   t_maglietta: '',
-  //   t_pantaloni: '',
-  //   t_scarpe: ''
-  // };
 
   tdocuments: Document[] = [
     { value: 'cartaid', viewValue: "Carta d'Identità" },
@@ -82,6 +71,8 @@ export class EditClientDialogComponent implements OnInit {
     { value: 46, viewValue: 46 },
   ];
 
+  private API_URL = environment.API_URL;
+
   constructor() { }
 
   async ngOnInit() {
@@ -89,7 +80,7 @@ export class EditClientDialogComponent implements OnInit {
     this.clientId = localStorage["id"];
     let clientId = this.clientId;
     try {
-      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + clientId);
+      let response_order = await axios.get(this.API_URL + "/api/client/" + clientId);
       console.log(response_order.status);
       console.log(response_order.data);
       this.client = response_order.data;

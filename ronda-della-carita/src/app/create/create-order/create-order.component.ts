@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from 'axios';
+import { environment } from '../../../environments/environment';
 import { IClient } from 'src/app/shared/interface/IClient';
 import {
   MatSnackBar,
@@ -48,12 +49,6 @@ export class CreateOrderComponent implements OnInit {
   choseGender = 'Uomo';
   genders: string[] = ['Uomo', 'Donna'];
   quantita = 1;
-
-  // public tvestiario = [
-  //   {value: "Maglietta"},
-  //   {value: 'Pantaloni'},
-  //   {value: 'Scarpe'},
-  // ];
 
   public tvestiariolv1 = [
     { value: 'Giacca' },
@@ -139,51 +134,6 @@ export class CreateOrderComponent implements OnInit {
 
   public tvestiarioUseCaseMapping: any = sizes;
 
-  // public tvestiarioUseCaseMapping: any = izes[] = [] {
-  //   "maglietta": [
-  //     {value: 'xs', viewValue: 'XS'},
-  //     {value: 's', viewValue: 'S'},
-  //     {value: 'm', viewValue: 'M'},
-  //     {value: 'l', viewValue: 'L'},
-  //     {value: 'xl', viewValue: 'XL'},
-  //     {value: 'xxl', viewValue: 'XXL'},
-  //   ],
-  //   "pantaloni": [
-  //     {value: 42, viewValue: 42},
-  //     {value: 43, viewValue: 43},
-  //     {value: 44, viewValue: 44},
-  //     {value: 45, viewValue: 45},
-  //     {value: 46, viewValue: 46},
-  //     {value: 47, viewValue: 47},
-  //     {value: 48, viewValue: 48},
-  //     {value: 49, viewValue: 49},
-  //     {value: 50, viewValue: 50},
-  //     {value: 51, viewValue: 51},
-  //     {value: 52, viewValue: 52},
-  //     {value: 53, viewValue: 53},
-  //     {value: 54, viewValue: 54},
-  //     {value: 55, viewValue: 55},
-  //     {value: 56, viewValue: 56},
-  //     {value: 57, viewValue: 57},
-  //     {value: 58, viewValue: 58},
-  //   ],
-  //   "scarpe": [
-  //     {value: 36, viewValue: 36},
-  //     {value: 37, viewValue: 37},
-  //     {value: 38, viewValue: 38},
-  //     {value: 39, viewValue: 39},
-  //     {value: 40, viewValue: 40},
-  //     {value: 41, viewValue: 41},
-  //     {value: 42, viewValue: 42},
-  //     {value: 43, viewValue: 43},
-  //     {value: 44, viewValue: 44},
-  //     {value: 45, viewValue: 45},
-  //     {value: 46, viewValue: 46},
-  //     {value: 47, viewValue: 47},
-  //     {value: 48, viewValue: 48},
-  //   ]
-  // };
-
   tvestiarioValue: any = 'Maglia';
   clientValue: any = 'Uomo';
   tagliaValue: any = '';
@@ -192,6 +142,8 @@ export class CreateOrderComponent implements OnInit {
   durationInSeconds = 3;
 
   rule!: string;
+
+  private API_URL = environment.API_URL;
 
   constructor(
     public dialog: MatDialog,
@@ -206,9 +158,9 @@ export class CreateOrderComponent implements OnInit {
     this.isLoading = true;
 
     try {
-      let response = await axios.get('https://backoffice-ronda.herokuapp.com/api/clients');
-      let tvestiariolv2 = await axios.get('https://backoffice-ronda.herokuapp.com/api/clothes/options');
-      let stages = await axios.get('https://backoffice-ronda.herokuapp.com/api/stages/options');
+      let response = await axios.get(this.API_URL + '/api/clients');
+      let tvestiariolv2 = await axios.get(this.API_URL + '/api/clothes/options');
+      let stages = await axios.get(this.API_URL + '/api/stages/options');
       this.tvestiariolv2 = tvestiariolv2.data;
       this.stages = stages.data;
       this.clients = response.data;
@@ -228,7 +180,7 @@ export class CreateOrderComponent implements OnInit {
     console.log('NEW ORDER', this.newOrder);
     if (n_tessera) {
       try {
-        let result = await axios.get('https://backoffice-ronda.herokuapp.com/api/client/by_tessera/' + n_tessera);
+        let result = await axios.get(this.API_URL + '/api/client/by_tessera/' + n_tessera);
         console.log(result.data)
         this.client = result.data;
         this.newOrder.user.name = result.data.id + " - " + result.data.nome + " " + result.data.cognome;
@@ -309,35 +261,6 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
-  // async createOrder() {
-  // if(tuttto bene con i dati e salva nel db) {
-  //   this.router.navigateByUrl('/home-interno');
-  //   this.snackBar.open("Ordine creato con successo!", '', {
-  //   horizontalPosition: this.horizontalPosition,
-  //   duration: this.durationInSeconds * 1000
-  // })
-  // } else {
-  //   errore dati sbagliati o qualcosa non va
-  //   this.snackBar.open("Ordine creato con successo!", '', {
-  //   horizontalPosition: this.horizontalPosition,
-  //   duration: this.durationInSeconds * 1000
-  // })
-  // }
-  //   try {
-  //     let response = await axios.post(
-  //       'https://backoffice-ronda.herokuapp.com/api/order/create',
-  //       this.newOrder
-  //     );
-  //     this.router.navigateByUrl('/home/interno');
-  //     this.snackBar.open('Ordine creato con successo!', '', {
-  //       horizontalPosition: this.horizontalPosition,
-  //       duration: this.durationInSeconds * 1000,
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
   addClothe() {
     console.log(this.newClothe);
 
@@ -371,7 +294,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.checkFields()) {
       console.log(this.newOrder);
       let response = await axios.post(
-        'https://backoffice-ronda.herokuapp.com/api/order/create',
+        this.API_URL + '/api/order/create',
         this.newOrder
       );
       console.log(response.data);
@@ -398,7 +321,6 @@ export class CreateOrderComponent implements OnInit {
   }
 
   async clientHistory($event: any) {
-    console.log("entrato")
     if ($event != "") {
       let temp: any = localStorage.getItem('user');
       this.newOrder.user_id = JSON.parse(temp).id;
@@ -437,10 +359,10 @@ export class CreateOrderComponent implements OnInit {
       this.newOrder.user.surname = surname;
       try {
         let response = await axios.get(
-          'https://backoffice-ronda.herokuapp.com/api/order/history/' + id
+          this.API_URL + '/api/order/history/' + id
         );
         this.client = (
-          await axios.get('https://backoffice-ronda.herokuapp.com/api/client/' + id)
+          await axios.get(this.API_URL + '/api/client/' + id)
         ).data;
         this.history = response.data;
       } catch (error) {
@@ -451,10 +373,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   checkFields() {
-    console.log('checkFields');
-
     console.log(this.newOrder);
-
 
     this.newOrder.user.name != '' && this.newOrder.p_ritiro != ''
       ? (this.invalidInput = false)

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { IUser } from '../../shared/interface/IUser';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import axios from 'axios';
+import { environment } from '../../../environments/environment';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -57,6 +58,8 @@ export class RegistrationComponent implements OnInit {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 10;
+
+  private API_URL = environment.API_URL;
 
   constructor(
     public dialog: MatDialog,
@@ -119,7 +122,7 @@ export class RegistrationComponent implements OnInit {
           horizontalPosition: this.horizontalPosition,
           duration: this.durationInSeconds * 1000
         });
-        axios.get("https://backoffice-ronda.herokuapp.com/api/sendmail/" + idUser);
+        axios.get(this.API_URL + "/api/sendmail/" + idUser);
       }
     )
   }

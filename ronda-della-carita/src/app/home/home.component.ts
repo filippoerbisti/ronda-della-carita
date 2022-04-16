@@ -17,7 +17,7 @@ import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notif
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IStatus } from '../shared/interface/IStatus';
-// import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +26,7 @@ import { IStatus } from '../shared/interface/IStatus';
 })
 export class HomeComponent implements OnInit {
 
-  // private API_URL = environment.API_URL;
+  private API_URL = environment.API_URL;
 
   isLoading = false;
   panelOpenState = false;
@@ -97,23 +97,23 @@ export class HomeComponent implements OnInit {
     this.isAdmin = window.location.href.includes('admin');
     this.indexTab >= 0;
     try {
-      let response_account = await axios.get("https://backoffice-ronda.herokuapp.com/api/user", { withCredentials: true });
+      let response_account = await axios.get(this.API_URL + "/api/user", { withCredentials: true });
       this.user = response_account.data;
 
-      let response_statuses = await axios.get("https://backoffice-ronda.herokuapp.com/api/statuses");
+      let response_statuses = await axios.get(this.API_URL + "/api/statuses");
       this.statuses = response_statuses.data;
 
       let historyId = this.user.id;
-      let response_history = await axios.get("https://backoffice-ronda.herokuapp.com/api/history/" + historyId);
+      let response_history = await axios.get(this.API_URL + "/api/history/" + historyId);
       this.history = response_history.data;
 
-      let response_user = await axios.get("https://backoffice-ronda.herokuapp.com/api/users");
+      let response_user = await axios.get(this.API_URL + "/api/users");
       this.users = response_user.data;
 
-      let response_client = await axios.get("https://backoffice-ronda.herokuapp.com/api/clients");
+      let response_client = await axios.get(this.API_URL + "/api/clients");
       this.clients = response_client.data;
 
-      let response_order = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders");
+      let response_order = await axios.get(this.API_URL + "/api/orders");
       this.orders = response_order.data;
     }
     catch (err) {
@@ -310,7 +310,7 @@ export class HomeComponent implements OnInit {
   async filterUser() {
     let search = this.searchUser;
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/users/" + search);
+      let response_filter = await axios.get(this.API_URL + "/api/users/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.users = response_filter.data;
@@ -331,7 +331,7 @@ export class HomeComponent implements OnInit {
       status = "all";
     console.log("search" + search)
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/orders/filt/" + status + "/search/" + search);
+      let response_filter = await axios.get(this.API_URL + "/api/orders/filt/" + status + "/search/" + search);
       console.log(response_filter.status);
       console.log("data", response_filter.data);
       console.log(status);
@@ -348,7 +348,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get("https://backoffice-ronda.herokuapp.com/api/client/" + search);
+      let response_filter = await axios.get(this.API_URL + "/api/client/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;
@@ -361,7 +361,7 @@ export class HomeComponent implements OnInit {
 
   async openPreviewPDF(id: any) {
     try {
-      window.open("https://backoffice-ronda.herokuapp.com/api/download/pdf/" + id, "_blank");
+      window.open(this.API_URL + "/api/download/pdf/" + id, "_blank");
       this.snackBar.open('Download completato!', '', {
         horizontalPosition: this.horizontalPosition,
         duration: this.durationInSeconds * 1000,
@@ -369,7 +369,7 @@ export class HomeComponent implements OnInit {
     }
     catch (err) {
       console.log(err);
-      this.snackBar.open('ERRORE:Download fallito!', '', {
+      this.snackBar.open('ERRORE: Download fallito!', '', {
         horizontalPosition: this.horizontalPosition,
         duration: this.durationInSeconds * 1000,
       });
@@ -467,6 +467,5 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
 }
 

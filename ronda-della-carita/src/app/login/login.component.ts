@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { IUser } from '../shared/interface/IUser';
 import { ActivatedRoute } from '@angular/router';
 import { IHistory } from '../shared/interface/IHistory';
+import { environment } from '../../environments/environment';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
@@ -48,6 +49,8 @@ export class LoginComponent implements OnInit {
 
   isLoading = false;
 
+  private API_URL = environment.API_URL;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -84,18 +87,16 @@ export class LoginComponent implements OnInit {
 
   login() {
     localStorage.removeItem("user");
-    const url = `https://backoffice-ronda.herokuapp.com/sanctum/csrf-cookie`;
+    const url = this.API_URL + `/sanctum/csrf-cookie`;
     axios.get(url).then(response => {
       // console.log(response); //This is one success but it did set cookie in application cookie
       this.authService.signin(this.loginForm.value).subscribe(
         result => {
-          // this.user = result.user;
-          // console.log(result.user);
           this.user = result.user;
           localStorage.setItem('user', JSON.stringify(result.user));
           this.history = result.user.id;
           console.log(this.history);
-          // axios.post('http:localhost:8000/api/history/create', this.history);
+          // axios.post(this.API_URL + '/api/history/create', this.history);
           if (this.user.ruolo == 'Interno') {
             this.router.navigate(['vol1/home']);
           }
@@ -119,5 +120,4 @@ export class LoginComponent implements OnInit {
       );
     })
   }
-
 }

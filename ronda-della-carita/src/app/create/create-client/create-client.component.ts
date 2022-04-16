@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import axios from 'axios';
+import { environment } from '../../../environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
@@ -37,6 +38,8 @@ export class CreateClientComponent implements OnInit {
   durationInSeconds = 3;
 
   rule!: string;
+
+  private API_URL = environment.API_URL;
 
   constructor(
     public dialog: MatDialog,
@@ -78,7 +81,7 @@ export class CreateClientComponent implements OnInit {
   async createClient() {
     try {
       let response = await axios.post(
-        'https://backoffice-ronda.herokuapp.com/api/client/create',
+        this.API_URL + '/api/client/create',
         this.createClientForm.value
       );
       this.goToHome();
