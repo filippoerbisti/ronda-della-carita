@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from "axios";
-import { IUser } from '../shared/interface/IUser';
+//import { IUser } from '../shared/interface/IUser';
 import { environment } from '../../environments/environment';
 
 @Component({

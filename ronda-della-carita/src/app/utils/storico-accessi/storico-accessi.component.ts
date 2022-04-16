@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import axios from "axios";
-import { IUser } from 'src/app/shared/interface/IUser';
+// import { IUser } from 'src/app/shared/interface/IUser';
 import { IHistory } from 'src/app/shared/interface/IHistory';
 import { environment } from '../../../environments/environment';
 

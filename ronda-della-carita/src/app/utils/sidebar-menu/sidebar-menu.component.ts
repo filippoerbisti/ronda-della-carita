@@ -5,7 +5,7 @@ import axios from 'axios';
 import { environment } from '../../../environments/environment';
 import { ChangePasswordDialogComponent } from '../../dialog/change-password-dialog/change-password-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
-import { IUser } from 'src/app/shared/interface/IUser';
+// import { IUser } from 'src/app/shared/interface/IUser';
 import { IHistory } from 'src/app/shared/interface/IHistory';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Subject, Observable } from 'rxjs';
