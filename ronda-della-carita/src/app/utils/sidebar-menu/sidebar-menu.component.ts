@@ -2,15 +2,14 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import axios from 'axios';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { ChangePasswordDialogComponent } from '../../dialog/change-password-dialog/change-password-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
-// import { IUser } from 'src/app/shared/interface/IUser';
-import { IHistory } from 'src/app/shared/interface/IHistory';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { IHistory } from 'src/app/shared/interface/IHistory';
 
 @Component({
   selector: 'app-sidebar-menu',

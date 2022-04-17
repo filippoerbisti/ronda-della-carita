@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot} from '@angular/router';
-import axios from 'axios';
-import { IUser } from '../interface/IUser';
-import { environment } from '../../../environments/environment';
+import { IUser } from 'src/app/shared/interface/IUser';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {

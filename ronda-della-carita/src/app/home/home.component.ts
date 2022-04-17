@@ -9,15 +9,15 @@ import { DeleteUserDialogComponent } from 'src/app/dialog/user/delete-user-dialo
 import { EditClientDialogComponent } from 'src/app/dialog/client/edit-client-dialog/edit-client-dialog.component';
 import { EditUserDialogComponent } from 'src/app/dialog/user/edit-user-dialog/edit-user-dialog.component';
 import { EditOrderDialogComponent } from 'src/app/dialog/order/edit-order-dialog/edit-order-dialog.component';
-import { IUser } from 'src/app/shared/interface/IUser';
-import { IOrder } from 'src/app/shared/interface/IOrder';
-import { IClient } from 'src/app/shared/interface/IClient';
-import { IHistory } from '../shared/interface/IHistory';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IStatus } from '../shared/interface/IStatus';
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
+import { IUser } from 'src/app/shared/interface/IUser';
+import { IOrder } from 'src/app/shared/interface/IOrder';
+import { IClient } from 'src/app/shared/interface/IClient';
+import { IHistory } from 'src/app/shared/interface/IHistory';
+import { IStatus } from 'src/app/shared/interface/IStatus';
 
 @Component({
   selector: 'app-home',

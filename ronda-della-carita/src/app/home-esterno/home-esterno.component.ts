@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from "axios";
-//import { IUser } from '../shared/interface/IUser';
-import { environment } from '../../environments/environment';
+//import { IUser } from 'src/app/shared/interface/IUser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home-esterno',

@@ -3,10 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
-import { IClient } from '../../../shared/interface/IClient';
-import { IOrder } from '../../../shared/interface/IOrder';
+import { IClient } from 'src/app/shared/interface/IClient';
+import { IOrder } from 'src/app/shared/interface/IOrder';
 import { IClothe } from 'src/app/shared/interface/IClothe';
-import { environment } from '../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-order-dialog',

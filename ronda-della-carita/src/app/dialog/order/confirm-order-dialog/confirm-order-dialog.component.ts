@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
-import { IOrder } from '../../../shared/interface/IOrder';
-import { environment } from '../../../../environments/environment';
+import { IOrder } from 'src/app/shared/interface/IOrder';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-confirm-order-dialog',

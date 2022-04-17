@@ -6,12 +6,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
-import { Observable, Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { IUser } from '../shared/interface/IUser';
 import { ActivatedRoute } from '@angular/router';
-import { IHistory } from '../shared/interface/IHistory';
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
+import { IUser } from 'src/app/shared/interface/IUser';
+import { IHistory } from 'src/app/shared/interface/IHistory';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {

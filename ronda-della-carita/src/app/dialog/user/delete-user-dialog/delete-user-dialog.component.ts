@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
-import { IUser } from '../../../shared/interface/IUser';
-import { environment } from '../../../../environments/environment';
+import { IUser } from 'src/app/shared/interface/IUser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-delete-user-dialog',

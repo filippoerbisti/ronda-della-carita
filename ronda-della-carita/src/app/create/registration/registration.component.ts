@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { AuthService } from '../../shared/service/auth.service';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { IUser } from '../../shared/interface/IUser';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import axios from 'axios';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
+import { IUser } from 'src/app/shared/interface/IUser';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {

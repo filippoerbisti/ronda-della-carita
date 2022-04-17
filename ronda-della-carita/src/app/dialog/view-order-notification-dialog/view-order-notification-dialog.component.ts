@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrder } from 'src/app/shared/interface/IOrder';
 import axios from "axios";
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-view-order-notification-dialog',

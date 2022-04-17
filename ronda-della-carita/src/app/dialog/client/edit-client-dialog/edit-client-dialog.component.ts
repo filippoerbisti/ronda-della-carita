@@ -3,8 +3,8 @@ import axios from "axios";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
-import { IClient } from '../../../shared/interface/IClient';
-import { environment } from '../../../../environments/environment';
+import { IClient } from 'src/app/shared/interface/IClient';
+import { environment } from 'src/environments/environment';
 
 interface Document {
   value: string;

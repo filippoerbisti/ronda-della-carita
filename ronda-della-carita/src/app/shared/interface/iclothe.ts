@@ -10,6 +10,6 @@ export interface IClothe {
     update_at: Date,
     order_id: number,
     order?: IOrder,
-    open:boolean,
+    open: boolean,
     status: IStatus
 }
