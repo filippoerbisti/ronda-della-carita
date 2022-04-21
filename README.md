@@ -63,3 +63,25 @@ Host Database: ```Heroku App``` (PostgreSQL)
 # Testing
 >sium
 >sium
+``` sql
+SELECT FATT.idstato,
+coalesce(FATT.descrizionestato, '') as descrizionestato, 
+FATT.sottostato, 
+FATT.tipo, 
+FATT.idsocieta, 
+FATT.data, 
+FATT.totfatture, 
+FATT.tipofattura 
+FROM ( 
+SELECT ST.id as idstato, ST.descrizione as descrizionestato, coalesce(FSU.sottostato, 0) as sottostato, coalesce(AST.tipo, '') as tipo 
+, FE.idsocieta, min(FSU.datastato) as data, count(*) as totfatture,FE.tipofattura 
+from jfel_tagxml_fatturaelettronica FE 
+inner join jfel_fatture_stati FSU on FE.idstatocorrente = FSU.id 
+inner join jfel_stati ST on FSU.idstato = ST.id 
+inner join jfel_alert_stati AST on ST.id = AST.idstato 
+	and coalesce(FSU.sottostato, 0) = AST.sottostato 
+where FSU.datastato >= ? 
+group by ST.id, ST.descrizione, FSU.sottostato, AST.tipo, FE.idsocieta,FE.tipofattura 
+) FATT 
+group by FATT.idstato, FATT.descrizionestato, FATT.sottostato, FATT.tipo, FATT.idsocieta , FATT.data, FATT.totfatture,FATT.tipofattura
+```
