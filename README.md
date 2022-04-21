@@ -5,8 +5,6 @@ La Ronda della Carità è una associazione di carità che 365 giorni all'anno di
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=filippoerbisti&layout=compact&langs_count=8)](https://github.com/filippoerbisti/ronda-della-carita)
 
-![Ronda della Carità's GitHub stats](https://github-readme-stats.vercel.app/api?username=filippoerbisti&show_icons=true&theme=synthwave&show_icons=true&count_private=true&hide=contribs,prs)
-
 
 # Installazione
 
