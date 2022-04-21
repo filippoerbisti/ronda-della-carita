@@ -4,6 +4,10 @@ La Ronda della Carità è una associazione di carità che 365 giorni all'anno di
 #NoProfit
 
 
+# Introduzione
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=filippoerbisti&layout=compact)](https://github.com/filippoerbisti/ronda-della-carita)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=filippoerbisti&layout=compact&langs_count=8)](https://github.com/filippoerbisti/ronda-della-carita)
+
 # Installazione
 
 1. Installare globalmente angular:
@@ -86,4 +90,4 @@ group by ST.id, ST.descrizione, FSU.sottostato, AST.tipo, FE.idsocieta,FE.tipofa
 group by FATT.idstato, FATT.descrizionestato, FATT.sottostato, FATT.tipo, FATT.idsocieta , FATT.data, FATT.totfatture,FATT.tipofattura
 ```
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=filippoerbisti&layout=compact)](https://github.com/filippoerbisti/ronda-della-carita)
+
