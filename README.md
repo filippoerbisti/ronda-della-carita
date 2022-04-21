@@ -86,4 +86,4 @@ group by ST.id, ST.descrizione, FSU.sottostato, AST.tipo, FE.idsocieta,FE.tipofa
 group by FATT.idstato, FATT.descrizionestato, FATT.sottostato, FATT.tipo, FATT.idsocieta , FATT.data, FATT.totfatture,FATT.tipofattura
 ```
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anuraghazra&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=filippoerbisti&layout=compact)](https://github.com/filippoerbisti/ronda-della-carita)
