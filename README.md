@@ -59,3 +59,7 @@ Host Front-End: ```Netlify App```
 Host Back-End: ```Heroku App```
 
 Host Database: ```Heroku App``` (PostgreSQL)
+
+# Testing
+>sium
+>sium
