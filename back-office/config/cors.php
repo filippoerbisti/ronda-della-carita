@@ -22,7 +22,7 @@ return [
         'sanctum/csrf-cookie'
     ],
 
-    'access_control_allow_origin' => ['*'],
+    // 'access_control_allow_origin' => ['*'], diocane basta darmi problemi
 
     'allowed_methods' => ['*'],
 
