@@ -1,26 +1,28 @@
 # Ronda della Carità - Verona
 La Ronda della Carità è una associazione di carità che 365 giorni all'anno di sera esce con turni di 10 volontari e 4 mezzi per distribuire pasti e raccogliere ordini e distribuzione di vestiario e coperte per persone senza fissa dimora.
 
-#NoProfit
+>#NoProfit
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=filippoerbisti&layout=compact&langs_count=8)](https://github.com/filippoerbisti/ronda-della-carita)
 
 
 # Installazione
 
 1. Installare globalmente angular:
-```
+```npm
 npm install -g @angular/cli
 ```
 
 2. Scaricare il progetto
 3. Entrare nella cartella ```/ronda-della-carita``` 
 4. Eseguire nel terminale:
-```
+```npm
 npm install
 ```
 
 5. Entrare nella cartella ```/back-office```
 6. Eseguire nel terminale:
-```
+```php
 composer install
 ```
 
@@ -34,7 +36,7 @@ Creare file ```.env``` uguale al file ```.env.example```, e modificare il nome d
 # Effettuare le migrazioni
 
 Per creare la struttura del database, entrare nella cartella ```/back-office``` ed eseguire nel terminale:
-```
+```php
 php artisan migrate
 ```
 

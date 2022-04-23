@@ -1,4 +1,4 @@
-export interface IStage {
+export interface IClotheType {
     reference: String,
     value: string
 }
