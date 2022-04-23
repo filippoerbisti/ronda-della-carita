@@ -22,7 +22,7 @@ return [
         'sanctum/csrf-cookie'
     ],
 
-    // 'access_control_allow_origin' => ['*'],
+    'access_control_allow_origin' => ['*'],
 
     'allowed_methods' => ['*'],
 
@@ -36,6 +36,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false, //true for cookie
 
 ];

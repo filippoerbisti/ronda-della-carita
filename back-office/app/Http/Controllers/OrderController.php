@@ -27,9 +27,9 @@ class OrderController extends Controller
     public function id($id)
     {
         return Order::with('client')
-                    ->with('user')
-                    ->where('id', $id)
-                    ->first();
+            ->with('user')
+            ->where('id', $id)
+            ->first();
     }
 
     // public function n_ordine($n_ordine)
@@ -41,7 +41,8 @@ class OrderController extends Controller
     // }
 
     // Generate PDF
-    public function createPDF($id) {
+    public function createPDF($id)
+    {
         $orderPDF = Order::with(['user', 'client'])->where('id', $id)->first();
         $clothe = Clothe::where('order_id', $id)->get();
         $client = Client::where('id', $orderPDF->client_id)->first();
@@ -53,14 +54,14 @@ class OrderController extends Controller
             'client' => $client,
             // 'size' => $size
             'date' => $formatted_date
-         ];
-         
+        ];
+
         // share data to view
-        $pdf = PDF::loadView('myPDF',$data);
+        $pdf = PDF::loadView('myPDF', $data);
         Log::info('pallone');
-        $pdf->save(storage_path().'_test.pdf');
-        return $pdf->download('N_'.$orderPDF->n_ordine.'_Date_'.$formatted_date.'.pdf');
-      }
+        $pdf->save(storage_path() . '_test.pdf');
+        return $pdf->download('N_' . $orderPDF->n_ordine . '_Date_' . $formatted_date . '.pdf');
+    }
 
     public function history($id)
     {
@@ -77,53 +78,53 @@ class OrderController extends Controller
 
     public function countOrderToBeDelivered()
     {
-        $status = 'to_be_delivered';
+        $status = 3; //'to_be_delivered'
 
         return Clothe::with('status')
-            ->where('status', $status)
+            ->where('status_id', $status)
             ->count();
     }
 
     public function orderToBeDelivered()
     {
-        $status = 'to_be_delivered';
+        $status = 3; //'to_be_delivered'
 
-        return Clothe::with('order')
-            ->where('status', $status)
+        return Clothe::with('status')
+            ->where('status_id', $status)
             ->get();
     }
 
     public function countOrderNotAvailable()
     {
-        $status = 'not_available';
+        $status = 2; //'not_available'
 
-        return Clothe::where('status', $status)
+        return Clothe::where('status_id', $status)
             ->count();
     }
 
     public function orderNotAvailable()
     {
-        $status = 'not_available';
+        $status = 2; //'not_available'
 
-        return Clothe::with('order')
-            ->where('status', $status)
+        return Clothe::with('status')
+            ->where('status_id', $status)
             ->get();
     }
 
     public function countOrderToBePrepared()
     {
-        $status = 'to_be_prepared';
+        $status = 4; //'to_be_prepared'
 
-        return Clothe::where('status', $status)
+        return Clothe::where('status_id', $status)
             ->count();
     }
 
     public function orderToBePrepared()
     {
-        $status = 'to_be_prepared';
+        $status = 4; //'to_be_prepared'
 
-        return Clothe::with('order')
-            ->where('status', $status)
+        return Clothe::with('status')
+            ->where('status_id', $status)
             ->get();
     }
 
@@ -190,9 +191,9 @@ class OrderController extends Controller
         Log::info("order paired");
 
         Log::info("pairing clothes");
-        for($i = 0; $i < count($newOrderData->clothes); $i++){
+        for ($i = 0; $i < count($newOrderData->clothes); $i++) {
             $newClothe = new Clothe();
-            $newClothe->t_vestiario=$newOrderData->clothes[$i]->value;
+            $newClothe->t_vestiario = $newOrderData->clothes[$i]->value;
             // switch($newOrderData->clothes[$i]->type){
             //     case "Maglietta":
             //         $newClothe->taglia=$client->t_maglietta;
@@ -204,7 +205,7 @@ class OrderController extends Controller
             //         $newClothe->taglia=$client->t_scarpe;
             //         break;
             // }
-            $newClothe->status="Attesa";
+            $newClothe->status = "Attesa";
             // $newClothe->status = "to_be_prepared";
             $newClothe->quantita = 1;
             $newClothe->order_id = $newOrder->id;
@@ -241,7 +242,8 @@ class OrderController extends Controller
         $order->delete();
     }
 
-    public function confirm($id) {
+    public function confirm($id)
+    {
         $order = Order::with('clothes')->where("id", $id)->first();
 
         foreach ($order->clothes as $clothe) {
@@ -259,19 +261,23 @@ class OrderController extends Controller
         $order = Order::find($id);
     }
 
-    public function getOptions() {
+    public function getOptions()
+    {
         return ClotheType::all();
     }
 
-    public function getStagesOptions() {
+    public function getStagesOptions()
+    {
         return Stage::all();
     }
 
-    public function getStatuses() {
+    public function getStatuses()
+    {
         return Status::all();
     }
 
-    public function setOrdersStatus($orders) {
+    public function setOrdersStatus($orders)
+    {
         for ($i = 0; $i < count($orders); $i++) {
             // TODO: get all statuses and map an array
             $priorita = ['delivered' => 0, 'not_available' => 0, 'to_be_delivered' => 0, 'to_be_prepared' => 0];

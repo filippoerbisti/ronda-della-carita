@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     localStorage.removeItem("user");
-    const url = this.API_URL + `/sanctum/csrf-cookie`;
+    const url = `${this.API_URL}/sanctum/csrf-cookie`;
     axios.get(url).then(response => {
       // console.log(response); //This is one success but it did set cookie in application cookie
       this.authService.signin(this.loginForm.value).subscribe(

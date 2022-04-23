@@ -13,108 +13,116 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
+// header('Access-Control-Allow-Origin: http://localhost:8080');
+
 // Route::group(['middleware' => ['auth:sanctum']], function () {
 
-Route::get('/user-profile', [AuthController::class, 'me']);
+    Route::middleware(['cors'])->group(function ()
+    {
 
-Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/user-profile', [AuthController::class, 'me']);
 
-// User
-Route::get('/user', [UserController::class, 'anagrafica']);
+        Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/user/{id}', [UserController::class, 'id']);
+        // User
+        Route::get('/user', [UserController::class, 'anagrafica']);
 
-Route::get('/users', [UserController::class, 'list']);
+        Route::get('/user/{id}', [UserController::class, 'id']);
 
-Route::get('/users/{filter}', [UserController::class, 'filter']);
+        Route::get('/users', [UserController::class, 'list']);
 
-Route::post('/user/create', [UserController::class, 'create']);
+        Route::get('/users/{filter}', [UserController::class, 'filter']);
 
-Route::delete('/user/delete/{id}', [UserController::class, 'delete']);
+        Route::post('/user/create', [UserController::class, 'create']);
 
-Route::put('/user/edit/{id}', [UserController::class, 'edit']);
+        Route::delete('/user/delete/{id}', [UserController::class, 'delete']);
 
-
-// History
-Route::get('/history', [HistoryController::class, 'list']);
-
-Route::get('/history/{id}', [HistoryController::class, 'id']);
-
-Route::get('/history/filt/{filter}', [HistoryController::class, 'filter']);
-
-Route::get('/history/accessi/count', [HistoryController::class, 'countAccessi']);
-
-Route::get('/history/accessi/today', [HistoryController::class, 'todayAccessi']);
-
-Route::post('/history/create', [HistoryController::class, 'create']);
+        Route::put('/user/edit/{id}', [UserController::class, 'edit']);
 
 
-// Client
-Route::get('/clients', [ClientController::class, 'list']);
+        // History
+        Route::get('/history', [HistoryController::class, 'list']);
 
-Route::get('/client/{id}', [ClientController::class, 'id']);
+        Route::get('/history/{id}', [HistoryController::class, 'id']);
 
-Route::get('/client/by_tessera/{tessera}', [ClientController::class, 'getClientByTessera']);
+        Route::get('/history/filt/{filter}', [HistoryController::class, 'filter']);
 
-Route::get('/clients/{filter}', [ClientController::class, 'filter']);
+        Route::get('/history/accessi/count', [HistoryController::class, 'countAccessi']);
 
-Route::post('/client/create', [ClientController::class, 'create']);
+        Route::get('/history/accessi/today', [HistoryController::class, 'todayAccessi']);
 
-Route::delete('/client/delete/{id}', [ClientController::class, 'delete']);
-
-Route::put('/client/edit/{id}', [ClientController::class, 'edit']);
+        Route::post('/history/create', [HistoryController::class, 'create']);
 
 
-// Order
-Route::get('/orders', [OrderController::class, 'list']);  //funzia
+        // Client
+        Route::get('/clients', [ClientController::class, 'list']);
 
-Route::get('/order/{id}', [OrderController::class, 'id']);
+        Route::get('/client/{id}', [ClientController::class, 'id']);
 
-Route::get('/statuses', [OrderController::class, 'getStatuses']);
+        Route::get('/client/by_tessera/{tessera}', [ClientController::class, 'getClientByTessera']);
 
-// Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
+        Route::get('/clients/{filter}', [ClientController::class, 'filter']);
 
-Route::get('/order/history/{id}', [OrderController::class, 'history']);
+        Route::post('/client/create', [ClientController::class, 'create']);
 
-Route::get('/orders/filt/{status}/search/{search}', [OrderController::class, 'filter']);
+        Route::delete('/client/delete/{id}', [ClientController::class, 'delete']);
 
-Route::post('/order/create', [OrderController::class, 'create']);
-
-Route::delete('/order/delete/{id}', [OrderController::class, 'delete']);
-
-Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
-
-Route::put('/order/confirm/{id}', [OrderController::class, 'confirm']);
-
-Route::get('/orderLabel/{id}', [OrderController::class, 'showLabel']);
-
-Route::get('/clothes/options', [OrderController::class, 'getOptions']);
-
-Route::get('/stages/options', [OrderController::class, 'getStagesOptions']);
-
-// Order Notification
-Route::get('/orders/to_be_delivered', [OrderController::class, 'countOrderToBeDelivered']);  // Ordine stato -> Da consegnare
-
-Route::get('/orders/notif/to_be_delivered', [OrderController::class, 'orderToBeDelivered']);
-
-Route::get('/orders/not_available', [OrderController::class, 'countOrderNotAvailable']); // Ordine stato -> Non disponibile
-
-Route::get('/orders/notif/not_available', [OrderController::class, 'orderNotAvailable']);
-
-Route::get('/orders/to_be_prepared', [OrderController::class, 'countOrderToBePrepared']); // Ordine stato -> Da preparare
-
-Route::get('/orders/notif/to_be_prepared', [OrderController::class, 'orderToBePrepared']);
-
-// Download PDF
-Route::get('/download/pdf/{id}', [OrderController::class, 'createPDF']);
+        Route::put('/client/edit/{id}', [ClientController::class, 'edit']);
 
 
-// Clothe
-Route::get('/clothes', [ClotheController::class, 'list']);
+        // Order
+        Route::get('/orders', [OrderController::class, 'list']);  //funzia
 
-Route::get('/clothe/edit/{id}', [ClotheController::class, 'id']);
+        Route::get('/order/{id}', [OrderController::class, 'id']);
 
-// Email
-Route::get('/sendmail/{id}', [MailController::class, 'sendEmail']);
+        Route::get('/statuses', [OrderController::class, 'getStatuses']);
+
+        // Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
+
+        Route::get('/order/history/{id}', [OrderController::class, 'history']);
+
+        Route::get('/orders/filt/{status}/search/{search}', [OrderController::class, 'filter']);
+
+        Route::post('/order/create', [OrderController::class, 'create']);
+
+        Route::delete('/order/delete/{id}', [OrderController::class, 'delete']);
+
+        Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
+
+        Route::put('/order/confirm/{id}', [OrderController::class, 'confirm']);
+
+        Route::get('/orderLabel/{id}', [OrderController::class, 'showLabel']);
+
+        Route::get('/clothes/options', [OrderController::class, 'getOptions']);
+
+        Route::get('/stages/options', [OrderController::class, 'getStagesOptions']);
+
+        // Order Notification
+        Route::get('/orders/to_be_delivered', [OrderController::class, 'countOrderToBeDelivered']);  // Ordine stato -> Da consegnare
+
+        Route::get('/orders/notif/to_be_delivered', [OrderController::class, 'orderToBeDelivered']);
+
+        Route::get('/orders/not_available', [OrderController::class, 'countOrderNotAvailable']); // Ordine stato -> Non disponibile
+
+        Route::get('/orders/notif/not_available', [OrderController::class, 'orderNotAvailable']);
+
+        Route::get('/orders/to_be_prepared', [OrderController::class, 'countOrderToBePrepared']); // Ordine stato -> Da preparare
+
+        Route::get('/orders/notif/to_be_prepared', [OrderController::class, 'orderToBePrepared']);
+
+        
+        // Download PDF
+        Route::get('/download/pdf/{id}', [OrderController::class, 'createPDF']);
+
+
+        // Clothe
+        Route::get('/clothes', [ClotheController::class, 'list']);
+
+        Route::get('/clothe/edit/{id}', [ClotheController::class, 'id']);
+
+
+        // Email
+        Route::get('/sendmail/{id}', [MailController::class, 'sendEmail']);
+    });
 
 // });
