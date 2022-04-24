@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
     this.isAdmin = window.location.href.includes('admin');
     this.indexTab >= 0;
     try {
-      let response_account = await axios.get(this.API_URL + "/api/user", { withCredentials: true });
+      let response_account = await axios.get(this.API_URL + "/api/user", { withCredentials: false });
       this.user = response_account.data;
 
       let response_statuses = await axios.get(this.API_URL + "/api/statuses");
