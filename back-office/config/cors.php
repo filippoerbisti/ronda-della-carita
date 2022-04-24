@@ -36,6 +36,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false, //true for cookie
+    'supports_credentials' => true, //true for cookie
 
 ];
