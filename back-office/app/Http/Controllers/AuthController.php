@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class AuthController extends Controller
@@ -12,6 +13,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        Log::info("LOGIN");
         $credentials = $request->validate([
             "email" => 'required | email',
             "password" => 'required | min:8',

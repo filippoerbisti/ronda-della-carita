@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("API URL", this.API_URL);
+    
   }
 
   ngAfterViewInit() {
