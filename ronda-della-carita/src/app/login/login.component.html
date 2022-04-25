@@ -11,13 +11,13 @@
                 <form [formGroup]="loginForm" class="flex flex-col flex-grow h-full pt-5">
                     <div class="flex flex-col justify-center">
                         <mat-form-field class="w-full" appearance="fill">
-                            <mat-label>Email</mat-label>
+                            <mat-label>Numero tessera</mat-label>
                             <input 
-                                type="email" 
+                                type="number" 
                                 matInput 
-                                formControlName="email"
+                                formControlName="n_tessera"
                                 [value]="emailQueryParams ? '' : loginForm.value.email"
-                                placeholder="Email"
+                                placeholder="Numero tessera"
                                 [errorStateMatcher]="matcherEmail"
                                 required
                             >

@@ -271,18 +271,18 @@
                           (selectionChange)="filterOrder()"
                           [(ngModel)]="order_status"
                         >
-                          <mat-option value="all"></mat-option>
+                          <mat-option value="all">Tutti</mat-option>
                           <mat-option
                             *ngFor="let status of statuses"
                             [value]="status.name"
                           >
                             <div class="flex items-center">
                               <span class="mr-auto">{{ status.value }}</span>
-                              <div>
+                              <!-- <div>
                                 <span class="material-icons" [ngClass]="status.class">
                                     {{ status.icon }}
                                 </span>
-                              </div>
+                              </div> -->
                             </div>
                           </mat-option>
                         </mat-select>

@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      // email: ['', [Validators.required, Validators.email]],
+      n_tessera: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
   }
