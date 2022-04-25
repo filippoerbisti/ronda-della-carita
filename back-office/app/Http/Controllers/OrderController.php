@@ -142,8 +142,14 @@ class OrderController extends Controller
             }
 
             // TODO : change with array_filter
-            Log::info("AOH SO QUI");
+            Log::info("FILTER RESULT");
             Log::info($orders);
+
+            foreach ($orders as $order) {
+                    if (!$order->status) {
+                        Log::info("STATUS NOT FOUND " . $order->id);
+                    }
+            }
             $temp = [];
             for ($i = 0; $i < count($orders); $i++) {
                 if ($orders[$i]->status->name == $status) {
@@ -205,7 +211,7 @@ class OrderController extends Controller
             //         $newClothe->taglia=$client->t_scarpe;
             //         break;
             // }
-            $newClothe->status = "Attesa";
+            $newClothe->status_id = Status::where("name", "to_be_prepared")->first()->id;
             // $newClothe->status = "to_be_prepared";
             $newClothe->quantita = 1;
             $newClothe->order_id = $newOrder->id;
