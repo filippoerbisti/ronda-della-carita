@@ -15,7 +15,7 @@ class AuthController extends Controller
     {
         Log::info("LOGIN");
         $credentials = $request->validate([
-            "email" => 'required | email',
+            "n_tessera" => 'required',
             "password" => 'required | min:8',
         ]);
 
