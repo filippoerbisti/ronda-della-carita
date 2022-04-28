@@ -110,6 +110,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
         Route::get('/orders/notif/to_be_prepared', [OrderController::class, 'orderToBePrepared']);
 
+        Route::get('/orders/count', [OrderController::class, 'notificationsCount']);
+
         
         // Download PDF
         Route::get('/download/pdf/{id}', [OrderController::class, 'createPDF']);

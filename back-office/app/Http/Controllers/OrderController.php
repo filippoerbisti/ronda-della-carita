@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+use stdClass;
 
 class OrderController extends Controller
 {
@@ -146,9 +147,9 @@ class OrderController extends Controller
             Log::info($orders);
 
             foreach ($orders as $order) {
-                    if (!$order->status) {
-                        Log::info("STATUS NOT FOUND " . $order->id);
-                    }
+                if (!$order->status) {
+                    Log::info("STATUS NOT FOUND " . $order->id);
+                }
             }
             $temp = [];
             for ($i = 0; $i < count($orders); $i++) {
@@ -281,6 +282,21 @@ class OrderController extends Controller
     {
         return Status::all();
     }
+
+    // public function notificationsCount()
+    // {
+    //     $ordersQuery = Order::with('client')
+    //         ->with('user');
+
+    //     $orders = $this->setOrdersStatus($ordersQuery->get());
+
+    //     // $count = new stdClass();
+    //     foreach ($orders as $order) {
+    //         // $count[$order->status->name] = $count[$order->status->name] + 1;
+    //         $count = (object) array_merge( (array)$order->status->name, array( $order->status->name => '1234' ) );
+
+    //     }
+    // }
 
     public function setOrdersStatus($orders)
     {
