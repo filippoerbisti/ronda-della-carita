@@ -27,6 +27,8 @@ export class ViewOrderNotificationDialogComponent implements OnInit {
     try {
       let response_inattesa_orders = await axios.get(this.API_URL + "/api/orders/notif/to_be_prepared");
       this.inAttesaOrders = response_inattesa_orders.data;
+      console.log(this.inAttesaOrders);
+      
       let response_nondisp_orders = await axios.get(this.API_URL + "/api/orders/notif/not_available");
       this.nonDispOrders = response_nondisp_orders.data;
       let response_daconf_orders = await axios.get(this.API_URL + "/api/orders/notif/to_be_delivered");

@@ -20,7 +20,7 @@
                     </span>
                 </div>
             </button>
-            <mat-menu #menu="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">
+            <!-- <mat-menu #menu="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">
                 <button *ngIf="orderDaConf >= 1" class="cursor-pointer" (click)="viewOrderDaConf()">
                     <p *ngIf="orderDaConf !== 1">
                         <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
@@ -51,6 +51,18 @@
                         ordine in attesa
                     </p>
                 </button> 
+            </mat-menu> -->
+            <mat-menu #menu="matMenu" class="px-4 pt-2 flex flex-col justify-center w-60 overflow-y-scroll">
+                <button *ngIf="orderDaConf >= 1" class="cursor-pointer" (click)="viewOrderDaConf()">
+                    <p *ngIf="orderDaConf !== 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
+                        ordini da confermare
+                    </p>
+                    <p *ngIf="orderDaConf === 1">
+                        <span class="font-semibold text-lg mr-1">{{ orderDaConf }}</span> 
+                        ordine da confermare
+                    </p>
+                </button>
             </mat-menu>
             <div class="hidden sm:inline">
                 <button mat-icon-button (click)="goToLogOut()">

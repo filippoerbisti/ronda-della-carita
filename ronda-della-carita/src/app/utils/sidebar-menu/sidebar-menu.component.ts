@@ -36,6 +36,7 @@ export class SidebarMenuComponent implements OnInit {
   orderNonDisp!: number;
   orderInAttesa!: number;
   orderDaConf!: number;
+  notificationsCount!: number;
 
   typeNotification!: string;
 
@@ -54,12 +55,14 @@ export class SidebarMenuComponent implements OnInit {
       // let historyId = this.user.id;
       // let response_history = await axios.get(this.API_URL + "/api/history/" + historyId);
       // this.history = response_history.data;
-      let response_order_nondisp = await axios.get(this.API_URL + "/api/orders/not_available");
-      this.orderNonDisp = response_order_nondisp.data;
-      let response_order_inattesa = await axios.get(this.API_URL + "/api/orders/to_be_prepared");
-      this.orderInAttesa = response_order_inattesa.data;
-      let response_order_daconf = await axios.get(this.API_URL + "/api/orders/to_be_delivered");
-      this.orderDaConf = response_order_daconf.data;
+      // let response_order_nondisp = await axios.get(this.API_URL + "/api/orders/not_available");
+      // this.orderNonDisp = response_order_nondisp.data;
+      // let response_order_inattesa = await axios.get(this.API_URL + "/api/orders/to_be_prepared");
+      // this.orderInAttesa = response_order_inattesa.data;
+      // let response_order_daconf = await axios.get(this.API_URL + "/api/orders/to_be_delivered");
+      // this.orderDaConf = response_order_daconf.data;
+      let response_notifications_count = await axios.get(this.API_URL + "/api/orders/count");
+      this.notificationsCount = response_notifications_count.data;
     }
     catch (err) {
       console.log(err);
