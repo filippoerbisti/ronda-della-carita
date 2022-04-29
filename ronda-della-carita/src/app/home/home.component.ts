@@ -22,7 +22,10 @@ import { IStatus } from 'src/app/shared/interface/IStatus';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  // Need to remove view encapsulation so that the custom tooltip style defined in
+  // `tooltip-custom-class-example.css` will not be scoped to this component's view.
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
 
