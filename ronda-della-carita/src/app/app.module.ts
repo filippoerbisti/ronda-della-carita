@@ -118,7 +118,7 @@ import { environment } from '../environments/environment';
     MatSnackBarModule,
     MatBadgeModule,
     MatBottomSheetModule,
-    MatTooltip,
+    MatTooltipModule,
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
