@@ -85,6 +85,7 @@ export class HomeComponent implements OnInit {
 
   swipeTime: any;
   swipeCoord: any;
+  slides = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -437,6 +438,20 @@ export class HomeComponent implements OnInit {
     this.typeNotification = "Da confermare";
     localStorage["view_notification"] = this.typeNotification;
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
+  }
+
+onSwipeRight(event, data) {
+    this.slides = this.slides + data
+    if (this.slides == 2) {
+      this.slides = 0
+    }
+  }
+
+  onSwipeLeft(event, data) {
+    this.slides = this.slides + data
+    if (this.slides == -2) {
+      this.slides = 0
+    }
   }
 
   swipe(e: TouchEvent, when: string): void {
