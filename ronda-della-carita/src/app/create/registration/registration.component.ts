@@ -54,6 +54,8 @@ export class RegistrationComponent implements OnInit {
 
   psw!: any;
 
+  rule!: string;
+
   isLoading = false;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
