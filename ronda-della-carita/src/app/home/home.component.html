@@ -275,6 +275,16 @@
                           (selectionChange)="filterOrder()"
                           [(ngModel)]="order_status"
                         >
+                          <mat-select-trigger>
+                            <div class="flex items-center">
+                              <span class="mr-auto">{{ status.value }}</span>
+                              <div class="flex justify-center">
+                                <span class="material-icons" [ngClass]="status.class">
+                                    {{ status.icon }}
+                                </span>
+                              </div>
+                            </div>
+                          </mat-select-trigger>
                           <mat-option value="all">Tutti</mat-option>
                           <mat-option
                             *ngFor="let status of statuses"
@@ -314,6 +324,16 @@
                           (selectionChange)="filterOrder()"
                           [(ngModel)]="order_status"
                         >
+                          <mat-select-trigger>
+                            <div class="flex items-center">
+                              <span class="mr-auto">{{ status.value }}</span>
+                              <div class="flex justify-center">
+                                <span class="material-icons" [ngClass]="status.class">
+                                    {{ status.icon }}
+                                </span>
+                              </div>
+                            </div>
+                          </mat-select-trigger>
                           <mat-option value="all">Tutti</mat-option>
                           <mat-option
                             *ngFor="let status of statuses"
