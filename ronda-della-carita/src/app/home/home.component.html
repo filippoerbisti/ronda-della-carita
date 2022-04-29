@@ -1,3 +1,5 @@
+<!-- (touchstart)="swipe($event, 'start')"
+        (touchend)="swipe($event, 'end')"-->
 <div class="h-full w-full">
   <div *ngIf="!isLoading" class="w-full flex items-stretch">
     <div class="w-full h-full">
@@ -8,8 +10,6 @@
 
         (swipeleft)="onSwipeLeft($event,-1)" (swiperight)="onSwipeRight($event,1)
       >
-        <!-- (touchstart)="swipe($event, 'start')"
-        (touchend)="swipe($event, 'end')"-->
         <!-- USERS -->
         <mat-tab label="VOLONTARI" *ngIf="isAdmin">
           <mat-card class="h-full">
