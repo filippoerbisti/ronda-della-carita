@@ -275,9 +275,6 @@
                           (selectionChange)="filterOrder()"
                           [(ngModel)]="order_status"
                         >
-                          <mat-select-trigger>
-      <mat-icon>home</mat-icon>&nbsp;{{ status.value }}
-    </mat-select-trigger>
                           <mat-option value="all">Tutti</mat-option>
                           <mat-option
                             *ngFor="let status of statuses"
