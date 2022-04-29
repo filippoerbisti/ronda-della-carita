@@ -1,4 +1,4 @@
-Contributs:
-- Filippo Erbisti (@filippoerbisti)
-- Lorenzo Comparini (@)
-- Alessio Lilli (@)
+Contributors:
+- Filippo Erbisti (@github/filippoerbisti)
+- Lorenzo Comparini (@github/LorenzoComparini)
+- Alessio Lilli (@github/alessiolilli)
