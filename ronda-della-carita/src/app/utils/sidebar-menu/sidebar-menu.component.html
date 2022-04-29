@@ -13,7 +13,7 @@
                 <!-- {{ user.nome | uppercase }} {{ user.cognome | uppercase}} -->
             </div>
             <button mat-icon-button aria-label="Menu" [matMenuTriggerFor]="menu">
-                <div class="relative flex justify-center items-center">
+                <div class="relative flex justify-center items-center" matTooltip="Notifiche">
                     <mat-icon class="text-white relative">notifications_active</mat-icon>
                     <span *ngIf="countNotifiche" class="absolute left-6 bottom-1/2 rounded-full text-white bg-red-400 h-5 flex items-center justify-center">
                         <span class="px-1">{{ countNotifiche }}</span>
@@ -65,7 +65,7 @@
                 </button>
             </mat-menu>
             <div class="hidden sm:inline">
-                <button mat-icon-button (click)="goToLogOut()">
+                <button mat-icon-button matTooltip="Esci" (click)="goToLogOut()">
                     <mat-icon class="text-white">exit_to_app</mat-icon>
                 </button>
             </div>
