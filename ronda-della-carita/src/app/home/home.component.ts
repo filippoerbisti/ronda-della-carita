@@ -440,7 +440,7 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
 
-  onSwipeRight(event, data) {
+  onSwipeRight(event: any, data: any) {
     this.indexTab = this.indexTab + data
     if (window.location.href.includes('vol1') || window.location.href.includes('vol0')) {
       if (this.indexTab == 2) {
@@ -453,7 +453,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onSwipeLeft(event, data) {
+  onSwipeLeft(event: any, data: any) {
     if (window.location.href.includes('vol1') || window.location.href.includes('vol0')) {
       if (this.indexTab == -2) {
         this.indexTab = 0
