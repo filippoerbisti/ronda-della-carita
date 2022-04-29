@@ -127,4 +127,17 @@ export class RegistrationComponent implements OnInit {
     )
   }
 
+  goToHome() {
+    if (window.location.href.includes('vol1')) {
+      this.rule = 'vol1';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    } else if (window.location.href.includes('vol0')) {
+      this.rule = 'vol0';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/${this.rule}` + '/home');
+    }
+  }
+
 }
