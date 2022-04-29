@@ -275,7 +275,8 @@
                           (selectionChange)="filterOrder()"
                           [(ngModel)]="order_status"
                         >
-                          <mat-select-trigger>
+                          <mat-select-trigger *ngFor="let status of statuses"
+                            [value]="status.name">
                             <div class="flex items-center">
                               <span class="mr-auto">{{ status.value }}</span>
                               <div class="flex justify-center">
@@ -324,7 +325,8 @@
                           (selectionChange)="filterOrder()"
                           [(ngModel)]="order_status"
                         >
-                          <mat-select-trigger>
+                          <mat-select-trigger *ngFor="let status of statuses"
+                            [value]="status.name">
                             <div class="flex items-center">
                               <span class="mr-auto">{{ status.value }}</span>
                               <div class="flex justify-center">
