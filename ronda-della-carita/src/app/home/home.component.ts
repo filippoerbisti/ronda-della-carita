@@ -440,17 +440,28 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewOrderNotificationDialogComponent);
   }
 
-onSwipeRight(event, data) {
-    this.slides = this.slides + data
-    if (this.slides == 2) {
-      this.slides = 0
+  onSwipeRight(event, data) {
+    this.indexTab = this.indexTab + data
+    if (window.location.href.includes('vol1') || window.location.href.includes('vol0')) {
+      if (this.indexTab == 2) {
+        this.indexTab = 0
+        }
+    } else if (window.location.href.includes('admin')) {
+      if (this.indexTab == 3) {
+        this.indexTab = 0
+      }
     }
   }
 
   onSwipeLeft(event, data) {
-    this.slides = this.slides + data
-    if (this.slides == -2) {
-      this.slides = 0
+    if (window.location.href.includes('vol1') || window.location.href.includes('vol0')) {
+      if (this.indexTab == -2) {
+        this.indexTab = 0
+        }
+    } else if (window.location.href.includes('admin')) {
+      if (this.indexTab == -3) {
+        this.indexTab = 0
+      }
     }
   }
 
