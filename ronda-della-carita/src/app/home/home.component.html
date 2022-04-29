@@ -5,9 +5,11 @@
         mat-align-tabs="center"
         [(selectedIndex)]="indexTab"
         class="w-full flex bg-nav"
-        (touchstart)="swipe($event, 'start')"
-        (touchend)="swipe($event, 'end')"
+
+        (swipeleft)="onSwipeLeft($event,-1)" (swiperight)="onSwipeRight($event,1)
       >
+        <!-- (touchstart)="swipe($event, 'start')"
+        (touchend)="swipe($event, 'end')"-->
         <!-- USERS -->
         <mat-tab label="VOLONTARI" *ngIf="isAdmin">
           <mat-card class="h-full">
