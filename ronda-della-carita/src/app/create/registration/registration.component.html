@@ -101,10 +101,15 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="flex justify-end">
-                        <button (click)="registration()" class="confirmButton text-lg px-2 py-1 rounded-md">
-                            REGISTRATI
-                        </button>
+                    <div class="flex space-x-2 justify-between py-8">
+                      <button mat-button class="backButton text-lg" (click)="goToHome()">
+                        <mat-icon class="text-bt-orange"> keyboard_arrow_left </mat-icon>
+                        <span class="p-2">INDIETRO</span>
+                      </button>
+                      <button mat-button class="confirmButton text-lg">
+                        <span class="p-2" (click)="registration()">CONFERMA</span>
+                        <mat-icon class=""> keyboard_arrow_right </mat-icon>
+                      </button>
                     </div>
                 </form>
             </div>
