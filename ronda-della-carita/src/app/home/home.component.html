@@ -151,7 +151,7 @@
                       </mat-panel-description>
                       <div class="w-1/3 flex justify-end">
                         <button
-                          mat-button-basic
+                          mat-raised-button
                           matTooltip="Modifica Utente"
                           (click)="openEditUserDialog(user.id)"
                           class="ml-auto mr-3 sm:mr-5"
@@ -172,7 +172,7 @@
                           </svg>
                         </button>
                         <button
-                          mat-button-basic
+                          mat-raised-button
                           matTooltip="Elimina Utente"
                           (click)="openDeleteUserDialog(user.id)"
                           class="mr-3 sm:mr-5"
@@ -358,18 +358,20 @@
                           class="leading-loose text-black mr-auto pr-4 hidden sm:inline"
                           >Stato:
                         </span>
-                        <span
+                        <button
+                          mat-raised-button
+                          [matTooltip]="order.status.name"
                           class="material-icons"
                           [ngClass]="order.status.class"
                           *ngIf="order.status"
                         >
                           {{ order.status.icon }}
-                        </span>
+                        </button>
                       </div>
                     </mat-panel-description>
                     <div class="w-1/3 flex justify-end">
                       <button
-                        mat-button-basic
+                        mat-raised-button
                         matTooltip="Vedi PDF"
                         (click)="openPreviewPDF(order.id)"
                         class="ml-auto mr-3 sm:mr-5"
@@ -390,7 +392,7 @@
                         </svg>
                       </button>
                       <button
-                        mat-button-basic
+                        mat-raised-button
                         matTooltip="Modifica Ordine"
                         (click)="openEditOrderDialog(order.id)"
                         class="mr-3 sm:mr-5"
@@ -411,7 +413,7 @@
                         </svg>
                       </button>
                       <button
-                        mat-button-basic
+                        mat-raised-button
                         matTooltip="Elimina Ordine"
                         (click)="openDeleteOrderDialog(order.id)"
                         class="mr-3 sm:mr-5"
@@ -432,7 +434,7 @@
                         </svg>
                       </button>
                       <button
-                        mat-button-basic
+                        mat-raised-button
                         matTooltip="Conferma Ordine"
                         (click)="openConfirmOrderDialog(order.id)"
                         class="mr-3 sm:mr-5"
@@ -577,7 +579,7 @@
                     </mat-panel-description>
                     <div class="w-1/3 flex justify-end">
                       <button
-                        mat-button-basic
+                        mat-raised-button
                         matTooltip="Modifica Volontario"
                         (click)="openEditClientDialog(client.id)"
                         class="ml-auto mr-3 sm:mr-5"
@@ -598,7 +600,7 @@
                         </svg>
                       </button>
                       <button
-                        mat-button-basic
+                        mat-raised-button
                         matTooltip="Elimina Volontario"
                         (click)="openDeleteClientDialog(client.id)"
                         class="mr-3 sm:mr-5"
