@@ -76,6 +76,7 @@
                       </mat-panel-description>
                       <div class="w-1/3 flex justify-end">
                         <button
+                          matTooltip="Modifica Utente"
                           mat-button-basic
                           (click)="openEditUserDialog(user.id)"
                           class="ml-auto mr-3 sm:mr-5"
@@ -97,6 +98,7 @@
                         </button>
                         <button
                           mat-button-basic
+                          matTooltip="Elimina Utente"
                           (click)="openDeleteUserDialog(user.id)"
                           class="mr-3 sm:mr-5"
                         >
@@ -150,6 +152,7 @@
                       <div class="w-1/3 flex justify-end">
                         <button
                           mat-button-basic
+                          matTooltip="Modifica Utente"
                           (click)="openEditUserDialog(user.id)"
                           class="ml-auto mr-3 sm:mr-5"
                         >
@@ -170,6 +173,7 @@
                         </button>
                         <button
                           mat-button-basic
+                          matTooltip="Elimina Utente"
                           (click)="openDeleteUserDialog(user.id)"
                           class="mr-3 sm:mr-5"
                         >
@@ -366,6 +370,7 @@
                     <div class="w-1/3 flex justify-end">
                       <button
                         mat-button-basic
+                        matTooltip="Vedi PDF"
                         (click)="openPreviewPDF(order.id)"
                         class="ml-auto mr-3 sm:mr-5"
                       >
@@ -386,6 +391,7 @@
                       </button>
                       <button
                         mat-button-basic
+                        matTooltip="Modifica Ordine"
                         (click)="openEditOrderDialog(order.id)"
                         class="mr-3 sm:mr-5"
                       >
@@ -406,6 +412,7 @@
                       </button>
                       <button
                         mat-button-basic
+                        matTooltip="Elimina Ordine"
                         (click)="openDeleteOrderDialog(order.id)"
                         class="mr-3 sm:mr-5"
                       >
@@ -426,6 +433,7 @@
                       </button>
                       <button
                         mat-button-basic
+                        matTooltip="Conferma Ordine"
                         (click)="openConfirmOrderDialog(order.id)"
                         class="mr-3 sm:mr-5"
                       >
@@ -570,6 +578,7 @@
                     <div class="w-1/3 flex justify-end">
                       <button
                         mat-button-basic
+                        matTooltip="Modifica Volontario"
                         (click)="openEditClientDialog(client.id)"
                         class="ml-auto mr-3 sm:mr-5"
                       >
@@ -590,6 +599,7 @@
                       </button>
                       <button
                         mat-button-basic
+                        matTooltip="Elimina Volontario"
                         (click)="openDeleteClientDialog(client.id)"
                         class="mr-3 sm:mr-5"
                       >
