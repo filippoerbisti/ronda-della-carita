@@ -63,10 +63,7 @@ Host Back-End: ```Heroku App```
 Host Database: ```Heroku App``` (PostgreSQL)
 
 # Guide
-[License guidelines for this project](docs/LICENSE)
-`
-[Security guidelines for this project](docs/SECURITY.md)
-`
-[Contribution guidelines for this project](docs/CONTRIBUTING.md)
-`
-[Conduct guidelines for this project](docs/CODE_OF_CONDUCT.md)
+* [License guidelines for this project](docs/LICENSE)
+* [Security guidelines for this project](docs/SECURITY.md)
+* [Contribution guidelines for this project](docs/CONTRIBUTING.md)
+* [Conduct guidelines for this project](docs/CODE_OF_CONDUCT.md)
