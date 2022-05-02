@@ -12,7 +12,6 @@ La Ronda della Carità è una associazione di carità che 365 giorni all'anno di
 ```npm
 npm install -g @angular/cli
 ```
-@filippoerbisti
 
 2. Scaricare il progetto
 3. Entrare nella cartella ```/ronda-della-carita``` 
