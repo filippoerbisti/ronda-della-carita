@@ -2,9 +2,10 @@
 
 <p align="left" width="50%">
     <img width="33%" src="https://github.com/filippoerbisti/ronda-della-carita/blob/main/icon.ico"> 
-</p>
     WELCOME
     RONDA DELLA CARITÀ
+</p>
+    
     
 ### Markdown
 
