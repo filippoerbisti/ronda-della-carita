@@ -1,7 +1,9 @@
 
-![alt text](https://github.com/filippoerbisti/ronda-della-carita/blob/main/icon.ico?raw=true)
-    
-###WELCOME RONDA DELLA CARITÀ
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/filippoerbisti/ronda-della-carita/blob/main/ronda-della-carita.png"> 
+</p>
+
+<h1 align="center" width="100%">WELCOME RONDA DELLA CARITÀ</h1>
     
 ### Markdown
 
