@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
-    this.indexTab >= 0;
+    this.indexTab = 0;
     try {
       let response_account = await axios.get(this.API_URL + "/api/user", { withCredentials: false });
       this.user = response_account.data;

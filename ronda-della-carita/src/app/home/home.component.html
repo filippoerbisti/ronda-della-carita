@@ -1,5 +1,4 @@
-<!-- (touchstart)="swipe($event, 'start')"
-        (touchend)="swipe($event, 'end')"-->
+
 <div class="h-full w-full">
   <div *ngIf="!isLoading" class="w-full flex items-stretch">
     <div class="w-full h-full">
@@ -7,7 +6,8 @@
         mat-align-tabs="center"
         [(selectedIndex)]="indexTab"
         class="w-full flex bg-nav"
-
+        (touchstart)="swipe($event, 'start')"
+        (touchend)="swipe($event, 'end')"
         (swipeleft)="onSwipeLeft($event,-1)" (swiperight)="onSwipeRight($event,1)"
       >
         <!-- USERS -->
