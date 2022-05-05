@@ -33,7 +33,6 @@ export class CreateClientComponent implements OnInit {
   public tPantalonis = sizes.filter((size) => size.type == 'Pantaloni');
   public tScarpes = sizes.filter((size) => size.type == 'Scarpe');
 
-
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 3;
 
@@ -65,7 +64,8 @@ export class CreateClientComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  goToHome() {
+  goToHome() { 
+    //route->home
     if (window.location.href.includes('vol1')) {
       this.rule = 'vol1';
       this.router.navigateByUrl(`/${this.rule}` + '/home');
