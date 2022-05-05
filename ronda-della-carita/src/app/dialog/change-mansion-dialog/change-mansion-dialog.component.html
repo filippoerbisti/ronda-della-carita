@@ -1,0 +1,20 @@
+<div *ngIf="!isLoading">
+    <h2 mat-dialog-title>Sei sicuro di voler passare a</h2>
+    <h1>
+        <span *ngIf="router.url.includes('vol0')">INTERNO</span>
+        <span *ngIf="router.url.includes('vol1')">ESTERNO</span>
+    </h1>
+    <mat-dialog-actions align="end">
+        <div class="flex">
+            <button mat-button class="backButton text-lg w-1/2" mat-dialog-close>
+                <span class="p-2">ANNULLA</span>
+            </button>
+            <button mat-button (click)="goChangeMansion()" mat-dialog-close class="bg-bt-orange w-1/2">
+                <span class="p-2 text-white">CONFERMA</span>
+            </button>
+        </div>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="isLoading" class="h-full grid grid-center">
+    <mat-spinner class="m-auto"></mat-spinner>
+</div>

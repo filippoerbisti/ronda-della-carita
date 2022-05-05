@@ -10,6 +10,7 @@ import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { IHistory } from 'src/app/shared/interface/IHistory';
+import { ChangeMansionDialogComponent } from 'src/app/dialog/change-mansion-dialog/change-mansion-dialog.component';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -133,6 +134,11 @@ export class SidebarMenuComponent implements OnInit {
       this.router.navigateByUrl(`/${this.rule}` + '/create/order');
     }
     this.isSidebarOpen = false;
+  }
+
+  openChangeMansionDialog() {
+    this.isSidebarOpen = false;
+    const dialogRef = this.dialog.open(ChangeMansionDialogComponent);
   }
 
   goToViewAll() {

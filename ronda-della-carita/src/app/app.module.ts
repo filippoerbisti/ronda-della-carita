@@ -56,6 +56,7 @@ import { EditUserDialogComponent } from './dialog/user/edit-user-dialog/edit-use
 import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-order-dialog.component';
 import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { ConfirmOrderDialogComponent } from './dialog/order/confirm-order-dialog/confirm-order-dialog.component';
+import { ChangeMansionDialogComponent } from './dialog/change-mansion-dialog/change-mansion-dialog.component';
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
@@ -87,6 +88,7 @@ import { environment } from '../environments/environment';
     CreateOrderComponent,
     RegistrationComponent,
     ConfirmOrderDialogComponent,
+    ChangeMansionDialogComponent,
   ],
   imports: [
     BrowserModule,
