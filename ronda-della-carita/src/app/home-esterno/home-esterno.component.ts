@@ -22,8 +22,7 @@ export class HomeEsternoComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    const x: any = localStorage.getItem('user')
-    this.user = JSON.parse(x);
+    this.user = JSON.parse(localStorage["user"]);
     // try {
     //   let response = await axios.get(this.API_URL + "/api/user-profile", {withCredentials: true});
     //   console.log(response.status);

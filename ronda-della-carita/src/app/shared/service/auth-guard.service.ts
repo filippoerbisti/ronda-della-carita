@@ -12,9 +12,8 @@ export class AuthGuardService implements CanActivate {
   ) {}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    let user:any = localStorage.getItem("user");
-    this.user = user;
-
+    this.user = JSON.parse(localStorage["user"]);
+    
     const isAdmin = 'admin';
 
     if (this.user.ruolo == isAdmin) {

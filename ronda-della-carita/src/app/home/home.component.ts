@@ -379,43 +379,43 @@ export class HomeComponent implements OnInit {
 
   openDeleteUserDialog(userId: number) {
     this.userId = userId;
-    localStorage["id"] = this.userId;
+    localStorage["idDeleteUser"] = this.userId;
     const dialogRef = this.dialog.open(DeleteUserDialogComponent);
   }
 
   openDeleteClientDialog(clientId: number) {
     this.clientId = clientId;
-    localStorage["id"] = this.clientId;
+    localStorage["idDeleteClient"] = this.clientId;
     const dialogRef = this.dialog.open(DeleteClientDialogComponent);
   }
 
   openDeleteOrderDialog(orderId: number) {
     this.orderId = orderId;
-    localStorage["id"] = this.orderId;
+    localStorage["idDeleteOrder"] = this.orderId;
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
   }
 
   openConfirmOrderDialog(orderId: number) {
     this.orderId = orderId;
-    localStorage["id"] = this.orderId;
+    localStorage["idConfirmOrder"] = this.orderId;
     const dialogRef = this.dialog.open(ConfirmOrderDialogComponent);
   }
 
   openEditUserDialog(userId: number) {
     this.userId = userId;
-    localStorage["id"] = this.userId;
+    localStorage["idEditUser"] = this.userId;
     const dialogRef = this.dialog.open(EditUserDialogComponent);
   }
 
   openEditOrderDialog(orderId: number) {
     this.orderId = orderId;
-    localStorage["id"] = this.orderId;
+    localStorage["idEditOrder"] = this.orderId;
     const dialogRef = this.dialog.open(EditOrderDialogComponent);
   }
 
   openEditClientDialog(clientId: number) {
     this.clientId = clientId;
-    localStorage["id"] = this.clientId;
+    localStorage["idEditClient"] = this.clientId;
     const dialogRef = this.dialog.open(EditClientDialogComponent);
   }
 

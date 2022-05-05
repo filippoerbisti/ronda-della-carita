@@ -77,7 +77,7 @@ export class EditClientDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.clientId = localStorage["id"];
+    this.clientId = localStorage["idEditClient"];
     let clientId = this.clientId;
     try {
       let response_order = await axios.get(this.API_URL + "/api/client/" + clientId);
@@ -92,7 +92,7 @@ export class EditClientDialogComponent implements OnInit {
   }
 
   clearCache() {
-    localStorage.removeItem("id");
+    localStorage.removeItem("idEditClient");
   }
 
   editClient() {

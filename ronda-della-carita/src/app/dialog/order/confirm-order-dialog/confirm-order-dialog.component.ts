@@ -21,7 +21,7 @@ export class ConfirmOrderDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.orderId = localStorage["id"];
+    this.orderId = localStorage["idConfirmOrder"];
     let orderId = this.orderId;
     console.log(this.orderId);
     try {
@@ -37,19 +37,19 @@ export class ConfirmOrderDialogComponent implements OnInit {
   }
 
   clearCache() {
-    localStorage.removeItem("id");
+    localStorage.removeItem("idConfirmOrder");
   }
 
   async deleteOrder() {
     this.isLoading = true;
-    this.orderId = localStorage["id"];
+    this.orderId = localStorage["idConfirmOrder"];
     let orderId = this.orderId;
     console.log(orderId);
     await axios.put(this.API_URL + "/api/order/confirm/" + orderId)
       .then(response => {
         console.log(response);
       });
-    localStorage.removeItem("id");
+    localStorage.removeItem("idConfirmOrder");
     window.location.reload();
     this.isLoading = false;
   }

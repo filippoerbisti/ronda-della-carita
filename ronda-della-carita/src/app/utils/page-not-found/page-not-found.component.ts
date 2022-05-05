@@ -15,7 +15,6 @@ export class PageNotFoundComponent implements OnInit {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
-    localStorage.removeItem("ruolo");
   }
 
 }

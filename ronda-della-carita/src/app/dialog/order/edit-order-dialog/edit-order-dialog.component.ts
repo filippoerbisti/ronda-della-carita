@@ -94,7 +94,7 @@ export class EditOrderDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.orderId = localStorage["id"];
+    this.orderId = localStorage["idEditOrder"];
     let orderId = this.orderId;
     try {
       let response_order = await axios.get(this.API_URL + "/api/order/" + orderId);
@@ -140,7 +140,7 @@ export class EditOrderDialogComponent implements OnInit {
   }
 
   clearCache() {
-    localStorage.removeItem("id");
+    localStorage.removeItem("idEditOrder");
   }
 
   editOrder() {

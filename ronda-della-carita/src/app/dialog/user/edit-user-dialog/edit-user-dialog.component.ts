@@ -39,7 +39,7 @@ export class EditUserDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.userId = localStorage["id"];
+    this.userId = localStorage["idEditUser"];
     let userId = this.userId;
     try {
       let response = await axios.get(this.API_URL + "/api/user/" + userId);
@@ -52,7 +52,7 @@ export class EditUserDialogComponent implements OnInit {
   }
 
   clearCache() {
-    localStorage.removeItem("id");
+    localStorage.removeItem("idEditUser");
   }
 
   editUser() {

@@ -21,7 +21,7 @@ export class DeleteUserDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.userId = localStorage["id"];
+    this.userId = localStorage["idDeleteUser"];
     let userId = this.userId;
     console.log(this.userId);
     try {
@@ -37,12 +37,12 @@ export class DeleteUserDialogComponent implements OnInit {
   }
 
   clearCache() {
-    localStorage.removeItem("id");
+    localStorage.removeItem("idDeleteUser");
   }
 
   async deleteUser() {
     this.isLoading = true;
-    this.userId = localStorage["id"];
+    this.userId = localStorage["idDeleteUser"];
     let userId = this.userId;
     console.log(userId);
     await axios.delete(this.API_URL + "/api/user/delete/" + userId)
@@ -50,7 +50,7 @@ export class DeleteUserDialogComponent implements OnInit {
         userId
         console.log(response);
       });
-    localStorage.removeItem("id");
+    localStorage.removeItem("idDeleteUser");
     window.location.reload();
     this.isLoading = false;
   }

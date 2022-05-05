@@ -21,7 +21,7 @@ export class DeleteOrderDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.orderId = localStorage["id"];
+    this.orderId = localStorage["idDeleteOrder"];
     let orderId = this.orderId;
     console.log(this.orderId);
     try {
@@ -37,19 +37,19 @@ export class DeleteOrderDialogComponent implements OnInit {
   }
 
   clearCache() {
-    localStorage.removeItem("id");
+    localStorage.removeItem("idDeleteOrder");
   }
 
   async deleteOrder() {
     this.isLoading = true;
-    this.orderId = localStorage["id"];
+    this.orderId = localStorage["idDeleteOrder"];
     let orderId = this.orderId;
     console.log(orderId);
     await axios.delete(this.API_URL + "/api/order/delete/" + orderId)
       .then(response => {
         console.log(response);
       });
-    localStorage.removeItem("id");
+    localStorage.removeItem("idDeleteOrder");
     window.location.reload();
     this.isLoading = false;
   }
