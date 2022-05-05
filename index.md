@@ -1,9 +1,15 @@
-## Welcome in Ronda della Carità
 
-<p align="center" width="100%">
+
+<p align="left" width="50%">
     <img width="33%" src="https://github.com/filippoerbisti/ronda-della-carita/blob/main/icon.ico"> 
 </p>
-
+<h1 align="center" width="100%">
+    WELCOME
+</h1>
+<h1 align="center" width="100%">
+    RONDA DELLA CARITÀ
+</h1>
+    
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
