@@ -1,6 +1,8 @@
 ## Welcome in Ronda della Carità
 
-![alt text](https://github.com/filippoerbisti/ronda-della-carita/blob/main/icon.ico?raw=true)
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/filippoerbisti/ronda-della-carita/blob/main/icon.ico"> 
+</p>
 
 ### Markdown
 
