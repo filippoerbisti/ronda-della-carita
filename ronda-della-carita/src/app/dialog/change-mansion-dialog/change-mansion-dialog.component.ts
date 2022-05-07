@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import axios from 'axios';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -28,6 +29,7 @@ export class ChangeMansionDialogComponent implements OnInit {
   }
 
   async goChangeMansion() {
+    
     let vol1 = window.location.href.includes('vol1');
     let user = JSON.parse(localStorage["user"]);
     this.newHistory.idUtente = user.id;
@@ -35,17 +37,17 @@ export class ChangeMansionDialogComponent implements OnInit {
     if (vol1) {
       this.rule = 'vol0';
       this.newHistory.ruolo = 'Esterno';
-      this.router.navigateByUrl(`/${this.rule}` + '/home');
     } else {
       this.rule = 'vol1';
       this.newHistory.ruolo = 'Interno';
-      this.router.navigateByUrl(`/${this.rule}` + '/home');
     }
+    
+    this.router.navigateByUrl(`/${this.rule}` + '/home');
 
-    // let response = await axios.post(
-    //   this.API_URL + '/api/history/change-mansion',
-    //   this.newHistory
-    // );
+    let response = await axios.post(
+      this.API_URL + '/api/history/change-mansion',
+      this.newHistory
+    );
 
   }
 }

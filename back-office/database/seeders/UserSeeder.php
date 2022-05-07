@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class UserSeeder extends Seeder
 {
@@ -17,28 +19,37 @@ class UserSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $n = 1;
+
+        $file = Storage::disk("public")->get("volontari.csv");
+
+        $users = explode("\n", $file);
+        // DELETE LAST ARRAY DATA (EMPTY)
+        array_pop($users);
 
         DB::table('users')->insert([
-            'nome' => "admin",
-            'cognome' => "admin",
-            'n_tessera' => $n++,
-            'ruolo' => "Admin",
-            'email' => "admin@gmail.com",
-            'password' => Hash::make('Test1234.'),
+            'nome' => 'Admin',
+            'cognome' => 'Admin',
+            'n_tessera' => '0000',
+            'ruolo' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('password'),
             'created_at' => now()
         ]);
 
-        for ($i = 0; $i < 30; $i++) {
+        foreach ($users as $user) {
+            $userData = explode(",", $user);
+            // Log::info("USER: " . $userData[1] . " " . $userData[2]);
+
             DB::table('users')->insert([
-                'nome' => $faker -> firstName,
-                'cognome' => $faker -> lastName,
-                'n_tessera' => $n++,
-                'ruolo' => $faker -> randomElement(['Interno', 'Esterno']),
-                'email' => $faker -> unique()-> freeEmail,
+                'nome' => $userData[2],
+                'cognome' => $userData[1],
+                'n_tessera' => $userData[0],
+                'ruolo' => 'Esterno',
+                'email' => null,
                 'password' => Hash::make('password'),
                 'created_at' => now()
             ]);
+
         }
     }
 }

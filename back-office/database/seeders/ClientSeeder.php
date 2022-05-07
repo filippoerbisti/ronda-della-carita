@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ClientSeeder extends Seeder
 {
@@ -15,25 +17,39 @@ class ClientSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $n = 1;
-        $userId = DB::table('users')->pluck('id');
-        $documentId = DB::table('documents')->pluck('id');
-        
-        for ($i = 0; $i < 60; $i++) {
+
+        $file = Storage::disk("public")->get("assistiti.csv");
+
+        $users = explode("\n", $file);
+        // DELETE LAST ARRAY DATA (EMPTY)
+        array_pop($users);
+
+
+        foreach ($users as $user) {
+            $userData = explode(",", $user);
+            Log::info("USER: " . $userData[1] . " " . $userData[2]);
+
             DB::table('clients')->insert([
-                'nome' => $faker -> firstName,
-                'cognome' => $faker -> lastName,
-                'n_tessera' => $n++,
-                'genere' => $faker->randomElement(['M', 'F']),
-                'nazionalita' => $faker -> state,
-                'altezza' => rand(150, 208), 
-                't_maglietta' => 'M',
-                't_pantaloni' => rand(42, 56),
-                't_scarpe' => rand(36, 48),
+                'nome' => $userData[2],
+                'cognome' => $userData[1],
+                'n_tessera' => $userData[0],
+                'genere' => null,
+                'nazionalita' => $userData[4],
+                'altezza' => null, 
+                't_maglietta' => null,
+                't_pantaloni' => null,
+                't_scarpe' => null,
                 'created_at' => now(),
-                'document_id' => $faker->randomElement($documentId),
-                'user_id' => $faker->randomElement($userId)
+                'document_id' => null,
+                'user_id' => null
             ]);
+
+            // Tessera          0  
+            // Cognome          1     
+            // Nome             2    
+            // Data di nascita  3     
+            // Nazionalità      4
+
         }
     }
 }

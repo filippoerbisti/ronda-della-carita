@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
@@ -63,5 +64,13 @@ class HistoryController extends Controller
         $newHistory->save();
 
         return $newHistory;
+    }
+
+    public function changeMansion(Request $req) {
+        $newHistoryData = json_decode($req->getContent());
+
+        $user = User::where("id", $req->idUtente)->update(["ruolo" => $req->ruolo]);
+
+        return $user;
     }
 }

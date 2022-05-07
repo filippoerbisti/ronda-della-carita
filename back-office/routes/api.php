@@ -53,6 +53,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
         Route::post('/history/create', [HistoryController::class, 'create']);
 
+        Route::post('history/change-mansion', [HistoryController::class, 'changeMansion']);
+
 
         // Client
         Route::get('/clients', [ClientController::class, 'list']);
