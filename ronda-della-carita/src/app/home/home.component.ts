@@ -349,7 +349,7 @@ export class HomeComponent implements OnInit {
   async filterClient() {
     let search = this.searchClient;
     try {
-      let response_filter = await axios.get(this.API_URL + "/api/client/" + search);
+      let response_filter = await axios.get(this.API_URL + "/api/clients/" + search);
       console.log(response_filter.status);
       console.log(response_filter.data);
       this.clients = response_filter.data;

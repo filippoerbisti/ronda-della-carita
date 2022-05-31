@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-//import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 
 import { HomeComponent } from './home/home.component';
@@ -18,7 +18,7 @@ import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 // import { AuthGuardService } from './shared/service/auth-guard.service';
 
 const routes: Routes = [
-  //{ path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'admin/home', component: HomeComponent },
   { path: 'vol1/home', component: HomeComponent },
   { path: 'vol0/home', component: HomeEsternoComponent },

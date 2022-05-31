@@ -35,7 +35,7 @@ class ClientController extends Controller
                         ->orWhere('genere', 'LIKE', "%$search%")
                         ->orWhere('n_tessera', 'LIKE', "%$search%")
                         ->join('documents', 'clients.document_id', '=', 'documents.id')
-                        ->orWhere('n_documento', 'LIKE', "%$search%")
+                        ->orWhere('n_doc', 'LIKE', "%$search%")
                         ->get();
         return $client;
     }
