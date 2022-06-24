@@ -36,16 +36,14 @@ class UserController extends Controller
 
     private function pairing($newUser, $newUserData) 
     {
-        $newUser->nome = $newUserData->nome;
-        $newUser->cognome = $newUserData->cognome;
-        $newUser->ruolo = $newUserData->ruolo;
-        $newUser->n_tessera = $newUserData->n_tessera;
-        $newUser->email = $newUserData->email;
-        $newUser->email_verified_at = $newUserData->email_verified_at;
-        $newUser->password = $newUserData->password;
-        $newUser->remember_token = $newUserData->remember_token;
-        $newUser->created_at = $newUserData->created_at;
-        $newUser->update_at = $newUserData->update_at;
+        $newUser->nome = $newUserData->nome ?? null;
+        $newUser->cognome = $newUserData->cognome ?? null;
+        $newUser->ruolo = $newUserData->ruolo ?? null;
+        $newUser->n_tessera = $newUserData->n_tessera ?? null;
+        $newUser->email = $newUserData->email ?? null;
+        // $newUser->email_verified_at = $newUserData->email_verified_at ?? null;
+        $newUser->password = $newUserData->password ?? null;
+        // $newUser->remember_token = $newUserData->remember_token ?? null;
 
         $newUser->save();
         return $newUser;

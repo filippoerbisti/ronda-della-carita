@@ -71,6 +71,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
         Route::put('/client/edit/{id}', [ClientController::class, 'edit']);
 
+        Route::put('/client/update-sizes/{id}', [ClientController::class, 'updateSizes']);
+
 
         // Order
         Route::get('/orders', [OrderController::class, 'list']);  //funzia

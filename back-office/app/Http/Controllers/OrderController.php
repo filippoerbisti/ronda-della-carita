@@ -29,6 +29,7 @@ class OrderController extends Controller
     {
         return Order::with('client')
             ->with('user')
+            ->with('clothes')
             ->where('id', $id)
             ->first();
     }
@@ -185,39 +186,43 @@ class OrderController extends Controller
     {
         //$newOrder->n_ordine = $newOrderData->n_ordine;
         $newOrder->p_ritiro = $newOrderData->p_ritiro;
+        $newOrder->giro = $newOrderData->giro;
         //$newOrder->livello = $newOrderData->livello;
         $newOrder->note = $newOrderData->note;
-        $newOrder->n_ordine = rand(1, 100000);
-        //$newOrder->created_at = $newOrderData->created_at;
-        //$newOrder->update_at = $newOrderData->update_at;
+        $newOrder->n_ordine = $newOrder->n_ordine ?? Order::max("n_ordine") +1;
 
-        $newOrder->client_id = $newOrderData->user->id;
+        $newOrder->client_id = $newOrderData->client->id;
 
         Log::info("pairing order");
         $newOrder->save();
         Log::info("order paired");
 
         Log::info("pairing clothes");
-        for ($i = 0; $i < count($newOrderData->clothes); $i++) {
-            $newClothe = new Clothe();
-            $newClothe->t_vestiario = $newOrderData->clothes[$i]->value;
-            // switch($newOrderData->clothes[$i]->type){
-            //     case "Maglietta":
-            //         $newClothe->taglia=$client->t_maglietta;
-            //         break;
-            //     case "Pantaloni":
-            //         $newClothe->taglia=$client->t_pantaloni;
-            //         break;
-            //     case "Scarpe":
-            //         $newClothe->taglia=$client->t_scarpe;
-            //         break;
-            // }
+        $newClothes = $newOrderData->clothes ?? [];
+        $newClothesId = [];
+        $clothesId = $newOrder->clothes->pluck("id")->toArray();
+
+        foreach ($newClothes as $clothe) { 
+            if (property_exists($clothe, "order_id")) {
+                $newClothesId[] = $clothe->id;
+                $newClothe = Clothe::find($clothe->id);
+            } else {
+                $newClothe = new Clothe();
+            }
+            
+            $newClothe->t_vestiario = $clothe->t_vestiario;
+            $newClothe->reference = $clothe->reference;
             $newClothe->status_id = Status::where("name", "to_be_prepared")->first()->id;
-            // $newClothe->status = "to_be_prepared";
             $newClothe->quantita = 1;
             $newClothe->order_id = $newOrder->id;
             $newClothe->save();
         }
+        $deleteIds = array_diff($clothesId, $newClothesId);
+        foreach ($deleteIds as $id) {
+            Log::info("deleting " . $id);
+        }
+        Clothe::whereIn("id", $deleteIds)->delete();
+
         return $newOrder;
     }
 
@@ -233,7 +238,7 @@ class OrderController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $order = Order::find($id);
+        $order = Order::with('clothes')->find($id);
         $newOrderData = json_decode($request->getContent());
 
         $order = $this->pairing($order, $newOrderData);
@@ -301,8 +306,14 @@ class OrderController extends Controller
     public function setOrdersStatus($orders)
     {
         for ($i = 0; $i < count($orders); $i++) {
-            // TODO: get all statuses and map an array
-            $priorita = ['delivered' => 0, 'not_available' => 0, 'to_be_delivered' => 0, 'to_be_prepared' => 0];
+            $statuses = Status::pluck('name');
+
+            $priorita = [];
+
+            foreach ($statuses as $status) {
+                $priorita[$status] = 0;
+            }
+        
 
             for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                 $priorita[$orders[$i]->clothes[$y]->status->name] = $priorita[$orders[$i]->clothes[$y]->status->name] + 1;

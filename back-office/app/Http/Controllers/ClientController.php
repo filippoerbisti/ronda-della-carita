@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Document;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,20 +35,20 @@ class ClientController extends Controller
                         ->orWhere('nazionalita', 'LIKE', "%$search%")
                         ->orWhere('genere', 'LIKE', "%$search%")
                         ->orWhere('n_tessera', 'LIKE', "%$search%")
-                        ->join('documents', 'clients.document_id', '=', 'documents.id')
-                        ->orWhere('n_doc', 'LIKE', "%$search%")
+                        // ->join('documents', 'clients.document_id', '=', 'documents.id')
+                        // ->orWhere('n_doc', 'LIKE', "%$search%")
                         ->get();
         return $client;
     }
 
-    private function pairing($newClient, $newClientData) 
+    private function pairing($newClient, $newClientData, $newDocument) 
     {        
 
         $newClient->nome = $newClientData->nome;
         $newClient->cognome = $newClientData->cognome;
         $newClient->n_tessera = $newClientData->n_tessera;
         $newClient->genere = $newClientData->genere;
-        // $newClient->altezza = $newClientData->altezza;
+        $newClient->altezza = $newClientData->altezza;
         $newClient->nazionalita = $newClientData->nazionalita;
         $newClient->t_maglietta = $newClientData->t_maglietta;
         $newClient->t_pantaloni = $newClientData->t_pantaloni;
@@ -57,7 +58,11 @@ class ClientController extends Controller
         // $newClient->updated_at = $newClientData->updated_at;
         $newClient->user_id = $newClientData->user_id;
 
+        $newDocument->n_doc = $newClientData->n_documento ?? null;
+        $newDocument->t_doc = $newClientData->t_documento ?? null;
+        $newDocument->save();
 
+        $newClient->document_id = $newDocument->id;
         $newClient->save();
         return $newClient;
     }
@@ -68,17 +73,19 @@ class ClientController extends Controller
         // $newClientData->created_at = Carbon::now();
         // $newClientData->updated_at = Carbon::now();
         $newClient = new Client();
+        $newDocument = new Document();
 
-        $newClient = $this->pairing($newClient, $newClientData);
+        $newClient = $this->pairing($newClient, $newClientData, $newDocument);
         return $newClient;
     }
 
     public function edit(Request $request, $id) 
     {
         $client = Client::find($id);
+        $document = Document::find($client->document_id) ?? new Document();
         $newClientData = json_decode($request->getContent());   
 
-        $client = $this->pairing($client, $newClientData);
+        $client = $this->pairing($client, $newClientData, $document);
         return $client;
     }
 
@@ -92,6 +99,17 @@ class ClientController extends Controller
     public function delete($id) 
     {
         $client = Client::where("id", $id)->delete();
+
+        return $client;
+    }
+
+    public function updateSizes($id, Request $req) {
+
+        $data = json_decode($req->getContent());
+
+        $client = Client::find($id);
+        $document = Document::find($client->document_id);
+        $client = $this->pairing($client, $data, $document);
 
         return $client;
     }
