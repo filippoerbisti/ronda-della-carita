@@ -20,6 +20,7 @@ class OrderController extends Controller
     public function list()
     {
         $orders = Order::with('client')
+            ->orderBy("updated_at", "desc")
             ->with('user')
             ->get();
         return $this->setOrdersStatus($orders);
@@ -288,25 +289,29 @@ class OrderController extends Controller
         return Status::all();
     }
 
-    // public function notificationsCount()
-    // {
-    //     $ordersQuery = Order::with('client')
-    //         ->with('user');
+    public function notificationsCount()
+    {
+        $ordersQuery = Order::with('client')
+            ->with('user');
 
-    //     $orders = $this->setOrdersStatus($ordersQuery->get());
+        $orders = $this->setOrdersStatus($ordersQuery->get());
 
-    //     // $count = new stdClass();
-    //     foreach ($orders as $order) {
-    //         // $count[$order->status->name] = $count[$order->status->name] + 1;
-    //         $count = (object) array_merge( (array)$order->status->name, array( $order->status->name => '1234' ) );
+        $count = [
 
-    //     }
-    // }
+        ];
+
+        // $count = new stdClass();
+        foreach ($orders as $order) {
+            $count[$order->status->value][] = $order;
+        }
+
+        return $count;
+    }
 
     public function setOrdersStatus($orders)
     {
+        $statuses = Status::pluck('name');
         for ($i = 0; $i < count($orders); $i++) {
-            $statuses = Status::pluck('name');
 
             $priorita = [];
 
@@ -318,10 +323,10 @@ class OrderController extends Controller
             for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
                 $priorita[$orders[$i]->clothes[$y]->status->name] = $priorita[$orders[$i]->clothes[$y]->status->name] + 1;
             }
+
             foreach ($priorita as $key => $item) {
                 if ($item > 0) {
                     $orders[$i]->setAttribute("status", Status::where('name', $key)->first());
-                    // $orders[$i]->setAttribute("status", $key);
                     break;
                 }
             }

@@ -6,3 +6,19 @@
 .no-shadow {
     box-shadow: none !important;
 }
+
+
+
+
+/* Styles for the active tab label */
+:host ::ng-deep .mat-tab-label.mat-tab-label-active {
+    
+    background-color: transparent;
+    color: white !important;
+    opacity: 100;
+    /* font-weight: 600; */
+}
+
+.select-label .material-symbols-outlined {
+    display: none!important;
+}

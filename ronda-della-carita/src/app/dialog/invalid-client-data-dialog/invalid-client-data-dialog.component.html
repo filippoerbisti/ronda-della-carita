@@ -1,0 +1,52 @@
+<div>
+    <h2 class="text-nav" mat-dialog-title>{{ currentStep().title }}</h2>
+    <mat-dialog-content>
+        <p>{{ currentStep().description }}</p>
+    </mat-dialog-content>
+
+    <form [formGroup]="createClientForm" class="w-full mt-3" *ngIf="state == 'form'">
+        <mat-form-field appearance="fill" class="w-full" *ngIf="!client.altezza">
+            <mat-label>Altezza</mat-label>
+            <input
+              formControlName="altezza"
+              type="number"
+              matInput
+              placeholder="Altezza"
+            />
+          </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full" *ngIf="!client.t_maglietta">
+            <mat-label>Taglia maglietta</mat-label>
+            <mat-select name="tmaglietta" formControlName="t_maglietta">
+                <mat-option *ngFor="let tmaglietta of tMagliettas" [value]="tmaglietta.value">
+                    {{ tmaglietta.value }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full" *ngIf="!client.t_pantaloni">
+            <mat-label>Taglia pantaloni</mat-label>
+            <mat-select name="tpantaloni" formControlName="t_pantaloni">
+                <mat-option *ngFor="let tpantaloni of tPantalonis" [value]="tpantaloni.value">
+                    {{ tpantaloni.value }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full" *ngIf="!client.t_scarpe">
+            <mat-label>Taglia scarpe</mat-label>
+            <mat-select name="tscarpe" formControlName="t_scarpe">
+                <mat-option *ngFor="let tscarpe of tScarpes" [value]="tscarpe.value">
+                    {{ tscarpe.value }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+
+    <mat-dialog-actions align="end">
+        <button mat-button cdkFocusInitial mat-dialog-close>
+            <span class="p-2">ANNULLA</span>
+        </button>
+        <button mat-button (click)="goForward()" class="bg-bt-orange">
+            <span class="p-2 text-white">{{ currentStep().confirmLabel }}</span>
+        </button>
+    </mat-dialog-actions>
+</div>

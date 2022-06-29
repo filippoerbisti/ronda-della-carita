@@ -39,6 +39,12 @@ class StatusSeeder extends Seeder
                 "icon" => "inventory_2",
                 "class" => "text-yellow-800"
             ],
+            [
+                "name" => "breakfast",
+                "value" => "Colazioni",
+                "icon" => "local_cafe",
+                "class" => "text-yellow-500"
+            ],
 
         ];
 

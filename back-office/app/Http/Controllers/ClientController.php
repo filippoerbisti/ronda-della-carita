@@ -107,9 +107,12 @@ class ClientController extends Controller
 
         $data = json_decode($req->getContent());
 
-        $client = Client::find($id);
-        $document = Document::find($client->document_id);
-        $client = $this->pairing($client, $data, $document);
+        $client = Client::where("id", $id)->update([
+            "t_maglietta" => $data->t_maglietta,
+            "t_pantaloni" => $data->t_pantaloni,
+            "t_scarpe" => $data->t_scarpe,
+            "altezza" => $data->altezza
+        ]);
 
         return $client;
     }

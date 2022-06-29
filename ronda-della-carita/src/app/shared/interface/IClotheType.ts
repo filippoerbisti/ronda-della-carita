@@ -1,4 +1,4 @@
 export interface IClotheType {
     reference: String,
-    value: string
+    t_vestiario: string
 }

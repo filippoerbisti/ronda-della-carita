@@ -2,7 +2,7 @@
   <app-sidebar-menu *ngIf="!router.url.includes('login')" [openedSubject]="openedSubject" class=""></app-sidebar-menu>
   <div (click)="dismissSidebar()" class="w-full h-full"
        [ngClass]="{
-          'pt-14': !router.url.includes('login')
+          'pt-14': router.url.includes('home')
         }"
   >
     <router-outlet></router-outlet>

@@ -15,6 +15,8 @@ import { IClient } from 'src/app/shared/interface/IClient';
 import { IOrder } from 'src/app/shared/interface/IOrder';
 import { IClotheType } from 'src/app/shared/interface/IClotheType';
 import { IStage } from 'src/app/shared/interface/IStage';
+import Integer from '@zxing/library/esm/core/util/Integer';
+import { InvalidClientDataDialogComponent } from 'src/app/dialog/invalid-client-data-dialog/invalid-client-data-dialog.component';
 
 export interface IClothes {
   type: string;
@@ -28,6 +30,8 @@ export interface IClothes {
   styleUrls: ['./create-order.component.css'],
 })
 export class CreateOrderComponent implements OnInit {
+  showSearch = false;
+  searchFilter = "";
   isLoading = false;
   historyLoading = false;
   panelOpenState = false;
@@ -35,6 +39,7 @@ export class CreateOrderComponent implements OnInit {
   history: IOrder[] = [];
   invalidInput = false;
   invalidClothe = false;
+  selectedClientId!: Integer;
   selectedReference!: any;
   nm = '';
   gen = '';
@@ -45,6 +50,7 @@ export class CreateOrderComponent implements OnInit {
   stageReference!: any;
   stages: IStage[] = [];
   filteredClients: Observable<IClient[]> | undefined;
+
 
   choseGender = 'Uomo';
   genders: string[] = ['Uomo', 'Donna'];
@@ -68,50 +74,6 @@ export class CreateOrderComponent implements OnInit {
     { value: 'Colazioni' },
   ];
 
-  // public tvestiariolv2 = [
-  //   { reference: 'Giacca', value: 'Giaccone lungo' },
-  //   { reference: 'Giacca', value: 'Giubbotto leggero' },
-  //   { reference: 'Giacca', value: 'Giubbotto pesante' },
-  //   { reference: 'Giacca', value: 'Spolverino impermeabile' },
-  //   { reference: 'Giacca', value: 'Gilet imbottito' },
-  //   { reference: 'Maglieria', value: 'Felpa senza cappuccio' },
-  //   { reference: 'Maglieria', value: 'Felpa con cappuccio' },
-  //   { reference: 'Maglieria', value: 'T-shirt' },
-  //   { reference: 'Maglieria', value: 'Canottieria sportiva' },
-  //   { reference: 'Maglieria', value: 'Maglia manica lunga' },
-  //   { reference: 'Maglieria', value: 'Polo manica corta' },
-  //   { reference: 'Maglieria', value: 'Maglione' },
-  //   { reference: 'Camicia', value: 'Camicia pesante' },
-  //   { reference: 'Camicia', value: 'Camicia manica lunga' },
-  //   { reference: 'Camicia', value: 'Camicia manica corta' },
-  //   { reference: 'Pantaloni', value: 'Pantaloni corti' },
-  //   { reference: 'Pantaloni', value: 'Pantaloni lunghi jeans' },
-  //   { reference: 'Pantaloni', value: 'Pantaloni lunghi altro' },
-  //   { reference: 'Pantaloni', value: 'Tuta leggera' },
-  //   { reference: 'Pantaloni', value: 'Tuta pesante' },
-  //   { reference: 'Pantaloni', value: 'Tuta solo pantaloni' },
-  //   { reference: 'Intimo', value: 'Slip' },
-  //   { reference: 'Intimo', value: 'Boxer' },
-  //   { reference: 'Intimo', value: 'Canottiera' },
-  //   { reference: 'Calze', value: 'Calze lunghe' },
-  //   { reference: 'Calze', value: 'Calze corte' },
-  //   { reference: 'Calze', value: 'Calze fanstasmini' },
-  //   { reference: 'Calze', value: 'Calze calzamaglia' },
-  //   { reference: 'Scarpe', value: 'Ciabatte' },
-  //   { reference: 'Scarpe', value: 'Scarpe da lavoro' },
-  //   { reference: 'Scarpe', value: 'Scarponcino pesante' },
-  //   { reference: 'Scarpe', value: 'Sportive' },
-  //   { reference: 'Scarpe', value: 'Scarpe normali' },
-  //   { reference: 'Accessori', value: 'Borsone' },
-  //   { reference: 'Accessori', value: 'Cappello invernale' },
-  //   { reference: 'Accessori', value: 'Cappello con visiera' },
-  //   { reference: 'Accessori', value: 'Cintura' },
-  //   { reference: 'Accessori', value: 'Guanti' },
-  //   { reference: 'Accessori', value: 'Sciarpa' },
-  //   { reference: 'Accessori', value: 'Valigia' },
-  //   { reference: 'Accessori', value: 'Zaino piccolo' },
-  //   { reference: 'Accessori', value: 'Zaino grande' },
-  // ];
 
   public newClothe = {
     type: String,
@@ -121,14 +83,16 @@ export class CreateOrderComponent implements OnInit {
   public clothes: any[] = [];
 
   public newOrder = {
-    user: {
-      id: '',
-      name: '',
-      surname: '',
-    },
+    // client: {
+    //   id: '',
+    //   nome: '',
+    //   cognome: '',
+    // },
+    client: {} as IClient,
     note: '',
+    giro: '',
     p_ritiro: '',
-    clothes: this.clothes,
+    clothes: [] as any[],
     user_id: '',
   };
 
@@ -137,6 +101,8 @@ export class CreateOrderComponent implements OnInit {
   tvestiarioValue: any = 'Maglia';
   clientValue: any = 'Uomo';
   tagliaValue: any = '';
+  isEdit = false;
+  orderId!: any;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 3;
@@ -153,9 +119,21 @@ export class CreateOrderComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+
     let n_tessera = this.route.snapshot.paramMap.get('n_tessera') ?? null;
 
     this.isLoading = true;
+    this.orderId = this.route.snapshot.paramMap.get('id') ?? null;
+
+    if (this.orderId) {
+      this.isEdit = true;
+      try {
+        let order = (await axios.get(this.API_URL + "/api/order/" + this.orderId)).data
+        this.newOrder = order;
+      } catch (error) {
+
+      }
+    }
 
     try {
       let response = await axios.get(this.API_URL + '/api/clients');
@@ -174,22 +152,20 @@ export class CreateOrderComponent implements OnInit {
       map((value) => (typeof value === 'string' ? value : value.nome)),
       map((nome) => (nome ? this._filter(nome) : this.clients.slice()))
     );
-    if (this.newOrder.user.name != "") {
-      this.newOrder.user.name = this.client.nome;
+    if (this.newOrder.client.nome != "") {
+      this.newOrder.client.nome = this.newOrder.client.nome;
     }
-    console.log('NEW ORDER', this.newOrder);
     if (n_tessera) {
       try {
         let result = await axios.get(this.API_URL + '/api/client/by_tessera/' + n_tessera);
         console.log(result.data)
         this.client = result.data;
-        this.newOrder.user.name = result.data.id + " - " + result.data.nome + " " + result.data.cognome;
-        console.log("newOrder " + this.newOrder.user.name);
+        this.newOrder.client.nome = result.data.id + " - " + result.data.nome + " " + result.data.cognome;
+        console.log("newOrder " + this.newOrder.client.nome);
       } catch (error) {
         console.log("errore" + error);
       }
     }
-    console.log(this.newOrder)
   }
 
   goToHome() {
@@ -213,46 +189,21 @@ export class CreateOrderComponent implements OnInit {
     return clothes;
   }
 
+  pairClothes(clothesModel: any) {
+    clothesModel.forEach((clothe: any) => {
+      this.newOrder.clothes.push({
+        value: clothe.t_vestiario
+      })
+    });
+  }
+
   filterStages() {
     let stages = this.stages.filter((stage) => {
-      return stage.reference == this.stageReference;
+      return stage.reference == this.newOrder.giro;
     });
 
     return stages;
   }
-
-  // public sea() {
-  //   if(this.nm != ""){
-  //     let nmo = this.nm.split(' ');
-  //     for(var i = 0; i < this.clients.length; i++){
-  //       if(this.clients[i].card?.n_tessera == nmo[0]){
-  //         if(this.search.length == 0){
-  //           this.search.push(this.clients[i]);
-  //         }else{
-  //           this.search.splice(0,this.search.length)
-  //           this.search.push(this.clients[i]);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   this.change();
-  // }
-  // public change() {
-  //   if(this.search.length != 0){
-  //     if(this.search[0].param?.value== 'M')
-  //       this.choseGender = "Uomo";
-  //     else
-  //       this.choseGender = "Donna"
-  //     if(this.tvestiarioValue == 'Maglia')
-  //       this.tagliaValue = this.search[0].t_maglietta;
-  //     else if(this.tvestiarioValue == 'Scarpe')
-  //       this.tagliaValue = this.search[0].t_scarpe;
-  //     else
-  //       this.tagliaValue = parseInt(this.search[0].t_pantaloni);
-  //   }
-  //   console.log(this.tagliaValue);
-
-  // }
 
   private _filter(n_tessera: string): IClient[] {
     const filterValue = n_tessera.toLowerCase();
@@ -261,25 +212,36 @@ export class CreateOrderComponent implements OnInit {
     );
   }
 
+  canAddClothe() {
+    if (!this.newOrder.client) {
+      return false
+    }
+
+    if (!this.userDataComplete()) {
+      return false;
+    }
+    return true
+  }
+
   addClothe() {
-    console.log(this.newClothe);
 
     if (this.checkNewClotheForm()) {
       this.invalidClothe = false;
 
       let clothe = this.newClothe;
-      this.clothes.push(clothe);
+      this.newOrder.clothes.push(clothe);
 
       this.newClothe = {
         type: String,
         reference: String,
       };
+
       this.selectedReference = null;
     }
   }
 
   removeClothe(index: any) {
-    this.clothes.splice(index, 1);
+    this.newOrder.clothes.splice(index, 1);
   }
 
   checkNewClotheForm() {
@@ -293,11 +255,17 @@ export class CreateOrderComponent implements OnInit {
   async create() {
     if (this.checkFields()) {
       console.log(this.newOrder);
-      let response = await axios.post(
-        this.API_URL + '/api/order/create',
-        this.newOrder
-      );
-      console.log(response.data);
+      if (!this.isEdit) {
+        let response = await axios.post(
+          this.API_URL + '/api/order/create',
+          this.newOrder
+        );
+      } else {
+        let response = await axios.put(
+          this.API_URL + '/api/order/edit/' + this.orderId,
+          this.newOrder
+        );
+      }
       if (window.location.href.includes('vol1')) {
         this.rule = 'vol1';
         this.router.navigateByUrl(`/${this.rule}` + '/home');
@@ -320,62 +288,20 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  async clientHistory($event: any) {
-    if ($event != "") {
-      let temp: any = localStorage.getItem('user');
-      this.newOrder.user_id = JSON.parse(temp).id;
-      this.historyLoading = true;
-      console.log($event);
-      let id = '';
-      let space = 0;
-      for (let i = 0; i < $event.length; i++) {
-        if ($event.charAt(i) != ' ') {
-          id += $event.charAt(i);
-        } else {
-          space = i;
-          break;
-        }
-      }
-      let name = '';
-      for (let i = space + 3; i < $event.length; i++) {
-        if ($event.charAt(i) != ' ') {
-          name += $event.charAt(i);
-        } else {
-          space = i;
-          break;
-        }
-      }
-      let surname = '';
-      for (let i = space + 1; i < $event.length; i++) {
-        if ($event.charAt(i) != ' ') {
-          surname += $event.charAt(i);
-        } else {
-          space = i;
-          break;
-        }
-      }
-      this.newOrder.user.id = id;
-      this.newOrder.user.name = name;
-      this.newOrder.user.surname = surname;
-      try {
-        let response = await axios.get(
-          this.API_URL + '/api/order/history/' + id
-        );
-        this.client = (
-          await axios.get(this.API_URL + '/api/client/' + id)
-        ).data;
-        this.history = response.data;
-      } catch (error) {
-        console.log(error);
-      }
-      this.historyLoading = false;
+
+  userDataComplete() {
+
+    if (!this.newOrder.client.t_maglietta || !this.newOrder.client.t_pantaloni || !this.newOrder.client.t_scarpe || !this.newOrder.client.altezza) {
+      return false;
+    } else {
+      return true;
     }
   }
 
   checkFields() {
     console.log(this.newOrder);
 
-    this.newOrder.user.name != '' && this.newOrder.p_ritiro != ''
+    this.newOrder.client.nome != '' && this.newOrder.p_ritiro != ''
       ? (this.invalidInput = false)
       : (this.invalidInput = true);
 
@@ -383,6 +309,55 @@ export class CreateOrderComponent implements OnInit {
       ? (this.invalidClothe = false)
       : (this.invalidClothe = true);
 
+    console.log(this.newOrder.clothes);
+
+
     return !this.invalidInput && !this.invalidClothe ? true : false;
+  }
+
+  closeSearch() {
+    setTimeout(() => {
+      this.showSearch = false;
+    }, 150);
+
+  }
+
+
+  filterClients() {
+    // TODO: change to Iclient interface
+    let clients: IClient[] = [];
+    if (this.searchFilter == "") {
+      clients = this.clients
+    } else {
+      clients = this.clients.filter((client: IClient) => {
+        let name = `${client.n_tessera} ${client.nome.toLowerCase()} ${client.cognome.toLowerCase()}`
+        return name.replace(/\s/g, "").includes(this.searchFilter.toLowerCase().replace(/\s/g, ""))
+      })
+    }
+
+    return clients
+  }
+
+  async selectClient(client: IClient) {
+
+    this.newOrder.client = client
+    this.searchFilter = `${client.n_tessera} - ${client.nome} ${client.cognome}`
+    let userDataComplete = this.userDataComplete()
+
+    if (!userDataComplete) {
+      const dialogRef = this.dialog.open(InvalidClientDataDialogComponent, {
+        data: {
+          client: this.newOrder.client
+        }
+      });
+      dialogRef.afterClosed().subscribe(async result => {
+        // TODO: reload client data
+
+        this.newOrder.client = (await axios.get(this.API_URL + '/api/client/' + client.id)).data;
+      })
+    }
+    this.historyLoading = true;
+    this.history = (await axios.get(this.API_URL + '/api/order/history/' + client.id)).data;
+    this.historyLoading = false;
   }
 }

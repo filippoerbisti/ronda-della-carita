@@ -1,50 +1,40 @@
-
 <div class="h-full w-full">
     <mat-card class="h-screen flex flex-col">
         <div class="md:w-1/2 mx-auto w-full h-full flex flex-col sm:justify-center px-10 sm:px-0">
-            <p class="font-bold text-2xl text-left">NUOVO VOLONTARIO</p>
+            <p *ngIf="!isEdit" class="font-bold text-2xl text-left">NUOVO VOLONTARIO</p>
+            <p *ngIf="isEdit" class="font-bold text-2xl text-left">MODIFICA VOLONTARIO</p>
             <div class="w-full">
-                <form [formGroup]="registerForm" class="flex flex-col flex-grow w-full h-full mt-3">
+                <form [formGroup]="registerForm" class="flex flex-col flex-grow w-full h-full ">
                     <div class="flex flex-col justify-center flex-grow">
                         <!-- <div class="flex flex-col sm:flex-row sm:space-x-3 w-full"> -->
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Nome</mat-label>
-                                <input 
-                                    type="text" 
-                                    formControlName="nome"
-                                    matInput 
-                                    placeholder="Nome"
-                                    required
-                                >
-                                <mat-error *ngIf="registerForm.hasError('required', 'nome') && !isSubmitted">
-                                    Inserisci il <strong>nome</strong>
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field class="w-full" appearance="fill">
-                                <mat-label>Cognome</mat-label>
-                                <input 
-                                    type="text" 
-                                    formControlName="cognome"
-                                    matInput 
-                                    placeholder="Cognome"
-                                    required
-                                >
-                                <mat-error *ngIf="registerForm.hasError('required', 'cognome') && !isSubmitted">
-                                    Inserisci il <strong>cognome</strong>
-                                </mat-error>
-                            </mat-form-field>
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Nome</mat-label>
+                            <input type="text" formControlName="nome" matInput placeholder="Nome" required>
+                            <mat-error *ngIf="registerForm.hasError('required', 'nome') && !isSubmitted">
+                                Inserisci il <strong>nome</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Cognome</mat-label>
+                            <input type="text" formControlName="cognome" matInput placeholder="Cognome" required>
+                            <mat-error *ngIf="registerForm.hasError('required', 'cognome') && !isSubmitted">
+                                Inserisci il <strong>cognome</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Numero tessera</mat-label>
+                            <input type="text" formControlName="n_tessera" matInput placeholder="Numero tessera" required>
+                            <mat-error *ngIf="registerForm.hasError('required', 'cognome') && !isSubmitted">
+                                Inserisci il <strong>numero tessera</strong>
+                            </mat-error>
+                        </mat-form-field>
                         <!-- </div> -->
                         <mat-form-field class="w-full" appearance="fill">
                             <mat-label>Email</mat-label>
-                            <input 
-                                type="email" 
-                                formControlName="email"
-                                matInput 
-                                placeholder="Email"
-                                [errorStateMatcher]="matcherEmail"
-                                required
-                            >
-                            <mat-error *ngIf="registerForm.hasError('email', 'email') && !registerForm.hasError('required','email') && !isSubmitted">
+                            <input type="email" formControlName="email" matInput placeholder="Email"
+                                [errorStateMatcher]="matcherEmail" required>
+                            <mat-error
+                                *ngIf="registerForm.hasError('email', 'email') && !registerForm.hasError('required','email') && !isSubmitted">
                                 Inserisci un indirizzo <strong>email valido</strong>
                             </mat-error>
                             <mat-error *ngIf="registerForm.hasError('required', 'email') && !isSubmitted">
@@ -52,69 +42,56 @@
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="">
-                            <mat-label
-                            >Ruolo</mat-label
-                            >
+                            <mat-label>Ruolo</mat-label>
                             <mat-select name="ruolo" formControlName="ruolo">
-                            <mat-option *ngFor="let item of roles" [value]="item.value">
-                                {{ item.value }}
-                            </mat-option>
+                                <mat-option *ngFor="let item of roles" [value]="item.value">
+                                    {{ item.value }}
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <div class="flex flex-col sm:flex-row sm:space-x-3">
+                        <div class="flex flex-col sm:flex-row sm:space-x-3" *ngIf="!isEdit">
                             <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Password</mat-label>
-                                <input 
-                                    [type]="hide ? 'password' : 'text'"
-                                    formControlName="password"
-                                    [value]="registerForm.value.password"
-                                    matInput 
-                                    placeholder="Password"
-                                    required
-                                >
-                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                <input [type]="hide ? 'password' : 'text'" formControlName="password"
+                                    [value]="registerForm.value.password" matInput placeholder="Password" required>
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+                                </mat-icon>
                                 <mat-error *ngIf="registerForm.hasError('required', 'password') && !isSubmitted">
                                     Inserisci la <strong>password</strong>
                                 </mat-error>
                                 <mat-error *ngIf="registerForm.hasError('pattern', 'password') && !isSubmitted">
-                                    <strong>Password</strong> deve contenere 8 caratteri: maiuscola, minuscola, numero e carattere speciale
+                                    <strong>Password</strong> deve contenere 8 caratteri: maiuscola, minuscola, numero e
+                                    carattere speciale
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-full" appearance="fill">
                                 <mat-label>Conferma Password</mat-label>
-                                <input 
-                                    [type]="hide ? 'password' : 'text'"
-                                    formControlName="password_confirmation"
-                                    matInput 
-                                    [value]="registerForm.value.password_confirmation"
-                                    placeholder="Conferma Password"
-                                    [errorStateMatcher]="matcherPsw"
-                                    required
-                                >
-                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                <input [type]="hide ? 'password' : 'text'" formControlName="password_confirmation"
+                                    matInput [value]="registerForm.value.password_confirmation"
+                                    placeholder="Conferma Password" [errorStateMatcher]="matcherPsw" required>
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+                                </mat-icon>
                                 <mat-error *ngIf="registerForm.hasError('notSame') && !isSubmitted">
                                     Password <strong>non coincidono</strong>
-                                </mat-error>  
+                                </mat-error>
                                 <mat-error *ngIf="registerForm.hasError('required', 'password_confirmation')">
                                     Inserisci la <strong>password</strong>
-                                </mat-error>  
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="flex space-x-2 justify-between py-8">
-                      <button mat-button class="backButton text-lg" (click)="goToHome()">
+                </form>
+                <div class="flex space-x-2 justify-between py-8 w-full flex-grow">
+                    <button class="backButton text-lg flex items-center font-medium rounded px-2" (click)="goToHome()">
                         <mat-icon class="text-bt-orange"> keyboard_arrow_left </mat-icon>
                         <span class="p-2">INDIETRO</span>
-                      </button>
-                      <button mat-button class="confirmButton text-lg">
+                    </button>
+                    <button class="confirmButton text-lg flex items-center font-medium rounded px-2">
                         <span class="p-2" (click)="registration()">CONFERMA</span>
                         <mat-icon class=""> keyboard_arrow_right </mat-icon>
-                      </button>
-                    </div>
-                </form>
+                    </button>
+                </div>
             </div>
         </div>
     </mat-card>
 </div>
-
-

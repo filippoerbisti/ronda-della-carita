@@ -57,6 +57,7 @@ import { EditOrderDialogComponent } from './dialog/order/edit-order-dialog/edit-
 import { ViewOrderNotificationDialogComponent } from './dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { ConfirmOrderDialogComponent } from './dialog/order/confirm-order-dialog/confirm-order-dialog.component';
 import { ChangeMansionDialogComponent } from './dialog/change-mansion-dialog/change-mansion-dialog.component';
+import { InvalidClientDataDialogComponent } from './dialog/invalid-client-data-dialog/invalid-client-data-dialog.component';
 
 import { ScannerQrComponent } from './utils/scanner-qr/scanner-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
@@ -65,6 +66,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ConfirmDialogComponent } from './dialog/confirm/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { environment } from '../environments/environment';
     RegistrationComponent,
     ConfirmOrderDialogComponent,
     ChangeMansionDialogComponent,
+    InvalidClientDataDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

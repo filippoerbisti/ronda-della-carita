@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import axios from "axios";
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +11,7 @@ import { EditUserDialogComponent } from 'src/app/dialog/user/edit-user-dialog/ed
 import { EditOrderDialogComponent } from 'src/app/dialog/order/edit-order-dialog/edit-order-dialog.component';
 import { ViewOrderNotificationDialogComponent } from '../dialog/view-order-notification-dialog/view-order-notification-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { IUser } from 'src/app/shared/interface/IUser';
 import { IOrder } from 'src/app/shared/interface/IOrder';
@@ -22,7 +22,8 @@ import { IStatus } from 'src/app/shared/interface/IStatus';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  // encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
 
@@ -91,9 +92,10 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit() {    
     this.isLoading = true;
     this.isAdmin = window.location.href.includes('admin');
     this.indexTab = 0;
@@ -161,30 +163,25 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/admin/history');
   }
 
-  goToCreateUser() {
+  navigateTo(url: string) {
     if (window.location.href.includes('vol1')) {
       this.rule = 'vol1';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
+      this.router.navigateByUrl(`/${this.rule}` + url);
     } else if (window.location.href.includes('vol0')) {
       this.rule = 'vol0';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
+      this.router.navigateByUrl(`/${this.rule}` + url);
     } else if (window.location.href.includes('admin')) {
       this.rule = 'admin';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/user');
+      this.router.navigateByUrl(`/${this.rule}` + url);
     }
   }
 
+  goToCreateUser() {
+    this.navigateTo('/create/user');
+  }
+
   goToCreateOrder() {
-    if (window.location.href.includes('vol1')) {
-      this.rule = 'vol1';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
-    } else if (window.location.href.includes('vol0')) {
-      this.rule = 'vol0';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
-    } else if (window.location.href.includes('admin')) {
-      this.rule = 'admin';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/order');
-    }
+    this.navigateTo('/create/order');
   }
 
   goToViewOrder() {
@@ -195,17 +192,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
   goToCreateClient() {
-    if (window.location.href.includes('vol1')) {
-      this.rule = 'vol1';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
-    } else if (window.location.href.includes('vol0')) {
-      this.rule = 'vol0';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
-    } else if (window.location.href.includes('admin')) {
-      this.rule = 'admin';
-      this.router.navigateByUrl(`/${this.rule}` + '/create/client');
-    }
+    this.navigateTo('/create/client');
   }
 
   goToViewClient() {
@@ -214,6 +203,18 @@ export class HomeComponent implements OnInit {
       this.indexTab = 1;
       this.router.navigateByUrl(`/${this.rule}` + '/mob/home');
     }
+  }
+
+  editUser(userId: number) {
+    this.navigateTo("/edit/user/" + userId)
+  }
+
+  editOrder(orderId: number) {
+    this.navigateTo("/edit/order/" + orderId)
+  }
+
+  editClient(clientId: number) {
+    this.navigateTo("/edit/client/" + clientId)
   }
 
   OnPageChange(event: PageEvent) {

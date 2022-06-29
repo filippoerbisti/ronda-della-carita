@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
@@ -58,6 +58,10 @@ export class RegistrationComponent implements OnInit {
 
   isLoading = false;
 
+  userId!: any;
+
+  isEdit = false;
+
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   durationInSeconds = 10;
 
@@ -68,21 +72,53 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     public fb: FormBuilder,
     public authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
   ) {
     this.registerForm = this.fb.group({
       nome: ['', [Validators.required]],
       cognome: ['', [Validators.required]],
       ruolo: ['', [Validators.required]],
+      n_tessera: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['Ronda1234.', [Validators.required]],
-      password_confirmation: ['Ronda1234.', [Validators.required]]
+      // password: ['Ronda1234.', [Validators.required]],
+      // password_confirmation: ['Ronda1234.', [Validators.required]],
+      password: ['', [Validators.required]],
+      password_confirmation: ['', [Validators.required]]
     },
       { validators: this.checkPasswords }
     )
   }
 
-  ngOnInit(): void {
+  navigateTo(url: string) {
+    if (window.location.href.includes('vol1')) {
+      this.rule = 'vol1';
+      this.router.navigateByUrl(`/vol1` + url);
+    } else if (window.location.href.includes('vol0')) {
+      this.rule = 'vol0';
+      this.router.navigateByUrl(`/vol0` + url);
+    } else if (window.location.href.includes('admin')) {
+      this.rule = 'admin';
+      this.router.navigateByUrl(`/admin` + url);
+    }
+  }
+
+  async ngOnInit() {
+    let id = this.route.snapshot.paramMap.get('id') ?? null;
+    
+    if (id) {
+      this.isEdit = true;
+      this.userId = id;
+      try {
+        let user: IUser = (await axios.get(this.API_URL + "/api/user/" + id)).data
+        this.registerForm.patchValue(
+          user
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
   }
 
   checkPasswords(group: FormGroup) {
@@ -103,30 +139,45 @@ export class RegistrationComponent implements OnInit {
   //     this.registerForm.value.password_confirmation = this.psw
   //     console.log(this.registerForm.value);
   //   }
-
   // }
 
   async registration() {
-    let idUser: number;
-    this.authService.register(this.registerForm.value).subscribe(
-      result => {
-        console.log(result);
-        idUser = result.user.id;
-      },
-      error => {
-        console.log(error.error);
-      },
-      () => {
-        this.isSubmitted = true;
+    if (!this.isEdit) {
+      let idUser: number;
+      this.authService.register(this.registerForm.value).subscribe(
+        result => {
+          console.log(result);
+          idUser = result.user.id;
+        },
+        error => {
+          console.log(error.error);
+        },
+        () => {
+          this.isSubmitted = true;
+          this.registerForm.reset();
+          // this.router.navigate(['admin/home']);
+          this.navigateTo("/home");
+          this.snackBar.open("Volontario registrato con successo!", 'OK', {
+            horizontalPosition: this.horizontalPosition,
+            duration: this.durationInSeconds * 1000
+          });
+          axios.get(this.API_URL + "/api/sendmail/" + idUser);
+        }
+      )
+    } else {
+      try {
+        let response = await axios.put(this.API_URL + "/api/user/edit/" + this.userId, this.registerForm.value)
         this.registerForm.reset();
-        this.router.navigate(['admin/home']);
-        this.snackBar.open("Volontario registrato con successo!", 'OK', {
-          horizontalPosition: this.horizontalPosition,
-          duration: this.durationInSeconds * 1000
-        });
-        axios.get(this.API_URL + "/api/sendmail/" + idUser);
+          // this.router.navigate(['admin/home']);
+          this.navigateTo("/home");
+          this.snackBar.open("Volontario modificato con successo!", 'OK', {
+            horizontalPosition: this.horizontalPosition,
+            duration: this.durationInSeconds * 1000
+          });
+      } catch (error) {
+
       }
-    )
+    }
   }
 
   goToHome() {

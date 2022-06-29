@@ -4,6 +4,7 @@ import { IStatus } from "./IStatus";
 export interface IClothe {
     id: number,
     t_vestiario: string,
+    reference: string,
     taglia: any,
     quantita: number,
     created_at: Date,

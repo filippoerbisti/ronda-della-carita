@@ -9,8 +9,9 @@ import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
 } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
+import { IClient } from 'src/app/shared/interface/IClient';
 
 @Component({
   selector: 'app-create-client',
@@ -20,12 +21,14 @@ import { sizes } from 'src/app/shared/store/size-clothe-data-store';
 export class CreateClientComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
+  isEdit = false;
 
   user: any = localStorage.getItem('user');
   createClientForm!: FormGroup;
 
   genders: string[] = ['Uomo', 'Donna'];
-  tdocuments: string[] = ["Carta d'Identità", 'Patente di Guida', 'Passaporto'];
+  tdocuments: string[] = ["Carta d'Identità", 'Patente', 'Passaporto'];
+  clientId!: any;
 
   public countries: any = countries;
 
@@ -44,27 +47,51 @@ export class CreateClientComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     public router: Router,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private route: ActivatedRoute,
   ) {
     this.createClientForm = this.fb.group({
       nome: ['', Validators.required],
       cognome: ['', Validators.required],
       genere: ['', Validators.required],
       n_tessera: [null, Validators.required],
-      document_id: [null, Validators.required],
+      t_documento: ['', Validators.required],
       n_documento: [null, Validators.required],
       nazionalita: ['', Validators.required],
       t_maglietta: ['', Validators.required],
       t_pantaloni: ['', Validators.required],
       t_scarpe: [null, Validators.required],
+      altezza: ['', Validators.required],
       note: ['', Validators.required],
       user_id: JSON.parse(this.user).id,
     });
   }
 
-  ngOnInit(): void { }
+  async ngOnInit() {
+    let id = this.route.snapshot.paramMap.get('id') ?? null;
 
-  goToHome() { 
+    if (id) {
+      this.isEdit = true;
+      this.clientId = id;
+      try {
+        let client: IClient = (await axios.get(this.API_URL + "/api/client/" + id)).data
+        this.createClientForm.patchValue(client)
+        console.log(client.t_pantaloni);
+        
+        this.createClientForm.patchValue(
+          {
+            n_documento: client.document?.n_doc,
+            t_documento: client.document?.t_doc,
+          }
+        );
+      } catch (error) {
+        console.log(error);
+
+      }
+    }
+  }
+
+  goToHome() {
     //route->home
     if (window.location.href.includes('vol1')) {
       this.rule = 'vol1';
@@ -80,10 +107,17 @@ export class CreateClientComponent implements OnInit {
 
   async createClient() {
     try {
-      let response = await axios.post(
-        this.API_URL + '/api/client/create',
-        this.createClientForm.value
-      );
+      if (!this.isEdit) {
+        let response = await axios.post(
+          this.API_URL + '/api/client/create',
+          this.createClientForm.value
+        );
+      } else {
+        let response = await axios.put(
+          this.API_URL + '/api/client/edit/' + this.clientId,
+          this.createClientForm.value
+        );
+      }
       this.goToHome();
       this.snackBar.open('Assistito registrato con successo!', '', {
         horizontalPosition: this.horizontalPosition,
