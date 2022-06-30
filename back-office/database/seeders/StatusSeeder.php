@@ -35,7 +35,7 @@ class StatusSeeder extends Seeder
             ],
             [
                 "name" => "to_be_prepared",
-                "value" => "Da preparare",
+                "value" => "In preparazione",
                 "icon" => "inventory_2",
                 "class" => "text-yellow-800"
             ],
@@ -45,7 +45,6 @@ class StatusSeeder extends Seeder
                 "icon" => "local_cafe",
                 "class" => "text-yellow-500"
             ],
-
         ];
 
         DB::table('statuses')->insert($order_status);
