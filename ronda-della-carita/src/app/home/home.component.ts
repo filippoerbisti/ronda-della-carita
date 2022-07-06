@@ -18,6 +18,7 @@ import { IOrder } from 'src/app/shared/interface/IOrder';
 import { IClient } from 'src/app/shared/interface/IClient';
 import { IHistory } from 'src/app/shared/interface/IHistory';
 import { IStatus } from 'src/app/shared/interface/IStatus';
+import { ConfirmDialogComponent } from '../dialog/confirm/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -103,7 +104,7 @@ export class HomeComponent implements OnInit {
       let response_account = await axios.get(this.API_URL + "/api/user", { withCredentials: false });
       this.user = response_account.data;
 
-      let response_statuses = await axios.get(this.API_URL + "/api/statuses");
+      let response_statuses = await axios.get(this.API_URL + "/api/statuses/orders");
       this.statuses = response_statuses.data;
 
       let historyId = this.user.id;
@@ -396,10 +397,45 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
   }
 
-  openConfirmOrderDialog(orderId: number) {
+  async confirmOrder(orderId: number) {
     this.orderId = orderId;
     localStorage["idConfirmOrder"] = this.orderId;
-    const dialogRef = this.dialog.open(ConfirmOrderDialogComponent);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: "Conferma ordine",
+        description: "Contrassegnare questo ordine come consegnato?",
+        confirmLabel: "Conferma"
+      }
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        console.log("result");
+        let response = await axios.put(this.API_URL + "/api/order/confirm/" + orderId)
+        this.isLoading = true;
+        this.filterOrder();
+        this.isLoading = false;
+      }
+    })
+  }
+
+  deliverOrder(orderId: number) {
+    this.orderId = orderId;
+    localStorage["idConfirmOrder"] = this.orderId;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: "Spedisci ordine",
+        description: "Mandare questo ordine in spedizione?",
+        confirmLabel: "Conferma"
+      }
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        console.log("confirm");
+        let response = await axios.put(this.API_URL + "/api/order/deliver/" + orderId)
+        this.filterOrder();
+      }
+
+    })
   }
 
   openEditUserDialog(userId: number) {

@@ -1,1 +1,18 @@
-<p>confirm-dialog works!</p>
+<!-- <div *ngIf="!isLoading"> -->
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+    <h3>{{ data.description }}
+    </h3>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial mat-dialog-close>
+        <span class="p-2">chiudi</span>
+    </button>
+    <button mat-button (click)="confirm()" mat-dialog-close class="bg-bt-orange">
+        <span class="p-2 text-white">CONFERMA</span>
+    </button>
+</mat-dialog-actions>
+<!-- </div>
+<div *ngIf="isLoading" class="h-full grid grid-center">
+    <mat-spinner class="m-auto"></mat-spinner>
+</div> -->
