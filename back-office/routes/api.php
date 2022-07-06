@@ -79,7 +79,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
         Route::get('/order/{id}', [OrderController::class, 'id']);
 
-        Route::get('/statuses', [OrderController::class, 'getStatuses']);
+        Route::get('/statuses/{object}', [OrderController::class, 'getStatuses']);
 
         // Route::get('/order/{n_ordine}', [OrderController::class, 'n_ordine']);
 
@@ -94,6 +94,8 @@ Route::post('/register', [AuthController::class, 'register']);
         Route::put('/order/edit/{id}', [OrderController::class, 'edit']);
 
         Route::put('/order/confirm/{id}', [OrderController::class, 'confirm']);
+
+        Route::put('/order/deliver/{id}', [OrderController::class, 'deliver']);
 
         Route::get('/orderLabel/{id}', [OrderController::class, 'showLabel']);
 
