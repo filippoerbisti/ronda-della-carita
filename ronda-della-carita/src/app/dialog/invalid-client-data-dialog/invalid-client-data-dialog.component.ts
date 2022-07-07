@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { sizes } from 'src/app/shared/store/size-clothe-data-store';
 import { environment } from '../../../environments/environment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import axios from "axios";
 
 interface StepInterface {
@@ -30,7 +30,7 @@ export class InvalidClientDataDialogComponent implements OnInit {
   public tMagliettas = sizes.filter((size) => size.type == 'Maglia');
   public tPantalonis = sizes.filter((size) => size.type == 'Pantaloni');
   public tScarpes = sizes.filter((size) => size.type == 'Scarpe');
-  createClientForm!: FormGroup;
+  createClientForm!: UntypedFormGroup;
   
   state = "form"
   client = this.data.client
@@ -67,7 +67,7 @@ export class InvalidClientDataDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InvalidClientDataDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public fb: FormBuilder
+    public fb: UntypedFormBuilder
   ) {
     this.createClientForm = this.fb.group({
       t_maglietta: [this.client.t_maglietta, Validators.required],

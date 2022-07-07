@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm, Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { AuthService } from '../shared/service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { IHistory } from 'src/app/shared/interface/IHistory';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -26,7 +26,7 @@ export class MyErrorStateMatcherEmail implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
 
-  loginForm!: FormGroup;
+  loginForm!: UntypedFormGroup;
 
   errors: any = null;
 
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public authService: AuthService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute

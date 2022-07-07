@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import axios from 'axios';
 import { environment } from '../../../environments/environment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { countries } from 'src/app/shared/store/country-data-store';
 import {
@@ -24,7 +24,7 @@ export class CreateClientComponent implements OnInit {
   isEdit = false;
 
   user: any = localStorage.getItem('user');
-  createClientForm!: FormGroup;
+  createClientForm!: UntypedFormGroup;
 
   genders: string[] = ['Uomo', 'Donna'];
   tdocuments: string[] = ["Carta d'Identità", 'Patente', 'Passaporto'];
@@ -47,7 +47,7 @@ export class CreateClientComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     public router: Router,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     private route: ActivatedRoute,
   ) {
     this.createClientForm = this.fb.group({

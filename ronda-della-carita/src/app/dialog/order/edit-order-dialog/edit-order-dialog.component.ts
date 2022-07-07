@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from "axios";
@@ -20,7 +20,7 @@ export class EditOrderDialogComponent implements OnInit {
 
   nm = "";
   gen = "";
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   clients: IClient[] = [];
   order!: IOrder;
   orderId!: number;

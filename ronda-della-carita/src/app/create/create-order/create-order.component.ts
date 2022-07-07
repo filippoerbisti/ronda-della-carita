@@ -1,6 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import axios from 'axios';
@@ -44,7 +44,7 @@ export class CreateOrderComponent implements OnInit {
   nm = '';
   gen = '';
   search: IClient[] = [];
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   clients: IClient[] = [];
   tvestiariolv2: IClotheType[] = [];
   stageReference!: any;
