@@ -351,8 +351,6 @@ export class CreateOrderComponent implements OnInit {
         }
       });
       dialogRef.afterClosed().subscribe(async result => {
-        // TODO: reload client data
-
         this.newOrder.client = (await axios.get(this.API_URL + '/api/client/' + client.id)).data;
       })
     }

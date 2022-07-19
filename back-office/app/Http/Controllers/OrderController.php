@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Clothe;
+use App\Models\ClotheStatus;
 use App\Models\ClotheType;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Stage;
 use App\Models\Status;
 use Carbon\Carbon;
@@ -21,9 +23,11 @@ class OrderController extends Controller
     {
         $orders = Order::with('client')
             ->orderBy("updated_at", "desc")
-            ->with('user')
+            ->with(['user', 'status'])
             ->get();
-        return $this->setOrdersStatus($orders);
+
+        return $orders;
+        // return $this->setOrdersStatus($orders);
     }
 
     public function id($id)
@@ -135,10 +139,12 @@ class OrderController extends Controller
     {
         if ($search == "nu") {
             $search = "";
-            $ordersQuery = Order::with('client')
-                ->with('user');
+            $orders = Order::with('client')
+                ->orderBy("updated_at", "desc")
+                ->with(['user', 'status'])
+                ->get();
 
-            $orders = $this->setOrdersStatus($ordersQuery->get());
+            // $orders = $this->setOrdersStatus($ordersQuery->get());
 
             if ($status == "all") {
                 return $orders;
@@ -148,11 +154,6 @@ class OrderController extends Controller
             Log::info("FILTER RESULT");
             Log::info($orders);
 
-            foreach ($orders as $order) {
-                if (!$order->status) {
-                    Log::info("STATUS NOT FOUND " . $order->id);
-                }
-            }
             $temp = [];
             for ($i = 0; $i < count($orders); $i++) {
                 if ($orders[$i]->status->name == $status) {
@@ -161,13 +162,14 @@ class OrderController extends Controller
             }
             return $temp;
         } else if ($search != "nu") {
-            $ordersQuery = Order::with('client')
-                ->with('user')
+            $orders = Order::with('client')
+                ->orderBy("updated_at", "desc")
+                ->with(['user', 'status'])
                 ->where('n_ordine', 'LIKE', "%$search%")
                 ->orWhere('p_ritiro', 'LIKE', "%$search%")
-                ->orWhere('note', 'LIKE', "%$search%");
+                ->orWhere('note', 'LIKE', "%$search%")
+                ->get();
 
-            $orders = $this->setOrdersStatus($ordersQuery->get());
 
             if ($status == "all") {
                 return $orders;
@@ -190,9 +192,10 @@ class OrderController extends Controller
         $newOrder->giro = $newOrderData->giro;
         //$newOrder->livello = $newOrderData->livello;
         $newOrder->note = $newOrderData->note;
-        $newOrder->n_ordine = $newOrder->n_ordine ?? Order::max("n_ordine") +1;
+        $newOrder->n_ordine = $newOrder->n_ordine ?? Order::max("n_ordine") + 1;
 
         $newOrder->client_id = $newOrderData->client->id;
+        $newOrder->status_id = $newOrderData->status_id ?? OrderStatus::where("name", "to_be_prepared")->first()->id;
 
         Log::info("pairing order");
         $newOrder->save();
@@ -203,17 +206,17 @@ class OrderController extends Controller
         $newClothesId = [];
         $clothesId = $newOrder->clothes->pluck("id")->toArray();
 
-        foreach ($newClothes as $clothe) { 
+        foreach ($newClothes as $clothe) {
             if (property_exists($clothe, "order_id")) {
                 $newClothesId[] = $clothe->id;
                 $newClothe = Clothe::find($clothe->id);
             } else {
                 $newClothe = new Clothe();
             }
-            
+
             $newClothe->t_vestiario = $clothe->t_vestiario;
             $newClothe->reference = $clothe->reference;
-            $newClothe->status_id = Status::where("name", "to_be_prepared")->first()->id;
+            $newClothe->status_id = ClotheStatus::where("name", "preparing")->first()->id;
             $newClothe->quantita = 1;
             $newClothe->order_id = $newOrder->id;
             $newClothe->save();
@@ -257,17 +260,28 @@ class OrderController extends Controller
 
     public function confirm($id)
     {
-        $order = Order::with('clothes')->where("id", $id)->first();
-
-        foreach ($order->clothes as $clothe) {
-            $clothe = Clothe::find($clothe->id);
-            $clothe->status = "Attesa";
-            $clothe->save();
-            Log::info("CLOTHE" . $clothe);
-        }
+        $order = Order::where("id", $id)->update(["status_id" => OrderStatus::where("name", "delivered")->first()->id]);
 
         return $order;
     }
+
+    public function deliver($id)
+    {
+        $order = Order::with(['clothes', 'clothes.status'])->where("id", $id)->first();
+        foreach ($order->clothes as $clothe) {
+
+            if ($clothe->status->name == 'preparing') {
+                Clothe::where("id", $clothe->id)->update(["status_id" => ClotheStatus::where("name", "available")->first()->id]);
+            }
+        }
+
+        $order->update(["status_id" => OrderStatus::where("name", "to_be_delivered")->first()->id]);
+
+        return $order;
+    }
+
+    
+
 
     public function showLabel($id)
     {
@@ -284,21 +298,31 @@ class OrderController extends Controller
         return Stage::all();
     }
 
-    public function getStatuses()
+    public function getStatuses($object)
     {
-        return Status::all();
+        switch ($object) {
+            case 'orders':
+                return OrderStatus::all();
+                break;
+
+            case 'clothes':
+                return ClotheStatus::all();
+                break;
+
+            default:
+                return Status::all();
+                break;
+        }
     }
 
     public function notificationsCount()
     {
-        $ordersQuery = Order::with('client')
-            ->with('user');
+        $orders = Order::with('client')
+            ->with(['user', 'status'])
+            ->get();
 
-        $orders = $this->setOrdersStatus($ordersQuery->get());
 
-        $count = [
-
-        ];
+        $count = [];
 
         // $count = new stdClass();
         foreach ($orders as $order) {
@@ -308,29 +332,29 @@ class OrderController extends Controller
         return $count;
     }
 
-    public function setOrdersStatus($orders)
-    {
-        $statuses = Status::pluck('name');
-        for ($i = 0; $i < count($orders); $i++) {
+    // public function setOrdersStatus($orders)
+    // {
+    //     $statuses = Status::pluck('name');
+    //     for ($i = 0; $i < count($orders); $i++) {
 
-            $priorita = [];
+    //         $priorita = [];
 
-            foreach ($statuses as $status) {
-                $priorita[$status] = 0;
-            }
-        
+    //         foreach ($statuses as $status) {
+    //             $priorita[$status] = 0;
+    //         }
 
-            for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
-                $priorita[$orders[$i]->clothes[$y]->status->name] = $priorita[$orders[$i]->clothes[$y]->status->name] + 1;
-            }
 
-            foreach ($priorita as $key => $item) {
-                if ($item > 0) {
-                    $orders[$i]->setAttribute("status", Status::where('name', $key)->first());
-                    break;
-                }
-            }
-        }
-        return $orders;
-    }
+    //         for ($y = 0; $y < count($orders[$i]->clothes); $y++) {
+    //             $priorita[$orders[$i]->clothes[$y]->status->name] = $priorita[$orders[$i]->clothes[$y]->status->name] + 1;
+    //         }
+
+    //         foreach ($priorita as $key => $item) {
+    //             if ($item > 0) {
+    //                 $orders[$i]->setAttribute("status", Status::where('name', $key)->first());
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return $orders;
+    // }
 }

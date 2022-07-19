@@ -10,6 +10,9 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "status_id"
+    ];
 
     public $with = [
         'clothes',
@@ -35,5 +38,9 @@ class Order extends Model
     public function clothes()
     {
         return $this->hasMany(Clothe::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(OrderStatus::class);
     }
 }

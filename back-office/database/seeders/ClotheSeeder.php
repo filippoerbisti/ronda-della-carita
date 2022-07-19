@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClotheStatus;
 use App\Models\ClotheType;
 use App\Models\Order;
 use App\Models\Status;
@@ -22,16 +23,16 @@ class ClotheSeeder extends Seeder
     {
         $orders = Order::all();
         $clothes = ClotheType::all();
+        $statusId = ClotheStatus::pluck('id');
 
         foreach ($orders as $order) {
 
-            for ($i = 0; $i < rand(1,3); $i++) {
-                $status = $faker->randomElement(['delivered', 'not_available', 'to_be_delivered', 'to_be_prepared']);
+            for ($i = 0; $i < rand(1,4); $i++) {
                 $clothe = $faker->randomElement($clothes);
                 DB::table('clothes')->insert([
                     't_vestiario' => $clothe->t_vestiario,
                     'reference' => $clothe->reference,
-                    'status_id' => Status::where('name', $status)->first()->id,
+                    'status_id' => $faker->randomElement($statusId),
                     'quantita' => 1,
                     'created_at' => now(),
                     'order_id' => $order->id,
