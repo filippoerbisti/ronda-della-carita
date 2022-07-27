@@ -5,7 +5,7 @@
   >
     <mat-card class="h-full flex flex-col sm:mt-0 mt-20">
       <div class="md:w-1/2 mx-auto flex flex-col justify-center h-full">
-        <p class="font-bold text-2xl">NUOVO ASSISTITO</p>
+        <p class="font-bold text-2xl">{{ isEdit ? "MODIFICA" : "NUOVO" }} ASSISTITO</p>
         <form [formGroup]="createClientForm" class="w-full mt-3">
           <div class="w-full flex flex-col">
             <div class="flex">
@@ -13,6 +13,15 @@
                 >Dati anagrafici</label
               >
             </div>
+            <mat-form-field appearance="fill" class="flex flex-col flex-grow">
+              <mat-label>N. Tessera</mat-label>
+              <input
+                type="number"
+                matInput
+                formControlName="n_tessera"
+                placeholder="N. Tessera"
+              /><!--[(ngModel)]="newClient.n_tessera"-->
+            </mat-form-field>
             <mat-form-field appearance="fill" class="w-full">
               <mat-label>Nome</mat-label>
               <input
@@ -47,15 +56,6 @@
                   gender
                 }}</mat-option>
               </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="flex flex-col flex-grow">
-              <mat-label>N. Tessera</mat-label>
-              <input
-                type="number"
-                matInput
-                formControlName="n_tessera"
-                placeholder="N. Tessera"
-              /><!--[(ngModel)]="newClient.n_tessera"-->
             </mat-form-field>
           </div>
           <div class="w-full flex flex-col">

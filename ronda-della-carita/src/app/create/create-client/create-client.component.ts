@@ -54,7 +54,7 @@ export class CreateClientComponent implements OnInit {
       nome: ['', Validators.required],
       cognome: ['', Validators.required],
       genere: ['', Validators.required],
-      n_tessera: [null, Validators.required],
+      n_tessera: ['', Validators.required],
       t_documento: ['', Validators.required],
       n_documento: [null, Validators.required],
       nazionalita: ['', Validators.required],
@@ -69,6 +69,8 @@ export class CreateClientComponent implements OnInit {
 
   async ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id') ?? null;
+    let n_tessera = (await axios.get(this.API_URL + "/api/client/tessera/last")).data
+    this.createClientForm.patchValue({n_tessera})
 
     if (id) {
       this.isEdit = true;
@@ -89,6 +91,7 @@ export class CreateClientComponent implements OnInit {
 
       }
     }
+    
   }
 
   goToHome() {

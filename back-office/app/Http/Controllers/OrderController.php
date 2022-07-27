@@ -332,6 +332,10 @@ class OrderController extends Controller
         return $count;
     }
 
+    public function getLastNumber() {
+        return Order::max("n_ordine") +1;
+    }
+
     // public function setOrdersStatus($orders)
     // {
     //     $statuses = Status::pluck('name');

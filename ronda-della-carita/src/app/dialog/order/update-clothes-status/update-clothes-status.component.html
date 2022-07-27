@@ -1,0 +1,58 @@
+<!-- <div *ngIf="!isLoading"> -->
+<h2 mat-dialog-title>Gestisci abiti</h2>
+<mat-dialog-content>
+    <div class="py-5">
+        <div class="grid grid-cols-3 gap-3 mb-2" *ngFor="let clothe of order.clothes">
+            <div class="text-base font-medium col-span-2 flex items-center">
+                {{ clothe.t_vestiario }}
+            </div>
+            <div class="flex items-center space-x-2">
+                <input 
+                    hidden 
+                    type="radio" 
+                    [(ngModel)]="clothes[(clothe.id)]" 
+                    name="not_available_{{clothe.id}}"
+                    id="not_available_{{clothe.id}}" 
+                    value="not_available"
+                    class=""
+                />
+
+                <label 
+                    for="not_available_{{clothe.id}}" 
+                    class="not_available_label cursor-pointer w-1/2 rounded flex justify-center border-2 border-red-500 text-red-500 h-min duration-300"
+                >
+                    <span class="material-symbols-outlined text-xl">
+                        close
+                    </span>
+                </label>
+
+                <input 
+                    hidden 
+                    type="radio" 
+                    [(ngModel)]="clothes[(clothe.id)]" 
+                    name="available_{{clothe.id}}"
+                    id="available_{{clothe.id}}" 
+                    value="available"
+                    class=""
+                />
+
+                <label 
+                    for="available_{{clothe.id}}"
+                    class="available_label cursor-pointer w-1/2 rounded flex justify-center border-2 border-green-500 text-green-500 duration-300"
+                >
+                    <span class="material-symbols-outlined text-xl">
+                        done
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial mat-dialog-close>
+        <span class="p-2">chiudi</span>
+    </button>
+    <button mat-button mat-dialog-close (click)="updateClothesStatus()" class="bg-bt-orange">
+        <span class="p-2 text-white">CONFERMA</span>
+    </button>
+</mat-dialog-actions>

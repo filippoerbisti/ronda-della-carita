@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,5 +32,10 @@ class Client extends Model
     public function getFullNameAttribute()
     {
         return $this->nome . ' ' . $this->cognome;
+    }
+
+    public function history() {
+        $from = Carbon::now()->subMonth(1);
+        return $this->hasMany(Order::class)->where("created_at", ">=", $from);
     }
 }

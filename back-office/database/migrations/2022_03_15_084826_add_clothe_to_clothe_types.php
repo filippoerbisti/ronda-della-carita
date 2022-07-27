@@ -48,7 +48,7 @@ class AddClotheToClotheTypes extends Migration
                 ['reference' => 'Scarpe', 'value' => 'Ciabatte'],
                 ['reference' => 'Scarpe', 'value' => 'Scarpe da lavoro'],
                 ['reference' => 'Scarpe', 'value' => 'Scarponcino pesante'],
-                ['reference' => 'Scarpe', 'value' => 'Sportive'],
+                ['reference' => 'Scarpe', 'value' => 'Scarpe sportive'],
                 ['reference' => 'Scarpe', 'value' => 'Scarpe normali'],
                 ['reference' => 'Accessori', 'value' => 'Borsone'],
                 ['reference' => 'Accessori', 'value' => 'Cappello invernale'],

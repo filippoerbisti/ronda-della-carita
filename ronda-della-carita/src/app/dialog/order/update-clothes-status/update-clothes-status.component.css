@@ -1,0 +1,13 @@
+:checked + .available_label {
+  --tw-text-opacity: 1;
+  background-color: #22c55e;
+  opacity: 1;
+  color: white;
+}
+
+:checked + .not_available_label {
+  --tw-text-opacity: 1;
+  background-color: #ef4444  ;
+  opacity: 1;
+  color: white;
+}

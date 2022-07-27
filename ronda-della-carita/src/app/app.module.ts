@@ -67,6 +67,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ConfirmDialogComponent } from './dialog/confirm/confirm-dialog/confirm-dialog.component';
+import { UpdateClothesStatusComponent } from './dialog/order/update-clothes-status/update-clothes-status.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { ConfirmDialogComponent } from './dialog/confirm/confirm-dialog/confirm-
     ConfirmOrderDialogComponent,
     ChangeMansionDialogComponent,
     InvalidClientDataDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    UpdateClothesStatusComponent
   ],
   imports: [
     BrowserModule,

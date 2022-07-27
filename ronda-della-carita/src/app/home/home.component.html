@@ -218,15 +218,14 @@
                       </div>
                     </mat-panel-description>
                     <div class="w-1/3 flex justify-end">
-                      <button mat-button-basic matTooltip="Vedi ricevuta" (click)="openPreviewPDF(order.id)"
+                      <!-- <button mat-button-basic matTooltip="Vedi ricevuta" (click)="openPreviewPDF(order.id)"
                         class="ml-auto mr-3 sm:mr-5 sm:flex flex-col justify-center hidden">
                         <span class="material-symbols-outlined text-xl">
                           receipt_long
                         </span>
                       </button>
                       <button mat-button-basic matTooltip="Modifica Ordine" (click)="editOrder(order.id)"
-                      *ngIf="order.status.name != 'delivered'"
-                        class="mr-3 sm:mr-5 flex flex-col justify-center">
+                        *ngIf="order.status.name != 'delivered'" class="mr-3 sm:mr-5 flex flex-col justify-center">
                         <span class="material-symbols-outlined text-xl">
                           edit
                         </span>
@@ -257,28 +256,57 @@
                         <span class="material-symbols-outlined text-xl">
                           done
                         </span>
+                      </button> -->
+                      <button mat-button-basic matTooltip="Vedi ricevuta" (click)="openPreviewPDF(order.id)"
+                        class="ml-auto mr-3 sm:mr-5 sm:flex flex-col justify-center hidden">
+                        <span class="material-symbols-outlined text-xl">
+                          receipt_long
+                        </span>
+                      </button>
+                      <button mat-button-basic matTooltip="Modifica Ordine" (click)="editOrder(order.id)"
+                        class="mr-3 sm:mr-5 flex flex-col justify-center">
+                        <span class="material-symbols-outlined text-xl">
+                          edit
+                        </span>
+                      </button>
+                      <button mat-button-basic matTooltip="Elimina Ordine" (click)="openDeleteOrderDialog(order.id)"
+                        class="mr-3 sm:mr-5 flex flex-col justify-center">
+                        <span class="material-symbols-outlined text-xl">
+                          delete
+                        </span>
+                      </button>
+                      <button mat-button-basic matTooltip="Gestisci abiti" (click)="clothesStatus(order.id)"
+                        class="mr-3 sm:mr-5 flex flex-col justify-center">
+                        <span class="material-symbols-outlined text-xl">
+                          checkroom
+                        </span>
                       </button>
                     </div>
                   </mat-expansion-panel-header>
-                  <p class="font-bold">
-                    N. {{ order.client?.n_tessera }} -
-                    {{ order.client?.nome | uppercase }}
+                  <!-- <p class="font-bold">
+                    {{ order.client?.n_tessera }} -
                     {{ order.client?.cognome | uppercase }}
-                  </p>
-                  <p>Punto di ritiro: {{ order.p_ritiro }}</p>
+                    {{ order.client?.nome | uppercase }}
+                  </p> -->
+                  
+                  <!-- <p>Punto di ritiro: {{ order.p_ritiro }}</p> -->
+                  <p><span class="font-medium">Punti di ritiro:</span> {{ order.p_ritiro }}</p>
+                  <p><span class="font-medium">Assistito:</span> {{ order.client?.n_tessera }} - {{ order.client?.cognome }} {{ order.client?.nome }}</p>
+                  
+                  
                   <table class="w-full">
                     <tr class="font-medium space-x-1">
                       <td>Tipo</td>
-                      <td class="hidden sm:inline">Genere</td>
+                      <!-- <td class="hidden sm:inline">Genere</td> -->
                       <td>Taglia</td>
-                      <td>Quantità</td>
+                      <td class="hidden sm:inline">Quantità</td>
                       <td>Stato</td>
                     </tr>
                     <tr *ngFor="let clothe of order.clothes" class="space-x-1">
                       <td>{{ clothe.t_vestiario }}</td>
-                      <td class="hidden sm:inline">
+                      <!-- <td class="hidden sm:inline">
                         {{ order.client?.genere }}
-                      </td>
+                      </td> -->
                       <!-- <td class="hidden sm:inline">{{ user.t_pantaloni }}</td>
                                             <td class="hidden sm:inline">{{ user.t_pantaloni }}</td> -->
                       <td>
@@ -299,7 +327,7 @@
                           -
                         </span>
                       </td>
-                      <td>{{ clothe.quantita }}</td>
+                      <td class="hidden sm:inline">{{ clothe.quantita }}</td>
                       <td>{{ clothe.status.value }}</td>
                     </tr>
                   </table>
@@ -343,7 +371,7 @@
                     <!-- SEARCHBAR -->
                     <input type="text" [(ngModel)]="searchClient" (change)="filterClient()"
                       class="w-full flex-grow pl-3 py-2 rounded border focus:border-nav"
-                      placeholder="Cerca Cliente..." />
+                      placeholder="Cerca Assistito..." />
                     <!-- SEARCH BUTTON -->
                     <div class="flex sm:flex-col">
                       <button mat-raised-button (click)="filterClient()" class="bg-bt-orange">
@@ -356,11 +384,15 @@
               <div *ngFor="let client of pageClientSlice" class="mt-2">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                   <mat-expansion-panel-header>
-                    <mat-panel-title class="w-1/3 my-auto">
-                      <span class="font-bold sm:hidden flex">{{ client.nome | uppercase }}
-                        {{ client.cognome | uppercase }}</span>
-                      <span class="font-bold hidden sm:flex">{{ client.n_tessera }} - {{ client.nome | uppercase }}
-                        {{ client.cognome | uppercase }}</span>
+                    <mat-panel-title class="w-full sm:w-1/3 my-auto flex">
+                      <!-- <span class="font-bold sm:hidden flex">{{ client.nome | uppercase }}
+                        {{ client.cognome | uppercase }}</span> -->
+                      <span class="font-bold flex flex-col justify-center items-start sm:items-center w-1/10 ">
+                        {{ client.n_tessera }}
+                      </span>
+                      <span class="font-bold flex flex-col justify-center w-9/10 ml-3"> {{ client.cognome | uppercase
+                        }} {{
+                        client.nome | uppercase }}</span>
                     </mat-panel-title>
                     <mat-panel-description class="w-1/3 flex justify-center my-auto">
                       <span class="leading-loose text-black mr-auto hidden sm:inline">N. tessera {{ client.n_tessera
@@ -381,27 +413,79 @@
                       </button>
                     </div>
                   </mat-expansion-panel-header>
-                  <p class="font-bold">
+                  <!-- <p class="font-bold">
                     {{ client.document?.t_doc }} N. {{ client.document?.n_doc }}
-                  </p>
-                  <p class="font-bold sm:hidden flex">
-                    N. tessera {{ client.n_tessera }}
-                  </p>
-                  <p>Genere: {{ client.genere }}</p>
-                  <p>Nazionalità: {{ client.nazionalita }}</p>
-                  <table class="w-full">
-                    <tr>
-                      <td>Taglia maglia</td>
-                      <td>Taglia pantaloni</td>
-                      <td>Taglia scarpe</td>
-                    </tr>
-                    <tr>
-                      <td>{{ client.t_maglietta }}</td>
-                      <td>{{ client.t_pantaloni }}</td>
-                      <td>{{ client.t_scarpe }}</td>
-                    </tr>
-                  </table>
+                  </p> -->
+                  <!-- <p class="font-bold sm:hidden flex">
+                    N. tessera: {{ client.n_tesseyoyyora }}
+                  </p> -->
+                  <!-- <p>Genere: {{ client.genere }}</p> -->
+                  <div class="flex flex-col sm:flex-row">
+                    <div class="w-full sm:w-1/2 flex flex-col justify-center">
+                      <div>
+                        <p><span class="font-medium">Nazionalità:</span> {{ client.nazionalita }}</p>
+                        <p><span class="font-medium">Genere:</span> {{ client.genere ?? '-' }}</p>
+                      </div>
+                      <!-- <table class="w-full">
+                        <tr>
+                          <td>Taglia maglia</td>
+                          <td>Taglia pantaloni</td>
+                          <td>Taglia scarpe</td>
+                        </tr>
+                        <tr>
+                          <td>{{ client.t_maglietta }}</td>
+                          <td>{{ client.t_pantaloni }}</td>
+                          <td>{{ client.t_scarpe }}</td>
+                        </tr>
+                      </table> -->
+                      <div>
+                        <p class="font-medium">Taglie:</p>
+                        <div class="grid grid-cols-4">
+                          <div>Maglia</div>
+                          <div>Pantaloni</div>
+                          <div>Scarpe</div>
+                          <div>Altezza</div>
+                          <div>{{ client.t_maglietta ?? '-' }}</div>
+                          <div>{{ client.t_pantaloni ?? '-' }}</div>
+                          <div>{{ client.t_scarpe ?? '-' }}</div>
+                          <div>{{ client.altezza ? client.altezza + ' cm' : '-' }} </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full sm:w-1/2" *ngIf="client.history.length > 0">
+                      <div class="flex flex-col mt-5 sm:mt-0">
+                        <p class="font-medium">Cronologia ordini</p>
+                      </div>
+                      <div class="grid grid-cols-2 w-full gap-5 mb-2 text-nav border-b-2 border-nav">
+                        <div>
+                          Tipo
+                        </div>
+                        <div class="flex justify-end">
+                          Data
+                        </div>
+                      </div>
+
+                      <div *ngFor="let order of client.history" class="w-full">
+                        <div *ngFor="let clothe of order.clothes" class="grid grid-cols-2 w-full gap-5 space-y-2">
+                          <div class="flex items-center">
+                            {{ clothe.t_vestiario }}
+                          </div>
+                          <div class="flex justify-end items-center">
+                            {{ order.created_at | date: "dd/MM/yy" }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="client.history.length < 1">
+                      <div class="flex flex-col items-center justify-center mt-5 sm:mt-0">
+                        <p class="font-medium">Non sono presenti ordini nell'ultimo mese</p>
+                      </div>
+                    </div>
+                  </div>
+
                 </mat-expansion-panel>
+
               </div>
               <div class="sm:flex hidden justify-end -mr-4 -mb-4">
                 <mat-paginator showFirstLastButtons [length]="this.clients.length" [pageSize]="10"

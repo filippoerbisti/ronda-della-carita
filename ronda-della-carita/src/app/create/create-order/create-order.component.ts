@@ -89,6 +89,7 @@ export class CreateOrderComponent implements OnInit {
     //   cognome: '',
     // },
     client: {} as IClient,
+    n_ordine: '',
     note: '',
     giro: '',
     p_ritiro: '',
@@ -124,6 +125,9 @@ export class CreateOrderComponent implements OnInit {
 
     this.isLoading = true;
     this.orderId = this.route.snapshot.paramMap.get('id') ?? null;
+    
+    this.newOrder.n_ordine = (await axios.get(this.API_URL + "/api/order/number/last")).data
+
 
     if (this.orderId) {
       this.isEdit = true;

@@ -19,6 +19,7 @@ import { IClient } from 'src/app/shared/interface/IClient';
 import { IHistory } from 'src/app/shared/interface/IHistory';
 import { IStatus } from 'src/app/shared/interface/IStatus';
 import { ConfirmDialogComponent } from '../dialog/confirm/confirm-dialog/confirm-dialog.component';
+import { UpdateClothesStatusComponent } from '../dialog/order/update-clothes-status/update-clothes-status.component';
 
 @Component({
   selector: 'app-home',
@@ -395,6 +396,20 @@ export class HomeComponent implements OnInit {
     this.orderId = orderId;
     localStorage["idDeleteOrder"] = this.orderId;
     const dialogRef = this.dialog.open(DeleteOrderDialogComponent);
+  }
+
+  clothesStatus(orderId: number) {
+    const dialogRef = this.dialog.open(UpdateClothesStatusComponent, {
+      data: {
+        orderId
+      }
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      this.isLoading = true;
+      this.filterOrder();
+      this.isLoading = false;
+      
+    })
   }
 
   async confirmOrder(orderId: number) {

@@ -2,34 +2,26 @@
   <div *ngIf="!isLoading" class="h-screen">
     <mat-card class="h-screen flex flex-col justify-center">
       <div class="md:w-1/2 mx-auto flex flex-col justify-center h-full">
-        <p class="font-bold text-2xl">NUOVO ORDINE</p>
+        <p class="font-bold text-2xl">{{ isEdit ? "MODIFICA" : "NUOVO" }} ORDINE</p>
         <form class="w-full mt-3">
-            <mat-form-field class="w-full md:w-full static" appearance="fill" *ngIf="!isEdit">
-              <mat-label
-                [ngClass]="{
+          <p class="font-bold">Numero ordine: {{ newOrder.n_ordine }}</p>
+          <mat-form-field class="w-full md:w-full static" appearance="fill" *ngIf="!isEdit">
+            <mat-label [ngClass]="{
                   'text-red-500': invalidInput && !newOrder.client.nome
-                }"
-                >Assistito:</mat-label
-              >
-              <input
-                type="text"
-                placeholder="Seleziona assistito"
-                matInput
-                [(ngModel)]="searchFilter"
-                [formControl]="myControl"
-                (focus)="showSearch = true"
-                (focusout)="closeSearch()"
-                required
-                autocomplete="off"
-              />
-              <div *ngIf="showSearch && filterClients().length > 0" class="border max-h-96 md:max-h-52 overflow-y-scroll absolute top-7 z-20 bg-white w-full py-3 text-base shadow rounded">
-                <div *ngFor="let client of filterClients()" class="hover:bg-gray-100 cursor-pointer py-1 pl-5 flex items-center" (click)="selectClient(client)">
-                  <p>{{ client.n_tessera }} - {{ client.nome }} {{ client.cognome }}</p>
-                </div>
+                }">Assistito:</mat-label>
+            <input type="text" placeholder="Seleziona assistito" matInput [(ngModel)]="searchFilter"
+              [formControl]="myControl" (focus)="showSearch = true" (focusout)="closeSearch()" required
+              autocomplete="off" />
+            <div *ngIf="showSearch && filterClients().length > 0"
+              class="border max-h-96 md:max-h-52 overflow-y-scroll absolute top-7 z-20 bg-white w-full py-3 text-base shadow rounded">
+              <div *ngFor="let client of filterClients()"
+                class="hover:bg-gray-100 cursor-pointer py-1 pl-5 flex items-center" (click)="selectClient(client)">
+                <p>{{ client.n_tessera }} - {{ client.nome }} {{ client.cognome }}</p>
               </div>
-              
-            </mat-form-field>
-          
+            </div>
+
+          </mat-form-field>
+
 
           <div *ngIf="!historyLoading"></div>
           <div *ngIf="historyLoading" class="flex justify-center">
@@ -37,10 +29,7 @@
           </div>
 
           <div class="mb-5" *ngIf="history.length > 0">
-            <mat-expansion-panel
-              (opened)="panelOpenState = true"
-              (closed)="panelOpenState = false"
-            >
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-description>
                   Cronologia ordini ultimo mese
@@ -49,17 +38,12 @@
               <div class="flex flex-col">
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class="grid grid-cols-2 w-full border-b-2 border-nav text-nav font-medium pb-0.5 mb-2"
-                    >
+                    <div class="grid grid-cols-2 w-full border-b-2 border-nav text-nav font-medium pb-0.5 mb-2">
                       <div class="flex-col">Tipo</div>
                       <div class="flex-col text-right">Data ordine</div>
                     </div>
                     <div class="" *ngFor="let order of history">
-                      <div
-                        class="grid grid-cols-2 w-full mb-1"
-                        *ngFor="let clothe of order.clothes"
-                      >
+                      <div class="grid grid-cols-2 w-full mb-1" *ngFor="let clothe of order.clothes">
                         <div class="flex-col">
                           {{ clothe.t_vestiario }}
                         </div>
@@ -69,7 +53,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- {{todayDate | date:'shortDate'}} --> 
+                    <!-- {{todayDate | date:'shortDate'}} -->
                   </div>
                 </div>
               </div>
@@ -91,10 +75,7 @@
             />
           </mat-form-field> -->
           <mat-form-field appearance="fill" class="w-1/4">
-            <mat-label
-              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro }"
-              >Giro</mat-label
-            >
+            <mat-label [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro }">Giro</mat-label>
             <mat-select name="giro" [(ngModel)]="newOrder.giro">
               <mat-option *ngFor="let item of giri" [value]="item.value">
                 {{ item.value }}
@@ -103,10 +84,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-3/4">
-            <mat-label
-              [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro }"
-              >Tappa</mat-label
-            >
+            <mat-label [ngClass]="{ 'text-red-500': invalidInput && !newOrder.p_ritiro }">Tappa</mat-label>
             <mat-select name="tappa" [disabled]="!newOrder.giro" [(ngModel)]="newOrder.p_ritiro">
               <mat-option *ngFor="let item of filterStages()" [value]="item.value">
                 {{ item.value }}
@@ -117,29 +95,16 @@
             <div class="flex w-5/6 sm:w-11/12">
               <mat-form-field appearance="fill" class="w-1/2">
                 <mat-label>Categoria vestiario</mat-label>
-                <mat-select
-                  name="tvestiariolv1"
-                  [(ngModel)]="selectedReference"
-                >
-                  <mat-option
-                    *ngFor="let item of tvestiariolv1"
-                    [value]="item.value"
-                  >
+                <mat-select name="tvestiariolv1" [(ngModel)]="selectedReference">
+                  <mat-option *ngFor="let item of tvestiariolv1" [value]="item.value">
                     {{ item.value }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance="fill" class="w-1/2">
                 <mat-label>Tipo</mat-label>
-                <mat-select
-                  name="tvestiariolv2"
-                  [disabled]="!selectedReference"
-                  [(ngModel)]="newClothe"
-                >
-                  <mat-option
-                    *ngFor="let item of filterClothes()"
-                    [value]="item"
-                  >
+                <mat-select name="tvestiariolv2" [disabled]="!selectedReference" [(ngModel)]="newClothe">
+                  <mat-option *ngFor="let item of filterClothes()" [value]="item">
                     {{ item.t_vestiario }}
                   </mat-option>
                 </mat-select>
@@ -147,22 +112,15 @@
             </div>
 
             <div class="flex flex-col w-1/6 sm:w-1/12 items-center mt-2">
-              <button
-                [disabled]="!canAddClothe()"
-                mat-mini-fab
-                color="nav"
-                class="bg-nav disabled:bg-gray-200"
-                (click)="addClothe()"
-              >
+              <button [disabled]="!canAddClothe()" mat-mini-fab color="nav" class="bg-nav disabled:bg-gray-200"
+                (click)="addClothe()">
                 <mat-icon class="text-white">add</mat-icon>
               </button>
             </div>
           </div>
 
           <div class="flex flex-col">
-            <div
-              class="w-full border-b-2 border-nav text-nav font-medium \-1"
-            >
+            <div class="w-full border-b-2 border-nav text-nav font-medium \-1">
               <span class="text-md">Ordine</span>
               <div class="grid grid-cols-8 w-full pb-1">
                 <div class="col-span-5">Tipo</div>
@@ -182,23 +140,17 @@
                     {{ clothe.t_vestiario }}
                   </div>
                   <div class="col-span-1">
-                    <span
-                      *ngIf="
+                    <span *ngIf="
                         ['Giacca', 'Maglieria', 'Camicia'].includes(
                           clothe.reference
                         )
-                      "
-                    >
+                      ">
                       {{ newOrder.client.t_maglietta }}
                     </span>
-                    <span
-                      *ngIf="['Pantaloni', 'Intimo'].includes(clothe.reference)"
-                    >
+                    <span *ngIf="['Pantaloni', 'Intimo'].includes(clothe.reference)">
                       {{ newOrder.client.t_pantaloni }}
                     </span>
-                    <span
-                      *ngIf="['Calze', 'Scarpe'].includes(clothe.reference)"
-                    >
+                    <span *ngIf="['Calze', 'Scarpe'].includes(clothe.reference)">
                       {{ newOrder.client.t_scarpe }}
                     </span>
                     <span *ngIf="['Accessori'].includes(clothe.reference)">
@@ -206,9 +158,7 @@
                     </span>
                   </div>
                   <div class="col-span-2 text-right">
-                    <mat-icon class="cursor-pointer" (click)="removeClothe(i)"
-                      >delete_outline</mat-icon
-                    >
+                    <mat-icon class="cursor-pointer" (click)="removeClothe(i)">delete_outline</mat-icon>
                   </div>
                 </div>
               </div>
@@ -216,15 +166,8 @@
           </div>
 
           <div class="md:flex border-2">
-            <textarea
-              name=""
-              id=""
-              rows="5"
-              class="w-full p-2 resize-none"
-              placeholder="Note"
-              [(ngModel)]="newOrder.note"
-              [formControl]="myControl"
-            ></textarea>
+            <textarea name="" id="" rows="5" class="w-full p-2 resize-none" placeholder="Note"
+              [(ngModel)]="newOrder.note" [formControl]="myControl"></textarea>
           </div>
 
           <div class="flex space-x-2 justify-between py-8">

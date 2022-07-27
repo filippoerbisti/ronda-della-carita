@@ -73,6 +73,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
         Route::put('/client/update-sizes/{id}', [ClientController::class, 'updateSizes']);
 
+        Route::get('/client/tessera/last', [ClientController::class, 'getLastTessera']);
 
         // Order
         Route::get('/orders', [OrderController::class, 'list']);  //funzia
@@ -103,6 +104,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
         Route::get('/stages/options', [OrderController::class, 'getStagesOptions']);
 
+        Route::get('/order/number/last', [OrderController::class, 'getLastNumber']);
+
         // Order Notification
         Route::get('/orders/to_be_delivered', [OrderController::class, 'countOrderToBeDelivered']);  // Ordine stato -> Da consegnare
 
@@ -128,6 +131,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
         Route::get('/clothe/edit/{id}', [ClotheController::class, 'id']);
 
+        Route::post('/clothes/status/update', [ClotheController::class, 'updateClothesStatus']);
 
         // Email
         Route::get('/sendmail/{id}', [MailController::class, 'sendEmail']);

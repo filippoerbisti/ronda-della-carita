@@ -28,7 +28,7 @@ class OrderSeeder extends Seeder
             $stage = $faker->randomElement($stages);
             $status = $faker->randomElement($statusId);
             DB::table('orders')->insert([
-                'n_ordine' => $faker -> unique() -> numberBetween(1, 100000),
+                'n_ordine' => Order::max("n_ordine") +1,
                 'p_ritiro' => $stage->value,
                 'giro' => $stage->reference,
                 'livello' => rand(1, 2),

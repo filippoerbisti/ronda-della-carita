@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Document;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,10 @@ class ClientController extends Controller
     public function list() 
     {
         return Client::with('user')
-                    ->with('document')
+                    ->with([
+                        'document',
+                        'history'
+                        ])
                     ->get();
     }
 
@@ -28,8 +32,7 @@ class ClientController extends Controller
 
     public function filter($search) 
     {
-        $client = Client::with('user')
-                        ->with('document')
+        $client = Client::with(['user', 'document', 'history'])
                         ->where('nome', 'LIKE', "%$search%")
                         ->orWhere('cognome', 'LIKE', "%$search%")
                         ->orWhere('nazionalita', 'LIKE', "%$search%")
@@ -115,5 +118,9 @@ class ClientController extends Controller
         ]);
 
         return $client;
+    }
+
+    public function getLastTessera() {
+        return Client::max("n_tessera") +1;
     }
 }

@@ -1,4 +1,5 @@
 import { IDocument } from "./IDocument";
+import { IOrder } from "./IOrder";
 import { IUser } from "./IUser";
 
 export interface IClient {
@@ -19,4 +20,5 @@ export interface IClient {
     // update_at: Date,
     user_id: number,
     user?: IUser,
+    history: Array<IOrder>,
 }
